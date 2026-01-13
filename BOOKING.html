@@ -1,0 +1,22 @@
+<h2>Book Your Cut</h2>
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<select id="package"></select>
+<button onclick="book()">BOOK</button>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycbzS3FF8-QoY8ZmzWGlQHHsDopxBIW9mQiMDzVI0IiUzXejIq6GwdkzpQkrgDNum7Lpj2Q/exec";
+fetch(API+"?mode=data").then(r=>r.json()).then(d=>{
+ d.packages.slice(1).forEach(p=>{
+  package.innerHTML+=`<option>${p[0]}</option>`;
+ });
+});
+
+function book(){
+ fetch(API,{method:"POST",body:JSON.stringify({
+   name:name.value, phone:phone.value,
+   package:package.value, addons:[], total:0
+ })});
+ alert("Booked!");
+}
+</script>
