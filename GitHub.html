@@ -1,0 +1,30 @@
+<h2>KING OF FADEZ POS</h2>
+<select id="package"></select>
+<div id="addons"></div>
+<input id="name" placeholder="Customer Name">
+<input id="phone" placeholder="Phone">
+<button onclick="submitOrder()">COMPLETE</button>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbzS3FF8-QoY8ZmzWGlQHHsDopxBIW9mQiMDzVI0IiUzXejIq6GwdkzpQkrgDNum7Lpj2Q/exec";
+
+fetch(API+"?mode=data")
+.then(r=>r.json())
+.then(d=>{
+  d.packages.slice(1).forEach(p=>{
+    package.innerHTML += `<option value="${p[0]}">${p[0]} ₱${p[1]}</option>`;
+  });
+  d.addons.slice(1).forEach(a=>{
+    addons.innerHTML += `<label><input type="checkbox" value="${a[0]}">${a[0]} ₱${a[1]}</label><br>`;
+  });
+});
+
+function submitOrder(){
+ let addons = [...document.querySelectorAll("#addons input:checked")].map(i=>i.value);
+ fetch(API,{method:"POST",body:JSON.stringify({
+   name:name.value, phone:phone.value,
+   package:package.value, addons:addons, total:0
+ })});
+ alert("Order Sent");
+}
+</script>
