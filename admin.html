@@ -100,63 +100,67 @@
     </iframe>
 
     <script>
-        // CONFIGURATION
-        const MASTER_KEY = "1234"; // Set your login key here
+/* ======================
+   FAST LOGIN CONFIG
+====================== */
+const MASTER_KEY = "1234"; // change if needed
 
-        function validateKey() {
-            const input = document.getElementById('accessKey').value;
-            const error = document.getElementById('error-msg');
-            const overlay = document.getElementById('auth-overlay');
-            const frame = document.getElementById('secure-frame');
-            const loader = document.getElementById('loader');
+const overlay = document.getElementById('auth-overlay');
+const frame   = document.getElementById('secure-frame');
+const error   = document.getElementById('error-msg');
 
-            if (input === MASTER_KEY) {
-                // SUCCESS
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    loader.style.display = 'flex';
-                    frame.style.display = 'block';
-                }, 500);
-                
-                // Hide loader once iframe content actually loads
-                frame.onload = function() {
-                    loader.style.display = 'none';
-                };
-            } else {
-                // FAIL
-                error.style.display = 'block';
-                document.getElementById('accessKey').value = '';
-                // Shake effect
-                document.querySelector('.login-box').style.animation = 'none';
-                setTimeout(() => { document.querySelector('.login-box').style.border = '1px solid #ff4444'; }, 10);
-            }
-        }
+/* Preload iframe instantly */
+frame.style.display = "block";
+frame.style.visibility = "hidden";   // loads but hidden
 
-        // Allow "Enter" key to submit
-        document.getElementById('accessKey').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') validateKey();
-        });
+function validateKey() {
+    const input = document.getElementById('accessKey').value;
 
-        /** ANTI-INSPECTION PROTECTION **/
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83))) {
-                return false;
-            }
-        };
+    if (input === MASTER_KEY) {
+        // INSTANT UNLOCK
+        overlay.style.display = "none";
+        frame.style.visibility = "visible";
+        document.body.style.overflow = "hidden";
+    } else {
+        error.style.display = "block";
+        document.getElementById('accessKey').value = "";
+        navigator.vibrate?.(100);
+    }
+}
 
-        /** IDLE LOGOUT (Security) **/
-        let idleTime = 0;
-        const IDLE_LIMIT = 30; 
-        function resetTimer() { idleTime = 0; }
-        window.onmousemove = resetTimer;
-        window.onkeypress = resetTimer;
-        window.ontouchstart = resetTimer;
+/* Enter key support */
+document.getElementById("accessKey").addEventListener("keyup", e => {
+    if (e.key === "Enter") validateKey();
+});
 
-        setInterval(function() {
-            idleTime++;
-            if (idleTime >= IDLE_LIMIT) { window.location.reload(); }
-        }, 60000);
-    </script>
+/* Remove slow loader */
+const loader = document.getElementById("loader");
+if (loader) loader.remove();
+
+/* Prevent refresh flicker */
+window.addEventListener("beforeunload", () => {
+    frame.style.visibility = "hidden";
+});
+
+/* Auto focus */
+document.getElementById("accessKey").focus();
+
+/* Disable inspect */
+document.addEventListener("keydown", e => {
+    if (e.key === "F12" || 
+        (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || 
+        (e.ctrlKey && ["U","S"].includes(e.key))) {
+        e.preventDefault();
+    }
+});
+
+/* Idle logout */
+let idle = 0;
+const LIMIT = 30;
+["mousemove","keypress","touchstart"].forEach(e=>{
+    window.addEventListener(e, ()=> idle = 0);
+});
+setInterval(()=>{ if(++idle>=LIMIT) location.reload(); }, 60000);
+</script>
 </body>
 </html>
