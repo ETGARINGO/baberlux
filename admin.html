@@ -3,66 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Booking App</title>
+    <title>KOF | Ordering Terminal</title>
     
     <style>
+        :root {
+            --bg-dark: #08080a;
+            --gold: #d4af37;
+            --gold-bright: #ffdf00;
+        }
+
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
-            overflow: hidden; background-color: #010b1a; 
+            overflow: hidden; background-color: var(--bg-dark); 
             position: fixed; font-family: 'Segoe UI', sans-serif;
+            color: white;
         }
+
+        /* Login Overlay */
+        #auth-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a1a1f 0%, #000 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 1000; transition: opacity 0.5s ease;
+        }
+
+        .login-box {
+            text-align: center; padding: 40px; border-radius: 20px;
+            background: rgba(18, 18, 21, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 320px; width: 80%;
+        }
+
+        .login-box h2 {
+            color: var(--gold); letter-spacing: 3px; font-weight: 800;
+            margin-bottom: 25px; text-transform: uppercase; font-size: 1.2rem;
+        }
+
+        input[type="password"] {
+            width: 100%; padding: 15px; margin-bottom: 20px;
+            background: #000; border: 1px solid #333; border-radius: 8px;
+            color: var(--gold-bright); text-align: center; font-size: 1.2rem;
+            letter-spacing: 5px; outline: none; box-sizing: border-box;
+        }
+
+        input[type="password"]:focus { border-color: var(--gold); }
+
+        .btn-login {
+            width: 100%; padding: 15px; border: none; border-radius: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #8b6d05 100%);
+            color: #000; font-weight: 800; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .btn-login:hover { transform: scale(1.02); filter: brightness(1.2); }
+
+        /* Existing Styles */
         iframe {
             position: absolute; top: 0; left: 0; 
             width: 100%; height: 100%; border: none;
-            -webkit-overflow-scrolling: touch;
+            display: none; /* Hidden until auth */
             z-index: 1;
         }
+        
         #loader {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: #010b1a; display: flex; align-items: center;
-            justify-content: center; z-index: 99; color: #0749a0;
+            background: var(--bg-dark); display: none; align-items: center;
+            justify-content: center; z-index: 99; color: var(--gold);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
+    <div id="auth-overlay">
+        <div class="login-box">
+            <div style="margin-bottom: 10px; font-size: 2rem;">👑</div>
+            <h2>Admin Access</h2>
+            <input type="password" id="accessKey" placeholder="••••" maxlength="8">
+            <button class="btn-login" onclick="validateKey()">Unlock System</button>
+            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ACCESS KEY</p>
+        </div>
+    </div>
+
     <div id="loader">
         <div style="text-align: center;">
-            <div style="border: 4px solid #f3f3f3; border-top: 4px solid #0749a0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: auto;"></div>
-            <p style="margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; color: #fff;">ORDERING TERMINAL</p>
-            <p style="font-size: 0.6rem; color: #0749a0; text-transform: uppercase;">Business Monitoring & POS Management</p>
+            <div style="border: 4px solid #333; border-top: 4px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: auto;"></div>
+            <p style="margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px;">SYNCING SECURE TERMINAL</p>
         </div>
     </div>
 
     <iframe 
         id="secure-frame"
         src="https://script.google.com/macros/s/AKfycbyKyhBy6u5m5clF14d8J9RC1X8W8CWtIZ-vKPbygHAXn8NmyCjPR8tf2ZvUWAyWsjL5/exec?page=Admin" 
-        allowfullscreen
-        onload="document.getElementById('loader').style.display='none';">
+        allowfullscreen>
     </iframe>
 
     <script>
-        /**
-         * ANTI-INSPECTION PROTECTION
-         * Authorized by: Elizer T Garingo (Cyber Sec IV)
-         */
+        // CONFIGURATION
+        const MASTER_KEY = "1234"; // Set your login key here
+
+        function validateKey() {
+            const input = document.getElementById('accessKey').value;
+            const error = document.getElementById('error-msg');
+            const overlay = document.getElementById('auth-overlay');
+            const frame = document.getElementById('secure-frame');
+            const loader = document.getElementById('loader');
+
+            if (input === MASTER_KEY) {
+                // SUCCESS
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    loader.style.display = 'flex';
+                    frame.style.display = 'block';
+                }, 500);
+                
+                // Hide loader once iframe content actually loads
+                frame.onload = function() {
+                    loader.style.display = 'none';
+                };
+            } else {
+                // FAIL
+                error.style.display = 'block';
+                document.getElementById('accessKey').value = '';
+                // Shake effect
+                document.querySelector('.login-box').style.animation = 'none';
+                setTimeout(() => { document.querySelector('.login-box').style.border = '1px solid #ff4444'; }, 10);
+            }
+        }
+
+        // Allow "Enter" key to submit
+        document.getElementById('accessKey').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') validateKey();
+        });
+
+        /** ANTI-INSPECTION PROTECTION **/
         document.onkeydown = function(e) {
-            // Block F12, Ctrl+Shift+I/J/C, Ctrl+U (View Source), Ctrl+S (Save)
-            if(e.keyCode == 123 || 
-              (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-              (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83))) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83))) {
                 return false;
             }
         };
 
-        /**
-         * IDLE LOGOUT PROTOCOL (30 MINUTES)
-         * Critical for POS Terminals to prevent unauthorized transactions.
-         */
+        /** IDLE LOGOUT (Security) **/
         let idleTime = 0;
         const IDLE_LIMIT = 30; 
-
         function resetTimer() { idleTime = 0; }
         window.onmousemove = resetTimer;
         window.onkeypress = resetTimer;
@@ -70,10 +155,7 @@
 
         setInterval(function() {
             idleTime++;
-            if (idleTime >= IDLE_LIMIT) { 
-                // Hard reset for POS Security
-                window.location.reload(); 
-            }
+            if (idleTime >= IDLE_LIMIT) { window.location.reload(); }
         }, 60000);
     </script>
 </body>
