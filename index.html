@@ -9,8 +9,8 @@
     --gold: #d4af37;
     --gold-bright: #ffdf00;
     --bg-dark: #000000;
-    /* Ultra-transparent glass to ensure background visibility */
-    --glass: rgba(10, 10, 12, 0.35); 
+    /* Reduced opacity to 0.25 to make the background video pop */
+    --glass: rgba(10, 10, 12, 0.25); 
 }
 
 html, body {
@@ -22,44 +22,45 @@ html, body {
     background: #000;
 }
 
-/* Background Video/Image Container */
+/* Background Video Container */
 .v-bg {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -1; overflow: hidden;
 }
 
-.v-bg video, .v-bg img {
+.v-bg video {
     position: absolute;
     top: 50%; left: 50%;
     min-width: 100%; min-height: 100%;
     width: auto; height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    /* Kept bright to match your reference image */
-    filter: brightness(0.9) contrast(1.1);
+    /* High contrast/brightness to match your reference image */
+    filter: brightness(1) contrast(1.1);
 }
 
-/* Overlay - Subtle vignette to focus on center without darkening the whole BG */
+/* Overlay - Radial gradient ensures the center is the clearest part */
 #main-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
     display: flex; align-items: center; justify-content: center;
     z-index: 100; transition: opacity 0.5s ease;
 }
 
-/* Glass Panel - Perfectly balanced for the "View Background" look */
+/* Adjusted Glass Box for maximum background visibility */
 .container {
     background: var(--glass);
-    /* Subtle blur allows the background shapes to be seen */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    /* Lowered blur slightly to see background detail better */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     width: 88%; max-width: 400px;
     padding: 40px 30px;
     border-radius: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    /* Thinner border for a cleaner look */
+    border: 1px solid rgba(212, 175, 55, 0.3);
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
 h1 {
@@ -69,15 +70,15 @@ h1 {
     margin: 15px 0 5px 0;
     font-size: 1.8rem;
     font-weight: 900;
-    /* Shadow ensures text "pops" against the background */
-    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    /* Heavy shadow to keep text readable against moving video */
+    text-shadow: 2px 2px 8px rgba(0,0,0,1);
 }
 
 .tagline {
     font-size: 0.75rem; color: #fff;
     margin-bottom: 30px; text-transform: uppercase;
     letter-spacing: 3px; font-weight: bold;
-    text-shadow: 0px 1px 5px rgba(0,0,0,0.8);
+    text-shadow: 1px 1px 4px rgba(0,0,0,1);
 }
 
 .detail-block { 
@@ -85,9 +86,11 @@ h1 {
     margin-bottom: 25px; 
     font-size: 0.85rem; 
     line-height: 1.5;
-    background: rgba(0,0,0,0.2);
-    padding: 10px;
-    border-radius: 10px;
+    /* Semi-transparent dark backing for the text */
+    background: rgba(0,0,0,0.4);
+    padding: 12px;
+    border-radius: 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,1);
 }
 
 .detail-block strong { 
@@ -103,7 +106,7 @@ h1 {
 
 .btn-link {
     padding: 14px; 
-    background: rgba(0,0,0,0.5); 
+    background: rgba(0,0,0,0.6); 
     color: white; 
     text-decoration: none;
     border-radius: 12px; 
@@ -112,25 +115,27 @@ h1 {
     border: 1px solid rgba(212, 175, 55, 0.2); 
     transition: all 0.3s ease;
     font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 .btn-link:hover {
     background: var(--gold);
     color: black;
     border-color: var(--gold);
+    text-shadow: none;
 }
 
-/* The Bright Gold "Proceed" Button */
+/* Solid Gold Booking Button */
 .btn-gold {
     width: 100%; padding: 20px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
     border: none; border-radius: 15px; color: black; font-weight: 900;
     cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-    transition: transform 0.2s;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    transition: transform 0.2s ease;
 }
 
-.btn-gold:active { transform: scale(0.98); }
+.btn-gold:active { transform: scale(0.96); }
 
 #booking-frame {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -141,13 +146,13 @@ h1 {
     position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
     z-index: 200; background: var(--gold); color: black; border: none; padding: 15px 30px;
     border-radius: 50px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
-    display: none; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
 }
 
 .tap-hint {
     margin-top: 15px; font-size: 0.6rem; color: var(--gold);
     text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
-    opacity: 0.8;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 </style>
 </head>
@@ -161,7 +166,7 @@ h1 {
 
 <div id="main-overlay">
     <div class="container">
-        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--gold));">👑</div>
+        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));">👑</div>
         
         <h1>King of Fadez</h1>
         <p class="tagline">Dasma's Finest Cut</p>
@@ -189,25 +194,22 @@ h1 {
 
 <script>
     const video = document.getElementById('bg-video');
+    const overlay = document.getElementById('main-overlay');
+    const frame = document.getElementById('booking-frame');
+    const homeBtn = document.getElementById('home-btn');
+    const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
 
-    // Function to unmute and play audio
+    // AUDIO ENABLE LOGIC
     function enableAudio() {
         if (video.muted) {
             video.muted = false;
-            // Optionally play from beginning or current time
             video.play();
-            
-            // Hide the sound hint once audio is active
-            const hint = document.querySelector('.sound-hint');
+            const hint = document.querySelector('.tap-hint');
             if (hint) hint.style.opacity = '0';
         }
     }
 
-    // Trigger audio on any click/tap on the body
     document.body.addEventListener('click', enableAudio);
-
-    // Also trigger audio when the user starts typing the password
-    document.getElementById('accessKey').addEventListener('input', enableAudio);
 
     // 12-Second Loop Logic
     video.addEventListener('timeupdate', function() {
@@ -216,6 +218,25 @@ h1 {
             this.play();
         }
     });
+
+    // NAVIGATION LOGIC
+    function launchBooking() {
+        overlay.style.opacity = "0";
+        frame.src = bookingUrl;
+        frame.style.display = "block";
+        setTimeout(() => {
+            overlay.style.display = "none";
+            homeBtn.style.display = "block";
+        }, 500);
+    }
+
+    function goHome() {
+        frame.style.display = "none";
+        frame.src = "";
+        homeBtn.style.display = "none";
+        overlay.style.display = "flex";
+        setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+    }
 </script>
 
 </body>
