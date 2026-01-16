@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>KOF | Welcome</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>KOF | Welcome</title>
+    <style>
         :root {
             --bg-dark: #000000;
             --gold-flat: #a67c00; 
             --gold-text: #d4af37;
-            --glass: rgba(20, 20, 22, 0.7); /* Transparency to see your video */
+            /* Match your Admin style: Higher transparency (0.4) and blur (10px) */
+            --glass: rgba(20, 20, 22, 0.4); 
         }
 
         body, html { 
@@ -19,7 +20,7 @@
             color: white;
         }
 
-        /* --- VIDEO BACKGROUND FIX --- */
+        /* --- VIDEO BACKGROUND FIX (MATCHED STYLE) --- */
         #bg-video {
             position: fixed;
             top: 50%;
@@ -28,22 +29,25 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            z-index: -1; /* Keep behind everything */
+            z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* Prevents stretching */
-            filter: brightness(0.6); /* Adjust this to make BG darker or lighter */
+            object-fit: cover;
+            /* Fixed: Set to 0.8 so it is bright enough to be seen clearly */
+            filter: brightness(0.8) contrast(1.1); 
         }
 
-        #auth-overlay {
+        #main-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
-            background: rgba(0, 0, 0, 0.3); 
+            /* Fixed: Transparent center to ensure video isn't covered by black */
+            background: rgba(0, 0, 0, 0.2); 
             z-index: 10;
             transition: opacity 0.5s ease;
         }
 
-        .login-box {
+        /* --- LOGIN BOX (MATCHED TO YOUR ADMIN STYLE) --- */
+        .container {
             text-align: center; 
             padding: 45px 30px; 
             border-radius: 24px;
@@ -52,166 +56,168 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             max-width: 350px; 
             width: 88%; 
-            backdrop-filter: blur(10px); /* Frosted glass effect */
+            backdrop-filter: blur(10px); 
             -webkit-backdrop-filter: blur(10px);
         }
 
-        .login-box h2 {
+        .container h1 {
             color: var(--gold-text); 
             letter-spacing: 4px; 
             font-weight: 900;
             margin: 10px 0 5px 0; 
             text-transform: uppercase; 
-            font-size: 1.25rem;
+            font-size: 1.4rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
-        .location-tag {
+        .tagline {
             font-size: 0.6rem; 
-            color: #888; 
+            color: #ccc; 
             margin-bottom: 30px; 
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
 
-        input[type="password"] {
-            width: 100%; 
-            padding: 18px; 
-            margin-bottom: 15px;
-            background: #000; 
-            border: 1px solid #222; 
-            border-radius: 10px;
-            color: #fff; 
-            text-align: center; 
-            font-size: 1.1rem;
-            letter-spacing: 6px; 
-            outline: none; 
-            box-sizing: border-box;
-        }
-
+        /* --- BUTTON STYLES (MATCHED TO YOUR CODE) --- */
         .btn-main {
             width: 100%; 
-            padding: 16px; 
+            padding: 18px; 
             border: none; 
-            border-radius: 10px;
+            border-radius: 12px;
             background: var(--gold-flat); 
             color: #000; 
             font-weight: 800; 
             text-transform: uppercase;
             cursor: pointer; 
             margin-bottom: 20px;
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-main:active { transform: scale(0.98); }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .btn-option {
             width: 100%; 
             padding: 14px; 
-            border: 1px solid #333; 
+            border: 1px solid rgba(255,255,255,0.1); 
             border-radius: 10px;
-            background: rgba(255,255,255,0.02); 
+            background: rgba(0,0,0,0.4); 
             color: var(--gold-text); 
             font-weight: 700;
             text-transform: uppercase; 
             cursor: pointer; 
-            font-size: 0.8rem;
-            margin-bottom: 10px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+            box-sizing: border-box;
         }
 
-        .btn-option:last-of-type { color: #fff; }
+        .btn-option:hover { background: rgba(255,255,255,0.05); }
 
-        .contact-footer {
+        .address-footer {
             margin-top: 25px; 
             font-size: 0.65rem; 
-            color: #666; 
-            line-height: 1.8;
+            color: #aaa; 
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,1);
         }
 
-        #secure-frame {
+        /* --- IFRAME --- */
+        #booking-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; visibility: hidden; z-index: 100;
+            border: none; visibility: hidden; z-index: 100; background: #000;
+        }
+
+        #home-btn {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 200; background: var(--gold-text); color: black; border: none; padding: 12px 25px;
+            border-radius: 50px; font-weight: 800; font-size: 0.75rem; cursor: pointer;
+            visibility: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<div class="v-bg">
     <video id="bg-video" autoplay muted playsinline loop>
         <source src="your-video.mp4" type="video/mp4">
     </video>
-</div>
 
-<div id="main-overlay">
-    <div class="container">
-        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));">👑</div>
-        
-        <h1>King of Fadez</h1>
-        <p class="tagline">Dasma's Finest Cut</p>
+    <div id="main-overlay">
+        <div class="container">
+            <div style="font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px var(--gold-text));">👑</div>
+            
+            <h1>King of Fadez</h1>
+            <p class="tagline">Dasma's Finest Cut</p>
 
-        <div class="detail-block">
-            <strong>📍 Shop Address</strong>
-            Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+            <button class="btn-main" onclick="launchBooking()">Proceed to Booking</button>
+
+            <div class="social-grid">
+                <a href="https://maps.google.com" class="btn-option" target="_blank">🗺️ Maps</a>
+                <a href="https://tiktok.com" class="btn-option" target="_blank">📱 TikTok</a>
+                <a href="https://facebook.com" class="btn-option" target="_blank">FB Page</a>
+                <a href="https://website.com" class="btn-option" target="_blank">🌐 Website</a>
+            </div>
+            
+            <div class="address-footer">
+                📍 Blk 4, Lot 18 Congressional Ave,<br>
+                Brgy San Miguel II, Dasmariñas, Cavite
+                <br><br>
+                <span style="font-size: 0.55rem; color: var(--gold-text); letter-spacing: 1px;">🔊 TAP ANYWHERE FOR SOUND</span>
+            </div>
         </div>
-
-        <div class="social-grid">
-            <a href="https://maps.google.com" class="btn-link" target="_blank">🗺️ Maps</a>
-            <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
-            <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
-            <a href="https://kingoffadezph.com/" class="btn-link" target="_blank">🌐 Website</a>
-        </div>
-
-        <button class="btn-gold" onclick="launchBooking()">Proceed to Booking</button>
-        
-        <div class="tap-hint">🔊 Tap anywhere for sound</div>
     </div>
-</div>
 
-<iframe id="booking-frame" src=""></iframe>
-<button id="home-btn" onclick="goHome()">🏠 BACK TO INFO</button>
+    <iframe id="booking-frame" src=""></iframe>
+    <button id="home-btn" onclick="goHome()">🏠 BACK TO INFO</button>
 
-<script>
-    const video = document.getElementById('bg-video');
-    const overlay = document.getElementById('main-overlay');
-    const frame = document.getElementById('booking-frame');
-    const homeBtn = document.getElementById('home-btn');
-    const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
+    <script>
+        const video = document.getElementById('bg-video');
+        const overlay = document.getElementById('main-overlay');
+        const frame = document.getElementById('booking-frame');
+        const homeBtn = document.getElementById('home-btn');
+        const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
 
-    // AUDIO ENABLE LOGIC
-    function enableAudio() {
-        if (video.muted) {
-            video.muted = false;
-            video.play();
-            const hint = document.querySelector('.tap-hint');
-            if (hint) hint.style.opacity = '0';
+        // Enable sound on first tap
+        document.body.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                video.play();
+            }
+        });
+
+        // 12-Second Loop Fix
+        video.addEventListener('timeupdate', function() {
+            if (this.currentTime >= 12) {
+                this.currentTime = 0;
+                this.play();
+            }
+        });
+
+        function launchBooking() {
+            overlay.style.opacity = "0";
+            frame.src = bookingUrl;
+            setTimeout(() => {
+                overlay.style.visibility = "hidden";
+                frame.style.visibility = "visible";
+                homeBtn.style.visibility = "visible";
+            }, 500);
         }
-    }
 
-    document.body.addEventListener('click', enableAudio);
-
-    // 12-Second Loop Logic
-    video.addEventListener('timeupdate', function() {
-        if (this.currentTime >= 12) {
-            this.currentTime = 0;
-            this.play();
+        function goHome() {
+            frame.style.visibility = "hidden";
+            frame.src = "";
+            homeBtn.style.visibility = "hidden";
+            overlay.style.visibility = "visible";
+            overlay.style.opacity = "1";
         }
-    });
-
-    // NAVIGATION LOGIC
-    function launchBooking() {
-        overlay.style.opacity = "0";
-        frame.src = bookingUrl;
-        frame.style.display = "block";
-        setTimeout(() => {
-            overlay.style.display = "none";
-            homeBtn.style.display = "block";
-        }, 500);
-    }
-
-    function goHome() {
-        frame.style.display = "none";
-        frame.src = "";
-        homeBtn.style.display = "none";
-        overlay.style.display = "flex";
-        setTimeout(() => { overlay.style.opacity = "1"; }, 10);
-    }
-</script>
-
+    </script>
 </body>
 </html>
