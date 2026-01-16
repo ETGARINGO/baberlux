@@ -46,20 +46,22 @@
             letter-spacing: 5px; outline: none; box-sizing: border-box;
         }
 
-        .btn-login {
+        .btn-main {
             width: 100%; padding: 15px; border: none; border-radius: 8px;
             background: linear-gradient(135deg, #d4af37 0%, #8b6d05 100%);
             color: #000; font-weight: 800; text-transform: uppercase;
-            cursor: pointer; transition: 0.3s; margin-bottom: 10px;
+            cursor: pointer; transition: 0.3s; margin-bottom: 15px;
         }
 
-        .btn-dtr {
+        .btn-option {
             width: 100%; padding: 10px; border: 1px solid #444; border-radius: 8px;
-            background: transparent; color: #888; font-weight: 600;
-            text-transform: uppercase; cursor: pointer; font-size: 0.8rem;
+            background: rgba(255,255,255,0.05); color: #bbb; font-weight: 600;
+            text-transform: uppercase; cursor: pointer; font-size: 0.75rem;
+            margin-bottom: 8px; transition: 0.2s;
         }
 
-        .btn-login:hover { transform: scale(1.02); filter: brightness(1.2); }
+        .btn-option:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); border-color: var(--gold); }
+        .btn-main:hover { transform: scale(1.02); filter: brightness(1.2); }
 
         iframe {
             position: absolute; top: 0; left: 0; 
@@ -74,10 +76,16 @@
     <div id="auth-overlay">
         <div class="login-box">
             <div style="margin-bottom: 10px; font-size: 2rem;">👑</div>
-            <h2>Admin Access</h2>
+            <h2>System Access</h2>
             <input type="password" id="accessKey" placeholder="••••" maxlength="8">
-            <button class="btn-login" onclick="validateKey()">Unlock System</button>
-            <button class="btn-dtr" onclick="openDTR()">Option 2: DTR Portal</button>
+            
+            <button class="btn-main" onclick="validateKey()">Unlock System</button>
+            
+            <div style="margin: 15px 0; height: 1px; background: rgba(212,175,55,0.2);"></div>
+            
+            <button class="btn-option" onclick="openDTR()">Option 2: DTR Portal</button>
+            <button class="btn-option" onclick="openViewBook()">Option 3: View Book</button>
+            
             <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ACCESS KEY</p>
         </div>
     </div>
@@ -94,6 +102,7 @@ const MANAGER_KEY = "101";
 const URL_BOOKING = "https://script.google.com/macros/s/AKfycbyKyhBy6u5m5clF14d8J9RC1X8W8CWtIZ-vKPbygHAXn8NmyCjPR8tf2ZvUWAyWsjL5/exec?page=Admin";
 const URL_MANAGER = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec?page=admin";
 const URL_DTR     = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
+const URL_VIEWBOOK = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec?page=Client";
 
 const overlay = document.getElementById('auth-overlay');
 const frame   = document.getElementById('secure-frame');
@@ -106,6 +115,8 @@ function validateKey() {
         launchSystem(URL_BOOKING);
     } else if (input === MANAGER_KEY) {
         launchSystem(URL_MANAGER);
+    } else if (input === VIEWBOOK_KEY) {
+        launchSystem(URL_VIEWBOOK);
     } else {
         error.style.display = "block";
         document.getElementById('accessKey').value = "";
@@ -113,9 +124,8 @@ function validateKey() {
     }
 }
 
-function openDTR() {
-    launchSystem(URL_DTR);
-}
+function openDTR() { launchSystem(URL_DTR); }
+function openViewBook() { launchSystem(URL_VIEWBOOK); }
 
 function launchSystem(targetUrl) {
     frame.src = targetUrl;
