@@ -9,8 +9,8 @@
     --gold: #d4af37;
     --gold-bright: #ffdf00;
     --bg-dark: #000000;
-    /* Reduced opacity to 0.25 to make the background video pop */
-    --glass: rgba(10, 10, 12, 0.25); 
+    /* Fixed: Reduced opacity to 0.15 for maximum background visibility */
+    --glass: rgba(10, 10, 12, 0.15); 
 }
 
 html, body {
@@ -36,14 +36,14 @@ html, body {
     width: auto; height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    /* High contrast/brightness to match your reference image */
-    filter: brightness(1) contrast(1.1);
+    /* High brightness to make the barbershop visible */
+    filter: brightness(1.1) contrast(1.1);
 }
 
-/* Overlay - Radial gradient ensures the center is the clearest part */
+/* Fixed: Radial gradient now has 0% opacity in the center to show background clearly */
 #main-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
     display: flex; align-items: center; justify-content: center;
     z-index: 100; transition: opacity 0.5s ease;
 }
@@ -51,16 +51,15 @@ html, body {
 /* Adjusted Glass Box for maximum background visibility */
 .container {
     background: var(--glass);
-    /* Lowered blur slightly to see background detail better */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    /* Lowered blur so the video shapes are distinct */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     width: 88%; max-width: 400px;
     padding: 40px 30px;
     border-radius: 30px;
-    /* Thinner border for a cleaner look */
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
 h1 {
@@ -70,15 +69,15 @@ h1 {
     margin: 15px 0 5px 0;
     font-size: 1.8rem;
     font-weight: 900;
-    /* Heavy shadow to keep text readable against moving video */
-    text-shadow: 2px 2px 8px rgba(0,0,0,1);
+    /* Extra shadow to keep text readable on clear background */
+    text-shadow: 0 0 15px rgba(0,0,0,1), 2px 2px 5px rgba(0,0,0,1);
 }
 
 .tagline {
     font-size: 0.75rem; color: #fff;
     margin-bottom: 30px; text-transform: uppercase;
     letter-spacing: 3px; font-weight: bold;
-    text-shadow: 1px 1px 4px rgba(0,0,0,1);
+    text-shadow: 0 0 10px rgba(0,0,0,1);
 }
 
 .detail-block { 
@@ -86,11 +85,10 @@ h1 {
     margin-bottom: 25px; 
     font-size: 0.85rem; 
     line-height: 1.5;
-    /* Semi-transparent dark backing for the text */
-    background: rgba(0,0,0,0.4);
+    /* Slight dark tint so address is readable over moving video */
+    background: rgba(0,0,0,0.3);
     padding: 12px;
     border-radius: 12px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,1);
 }
 
 .detail-block strong { 
@@ -106,7 +104,7 @@ h1 {
 
 .btn-link {
     padding: 14px; 
-    background: rgba(0,0,0,0.6); 
+    background: rgba(0,0,0,0.5); 
     color: white; 
     text-decoration: none;
     border-radius: 12px; 
@@ -115,23 +113,20 @@ h1 {
     border: 1px solid rgba(212, 175, 55, 0.2); 
     transition: all 0.3s ease;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 .btn-link:hover {
     background: var(--gold);
     color: black;
     border-color: var(--gold);
-    text-shadow: none;
 }
 
-/* Solid Gold Booking Button */
 .btn-gold {
     width: 100%; padding: 20px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
     border: none; border-radius: 15px; color: black; font-weight: 900;
     cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
     transition: transform 0.2s ease;
 }
 
@@ -146,13 +141,13 @@ h1 {
     position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
     z-index: 200; background: var(--gold); color: black; border: none; padding: 15px 30px;
     border-radius: 50px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
-    display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 .tap-hint {
     margin-top: 15px; font-size: 0.6rem; color: var(--gold);
     text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 0 0 5px rgba(0,0,0,1);
 }
 </style>
 </head>
