@@ -8,62 +8,73 @@
         :root {
             --gold: #d4af37;
             --bg-dark: #08080a;
-            --glass: rgba(15, 15, 20, 0.9);
+            /* Made the glass background much more transparent */
+            --glass: rgba(10, 10, 12, 0.7); 
         }
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
             font-family: 'Segoe UI', sans-serif;
-            color: white; overflow: hidden; background-color: var(--bg-dark);
+            color: white; overflow: hidden; background-color: #000;
         }
 
-        /* NEW Background Video Setup */
+        /* Video Background - Adjusted scaling for maximum visibility */
         .v-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden; background: #000;
+            z-index: -1; overflow: hidden;
         }
         .v-bg iframe {
             position: absolute;
             top: 50%; left: 50%;
             width: 100vw; height: 100vh;
-            /* Adjust scale to ensure no black bars appear on different screens */
-            transform: translate(-50%, -50%) scale(1.8);
+            transform: translate(-50%, -50%) scale(1.6);
             pointer-events: none;
         }
 
-        /* Overlay for contrast */
+        /* Lightened the dark overlay to let the video shine through */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100; transition: opacity 0.5s ease;
         }
 
         .container {
-            background: var(--glass); backdrop-filter: blur(15px);
+            background: var(--glass); 
+            backdrop-filter: blur(8px); /* Reduced blur so video motion is visible behind box */
             width: 85%; max-width: 380px; padding: 35px;
-            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            border-radius: 25px; 
+            border: 1px solid rgba(212, 175, 55, 0.5); /* Brightened border */
+            text-align: center; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
-        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 10px 0 5px 0; font-size: 1.6rem; }
-        .tagline { font-size: 0.7rem; color: #888; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { 
+            color: var(--gold); 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            margin: 10px 0 5px 0; 
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Added shadow for readability on bright video */
+        }
+        .tagline { font-size: 0.7rem; color: #ddd; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
         .detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.4; }
         .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 3px; text-transform: uppercase; }
 
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 25px 0; }
         .btn-link {
-            padding: 12px; background: rgba(255,255,255,0.05); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333; transition: 0.3s;
+            padding: 12px; background: rgba(0,0,0,0.6); color: white; text-decoration: none;
+            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #d4af3733; transition: 0.3s;
         }
-        .btn-link:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-link:hover { border-color: var(--gold); background: var(--gold); color: black; }
 
         .btn-gold {
-            width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
-            border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            width: 100%; padding: 18px; 
+            background: linear-gradient(135deg, #d4af37 0%, #ffdf00 100%);
+            border: none; border-radius: 12px; color: black; font-weight: 900;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
-        .btn-gold:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         #booking-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -72,8 +83,8 @@
 
         #home-btn {
             position: fixed; bottom: 20px; right: 20px; z-index: 200;
-            background: var(--gold); color: black; border: none; padding: 10px 20px;
-            border-radius: 50px; font-weight: 800; font-size: 0.7rem; cursor: pointer;
+            background: var(--gold); color: black; border: none; padding: 12px 24px;
+            border-radius: 50px; font-weight: 800; font-size: 0.75rem; cursor: pointer;
             display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
     </style>
@@ -92,18 +103,13 @@
 
     <div id="main-overlay">
         <div class="container">
-            <div style="font-size: 3rem; margin-bottom: 5px;">👑</div>
+            <div style="font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px var(--gold));">👑</div>
             <h1>King of Fadez</h1>
             <p class="tagline">Dasma's Finest Cut</p>
 
             <div class="detail-block">
                 <strong>📍 Shop Address</strong>
                 Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-            </div>
-
-            <div class="detail-block">
-                <strong>📧 Contact Info</strong>
-                Kingoffadezph@gmail.com
             </div>
 
             <div class="social-grid">
