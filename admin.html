@@ -10,6 +10,7 @@
             --bg-dark: #08080a;
             --gold: #d4af37;
             --gold-bright: #ffdf00;
+            --glass: rgba(18, 18, 21, 0.85); /* Slightly more transparent */
         }
 
         body, html { 
@@ -19,14 +20,14 @@
             color: white;
         }
 
-        /* Improved Background Video Container */
+        /* --- BACKGROUND VIDEO SECTION --- */
         .video-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 1; /* Sits behind the overlay */
             pointer-events: none;
             overflow: hidden;
             background: #000;
@@ -40,64 +41,115 @@
             height: 56.25vw; /* 16:9 Aspect Ratio */
             min-height: 100vh;
             min-width: 177.77vh; /* 16:9 Aspect Ratio */
-            transform: translate(-50%, -50%) scale(1.1); /* Slight scale to hide edges */
+            transform: translate(-50%, -50%) scale(1.15); /* Increased scale to ensure no black bars */
+            opacity: 0.6; /* Makes the video visible but not distracting */
         }
 
+        /* --- LOGIN INTERFACE --- */
         #auth-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 1000; transition: opacity 0.5s ease;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); /* Vignette effect */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            z-index: 10; 
+            transition: opacity 0.5s ease;
         }
 
         .login-box {
-            text-align: center; padding: 30px; border-radius: 20px;
-            background: rgba(18, 18, 21, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            max-width: 340px; width: 85%; backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            text-align: center; 
+            padding: 40px 30px; 
+            border-radius: 24px;
+            background: var(--glass);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            max-width: 360px; 
+            width: 85%; 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .login-box h2 {
-            color: var(--gold); letter-spacing: 3px; font-weight: 800;
-            margin-bottom: 5px; text-transform: uppercase; font-size: 1.2rem;
+            color: var(--gold); 
+            letter-spacing: 4px; 
+            font-weight: 800;
+            margin: 10px 0 5px 0; 
+            text-transform: uppercase; 
+            font-size: 1.3rem;
         }
 
         .location-tag {
-            font-size: 0.65rem; color: #888; margin-bottom: 20px; text-transform: uppercase;
+            font-size: 0.7rem; 
+            color: #aaa; 
+            margin-bottom: 25px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         input[type="password"] {
-            width: 100%; padding: 15px; margin-bottom: 15px;
-            background: #000; border: 1px solid #333; border-radius: 8px;
-            color: var(--gold-bright); text-align: center; font-size: 1.2rem;
-            letter-spacing: 5px; outline: none; box-sizing: border-box;
+            width: 100%; 
+            padding: 18px; 
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.6); 
+            border: 1px solid #333; 
+            border-radius: 12px;
+            color: var(--gold-bright); 
+            text-align: center; 
+            font-size: 1.2rem;
+            letter-spacing: 6px; 
+            outline: none; 
+            box-sizing: border-box;
         }
 
         .btn-main {
-            width: 100%; padding: 15px; border: none; border-radius: 8px;
+            width: 100%; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 12px;
             background: linear-gradient(135deg, #d4af37 0%, #8b6d05 100%);
-            color: #000; font-weight: 800; text-transform: uppercase;
-            cursor: pointer; transition: 0.3s; margin-bottom: 15px;
+            color: #000; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-bottom: 20px;
         }
 
         .btn-option {
-            width: 100%; padding: 12px; border: 1px solid #444; border-radius: 8px;
-            background: rgba(255,255,255,0.05); color: #fff; font-weight: 600;
-            text-transform: uppercase; cursor: pointer; font-size: 0.8rem;
-            margin-bottom: 10px;
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05); 
+            color: #fff; 
+            font-weight: 600;
+            text-transform: uppercase; 
+            cursor: pointer; 
+            font-size: 0.85rem;
+            margin-bottom: 12px;
         }
 
-        .btn-option.view-book { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+        .btn-option.view-book { 
+            border-color: rgba(212, 175, 55, 0.4); 
+            color: var(--gold); 
+            background: rgba(212, 175, 55, 0.05); 
+        }
 
         .contact-footer {
-            margin-top: 20px; font-size: 0.7rem; color: #666; line-height: 1.4;
+            margin-top: 25px; 
+            font-size: 0.75rem; 
+            color: #777; 
+            line-height: 1.6;
         }
 
         #secure-frame {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; display: block; visibility: hidden; z-index: 1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; visibility: hidden; z-index: 100;
         }
     </style>
 </head>
@@ -105,40 +157,37 @@
 
     <div class="video-background">
         <iframe 
-            src="https://drive.google.com/file/d/1AdcrTiHnCkqEwzrTFi9YEv37Ljd9AJ7w/preview?autoplay=1&mute=1" 
+            src="https://drive.google.com/file/d/1AdcrTiHnCkqEwzrTFi9YEv37Ljd9AJ7w/preview?autoplay=1&mute=1&loop=1" 
             allow="autoplay">
         </iframe>
     </div>
 
     <div id="auth-overlay">
         <div class="login-box">
-            <div style="margin-bottom: 5px; font-size: 2.5rem;">👑</div>
+            <div style="font-size: 2.8rem;">👑</div>
             <h2>KING OF FADEZ</h2>
             <div class="location-tag">Dasmariñas, Cavite</div>
             
             <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" autocomplete="off">
             <button class="btn-main" onclick="validateKey()">Unlock Admin</button>
             
-            <div style="margin: 15px 0; height: 1px; background: rgba(212,175,55,0.2);"></div>
+            <div style="margin: 20px 0; height: 1px; background: rgba(212,175,55,0.15);"></div>
             
             <button class="btn-option view-book" onclick="openViewBook()">📖 View Book (Client)</button>
             <button class="btn-option" onclick="openDTR()">⏱️ DTR Portal</button>
             
             <div class="contact-footer">
-                <p>📧 Kingoffadezph@gmail.com</p>
-                <p>📍 Blk 4, Lot 18 Congressional Ave</p>
+                <div>📧 Kingoffadezph@gmail.com</div>
+                <div>📍 Blk 4, Lot 18 Congressional Ave</div>
             </div>
             
-            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ADMIN KEY</p>
+            <p id="error-msg" style="color: #ff4444; font-size: 0.75rem; margin-top: 15px; display: none;">INVALID ADMIN KEY</p>
         </div>
     </div>
 
-    <iframe id="secure-frame" src="" allowfullscreen></iframe>
+    <iframe id="secure-frame" src=""></iframe>
 
     <script>
-        /* ======================
-            CONFIG & URLS
-        ====================== */
         const MASTER_KEY = "1234";
         const MANAGER_KEY = "101";
 
@@ -179,7 +228,6 @@
             if (e.key === "Enter") validateKey();
         });
 
-        // Focus input on load
         window.onload = () => {
             document.getElementById("accessKey").focus();
         };
