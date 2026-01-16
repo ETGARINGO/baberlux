@@ -7,92 +7,130 @@
 <style>
 :root {
     --gold: #d4af37;
+    --gold-bright: #ffdf00;
     --bg-dark: #000000;
-    /* Made glass much more transparent to show the background video */
-    --glass: rgba(0, 0, 0, 0.4);
+    /* Ultra-transparent glass to ensure background visibility */
+    --glass: rgba(10, 10, 12, 0.35); 
 }
+
 html, body {
     margin: 0; padding: 0;
     width: 100%; height: 100%;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: white;
     overflow: hidden;
     background: #000;
 }
 
-/* Video Background - High Visibility */
+/* Background Video/Image Container */
 .v-bg {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -1; overflow: hidden;
 }
-.v-bg video {
+
+.v-bg video, .v-bg img {
     position: absolute;
     top: 50%; left: 50%;
     min-width: 100%; min-height: 100%;
     width: auto; height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    /* Ensure the video isn't too dark */
+    /* Kept bright to match your reference image */
     filter: brightness(0.9) contrast(1.1);
 }
 
-/* Light Overlay - Radial gradient keeps the center clear */
+/* Overlay - Subtle vignette to focus on center without darkening the whole BG */
 #main-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
     display: flex; align-items: center; justify-content: center;
     z-index: 100; transition: opacity 0.5s ease;
 }
 
-/* Glass Panel - Reduced blur and increased transparency */
+/* Glass Panel - Perfectly balanced for the "View Background" look */
 .container {
     background: var(--glass);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    width: 85%; max-width: 380px;
-    padding: 35px;
+    /* Subtle blur allows the background shapes to be seen */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    width: 88%; max-width: 400px;
+    padding: 40px 30px;
     border-radius: 30px;
-    border: 1px solid rgba(212,175,55,0.4);
+    border: 1px solid rgba(212, 175, 55, 0.4);
     text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
 }
 
 h1 {
     color: var(--gold);
     text-transform: uppercase;
     letter-spacing: 5px;
-    margin: 10px 0 5px 0;
-    font-size: 1.7rem;
+    margin: 15px 0 5px 0;
+    font-size: 1.8rem;
     font-weight: 900;
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+    /* Shadow ensures text "pops" against the background */
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
 }
 
 .tagline {
     font-size: 0.75rem; color: #fff;
-    margin-bottom: 25px; text-transform: uppercase;
+    margin-bottom: 30px; text-transform: uppercase;
     letter-spacing: 3px; font-weight: bold;
-    opacity: 0.9;
+    text-shadow: 0px 1px 5px rgba(0,0,0,0.8);
 }
 
-.detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.4; }
-.detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 3px; text-transform: uppercase; }
+.detail-block { 
+    text-align: center; 
+    margin-bottom: 25px; 
+    font-size: 0.85rem; 
+    line-height: 1.5;
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.detail-block strong { 
+    display: block; 
+    color: var(--gold); 
+    font-size: 0.65rem; 
+    margin-bottom: 5px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
 
 .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
+
 .btn-link {
-    padding: 14px; background: rgba(0,0,0,0.6); color: white; text-decoration: none;
-    border-radius: 12px; text-align: center; font-size: 0.75rem; border: 1px solid rgba(212,175,55,0.2); transition: 0.3s;
+    padding: 14px; 
+    background: rgba(0,0,0,0.5); 
+    color: white; 
+    text-decoration: none;
+    border-radius: 12px; 
+    text-align: center; 
+    font-size: 0.8rem; 
+    border: 1px solid rgba(212, 175, 55, 0.2); 
+    transition: all 0.3s ease;
     font-weight: 600;
 }
-.btn-link:active { background: var(--gold); color: black; }
 
+.btn-link:hover {
+    background: var(--gold);
+    color: black;
+    border-color: var(--gold);
+}
+
+/* The Bright Gold "Proceed" Button */
 .btn-gold {
     width: 100%; padding: 20px;
-    background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
     border: none; border-radius: 15px; color: black; font-weight: 900;
     cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+    transition: transform 0.2s;
 }
+
+.btn-gold:active { transform: scale(0.98); }
 
 #booking-frame {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -106,13 +144,14 @@ h1 {
     display: none; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 
-.sound-hint {
-    font-size: 0.6rem; color: var(--gold); margin-top: 15px; 
-    text-transform: uppercase; font-weight: bold; letter-spacing: 1px;
+.tap-hint {
+    margin-top: 15px; font-size: 0.6rem; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
+    opacity: 0.8;
 }
 </style>
 </head>
-<body onclick="enableAudio()" oncontextmenu="return false;">
+<body oncontextmenu="return false;">
 
 <div class="v-bg">
     <video id="bg-video" autoplay muted playsinline loop>
@@ -122,7 +161,8 @@ h1 {
 
 <div id="main-overlay">
     <div class="container">
-        <div style="font-size: 3.5rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px var(--gold));">👑</div>
+        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--gold));">👑</div>
+        
         <h1>King of Fadez</h1>
         <p class="tagline">Dasma's Finest Cut</p>
 
@@ -132,14 +172,15 @@ h1 {
         </div>
 
         <div class="social-grid">
-            <a href="http://googleusercontent.com/maps.google.com/4" class="btn-link" target="_blank">🗺️ Maps</a>
+            <a href="https://maps.google.com" class="btn-link" target="_blank">🗺️ Maps</a>
             <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
             <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
             <a href="https://kingoffadezph.com/" class="btn-link" target="_blank">🌐 Website</a>
         </div>
 
-        <button class="btn-gold" onclick="launchBooking()">Book Appointment</button>
-        <div class="sound-hint">🔊 TAP FOR SOUND</div>
+        <button class="btn-gold" onclick="launchBooking()">Proceed to Booking</button>
+        
+        <div class="tap-hint">🔊 Tap anywhere for sound</div>
     </div>
 </div>
 
@@ -147,44 +188,34 @@ h1 {
 <button id="home-btn" onclick="goHome()">🏠 BACK TO INFO</button>
 
 <script>
-const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
-const overlay = document.getElementById('main-overlay');
-const frame = document.getElementById('booking-frame');
-const homeBtn = document.getElementById('home-btn');
-const video = document.getElementById('bg-video');
+    const video = document.getElementById('bg-video');
 
-// 12-Second Loop Logic
-video.addEventListener('timeupdate', function() {
-    if (this.currentTime >= 12) {
-        this.currentTime = 0;
-        this.play();
+    // Function to unmute and play audio
+    function enableAudio() {
+        if (video.muted) {
+            video.muted = false;
+            // Optionally play from beginning or current time
+            video.play();
+            
+            // Hide the sound hint once audio is active
+            const hint = document.querySelector('.sound-hint');
+            if (hint) hint.style.opacity = '0';
+        }
     }
-});
 
-function enableAudio() {
-    video.muted = false;
-    const hint = document.querySelector('.sound-hint');
-    if (hint) hint.style.opacity = '0';
-}
+    // Trigger audio on any click/tap on the body
+    document.body.addEventListener('click', enableAudio);
 
-function launchBooking() {
-    enableAudio();
-    overlay.style.opacity = "0";
-    frame.src = bookingUrl;
-    frame.style.display = "block";
-    setTimeout(() => {
-        overlay.style.display = "none";
-        homeBtn.style.display = "block";
-    }, 500);
-}
+    // Also trigger audio when the user starts typing the password
+    document.getElementById('accessKey').addEventListener('input', enableAudio);
 
-function goHome() {
-    frame.style.display = "none";
-    frame.src = "";
-    homeBtn.style.display = "none";
-    overlay.style.display = "flex";
-    setTimeout(() => { overlay.style.opacity = "1"; }, 10);
-}
+    // 12-Second Loop Logic
+    video.addEventListener('timeupdate', function() {
+        if (this.currentTime >= 12) {
+            this.currentTime = 0;
+            this.play();
+        }
+    });
 </script>
 
 </body>
