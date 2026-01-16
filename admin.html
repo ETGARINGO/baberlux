@@ -15,22 +15,37 @@
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
             overflow: hidden; background-color: var(--bg-dark); 
-            position: fixed; font-family: 'Segoe UI', sans-serif;
+            position: fixed; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: white;
         }
 
-        /* Background Video Container */
+        /* Improved Background Video Container */
         .video-background {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            background: #000;
         }
+
         .video-background iframe {
-            width: 100vw; height: 100vh; transform: scale(1.5); /* Scale to hide FB UI */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 Aspect Ratio */
+            transform: translate(-50%, -50%) scale(1.1); /* Slight scale to hide edges */
         }
 
         #auth-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Darken video for readability */
+            background: rgba(0, 0, 0, 0.75); 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 1000; transition: opacity 0.5s ease;
         }
@@ -41,6 +56,7 @@
             border: 1px solid rgba(212, 175, 55, 0.4);
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             max-width: 340px; width: 85%; backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .login-box h2 {
@@ -88,8 +104,10 @@
 <body oncontextmenu="return false;">
 
     <div class="video-background">
-        <iframe src="https://drive.google.com/file/d/1AdcrTiHnCkqEwzrTFi9YEv37Ljd9AJ7w/view?usp=drive_link" 
-        scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        <iframe 
+            src="https://drive.google.com/file/d/1AdcrTiHnCkqEwzrTFi9YEv37Ljd9AJ7w/preview?autoplay=1&mute=1" 
+            allow="autoplay">
+        </iframe>
     </div>
 
     <div id="auth-overlay">
@@ -98,7 +116,7 @@
             <h2>KING OF FADEZ</h2>
             <div class="location-tag">Dasmariñas, Cavite</div>
             
-            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8">
+            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" autocomplete="off">
             <button class="btn-main" onclick="validateKey()">Unlock Admin</button>
             
             <div style="margin: 15px 0; height: 1px; background: rgba(212,175,55,0.2);"></div>
@@ -118,50 +136,53 @@
     <iframe id="secure-frame" src="" allowfullscreen></iframe>
 
     <script>
-/* ======================
-    CONFIG & URLS
-====================== */
-const MASTER_KEY = "1234";
-const MANAGER_KEY = "101";
+        /* ======================
+            CONFIG & URLS
+        ====================== */
+        const MASTER_KEY = "1234";
+        const MANAGER_KEY = "101";
 
-const URL_BOOKING  = "https://script.google.com/macros/s/AKfycbyKyhBy6u5m5clF14d8J9RC1X8W8CWtIZ-vKPbygHAXn8NmyCjPR8tf2ZvUWAyWsjL5/exec?page=Admin";
-const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbzyTM-xpOuH4Idc3dhcVguv5USCNS9OK8XBxjDywpFkrL-JuzSVQa7hsfcG73T6VJ_UIA/exec?page=admin";
-const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
-const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
+        const URL_BOOKING  = "https://script.google.com/macros/s/AKfycbyKyhBy6u5m5clF14d8J9RC1X8W8CWtIZ-vKPbygHAXn8NmyCjPR8tf2ZvUWAyWsjL5/exec?page=Admin";
+        const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbzyTM-xpOuH4Idc3dhcVguv5USCNS9OK8XBxjDywpFkrL-JuzSVQa7hsfcG73T6VJ_UIA/exec?page=admin";
+        const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
+        const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
 
-const overlay = document.getElementById('auth-overlay');
-const frame   = document.getElementById('secure-frame');
-const error   = document.getElementById('error-msg');
+        const overlay = document.getElementById('auth-overlay');
+        const frame   = document.getElementById('secure-frame');
+        const error   = document.getElementById('error-msg');
 
-function validateKey() {
-    const input = document.getElementById('accessKey').value;
-    if (input === MASTER_KEY) {
-        launchSystem(URL_BOOKING);
-    } else if (input === MANAGER_KEY) {
-        launchSystem(URL_MANAGER);
-    } else {
-        error.style.display = "block";
-        document.getElementById('accessKey').value = "";
-    }
-}
+        function validateKey() {
+            const input = document.getElementById('accessKey').value;
+            if (input === MASTER_KEY) {
+                launchSystem(URL_BOOKING);
+            } else if (input === MANAGER_KEY) {
+                launchSystem(URL_MANAGER);
+            } else {
+                error.style.display = "block";
+                document.getElementById('accessKey').value = "";
+            }
+        }
 
-function openDTR() { launchSystem(URL_DTR); }
-function openViewBook() { launchSystem(URL_VIEWBOOK); }
+        function openDTR() { launchSystem(URL_DTR); }
+        function openViewBook() { launchSystem(URL_VIEWBOOK); }
 
-function launchSystem(targetUrl) {
-    frame.src = targetUrl;
-    overlay.style.opacity = "0";
-    setTimeout(() => {
-        overlay.style.display = "none";
-        frame.style.visibility = "visible";
-    }, 500);
-}
+        function launchSystem(targetUrl) {
+            frame.src = targetUrl;
+            overlay.style.opacity = "0";
+            setTimeout(() => {
+                overlay.style.display = "none";
+                frame.style.visibility = "visible";
+            }, 500);
+        }
 
-document.getElementById("accessKey").addEventListener("keyup", e => {
-    if (e.key === "Enter") validateKey();
-});
+        document.getElementById("accessKey").addEventListener("keyup", e => {
+            if (e.key === "Enter") validateKey();
+        });
 
-document.getElementById("accessKey").focus();
-</script>
+        // Focus input on load
+        window.onload = () => {
+            document.getElementById("accessKey").focus();
+        };
+    </script>
 </body>
 </html>
