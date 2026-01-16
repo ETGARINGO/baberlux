@@ -2,153 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>KOF | Welcome</title>
     <style>
         :root {
             --gold: #d4af37;
-            --bg-dark: #08080a;
-            /* Made the glass background much more transparent */
-            --glass: rgba(10, 10, 12, 0.7); 
+            --bg-dark: #000000;
+            --glass: rgba(10, 10, 12, 0.75); 
         }
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: white; overflow: hidden; background-color: #000;
         }
 
-        /* Video Background - Adjusted scaling for maximum visibility */
-        .v-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden;
-        }
-        .v-bg iframe {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 100vw; height: 100vh;
-            transform: translate(-50%, -50%) scale(1.6);
-            pointer-events: none;
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7);
         }
 
-        /* Lightened the dark overlay to let the video shine through */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+            background: rgba(0,0,0,0.4);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100; transition: opacity 0.5s ease;
         }
 
         .container {
             background: var(--glass); 
-            backdrop-filter: blur(8px); /* Reduced blur so video motion is visible behind box */
-            width: 85%; max-width: 380px; padding: 35px;
-            border-radius: 25px; 
-            border: 1px solid rgba(212, 175, 55, 0.5); /* Brightened border */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            width: 85%; max-width: 380px; padding: 40px 30px;
+            border-radius: 28px; 
+            border: 1px solid rgba(212, 175, 55, 0.3);
             text-align: center; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
-        h1 { 
-            color: var(--gold); 
-            text-transform: uppercase; 
-            letter-spacing: 4px; 
-            margin: 10px 0 5px 0; 
-            font-size: 1.6rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Added shadow for readability on bright video */
-        }
-        .tagline { font-size: 0.7rem; color: #ddd; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-
-        .detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.4; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 3px; text-transform: uppercase; }
-
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 25px 0; }
-        .btn-link {
-            padding: 12px; background: rgba(0,0,0,0.6); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #d4af3733; transition: 0.3s;
-        }
-        .btn-link:hover { border-color: var(--gold); background: var(--gold); color: black; }
-
+        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 15px 0 5px 0; font-size: 1.6rem; font-weight: 900; }
+        
         .btn-gold {
             width: 100%; padding: 18px; 
-            background: linear-gradient(135deg, #d4af37 0%, #ffdf00 100%);
-            border: none; border-radius: 12px; color: black; font-weight: 900;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; 
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-        }
-
-        #booking-frame {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; display: none; z-index: 50;
-        }
-
-        #home-btn {
-            position: fixed; bottom: 20px; right: 20px; z-index: 200;
-            background: var(--gold); color: black; border: none; padding: 12px 24px;
-            border-radius: 50px; font-weight: 800; font-size: 0.75rem; cursor: pointer;
-            display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
+            border: none; border-radius: 14px; color: black; font-weight: 900;
+            cursor: pointer; text-transform: uppercase; margin-top: 20px;
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="v-bg">
-        <iframe 
-            src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1196696812005545%2F&show_text=false&width=260&t=0" 
-            scrolling="no" 
-            frameborder="0" 
-            allowfullscreen="true" 
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-        </iframe>
-    </div>
+    <video autoplay muted playsinline id="bg-video">
+        <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
+    </video>
 
     <div id="main-overlay">
         <div class="container">
-            <div style="font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px var(--gold));">👑</div>
+            <div style="font-size: 3rem;">👑</div>
             <h1>King of Fadez</h1>
-            <p class="tagline">Dasma's Finest Cut</p>
-
-            <div class="detail-block">
-                <strong>📍 Shop Address</strong>
-                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-            </div>
-
-            <div class="social-grid">
-                <a href="https://www.google.com/maps/place/King+of+Fadez+Barbershop+Dasmari%C3%B1as/@14.3381712,120.9504125,1140m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3397d5002d69d999:0xbe2b03eacebc8da8!8m2!3d14.3381712!4d120.9504125!16s%2Fg%2F11zkr2tsqv?hl=en&entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoASAFQAw%3D%3D" class="btn-link" target="_blank">🗺️ Maps</a>
-                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
-                <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
-                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Website</a>
-            </div>
+            <p style="font-size: 0.8rem; color: #aaa;">Click anywhere to enable sound</p>
 
             <button class="btn-gold" onclick="launchBooking()">Proceed to Booking</button>
         </div>
     </div>
 
-    <iframe id="booking-frame" src=""></iframe>
-
-    <button id="home-btn" onclick="goHome()">🏠 BACK TO INFO</button>
+    <iframe id="booking-frame" style="position:fixed; top:0; left:0; width:100%; height:100%; border:none; display:none; z-index:50;" src=""></iframe>
 
 <script>
+    const video = document.getElementById('bg-video');
     const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
-    const overlay = document.getElementById('main-overlay');
-    const frame = document.getElementById('booking-frame');
-    const homeBtn = document.getElementById('home-btn');
+
+    // 1. Handle the 12-second play limit and loop
+    video.addEventListener('timeupdate', function() {
+        if (this.currentTime >= 12) {
+            this.currentTime = 0; // Reset to start
+            this.play();
+        }
+    });
+
+    // 2. Unmute logic: Browser requires a user click to play sound
+    document.body.addEventListener('click', function() {
+        video.muted = false;
+    }, { once: true });
 
     function launchBooking() {
-        overlay.style.opacity = "0";
+        video.muted = false; // Ensure sound is on when proceeding
+        document.getElementById('main-overlay').style.display = "none";
+        const frame = document.getElementById('booking-frame');
         frame.src = bookingUrl;
         frame.style.display = "block";
-        setTimeout(() => {
-            overlay.style.display = "none";
-            homeBtn.style.display = "block";
-        }, 500);
-    }
-
-    function goHome() {
-        frame.style.display = "none";
-        frame.src = "";
-        homeBtn.style.display = "none";
-        overlay.style.display = "flex";
-        setTimeout(() => { overlay.style.opacity = "1"; }, 10);
     }
 </script>
 
