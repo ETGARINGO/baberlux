@@ -8,8 +8,8 @@
         :root {
             --gold: #d4af37;
             --bg-dark: #000000;
-            /* Made the glass much more see-through (0.4 opacity) */
-            --glass: rgba(0, 0, 0, 0.4); 
+            /* Ultra-transparent glass for maximum background visibility */
+            --glass: rgba(0, 0, 0, 0.35); 
         }
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
@@ -17,7 +17,7 @@
             color: white; overflow: hidden; background-color: #000;
         }
 
-        /* --- VIDEO BACKGROUND --- */
+        /* Video Background - Full visibility scaling */
         #bg-video {
             position: fixed;
             top: 50%;
@@ -29,28 +29,27 @@
             z-index: -1;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            /* Reduced brightness filter to make the video more visible */
-            filter: brightness(0.8) contrast(1.1);
+            /* Keep it bright! */
+            filter: brightness(0.9) contrast(1.1);
         }
 
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Subtle dark vignette to keep text readable */
-            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+            /* Vignette effect: Clear in the center, slightly dark at edges */
+            background: radial-gradient(circle, rgba(0,0,0,0) 20%, rgba(0,0,0,0.5) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100; transition: opacity 0.5s ease;
         }
 
         .container {
             background: var(--glass); 
-            /* Reduced blur from 8px to 4px so the video is clearer behind the box */
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px); /* Light blur for visibility */
             -webkit-backdrop-filter: blur(4px);
             width: 85%; max-width: 380px; padding: 35px;
             border-radius: 30px; 
             border: 1px solid rgba(212, 175, 55, 0.4);
             text-align: center; 
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         h1 { 
@@ -60,7 +59,7 @@
             margin: 10px 0 5px 0; 
             font-size: 1.7rem;
             font-weight: 900;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
         }
         
         .tagline { 
@@ -69,32 +68,22 @@
             margin-bottom: 25px; 
             text-transform: uppercase; 
             letter-spacing: 3px; 
-            font-weight: 600; 
-            opacity: 0.9;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
-        
         .btn-link {
-            padding: 14px; 
-            background: rgba(0,0,0,0.5); 
-            color: white; 
-            text-decoration: none;
-            border-radius: 12px; 
-            text-align: center; 
-            font-size: 0.75rem; 
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            transition: 0.3s;
-            font-weight: 600;
+            padding: 14px; background: rgba(0,0,0,0.6); color: white; text-decoration: none;
+            border-radius: 12px; text-align: center; font-size: 0.75rem; border: 1px solid rgba(212, 175, 55, 0.2); 
+            transition: 0.3s; font-weight: 600;
         }
-        .btn-link:active { background: var(--gold); color: #000; }
 
         .btn-gold {
             width: 100%; padding: 20px; 
             background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
             border: none; border-radius: 15px; color: black; font-weight: 900;
             cursor: pointer; text-transform: uppercase; letter-spacing: 2px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
         #booking-frame {
@@ -104,26 +93,13 @@
 
         #home-btn {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 200; background: var(--gold); color: black; border: none; 
-            padding: 15px 30px; border-radius: 50px; font-weight: 800; 
-            font-size: 0.8rem; cursor: pointer; display: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            z-index: 200; background: var(--gold); color: black; border: none; padding: 15px 30px;
+            border-radius: 50px; font-weight: 800; font-size: 0.8rem; cursor: pointer; display: none;
         }
-
-        .sound-hint {
-            font-size: 0.6rem; 
-            color: var(--gold); 
-            margin-top: 15px; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+        
+        .sound-badge {
+            font-size: 0.6rem; color: var(--gold); margin-top: 15px; letter-spacing: 1px;
+            font-weight: 900; text-transform: uppercase; opacity: 0.8;
         }
     </style>
 </head>
@@ -135,7 +111,7 @@
 
     <div id="main-overlay">
         <div class="container">
-            <div style="font-size: 3.5rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));">👑</div>
+            <div style="font-size: 3.5rem; margin-bottom: 5px; filter: drop-shadow(0 0 10px var(--gold));">👑</div>
             <h1>King of Fadez</h1>
             <p class="tagline">Dasma's Finest Cut</p>
 
@@ -147,7 +123,7 @@
             </div>
 
             <button class="btn-gold" onclick="launchBooking()">Book Appointment</button>
-            <div class="sound-hint">🔊 TAP ANYWHERE FOR SOUND</div>
+            <div class="sound-badge">🔊 Tap anywhere for sound</div>
         </div>
     </div>
 
@@ -173,7 +149,7 @@
     // Audio Enable Logic
     function enableAudio() {
         video.muted = false;
-        document.querySelector('.sound-hint').style.display = 'none';
+        document.querySelector('.sound-badge').style.opacity = "0";
     }
 
     function launchBooking() {
