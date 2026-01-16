@@ -5,151 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>KOF | Welcome</title>
 <style>
-:root {
-    --gold: #d4af37;
-    --gold-bright: #ffdf00;
-    --bg-dark: #000000;
-    /* Fixed: Reduced opacity to 0.15 for maximum background visibility */
-    --glass: rgba(10, 10, 12, 0.15); 
-}
+        :root {
+            --bg-dark: #000000;
+            --gold-flat: #a67c00; 
+            --gold-text: #d4af37;
+            --glass: rgba(20, 20, 22, 0.7); /* Transparency to see your video */
+        }
 
-html, body {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: white;
-    overflow: hidden;
-    background: #000;
-}
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; background-color: var(--bg-dark); 
+            position: fixed; font-family: 'Segoe UI', Roboto, sans-serif;
+            color: white;
+        }
 
-/* Background Video Container */
-.v-bg {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1; overflow: hidden;
-}
+        /* --- VIDEO BACKGROUND FIX --- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Keep behind everything */
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Prevents stretching */
+            filter: brightness(0.6); /* Adjust this to make BG darker or lighter */
+        }
 
-.v-bg video {
-    position: absolute;
-    top: 50%; left: 50%;
-    min-width: 100%; min-height: 100%;
-    width: auto; height: auto;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    /* High brightness to make the barbershop visible */
-    filter: brightness(1.1) contrast(1.1);
-}
+        #auth-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0, 0, 0, 0.3); 
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
 
-/* Fixed: Radial gradient now has 0% opacity in the center to show background clearly */
-#main-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 100; transition: opacity 0.5s ease;
-}
+        .login-box {
+            text-align: center; 
+            padding: 45px 30px; 
+            border-radius: 24px;
+            background: var(--glass);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            max-width: 350px; 
+            width: 88%; 
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px);
+        }
 
-/* Adjusted Glass Box for maximum background visibility */
-.container {
-    background: var(--glass);
-    /* Lowered blur so the video shapes are distinct */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    width: 88%; max-width: 400px;
-    padding: 40px 30px;
-    border-radius: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
+        .login-box h2 {
+            color: var(--gold-text); 
+            letter-spacing: 4px; 
+            font-weight: 900;
+            margin: 10px 0 5px 0; 
+            text-transform: uppercase; 
+            font-size: 1.25rem;
+        }
 
-h1 {
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin: 15px 0 5px 0;
-    font-size: 1.8rem;
-    font-weight: 900;
-    /* Extra shadow to keep text readable on clear background */
-    text-shadow: 0 0 15px rgba(0,0,0,1), 2px 2px 5px rgba(0,0,0,1);
-}
+        .location-tag {
+            font-size: 0.6rem; 
+            color: #888; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-.tagline {
-    font-size: 0.75rem; color: #fff;
-    margin-bottom: 30px; text-transform: uppercase;
-    letter-spacing: 3px; font-weight: bold;
-    text-shadow: 0 0 10px rgba(0,0,0,1);
-}
+        input[type="password"] {
+            width: 100%; 
+            padding: 18px; 
+            margin-bottom: 15px;
+            background: #000; 
+            border: 1px solid #222; 
+            border-radius: 10px;
+            color: #fff; 
+            text-align: center; 
+            font-size: 1.1rem;
+            letter-spacing: 6px; 
+            outline: none; 
+            box-sizing: border-box;
+        }
 
-.detail-block { 
-    text-align: center; 
-    margin-bottom: 25px; 
-    font-size: 0.85rem; 
-    line-height: 1.5;
-    /* Slight dark tint so address is readable over moving video */
-    background: rgba(0,0,0,0.3);
-    padding: 12px;
-    border-radius: 12px;
-}
+        .btn-main {
+            width: 100%; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 10px;
+            background: var(--gold-flat); 
+            color: #000; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            cursor: pointer; 
+            margin-bottom: 20px;
+        }
 
-.detail-block strong { 
-    display: block; 
-    color: var(--gold); 
-    font-size: 0.65rem; 
-    margin-bottom: 5px; 
-    text-transform: uppercase; 
-    letter-spacing: 1px;
-}
+        .btn-option {
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #333; 
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02); 
+            color: var(--gold-text); 
+            font-weight: 700;
+            text-transform: uppercase; 
+            cursor: pointer; 
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
 
-.social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
+        .btn-option:last-of-type { color: #fff; }
 
-.btn-link {
-    padding: 14px; 
-    background: rgba(0,0,0,0.5); 
-    color: white; 
-    text-decoration: none;
-    border-radius: 12px; 
-    text-align: center; 
-    font-size: 0.8rem; 
-    border: 1px solid rgba(212, 175, 55, 0.2); 
-    transition: all 0.3s ease;
-    font-weight: 600;
-}
+        .contact-footer {
+            margin-top: 25px; 
+            font-size: 0.65rem; 
+            color: #666; 
+            line-height: 1.8;
+        }
 
-.btn-link:hover {
-    background: var(--gold);
-    color: black;
-    border-color: var(--gold);
-}
-
-.btn-gold {
-    width: 100%; padding: 20px;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
-    border: none; border-radius: 15px; color: black; font-weight: 900;
-    cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-    transition: transform 0.2s ease;
-}
-
-.btn-gold:active { transform: scale(0.96); }
-
-#booking-frame {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    border: none; display: none; z-index: 50; background: #000;
-}
-
-#home-btn {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    z-index: 200; background: var(--gold); color: black; border: none; padding: 15px 30px;
-    border-radius: 50px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
-    display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-.tap-hint {
-    margin-top: 15px; font-size: 0.6rem; color: var(--gold);
-    text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
-    text-shadow: 0 0 5px rgba(0,0,0,1);
-}
-</style>
+        #secure-frame {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; visibility: hidden; z-index: 100;
+        }
+    </style>
 </head>
 <body oncontextmenu="return false;">
 
