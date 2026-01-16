@@ -16,20 +16,24 @@
             color: white; overflow: hidden; background-color: var(--bg-dark);
         }
 
-        /* Video Background */
+        /* NEW Background Video Setup */
         .v-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden;
+            z-index: -1; overflow: hidden; background: #000;
         }
         .v-bg iframe {
-            width: 100vw; height: 100vh; transform: scale(1.8);
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100vw; height: 100vh;
+            /* Adjust scale to ensure no black bars appear on different screens */
+            transform: translate(-50%, -50%) scale(1.8);
             pointer-events: none;
         }
 
-        /* Main Info Overlay */
+        /* Overlay for contrast */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100; transition: opacity 0.5s ease;
         }
@@ -44,7 +48,6 @@
         h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 10px 0 5px 0; font-size: 1.6rem; }
         .tagline { font-size: 0.7rem; color: #888; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* Detail Blocks */
         .detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.4; }
         .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 3px; text-transform: uppercase; }
 
@@ -55,7 +58,6 @@
         }
         .btn-link:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* Action Button */
         .btn-gold {
             width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
             border: none; border-radius: 12px; color: black; font-weight: 800;
@@ -63,13 +65,11 @@
         }
         .btn-gold:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        /* External Booking Frame */
         #booking-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             border: none; display: none; z-index: 50;
         }
 
-        /* Home Button (Visible only when booking) */
         #home-btn {
             position: fixed; bottom: 20px; right: 20px; z-index: 200;
             background: var(--gold); color: black; border: none; padding: 10px 20px;
@@ -78,11 +78,16 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="v-bg">
-        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1511247623312332%2F&show_text=0&width=267" 
-        frameborder="0" allowfullscreen="true" allow="autoplay"></iframe>
+        <iframe 
+            src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1196696812005545%2F&show_text=false&width=260&t=0" 
+            scrolling="no" 
+            frameborder="0" 
+            allowfullscreen="true" 
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
     </div>
 
     <div id="main-overlay">
@@ -123,14 +128,9 @@
     const homeBtn = document.getElementById('home-btn');
 
     function launchBooking() {
-        // Fade out overlay
         overlay.style.opacity = "0";
-        
-        // Load and show iframe
         frame.src = bookingUrl;
         frame.style.display = "block";
-        
-        // Show home button after transition
         setTimeout(() => {
             overlay.style.display = "none";
             homeBtn.style.display = "block";
@@ -138,20 +138,12 @@
     }
 
     function goHome() {
-        // Hide iframe and button
         frame.style.display = "none";
-        frame.src = ""; // Stop loading
+        frame.src = "";
         homeBtn.style.display = "none";
-        
-        // Show overlay
         overlay.style.display = "flex";
-        setTimeout(() => {
-            overlay.style.opacity = "1";
-        }, 10);
+        setTimeout(() => { overlay.style.opacity = "1"; }, 10);
     }
-
-    // Security: Prevent context menu
-    document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
 
 </body>
