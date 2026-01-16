@@ -2,79 +2,183 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Booking App</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOF | Home</title>
     <style>
-        body, html { 
-            margin: 0; padding: 0; height: 100%; width: 100%; 
-            overflow: hidden; background-color: #010b1a; 
-            position: fixed; font-family: 'Segoe UI', sans-serif;
+        :root {
+            --gold: #d4af37;
+            --bg-dark: rgba(8, 8, 10, 0.98);
+            --glass: rgba(20, 20, 25, 0.85);
         }
-        iframe {
-            position: absolute; top: 0; left: 0; 
-            width: 100%; height: 100%; border: none;
-            -webkit-overflow-scrolling: touch;
-            z-index: 1;
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            color: white; overflow: hidden;
         }
-        #loader {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            background: #010b1a; display: flex; align-items: center;
-            justify-content: center; z-index: 99; color: #0749a0;
+
+        /* Video Background */
+        .v-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; overflow: hidden; background: #000;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .v-bg iframe {
+            width: 100vw; height: 100vh; transform: scale(1.8);
+        }
+
+        /* Main Info Overlay (First Screen) */
+        #main-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Booking Drawer (Hidden Initially) */
+        #booking-drawer {
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 90%;
+            background: var(--bg-dark); backdrop-filter: blur(20px);
+            border-top: 2px solid var(--gold); border-radius: 30px 30px 0 0;
+            z-index: 20; transition: bottom 0.5s ease;
+            padding: 30px; box-sizing: border-box; text-align: center;
+        }
+
+        .container {
+            background: var(--glass); backdrop-filter: blur(10px);
+            width: 85%; max-width: 380px; padding: 30px;
+            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        h1, h2 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
+        .tagline { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; }
+
+        /* Detail Blocks */
+        .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
+        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 4px; text-transform: uppercase; }
+
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .btn-link {
+            padding: 12px; background: rgba(255,255,255,0.05); color: white; text-decoration: none;
+            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333;
+        }
+
+        /* Action Buttons */
+        .btn-gold {
+            width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
+            border: none; border-radius: 12px; color: black; font-weight: 800;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%; padding: 15px; margin: 12px 0; background: #000;
+            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box;
+        }
+
+        .close-drawer {
+            width: 40px; height: 5px; background: #555; border-radius: 5px;
+            margin: -10px auto 20px; cursor: pointer;
+        }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div id="loader">
-        <div style="text-align: center;">
-            <div style="border: 4px solid #f3f3f3; border-top: 4px solid #0749a0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: auto;"></div>
-            <p style="margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; color: #fff;">ORDERING TERMINAL</p>
-            <p style="font-size: 0.6rem; color: #0749a0; text-transform: uppercase;">Business Monitoring & POS Management</p>
+    <div class="v-bg">
+        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1511247623312332%2F&show_text=0&width=267" 
+        frameborder="0" allowfullscreen="true" allow="autoplay"></iframe>
+    </div>
+
+    <div id="main-overlay">
+        <div class="container">
+            <div style="font-size: 3rem; margin-bottom: 10px;">👑</div>
+            <h1>King of Fadez</h1>
+            <p class="tagline">The Standard of Dasmariñas</p>
+
+            <div class="detail-block">
+                <strong>📍 Location</strong>
+                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+            </div>
+
+            <div class="detail-block">
+                <strong>📧 Contact & Support</strong>
+                Kingoffadezph@gmail.com
+            </div>
+
+            <div class="social-grid">
+                <a href="https://www.google.com/maps/place/King+of+Fadez+Barbershop+Dasmari%C3%B1as/@14.3381712,120.9504125,1140m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3397d5002d69d999:0xbe2b03eacebc8da8!8m2!3d14.3381712!4d120.9504125!16s%2Fg%2F11zkr2tsqv?hl=en&entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoASAFQAw%3D%3D" class="btn-link" target="_blank">🗺️ Maps</a>
+                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
+                <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
+                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
+            </div>
+
+            <button class="btn-gold" onclick="openBooking()">Proceed to Booking</button>
         </div>
     </div>
 
-    <iframe 
-        id="secure-frame"
-        src="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec?page=Client" 
-        allowfullscreen
-        onload="document.getElementById('loader').style.display='none';">
-    </iframe>
+    <div id="booking-drawer">
+        <div class="close-drawer" onclick="closeBooking()"></div>
+        <h2>Book Your Cut</h2>
+        <p style="color:#666; font-size:0.8rem;">Select your service and details</p>
+        
+        <input id="name" placeholder="Client Name">
+        <input id="phone" placeholder="Phone Number" type="tel">
+        <select id="package">
+            <option value="" disabled selected>Service Package</option>
+        </select>
+        
+        <button class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Slot</button>
+        <p style="margin-top: 20px; font-size: 0.7rem; color: #444;" onclick="closeBooking()">CANCEL AND GO BACK</p>
+    </div>
 
-    <script>
-        /**
-         * ANTI-INSPECTION PROTECTION
-         * Authorized by: Elizer T Garingo (Cyber Sec IV)
-         */
-        document.onkeydown = function(e) {
-            // Block F12, Ctrl+Shift+I/J/C, Ctrl+U (View Source), Ctrl+S (Save)
-            if(e.keyCode == 123 || 
-              (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-              (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83))) {
-                return false;
-            }
-        };
+<script>
+const API="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
+const drawer = document.getElementById('booking-drawer');
+const overlay = document.getElementById('main-overlay');
 
-        /**
-         * IDLE LOGOUT PROTOCOL (30 MINUTES)
-         * Critical for POS Terminals to prevent unauthorized transactions.
-         */
-        let idleTime = 0;
-        const IDLE_LIMIT = 30; 
+function openBooking() {
+    drawer.style.bottom = "0";
+    overlay.style.transform = "scale(0.9)";
+    overlay.style.opacity = "0.5";
+}
 
-        function resetTimer() { idleTime = 0; }
-        window.onmousemove = resetTimer;
-        window.onkeypress = resetTimer;
-        window.ontouchstart = resetTimer;
+function closeBooking() {
+    drawer.style.bottom = "-100%";
+    overlay.style.transform = "scale(1)";
+    overlay.style.opacity = "1";
+}
 
-        setInterval(function() {
-            idleTime++;
-            if (idleTime >= IDLE_LIMIT) { 
-                // Hard reset for POS Security
-                window.location.reload(); 
-            }
-        }, 60000);
-    </script>
+// Load Services
+fetch(API+"?mode=data")
+    .then(r=>r.json())
+    .then(d=>{
+        const pkgSelect = document.getElementById('package');
+        d.packages.slice(1).forEach(p=>{
+            const opt = document.createElement('option');
+            opt.textContent = p[0];
+            opt.value = p[0];
+            pkgSelect.appendChild(opt);
+        });
+    });
+
+function book(){
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const pkg = document.getElementById('package').value;
+
+    if(!name || !phone || !pkg) {
+        alert("Please complete all fields.");
+        return;
+    }
+
+    fetch(API,{
+        method:"POST",
+        mode: "no-cors",
+        body:JSON.stringify({ name, phone, package: pkg, addons:[], total:0 })
+    });
+    
+    alert("Sent! We'll see you soon.");
+    closeBooking();
+}
+</script>
+
 </body>
 </html>
