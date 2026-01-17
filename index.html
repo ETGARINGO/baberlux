@@ -47,9 +47,6 @@ html, body {
 h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin: 10px 0 5px; font-size: 1.8rem; }
 .tagline { font-size: .75rem; color: rgba(255,255,255,0.9); letter-spacing: 2px; margin-bottom: 25px; }
 
-.detail-block { text-align: left; font-size: .85rem; margin-bottom: 20px; line-height: 1.4; }
-.detail-block strong { display: block; color: var(--gold); font-size: .65rem; letter-spacing: 1.5px; margin-bottom: 3px; }
-
 .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
 
 .btn-link {
@@ -66,28 +63,34 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
     box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-#audio-status { margin-top: 20px; font-size: .7rem; color: var(--gold); font-weight: bold; animation: pulse 2s infinite; }
-
-@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-/* ADJUSTED BOOKING MODAL: Made it transparent glass */
+/* ===== ANIMATED BOOKING MODAL ===== */
 #booking-modal {
     position: fixed; inset: 0;
-    /* Semi-transparent black with blur lets the video show through */
-    background: rgba(0, 0, 0, 0.4); 
+    background: rgba(0, 0, 0, 0.6); 
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    z-index: 9999; display: none; flex-direction: column;
+    z-index: 9999; 
+    display: none; /* Controlled by JS */
+    flex-direction: column;
+    
+    /* Animation States */
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#booking-modal.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .booking-header {
     height: 65px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     color: var(--gold);
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
 }
-
-.booking-header span { text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
 .booking-header button { 
     background: rgba(255,255,255,0.1); border: none; 
@@ -95,8 +98,12 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
     border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
 }
 
-/* Make iframe transparent to show background if form is also transparent */
-#booking-frame { width: 100%; height: calc(100% - 65px); border: none; background: transparent; }
+#booking-frame { 
+    width: 100%; height: calc(100% - 65px); border: none; background: transparent; 
+}
+
+#audio-status { margin-top: 20px; font-size: .7rem; color: var(--gold); font-weight: bold; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 </style>
 </head>
 
@@ -112,16 +119,6 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
         <h1>King of Fadez</h1>
         <p class="tagline">The Standard of Dasmariñas</p>
 
-        <div class="detail-block">
-            <strong>📍 Location</strong>
-            Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-        </div>
-
-        <div class="detail-block">
-            <strong>📧 Contact</strong>
-            Kingoffadezph@gmail.com
-        </div>
-
         <div class="social-grid">
             <a class="btn-link" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
             <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
@@ -130,7 +127,6 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
         </div>
 
         <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
-
         <div id="audio-status">🔊 Tap anywhere to enable sound</div>
     </div>
 </div>
@@ -150,6 +146,7 @@ const bookingBtn = document.getElementById('booking-btn');
 const modal = document.getElementById('booking-modal');
 const frame = document.getElementById('booking-frame');
 
+// Enable sound
 document.body.addEventListener('click', () => {
     if (video.muted) {
         video.muted = false;
@@ -158,17 +155,29 @@ document.body.addEventListener('click', () => {
     }
 }, {once: true});
 
+// OPEN MODAL WITH ANIMATION
 bookingBtn.addEventListener('click', e => {
     e.preventDefault();
     document.body.style.overflow = "hidden";
     frame.src = "https://script.google.com/macros/s/AKfycbwEDa9I6rPAt6l5U2K5f3kAMisL32kvyP40WfsTFsVKJUuAjPQBhHHXayyj8h_goU8Q/exec";
+    
     modal.style.display = "flex";
+    // Small timeout to allow 'display:flex' to register before starting the transition
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
 });
 
+// CLOSE MODAL WITH ANIMATION
 function closeBooking() {
-    frame.src = "";
-    modal.style.display = "none";
-    document.body.style.overflow = "auto"; 
+    modal.classList.remove('active');
+    
+    // Wait for animation to finish before hiding display and clearing frame
+    setTimeout(() => {
+        modal.style.display = "none";
+        frame.src = "";
+        document.body.style.overflow = "auto"; 
+    }, 400); // Matches the 0.4s transition in CSS
 }
 </script>
 
