@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>King of Fadez | Premium Experience</title>
+<title>KOF | Home</title>
 
 <style>
 :root{
     --gold:#d4af37;
-    /* Adjusted glass to be more transparent so the background shows through better */
-    --glass:rgba(15, 15, 15, 0.65); 
+    --glass:rgba(20,20,25,.88);
     --gold-gradient:linear-gradient(135deg,#d4af37,#b8860b);
 }
 
@@ -20,45 +19,37 @@ html,body{
     overflow:hidden;
 }
 
-/* Background Video Styling */
 #bg-video{
     position:fixed;top:50%;left:50%;
     min-width:100%;min-height:100%;
     transform:translate(-50%,-50%);
     object-fit:cover;z-index:-1;
-    /* ADJUSTED: Increased brightness from .35 to .65 to make video more visible */
-    filter:brightness(.65) contrast(1.1); 
+    filter:brightness(.35);
 }
 
-/* ADJUSTED: Lighter radial gradient to reveal more of the corners */
 #main-overlay{
     position:fixed;inset:0;
     display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
-    padding: 20px;
+    background:radial-gradient(circle,rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 100%);
 }
 
-/* Translucent Glass Container */
 .container{
     background:var(--glass);
-    backdrop-filter:blur(12px); /* Slightly reduced blur for more clarity */
-    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(18px);
     width:100%;max-width:380px;
     padding:35px 30px;
-    border-radius:35px; /* More rounded like the sample image */
-    border:1px solid rgba(212,175,55,.4);
+    border-radius:28px;
+    border:1px solid rgba(212,175,55,.3);
     text-align:center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
 }
 
-h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0 5px 0; font-size: 1.8rem;}
-.tagline{font-size:.7rem;color:rgba(255,255,255,0.7);letter-spacing:2px;margin-bottom:30px}
+h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.tagline{font-size:.75rem;color:#ccc;letter-spacing:2px;margin-bottom:25px}
 
-.detail-block{text-align:left;font-size:.85rem;margin-bottom:20px; line-height:1.4;}
+.detail-block{text-align:left;font-size:.85rem;margin-bottom:20px}
 .detail-block strong{
     display:block;color:var(--gold);
     font-size:.65rem;letter-spacing:1.5px;
-    margin-bottom: 4px;
 }
 
 .social-grid{
@@ -68,64 +59,51 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0
 
 .btn-link{
     padding:14px;
-    background:rgba(255,255,255,0.08); /* Lighter glass buttons */
-    border: 1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,.06);
     border-radius:12px;
     text-decoration:none;color:#fff;
     font-size:.8rem;
-    transition: 0.3s;
 }
 
-.btn-link:active{ background: rgba(255,255,255,0.2); }
-
 .btn-gold{
-    width:100%;padding:18px;
+    width:100%;padding:20px;
     background:var(--gold-gradient);
-    border-radius:16px;
+    border-radius:14px;
     text-decoration:none;
     font-weight:800;color:#000;
     display:block;text-transform:uppercase;
-    box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-#audio-status{margin-top:20px;font-size:.7rem;color:var(--gold);opacity:.8; animation: pulse 2s infinite;}
-
-@keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 1; }
-    100% { opacity: 0.4; }
-}
+#audio-status{margin-top:20px;font-size:.7rem;color:var(--gold);opacity:.8}
 
 /* ===== BOOKING MODAL ===== */
 #booking-modal{
     position:fixed;inset:0;
     background:#000;
-    z-index:10000;
+    z-index:9999;
     display:none;
     flex-direction:column;
 }
 
 .booking-header{
-    height:60px;
-    background:#111;
+    height:55px;
+    background:#000;
     color:var(--gold);
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
+    padding:0 15px;
     font-weight:bold;
 }
 
 .booking-header button{
     background:none;border:none;
-    color:#fff;font-size:1.8rem;
-    cursor: pointer;
+    color:#fff;font-size:1.6rem;
 }
 
 #booking-frame{
     width:100%;
-    height:calc(100% - 60px);
+    height:calc(100% - 55px);
     border:none;
 }
 </style>
@@ -134,13 +112,12 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0
 <body>
 
 <video autoplay muted loop playsinline id="bg-video">
-     <source src="Facebook_1768651955020_1080p.mpFacebook_1768655567654_2K_1440p_.mp4
-" type="video/mp4">
+     <source src="Facebook_1768651955020_1080p.mp4" type="video/mp4">
 </video>
 
 <div id="main-overlay">
 <div class="container">
-    <div style="font-size:3.5rem; filter: drop-shadow(0 0 10px rgba(212,175,55,0.5))">👑</div>
+    <div style="font-size:3.5rem">👑</div>
     <h1>King of Fadez</h1>
     <p class="tagline">The Standard of Dasmariñas</p>
 
@@ -155,7 +132,7 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0
     </div>
 
     <div class="social-grid">
-        <a class="btn-link" href="http://googleusercontent.com/maps.google.com/search?q=King+of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
+        <a class="btn-link" href="https://www.google.com/maps/search/?api=1&query=King+of+Fadez+Dasmarinas" target="_blank">🗺️ Maps</a>
         <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
         <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
         <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
@@ -163,7 +140,7 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0
 
     <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
 
-    <div id="audio-status">🔊 Tap anywhere to enable sound</div>
+    <div id="audio-status">🔊 Tap anywhere for sound</div>
 </div>
 </div>
 
@@ -186,16 +163,16 @@ const bookingBtn=document.getElementById('booking-btn');
 const modal=document.getElementById('booking-modal');
 const frame=document.getElementById('booking-frame');
 
-// AUDIO ENABLE ON CLICK
+// Unmute video on first interaction
 document.body.addEventListener('click',()=>{
     if(video.muted){
         video.muted=false;
-        video.play().catch(err => console.log("Audio play blocked: ", err));
+        video.play();
         audioStatus.style.display='none';
     }
 },{once:true});
 
-// OPEN BOOKING
+// Open Booking Modal
 bookingBtn.addEventListener('click',e=>{
     e.preventDefault();
     document.body.style.overflow="hidden";
@@ -203,7 +180,7 @@ bookingBtn.addEventListener('click',e=>{
     modal.style.display="flex";
 });
 
-// CLOSE BOOKING
+// Close Booking Modal
 function closeBooking(){
     frame.src="";
     modal.style.display="none";
