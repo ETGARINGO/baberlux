@@ -8,49 +8,59 @@
 <style>
 :root {
     --gold: #d4af37;
-    --glass: rgba(10, 10, 10, 0.35);
+    --glass: rgba(10, 10, 10, 0.45);
     --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
 }
 
 html, body {
     margin: 0; padding: 0; height: 100%; width: 100%;
     font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background: #000; color: #fff; overflow: hidden;
+    background: #050505; color: #fff; overflow: hidden;
 }
 
-/* AUTO-FIT VIDEO */
+/* THE VIDEO: Now behaves as a background layer for the containers */
 #bg-video {
     position: fixed; top: 50%; left: 50%;
     width: 100vw; height: 100vh;
-    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
-    object-fit: cover; z-index: -1;
-    filter: brightness(0.75) contrast(1.1);
+    object-fit: cover; z-index: 0; /* Behind everything */
+    filter: brightness(0.6) contrast(1.1);
 }
 
 #main-overlay {
     position: fixed; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+    z-index: 2;
     padding: 20px; box-sizing: border-box;
 }
 
+/* CARD CONTAINER: Acts as a window to the video */
 .container {
+    position: relative;
     background: var(--glass);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     width: 100%; max-width: 380px;
     padding: 35px 25px; border-radius: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    text-align: center; 
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+    overflow: hidden; /* Clips everything inside */
 }
+
+/* Content inside the card needs to be above the card background */
+.card-content { position: relative; z-index: 5; }
 
 h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin: 10px 0 5px; font-size: 1.8rem; }
 .tagline { font-size: .75rem; color: rgba(255,255,255,0.9); letter-spacing: 2px; margin-bottom: 25px; }
 
+.detail-block { text-align: left; font-size: .85rem; margin-bottom: 20px; line-height: 1.4; }
+.detail-block strong { display: block; color: var(--gold); font-size: .65rem; letter-spacing: 1.5px; margin-bottom: 3px; }
+
 .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
 
 .btn-link {
-    padding: 14px; background: rgba(255,255,255,.1);
+    padding: 14px; background: rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
     text-decoration: none; color: #fff; font-size: .8rem; transition: 0.3s;
 }
@@ -63,44 +73,25 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
     box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-/* ===== ANIMATED BOOKING MODAL ===== */
+/* ANIMATED BOOKING MODAL */
 #booking-modal {
     position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.6); 
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    z-index: 9999; 
-    display: none; /* Controlled by JS */
-    flex-direction: column;
-    
-    /* Animation States */
-    opacity: 0;
-    transform: translateY(100%);
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    z-index: 9999; display: none; flex-direction: column;
+    opacity: 0; transform: translateY(100%);
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#booking-modal.active {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0);
-}
+#booking-modal.active { display: flex; opacity: 1; transform: translateY(0); }
 
 .booking-header {
-    height: 65px;
-    background: rgba(0,0,0,0.6);
-    color: var(--gold);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    height: 65px; background: rgba(0,0,0,0.8);
+    color: var(--gold); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; border-bottom: 1px solid var(--gold);
 }
 
-.booking-header button { 
-    background: rgba(255,255,255,0.1); border: none; 
-    color: #fff; font-size: 1.2rem; width: 35px; height: 35px;
-    border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-}
-
-#booking-frame { 
-    width: 100%; height: calc(100% - 65px); border: none; background: transparent; 
-}
+#booking-frame { width: 100%; height: calc(100% - 65px); border: none; background: transparent; }
 
 #audio-status { margin-top: 20px; font-size: .7rem; color: var(--gold); font-weight: bold; animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
@@ -115,26 +106,38 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
 
 <div id="main-overlay">
     <div class="container">
-        <div style="font-size:3.5rem; filter: drop-shadow(0 0 12px rgba(212,175,55,0.5))">👑</div>
-        <h1>King of Fadez</h1>
-        <p class="tagline">The Standard of Dasmariñas</p>
+        <div class="card-content">
+            <div style="font-size:3.5rem; filter: drop-shadow(0 0 12px rgba(212,175,55,0.5))">👑</div>
+            <h1>King of Fadez</h1>
+            <p class="tagline">The Standard of Dasmariñas</p>
 
-        <div class="social-grid">
-            <a class="btn-link" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
-            <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
-            <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
-            <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
+            <div class="detail-block">
+                <strong>📍 Location</strong>
+                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+            </div>
+
+            <div class="detail-block">
+                <strong>📧 Contact</strong>
+                Kingoffadezph@gmail.com
+            </div>
+
+            <div class="social-grid">
+                <a class="btn-link" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
+                <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
+                <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
+                <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
+            </div>
+
+            <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
+            <div id="audio-status">🔊 Tap anywhere to enable sound</div>
         </div>
-
-        <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
-        <div id="audio-status">🔊 Tap anywhere to enable sound</div>
     </div>
 </div>
 
 <div id="booking-modal">
     <div class="booking-header">
         <span>Secure Booking</span>
-        <button onclick="closeBooking()">✕</button>
+        <button onclick="closeBooking()" style="background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">✕</button>
     </div>
     <iframe id="booking-frame" allow="camera; microphone; clipboard-read; clipboard-write" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
 </div>
@@ -146,38 +149,29 @@ const bookingBtn = document.getElementById('booking-btn');
 const modal = document.getElementById('booking-modal');
 const frame = document.getElementById('booking-frame');
 
-// Enable sound
 document.body.addEventListener('click', () => {
     if (video.muted) {
         video.muted = false;
-        video.play().catch(e => console.log("Auto-play error:", e));
+        video.play();
         audioStatus.style.display = 'none';
     }
 }, {once: true});
 
-// OPEN MODAL WITH ANIMATION
 bookingBtn.addEventListener('click', e => {
     e.preventDefault();
     document.body.style.overflow = "hidden";
     frame.src = "https://script.google.com/macros/s/AKfycbwEDa9I6rPAt6l5U2K5f3kAMisL32kvyP40WfsTFsVKJUuAjPQBhHHXayyj8h_goU8Q/exec";
-    
     modal.style.display = "flex";
-    // Small timeout to allow 'display:flex' to register before starting the transition
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
+    setTimeout(() => modal.classList.add('active'), 10);
 });
 
-// CLOSE MODAL WITH ANIMATION
 function closeBooking() {
     modal.classList.remove('active');
-    
-    // Wait for animation to finish before hiding display and clearing frame
     setTimeout(() => {
         modal.style.display = "none";
         frame.src = "";
         document.body.style.overflow = "auto"; 
-    }, 400); // Matches the 0.4s transition in CSS
+    }, 400);
 }
 </script>
 
