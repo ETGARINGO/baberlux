@@ -9,88 +9,83 @@
             --gold: #d4af37;
             --bg-dark: rgba(8, 8, 10, 0.98);
             --glass: rgba(20, 20, 25, 0.85);
+            --error: #ff4444;
         }
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: white; overflow: hidden;
+            background: #000;
         }
 
-        /* --- VIDEO BACKGROUND FIX --- */
         #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
+            position: fixed; top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.6);
+            object-fit: cover; filter: brightness(0.4);
         }
 
-        /* Main Info Overlay */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10; transition: all 0.5s ease;
         }
 
         #booking-drawer {
-            position: fixed; bottom: -100%; left: 0; width: 100%; height: 90%;
-            background: var(--bg-dark); backdrop-filter: blur(20px);
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 92%;
+            background: var(--bg-dark); backdrop-filter: blur(25px);
             border-top: 2px solid var(--gold); border-radius: 30px 30px 0 0;
-            z-index: 20; transition: bottom 0.5s ease;
+            z-index: 20; transition: bottom 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
             padding: 30px; box-sizing: border-box; text-align: center;
+            overflow-y: auto;
         }
 
         .container {
             background: var(--glass); backdrop-filter: blur(10px);
             width: 85%; max-width: 380px; padding: 30px;
-            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
 
         h1, h2 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
-        .tagline { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; }
+        .tagline { font-size: 0.75rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; }
 
-        .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 4px; text-transform: uppercase; }
+        .detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; }
+        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 2px; text-transform: uppercase; }
 
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .btn-link {
             padding: 12px; background: rgba(255,255,255,0.05); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333;
+            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333; transition: 0.3s;
         }
+        .btn-link:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); }
 
         .btn-gold {
             width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
             border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s;
         }
+        .btn-gold:disabled { background: #444; color: #888; cursor: not-allowed; }
 
         input, select {
-            width: 100%; padding: 15px; margin: 12px 0; background: #000;
-            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box;
+            width: 100%; padding: 15px; margin: 10px 0; background: #111;
+            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 1rem;
         }
+        input:focus, select:focus { border-color: var(--gold); outline: none; }
 
         .close-drawer {
-            width: 40px; height: 5px; background: #555; border-radius: 5px;
-            margin: -10px auto 20px; cursor: pointer;
+            width: 50px; height: 5px; background: #333; border-radius: 5px;
+            margin: -10px auto 25px; cursor: pointer;
         }
 
-        /* Audio hint style */
         #audio-status {
             margin-top: 15px; font-size: 0.65rem; color: var(--gold);
             text-transform: uppercase; letter-spacing: 1px;
             opacity: 0.7; animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
-        }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     </style>
 </head>
 <body>
@@ -110,102 +105,133 @@
                 Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
             </div>
 
-            <div class="detail-block">
-                <strong>📧 Contact & Support</strong>
-                Kingoffadezph@gmail.com
-            </div>
-
             <div class="social-grid">
-                <a href="https://www.google.com/maps/place/King+of+Fadez+Barbershop+Dasmari%C3%B1as/@14.3381712,120.9504125,1140m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3397d5002d69d999:0xbe2b03eacebc8da8!8m2!3d14.3381712!4d120.9504125!16s%2Fg%2F11zkr2tsqv?hl=en&entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoASAFQAw%3D%3D" class="btn-link" target="_blank">🗺️ Maps</a>
+                <a href="https://maps.google.com/?q=King+of+Fadez+Dasmarinas" class="btn-link" target="_blank">🗺️ Maps</a>
                 <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
                 <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
-                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
+                <a href="mailto:Kingoffadezph@gmail.com" class="btn-link">📧 Email</a>
             </div>
 
             <button class="btn-gold" onclick="openBooking()">Proceed to Booking</button>
-            
-            <div id="audio-status">🔊 Tap anywhere for sound</div>
+            <div id="audio-status">🔊 Tap for Sound</div>
         </div>
     </div>
 
     <div id="booking-drawer">
         <div class="close-drawer" onclick="closeBooking()"></div>
         <h2>Book Your Cut</h2>
-        <p style="color:#666; font-size:0.8rem;">Select your service and details</p>
+        <p style="color:#888; font-size:0.85rem; margin-bottom:20px;">Premium Grooming Experience</p>
         
-        <input id="name" placeholder="Client Name">
-        <input id="phone" placeholder="Phone Number" type="tel">
+        <input id="name" type="text" placeholder="Full Name">
+        <input id="phone" type="tel" placeholder="Phone Number (09XXXXXXXXX)">
         <select id="package">
-            <option value="" disabled selected>Service Package</option>
+            <option value="" disabled selected>Select Service Package</option>
+            <option value="loading" disabled>Loading services...</option>
         </select>
         
-        <button class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Slot</button>
-        <p style="margin-top: 20px; font-size: 0.7rem; color: #444;" onclick="closeBooking()">CANCEL AND GO BACK</p>
+        <button id="bookBtn" class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Booking</button>
+        <p style="margin-top: 25px; font-size: 0.75rem; color: #666; cursor: pointer;" onclick="closeBooking()">CANCEL AND GO BACK</p>
     </div>
 
 <script>
-const API="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
+const API = "https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
 const drawer = document.getElementById('booking-drawer');
 const overlay = document.getElementById('main-overlay');
 const video = document.getElementById('bg-video');
 const audioStatus = document.getElementById('audio-status');
+const bookBtn = document.getElementById('bookBtn');
 
-// --- AUDIO ENABLE LOGIC ---
-// This listens for a click anywhere on the body to enable sound
-document.body.addEventListener('click', function() {
+// Audio Activation
+document.body.addEventListener('click', () => {
     if (video.muted) {
         video.muted = false;
         audioStatus.innerHTML = "🔊 Audio Active";
-        // Optional: Hide the text after a few seconds
-        setTimeout(() => { audioStatus.style.display = 'none'; }, 2000);
+        setTimeout(() => { audioStatus.style.opacity = '0'; }, 2000);
     }
-}, { once: true }); // 'once: true' ensures this logic only triggers on the first click
+}, { once: true });
 
 function openBooking() {
     drawer.style.bottom = "0";
-    overlay.style.transform = "scale(0.9)";
-    overlay.style.opacity = "0.5";
+    overlay.style.filter = "blur(5px) brightness(0.5)";
+    overlay.style.transform = "scale(0.95)";
 }
 
 function closeBooking() {
     drawer.style.bottom = "-100%";
+    overlay.style.filter = "none";
     overlay.style.transform = "scale(1)";
-    overlay.style.opacity = "1";
 }
 
-// Load Services
-fetch(API+"?mode=data")
-    .then(r=>r.json())
-    .then(d=>{
+// Fetch Services from Sheet
+async function loadServices() {
+    try {
+        const response = await fetch(`${API}?mode=data`);
+        const data = await response.json();
         const pkgSelect = document.getElementById('package');
-        d.packages.slice(1).forEach(p=>{
+        
+        // Clear "Loading" option
+        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
+        
+        // Assuming data.packages[0] is header, slice(1) gets the services
+        data.packages.slice(1).forEach(p => {
             const opt = document.createElement('option');
-            opt.textContent = p[0];
+            // Check if price exists in column 2 (index 1)
+            const price = p[1] ? ` - ₱${p[1]}` : "";
+            opt.textContent = `${p[0]}${price}`;
             opt.value = p[0];
             pkgSelect.appendChild(opt);
         });
-    });
+    } catch (e) {
+        console.error("Error loading services", e);
+        document.getElementById('package').innerHTML = '<option disabled>Error loading services</option>';
+    }
+}
 
-function book(){
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
+async function book() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const pkg = document.getElementById('package').value;
 
     if(!name || !phone || !pkg) {
-        alert("Please complete all fields.");
+        alert("Please fill in all details to secure your slot.");
         return;
     }
 
-    fetch(API,{
-        method:"POST",
-        mode: "no-cors",
-        body:JSON.stringify({ name, phone, package: pkg, addons:[], total:0 })
-    });
-    
-    alert("Sent! We'll see you soon.");
-    closeBooking();
-}
-</script>
+    // visual feedback
+    bookBtn.disabled = true;
+    bookBtn.textContent = "SENDING...";
 
+    try {
+        await fetch(API, {
+            method: "POST",
+            mode: "no-cors", // Required for Google Apps Script
+            cache: "no-cache",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: name,
+                phone: phone,
+                package: pkg,
+                date: new Date().toLocaleString()
+            })
+        });
+
+        // Since no-cors doesn't allow reading response, we assume success after fetch
+        alert(`Thank you, ${name}! Your booking request for ${pkg} has been sent. We will contact you at ${phone} shortly.`);
+        
+        // Reset form
+        document.getElementById('name').value = "";
+        document.getElementById('phone').value = "";
+        closeBooking();
+    } catch (error) {
+        alert("Submission failed. Please check your connection.");
+    } finally {
+        bookBtn.disabled = false;
+        bookBtn.textContent = "Confirm Booking";
+    }
+}
+
+// Initialize services on load
+loadServices();
+</script>
 </body>
 </html>
