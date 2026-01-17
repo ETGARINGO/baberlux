@@ -9,13 +9,12 @@
             --gold: #d4af37;
             --bg-dark: rgba(8, 8, 10, 0.98);
             --glass: rgba(20, 20, 25, 0.85);
-            --error: #ff4444;
         }
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             color: white; overflow: hidden;
-            background: #000;
+            background-color: #000;
         }
 
         #bg-video {
@@ -23,12 +22,12 @@
             min-width: 100%; min-height: 100%;
             width: auto; height: auto; z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover; filter: brightness(0.4);
+            object-fit: cover; filter: brightness(0.5);
         }
 
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 10; transition: all 0.5s ease;
         }
@@ -39,7 +38,6 @@
             border-top: 2px solid var(--gold); border-radius: 30px 30px 0 0;
             z-index: 20; transition: bottom 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
             padding: 30px; box-sizing: border-box; text-align: center;
-            overflow-y: auto;
         }
 
         .container {
@@ -50,34 +48,34 @@
         }
 
         h1, h2 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
-        .tagline { font-size: 0.75rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; }
+        .tagline { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; }
 
-        .detail-block { text-align: left; margin-bottom: 15px; font-size: 0.85rem; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 2px; text-transform: uppercase; }
+        .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
+        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 4px; text-transform: uppercase; }
 
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
         .btn-link {
             padding: 12px; background: rgba(255,255,255,0.05); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333; transition: 0.3s;
+            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333;
         }
-        .btn-link:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); }
 
         .btn-gold {
             width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
             border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
         }
-        .btn-gold:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .btn-gold:disabled { opacity: 0.6; cursor: not-allowed; }
 
         input, select {
-            width: 100%; padding: 15px; margin: 10px 0; background: #111;
-            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 1rem;
+            width: 100%; padding: 15px; margin: 12px 0; background: #111;
+            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box;
+            font-size: 1rem;
         }
         input:focus, select:focus { border-color: var(--gold); outline: none; }
 
         .close-drawer {
-            width: 50px; height: 5px; background: #333; border-radius: 5px;
-            margin: -10px auto 25px; cursor: pointer;
+            width: 40px; height: 5px; background: #555; border-radius: 5px;
+            margin: -10px auto 20px; cursor: pointer;
         }
 
         #audio-status {
@@ -85,7 +83,7 @@
             text-transform: uppercase; letter-spacing: 1px;
             opacity: 0.7; animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
     </style>
 </head>
 <body>
@@ -106,7 +104,7 @@
             </div>
 
             <div class="social-grid">
-                <a href="https://maps.google.com/?q=King+of+Fadez+Dasmarinas" class="btn-link" target="_blank">🗺️ Maps</a>
+                <a href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" class="btn-link" target="_blank">🗺️ Maps</a>
                 <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
                 <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
                 <a href="mailto:Kingoffadezph@gmail.com" class="btn-link">📧 Email</a>
@@ -120,17 +118,16 @@
     <div id="booking-drawer">
         <div class="close-drawer" onclick="closeBooking()"></div>
         <h2>Book Your Cut</h2>
-        <p style="color:#888; font-size:0.85rem; margin-bottom:20px;">Premium Grooming Experience</p>
+        <p style="color:#666; font-size:0.8rem; margin-bottom: 20px;">Secure your slot today</p>
         
-        <input id="name" type="text" placeholder="Full Name">
+        <input id="name" type="text" placeholder="Client Name">
         <input id="phone" type="tel" placeholder="Phone Number (09XXXXXXXXX)">
         <select id="package">
-            <option value="" disabled selected>Select Service Package</option>
-            <option value="loading" disabled>Loading services...</option>
-        </select>
+            <option value="" disabled selected>Select Service</option>
+            </select>
         
-        <button id="bookBtn" class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Booking</button>
-        <p style="margin-top: 25px; font-size: 0.75rem; color: #666; cursor: pointer;" onclick="closeBooking()">CANCEL AND GO BACK</p>
+        <button id="confirm-btn" class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Slot</button>
+        <p style="margin-top: 20px; font-size: 0.7rem; color: #444; cursor:pointer;" onclick="closeBooking()">CANCEL AND GO BACK</p>
     </div>
 
 <script>
@@ -139,99 +136,86 @@ const drawer = document.getElementById('booking-drawer');
 const overlay = document.getElementById('main-overlay');
 const video = document.getElementById('bg-video');
 const audioStatus = document.getElementById('audio-status');
-const bookBtn = document.getElementById('bookBtn');
+const confirmBtn = document.getElementById('confirm-btn');
 
-// Audio Activation
-document.body.addEventListener('click', () => {
+// --- AUDIO ENABLE ---
+document.body.addEventListener('click', function() {
     if (video.muted) {
         video.muted = false;
         audioStatus.innerHTML = "🔊 Audio Active";
-        setTimeout(() => { audioStatus.style.opacity = '0'; }, 2000);
+        setTimeout(() => { audioStatus.style.display = 'none'; }, 2000);
     }
 }, { once: true });
 
 function openBooking() {
     drawer.style.bottom = "0";
-    overlay.style.filter = "blur(5px) brightness(0.5)";
     overlay.style.transform = "scale(0.95)";
+    overlay.style.filter = "blur(5px)";
 }
 
 function closeBooking() {
     drawer.style.bottom = "-100%";
-    overlay.style.filter = "none";
     overlay.style.transform = "scale(1)";
+    overlay.style.filter = "none";
 }
 
-// Fetch Services from Sheet
-async function loadServices() {
-    try {
-        const response = await fetch(`${API}?mode=data`);
-        const data = await response.json();
+// --- DATA FETCH ---
+fetch(API + "?mode=data")
+    .then(r => r.json())
+    .then(d => {
         const pkgSelect = document.getElementById('package');
-        
-        // Clear "Loading" option
-        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
-        
-        // Assuming data.packages[0] is header, slice(1) gets the services
-        data.packages.slice(1).forEach(p => {
-            const opt = document.createElement('option');
-            // Check if price exists in column 2 (index 1)
-            const price = p[1] ? ` - ₱${p[1]}` : "";
-            opt.textContent = `${p[0]}${price}`;
-            opt.value = p[0];
-            pkgSelect.appendChild(opt);
-        });
-    } catch (e) {
-        console.error("Error loading services", e);
-        document.getElementById('package').innerHTML = '<option disabled>Error loading services</option>';
-    }
-}
+        // Assuming your sheet has a 'packages' array
+        if(d.packages) {
+            d.packages.slice(1).forEach(p => {
+                const opt = document.createElement('option');
+                opt.textContent = p[0];
+                opt.value = p[0];
+                pkgSelect.appendChild(opt);
+            });
+        }
+    })
+    .catch(err => console.error("Error loading services:", err));
 
-async function book() {
+// --- SUBMIT BOOKING ---
+function book() {
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const pkg = document.getElementById('package').value;
 
-    if(!name || !phone || !pkg) {
-        alert("Please fill in all details to secure your slot.");
+    if (!name || !phone || !pkg) {
+        alert("Please complete all fields.");
         return;
     }
 
-    // visual feedback
-    bookBtn.disabled = true;
-    bookBtn.textContent = "SENDING...";
+    confirmBtn.disabled = true;
+    confirmBtn.innerText = "Sanding...";
 
-    try {
-        await fetch(API, {
-            method: "POST",
-            mode: "no-cors", // Required for Google Apps Script
-            cache: "no-cache",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: name,
-                phone: phone,
-                package: pkg,
-                date: new Date().toLocaleString()
-            })
-        });
-
-        // Since no-cors doesn't allow reading response, we assume success after fetch
-        alert(`Thank you, ${name}! Your booking request for ${pkg} has been sent. We will contact you at ${phone} shortly.`);
-        
-        // Reset form
+    fetch(API, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({ 
+            name: name, 
+            phone: phone, 
+            package: pkg, 
+            addons: [], 
+            total: 0,
+            timestamp: new Date().toISOString()
+        })
+    }).then(() => {
+        alert("Booking request sent! See you soon, " + name + ".");
+        confirmBtn.disabled = false;
+        confirmBtn.innerText = "Confirm Slot";
+        closeBooking();
+        // Clear fields
         document.getElementById('name').value = "";
         document.getElementById('phone').value = "";
-        closeBooking();
-    } catch (error) {
-        alert("Submission failed. Please check your connection.");
-    } finally {
-        bookBtn.disabled = false;
-        bookBtn.textContent = "Confirm Booking";
-    }
+    }).catch(err => {
+        alert("Something went wrong. Please try again.");
+        confirmBtn.disabled = false;
+        confirmBtn.innerText = "Confirm Slot";
+    });
 }
-
-// Initialize services on load
-loadServices();
 </script>
+
 </body>
 </html>
