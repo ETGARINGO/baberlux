@@ -1,128 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOF | Home</title>
-    <style>
-        :root {
-            --gold: #d4af37;
-            --bg-dark: rgba(8, 8, 10, 0.98);
-            --glass: rgba(20, 20, 25, 0.85);
-        }
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', sans-serif;
-            color: white; overflow: hidden;
-            background-color: #000;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOF | Home</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg-dark: rgba(8, 8, 10, 0.98);
+            --glass: rgba(20, 20, 25, 0.85);
+        }
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: white; overflow: hidden;
+            background-color: #000;
+        }
 
-        /* --- VIDEO BACKGROUND --- */
-        #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.5);
-        }
+        /* --- VIDEO BACKGROUND --- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
 
-        /* Main Info Overlay */
-        #main-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10;
-        }
+        /* Main Info Overlay */
+        #main-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-        .container {
-            background: var(--glass); backdrop-filter: blur(10px);
-            width: 85%; max-width: 380px; padding: 30px;
-            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
+        .container {
+            background: var(--glass); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            width: 100%; 
+            max-width: 380px; 
+            padding: 30px;
+            border-radius: 25px; 
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            text-align: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-sizing: border-box;
+        }
 
-        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
-        .tagline { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; }
+        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 5px 0; font-size: 1.8rem; }
+        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
 
-        .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.7rem; margin-bottom: 4px; text-transform: uppercase; }
+        .detail-block { text-align: left; margin-bottom: 18px; font-size: 0.85rem; line-height: 1.4; }
+        .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn-link {
-            padding: 12px; background: rgba(255,255,255,0.05); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid #333;
-        }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        
+        .btn-link {
+            padding: 12px; background: rgba(255,255,255,0.07); color: white; text-decoration: none;
+            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .btn-link:active { background: rgba(255,255,255,0.2); transform: scale(0.95); }
 
-        .btn-gold {
-            display: block; width: 100%; padding: 18px; 
-            background: linear-gradient(135deg, #d4af37, #8b6d05);
-            border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            text-decoration: none; box-sizing: border-box;
-        }
+        .btn-gold {
+            display: block; width: 100%; padding: 18px; 
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border: none; border-radius: 12px; color: black; font-weight: 800;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            text-decoration: none; box-sizing: border-box;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:active { transform: scale(0.98); }
 
-        #audio-status {
-            margin-top: 15px; font-size: 0.65rem; color: var(--gold);
-            text-transform: uppercase; letter-spacing: 1px;
-            opacity: 0.7; animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
-        }
-    </style>
+        #audio-status {
+            margin-top: 15px; font-size: 0.65rem; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 1px;
+            opacity: 0.7; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
+        }
+    </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
-    </video>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
+    </video>
 
-    <div id="main-overlay">
-        <div class="container">
-            <div style="font-size: 3rem; margin-bottom: 10px;">👑</div>
-            <h1>King of Fadez</h1>
-            <p class="tagline">The Standard of Dasmariñas</p>
+    <div id="main-overlay">
+        <div class="container">
+            <div style="font-size: 3rem; margin-bottom: 5px;">👑</div>
+            <h1>King of Fadez</h1>
+            <p class="tagline">The Standard of Dasmariñas</p>
 
-            <div class="detail-block">
-                <strong>📍 Location</strong>
-                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-            </div>
+            <div class="detail-block">
+                <strong>📍 Location</strong>
+                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+            </div>
 
-            <div class="detail-block">
-                <strong>📧 Contact & Support</strong>
-                Kingoffadezph@gmail.com
-            </div>
+            <div class="detail-block">
+                <strong>📧 Contact & Support</strong>
+                Kingoffadezph@gmail.com
+            </div>
 
-            <div class="social-grid">
-                <a href="https://maps.google.com" class="btn-link" target="_blank">🗺️ Maps</a>
-                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
-                <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
-                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
-            </div>
+            <div class="social-grid">
+                <a href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" class="btn-link" target="_blank">🗺️ Maps</a>
+                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
+                <a href="https://www.facebook.com/share/r/1NQfs6Fcer/" class="btn-link" target="_blank">FB Page</a>
+                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
+            </div>
 
-            <a href="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec" class="btn-gold">Proceed to Booking</a>
-            
-            <div id="audio-status">🔊 Tap anywhere for sound</div>
-        </div>
-    </div>
+            <a href="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec" 
+               class="btn-gold" 
+               target="_blank">Proceed to Booking</a>
+            
+            <div id="audio-status">🔊 Tap anywhere for sound</div>
+        </div>
+    </div>
 
 <script>
 const video = document.getElementById('bg-video');
 const audioStatus = document.getElementById('audio-status');
 
-// Audio logic
+// Audio logic: Unmutes and ensures playback continues
 document.body.addEventListener('click', function() {
-    if (video.muted) {
-        video.muted = false;
-        audioStatus.innerHTML = "🔊 Audio Active";
-        setTimeout(() => { audioStatus.style.display = 'none'; }, 2000);
-    }
+    if (video.muted) {
+        video.muted = false;
+        video.play(); // Force play on interaction
+        audioStatus.innerHTML = "🔊 Audio Active";
+        setTimeout(() => { 
+            audioStatus.style.opacity = '0';
+            setTimeout(() => { audioStatus.style.display = 'none'; }, 500);
+        }, 2000);
+    }
 }, { once: true });
 </script>
 
