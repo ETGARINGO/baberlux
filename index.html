@@ -7,40 +7,40 @@
 
 <style>
 :root{
-    --gold:#d4af37;
-    --glass:rgba(20,20,25,.88);
-    --gold-gradient:linear-gradient(135deg,#d4af37,#b8860b);
+    --gold:#d4af37;
+    --glass:rgba(20,20,25,.88);
+    --gold-gradient:linear-gradient(135deg,#d4af37,#b8860b);
 }
 
 html,body{
-    margin:0;height:100%;
-    font-family:'Segoe UI',Roboto,Arial,sans-serif;
-    background:#000;color:#fff;
-    overflow:hidden;
+    margin:0;height:100%;
+    font-family:'Segoe UI',Roboto,Arial,sans-serif;
+    background:#000;color:#fff;
+    overflow:hidden;
 }
 
 #bg-video{
-    position:fixed;top:50%;left:50%;
-    min-width:100%;min-height:100%;
-    transform:translate(-50%,-50%);
-    object-fit:cover;z-index:-1;
-    filter:brightness(.35);
+    position:fixed;top:50%;left:50%;
+    min-width:100%;min-height:100%;
+    transform:translate(-50%,-50%);
+    object-fit:cover;z-index:-1;
+    filter:brightness(.35);
 }
 
 #main-overlay{
-    position:fixed;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle,rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 100%);
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle,rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 100%);
 }
 
 .container{
-    background:var(--glass);
-    backdrop-filter:blur(18px);
-    width:100%;max-width:380px;
-    padding:35px 30px;
-    border-radius:28px;
-    border:1px solid rgba(212,175,55,.3);
-    text-align:center;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    width:100%;max-width:380px;
+    padding:35px 30px;
+    border-radius:28px;
+    border:1px solid rgba(212,175,55,.3);
+    text-align:center;
 }
 
 h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
@@ -48,30 +48,30 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
 
 .detail-block{text-align:left;font-size:.85rem;margin-bottom:20px}
 .detail-block strong{
-    display:block;color:var(--gold);
-    font-size:.65rem;letter-spacing:1.5px;
+    display:block;color:var(--gold);
+    font-size:.65rem;letter-spacing:1.5px;
 }
 
 .social-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:12px;margin:25px 0;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:12px;margin:25px 0;
 }
 
 .btn-link{
-    padding:14px;
-    background:rgba(255,255,255,.06);
-    border-radius:12px;
-    text-decoration:none;color:#fff;
-    font-size:.8rem;
+    padding:14px;
+    background:rgba(255,255,255,.06);
+    border-radius:12px;
+    text-decoration:none;color:#fff;
+    font-size:.8rem;
 }
 
 .btn-gold{
-    width:100%;padding:20px;
-    background:var(--gold-gradient);
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:800;color:#000;
-    display:block;text-transform:uppercase;
+    width:100%;padding:20px;
+    background:var(--gold-gradient);
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:800;color:#000;
+    display:block;text-transform:uppercase;
 }
 
 #audio-status{margin-top:20px;font-size:.7rem;color:var(--gold);opacity:.8}
@@ -79,33 +79,33 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
 /* ===== BOOKING MODAL ===== */
 
 #booking-modal{
-    position:fixed;inset:0;
-    background:#000;
-    z-index:9999;
-    display:none;
-    flex-direction:column;
+    position:fixed;inset:0;
+    background:#000;
+    z-index:9999;
+    display:none;
+    flex-direction:column;
 }
 
 .booking-header{
-    height:55px;
-    background:#000;
-    color:var(--gold);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 15px;
-    font-weight:bold;
+    height:55px;
+    background:#000;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    font-weight:bold;
 }
 
 .booking-header button{
-    background:none;border:none;
-    color:#fff;font-size:1.6rem;
+    background:none;border:none;
+    color:#fff;font-size:1.6rem;
 }
 
 #booking-frame{
-    width:100%;
-    height:calc(100% - 55px);
-    border:none;
+    width:100%;
+    height:calc(100% - 55px);
+    border:none;
 }
 </style>
 </head>
@@ -113,114 +113,81 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
 <body>
 
 <video autoplay muted loop playsinline id="bg-video">
-    <source src="vidbg.html">
+    <source src="vidbg.html">
 </video>
 
 <div id="main-overlay">
 <div class="container">
-    <div style="font-size:3.5rem">👑</div>
-    <h1>King of Fadez</h1>
-    <p class="tagline">The Standard of Dasmariñas</p>
+    <div style="font-size:3.5rem">👑</div>
+    <h1>King of Fadez</h1>
+    <p class="tagline">The Standard of Dasmariñas</p>
 
-    <div class="detail-block">
-        <strong>📍 Location</strong>
-        Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-    </div>
+    <div class="detail-block">
+        <strong>📍 Location</strong>
+        Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+    </div>
 
-    <div class="detail-block">
-        <strong>📧 Contact</strong>
-        Kingoffadezph@gmail.com
-    </div>
+    <div class="detail-block">
+        <strong>📧 Contact</strong>
+        Kingoffadezph@gmail.com
+    </div>
 
-    <div class="social-grid">
-        <a class="btn-link" href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
-        <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
-        <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
-        <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
-    </div>
+    <div class="social-grid">
+        <a class="btn-link" href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
+        <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
+        <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
+        <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
+    </div>
 
-    <!-- EMBED BOOKING (NO REDIRECT) -->
-    <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
+    <!-- EMBED BOOKING (NO REDIRECT) -->
+    <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
 
-    <div id="audio-status">🔊 Tap anywhere for sound</div>
+    <div id="audio-status">🔊 Tap anywhere for sound</div>
 </div>
 </div>
 
 <!-- BOOKING MODAL -->
 <div id="booking-modal">
-    <div class="booking-header">
-        <span>Booking Form</span>
-        <button onclick="closeBooking()">✕</button>
-    </div>
+    <div class="booking-header">
+        <span>Booking Form</span>
+        <button onclick="closeBooking()">✕</button>
+    </div>
 
-    <iframe
-        id="booking-frame"
-        allow="camera; microphone; clipboard-read; clipboard-write"
-        sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
-    </iframe>
+    <iframe
+        id="booking-frame"
+        allow="camera; microphone; clipboard-read; clipboard-write"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
+    </iframe>
 </div>
 
-<video autoplay muted loop playsinline id="bg-video">
-    <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
-</video>
+<<script>
+const video=document.getElementById('bg-video');
+const audioStatus=document.getElementById('audio-status');
+const bookingBtn=document.getElementById('booking-btn');
+const modal=document.getElementById('booking-modal');
+const frame=document.getElementById('booking-frame');
 
-<div id="main-overlay">
-    <div class="container">
-        <div style="font-size:3.5rem">👑</div>
-        <h1>King of Fadez</h1>
-        <p class="tagline">The Standard of Dasmariñas</p>
+document.body.addEventListener('click',()=>{
+    if(video.muted){
+        video.muted=false;
+        video.play();
+        audioStatus.style.display='none';
+    }
+},{once:true});
 
-        <div class="detail-block">
-            <strong>📍 Location</strong>
-            Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-        </div>
-
-        <div class="detail-block">
-            <strong>📧 Contact</strong>
-            Kingoffadezph@gmail.com
-        </div>
-
-        <div class="social-grid">
-            <a class="btn-link" href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
-            <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
-            <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
-            <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
-        </div>
-
-        <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
-
-        <div id="audio-status">🔊 Tap anywhere for sound</div>
-    </div>
-</div>
-
-<script>
-const video = document.getElementById('bg-video');
-const audioStatus = document.getElementById('audio-status');
-const bookingBtn = document.getElementById('booking-btn');
-const modal = document.getElementById('booking-modal');
-const frame = document.getElementById('booking-frame');
-
-// This fixes the "Tap for sound" logic
-document.body.addEventListener('click', () => {
-    if (video.muted) {
-        video.muted = false;
-        // Re-trigger play in case the browser paused it due to mute status
-        video.play().catch(e => console.log("Audio play prevented")); 
-        audioStatus.style.opacity = '0'; // Smoothly hide instead of display:none
-    }
-}, { once: true });
-
-bookingBtn.addEventListener('click', e => {
-    e.preventDefault();
-    document.body.style.overflow = "hidden";
-    frame.src = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
-    modal.style.display = "flex";
+bookingBtn.addEventListener('click',e=>{
+    e.preventDefault();
+    document.body.style.overflow="hidden";
+    // Updated with your new URL
+    frame.src="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
+    modal.style.display="flex";
 });
 
-function closeBooking() {
-    frame.src = "";
-    modal.style.display = "none";
-    document.body.style.overflow = "hidden"; // Keep hidden if you want to prevent background scroll
+function closeBooking(){
+    frame.src="";
+    modal.style.display="none";
+    // Changed this to "auto" so users can scroll the main page again after closing
+    document.body.style.overflow="auto"; 
 }
 </script>
 
