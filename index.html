@@ -28,15 +28,11 @@ html,body{
 }
 
 #main-overlay{
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* subtle transparent dark gradient for readability */
-    background: radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 100%);
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%);
     padding: 20px;
-    pointer-events: none; /* optional: lets clicks pass through overlay */
+    pointer-events:none; /* optional: allows clicks to pass through overlay */
 }
 
 .container{
@@ -195,7 +191,7 @@ function closeBooking(){
     // Changed this to "auto" so users can scroll the main page again after closing
     document.body.style.overflow="auto"; 
 }
-<</script>
+</script>
 
 </body>
 </html>
