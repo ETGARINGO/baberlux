@@ -11,140 +11,193 @@
     <style>
         :root {
             --gold: #d4af37;
-            --glass: rgba(20, 20, 25, 0.9);
+            --glass: rgba(20, 20, 25, 0.88);
+            --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
         }
+
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: white; overflow: hidden;
             background-color: #000;
         }
 
         /* --- VIDEO BACKGROUND --- */
         #bg-video {
-            position: fixed; top: 50%; left: 50%;
+            position: fixed;
+            top: 50%; left: 50%;
             min-width: 100%; min-height: 100%;
-            width: auto; height: auto; z-index: -1;
+            width: auto; height: auto;
+            z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover; filter: brightness(0.4);
+            object-fit: cover;
+            filter: brightness(0.35); /* Slightly darker for better text contrast */
         }
 
+        /* Main Info Overlay */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 10; padding: 20px; box-sizing: border-box;
-            transition: filter 0.5s ease;
         }
 
         .container {
-            background: var(--glass); backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            width: 100%; max-width: 380px; padding: 30px;
-            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            background: var(--glass); 
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            width: 100%; max-width: 380px; 
+            padding: 35px 30px;
+            border-radius: 28px; 
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            box-sizing: border-box;
         }
 
-        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 5px; font-size: 1.8rem; }
-        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; }
+        h1 { 
+            color: var(--gold); 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            margin: 10px 0 5px 0; 
+            font-size: 1.9rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .tagline { 
+            font-size: 0.75rem; 
+            color: #ccc; 
+            margin-bottom: 25px; 
+            text-transform: uppercase; 
+            letter-spacing: 2.5px; 
+        }
+
+        .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
+        .detail-block strong { 
+            display: block; 
+            color: var(--gold); 
+            font-size: 0.65rem; 
+            margin-bottom: 6px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+        }
+
+        .social-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            margin: 25px 0; 
+        }
+
+        .btn-link {
+            padding: 14px; 
+            background: rgba(255,255,255,0.06); 
+            color: white; 
+            text-decoration: none;
+            border-radius: 12px; 
+            text-align: center; 
+            font-size: 0.8rem; 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-link:hover { background: rgba(255,255,255,0.12); border-color: var(--gold); }
+        .btn-link:active { transform: scale(0.96); }
 
         .btn-gold {
-            display: block; width: 100%; padding: 18px; 
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            display: block; 
+            width: 100%; 
+            padding: 20px; 
+            background: var(--gold-gradient);
+            border: none; 
+            border-radius: 14px; 
+            color: #000; 
+            font-weight: 800;
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            text-decoration: none; 
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
         }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4); }
+        .btn-gold:active { transform: scale(0.98); }
 
-        /* --- MODAL STYLES --- */
-        #booking-modal {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: 100;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+        #audio-status {
+            margin-top: 20px; font-size: 0.7rem; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 1.5px;
+            opacity: 0.8; animation: pulse 2s infinite;
         }
-
-        .modal-content {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 92%; height: 88%; 
-            max-width: 500px; max-height: 800px;
-            background: #fff; border-radius: 20px;
-            overflow: hidden; border: 2px solid var(--gold);
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; } 50% { opacity: 1; }
         }
-
-        /* Loading Spinner */
-        #loader {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--gold);
-            border-radius: 50%; width: 40px; height: 40px;
-            animation: spin 1s linear infinite;
-            z-index: 99;
-        }
-        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        .close-btn {
-            position: absolute; top: 12px; right: 12px;
-            background: #000; color: var(--gold); border: 2px solid var(--gold);
-            border-radius: 50%; width: 36px; height: 36px;
-            font-weight: bold; cursor: pointer; z-index: 101;
-        }
-
-        iframe { width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 0.3s ease; }
-        .blur-effect { filter: blur(12px) brightness(0.5); }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
-    </video>
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
+</video>
 
-    <div id="main-overlay">
-        <div class="container">
-            <div style="font-size: 3rem;">👑</div>
-            <h1>King of Fadez</h1>
-            <p class="tagline">The Standard of Dasmariñas</p>
-            <button onclick="openBooking()" class="btn-gold">Proceed to Booking</button>
-        </div>
-    </div>
+<div id="main-overlay">
+    <div class="container">
+        <div style="font-size: 3.5rem; margin-bottom: 5px;">👑</div>
+        <h1>King of Fadez</h1>
+        <p class="tagline">The Standard of Dasmariñas</p>
 
-    <div id="booking-modal">
-        <div class="modal-content">
-            <div id="loader"></div>
-            <button class="close-btn" onclick="closeBooking()">✕</button>
-            <iframe id="booking-frame" src="" onload="hideLoader()"></iframe>
+        <div class="detail-block">
+            <strong>📍 Location</strong>
+            Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
         </div>
+
+        <div class="detail-block">
+            <strong>📧 Contact & Support</strong>
+            Kingoffadezph@gmail.com
+        </div>
+
+        <div class="social-grid">
+            <a href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" class="btn-link" target="_blank">🗺️ Maps</a>
+            <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
+            <a href="https://www.facebook.com/share/r/1NQfs6Fcer/" class="btn-link" target="_blank">FB Page</a>
+            <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
+        </div>
+
+        <a href="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec" class="btn-gold" id="booking-btn">Proceed to Booking</a>
+        
+        <div id="audio-status">🔊 Tap anywhere for sound</div>
     </div>
+</div>
 
 <script>
-    const modal = document.getElementById('booking-modal');
-    const overlay = document.getElementById('main-overlay');
-    const iframe = document.getElementById('booking-frame');
-    const loader = document.getElementById('loader');
-    const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
+const video = document.getElementById('bg-video');
+const audioStatus = document.getElementById('audio-status');
+const bookingBtn = document.getElementById('booking-btn');
 
-    // 1. FAST TRIGGER: Start loading the iframe as soon as the user hovers over the button
-    document.querySelector('.btn-gold').addEventListener('mouseenter', function() {
-        if (!iframe.src) iframe.src = bookingUrl;
-    }, { once: true });
-
-    function openBooking() {
-        modal.style.display = 'block';
-        overlay.classList.add('blur-effect');
-        if (!iframe.src) iframe.src = bookingUrl;
+// Audio logic: Unmutes and ensures playback on interaction
+const handleInteraction = () => {
+    if (video.muted) {
+        video.muted = false;
+        // Some browsers pause the video when unmuting manually, this ensures it continues
+        video.play().catch(e => console.log("Video play error:", e));
+        
+        audioStatus.innerHTML = "🔊 Audio Active";
+        setTimeout(() => { 
+            audioStatus.style.transition = 'opacity 1s';
+            audioStatus.style.opacity = '0';
+            setTimeout(() => { audioStatus.style.display = 'none'; }, 1000);
+        }, 2000);
     }
+};
 
-    function closeBooking() {
-        modal.style.display = 'none';
-        overlay.classList.remove('blur-effect');
-    }
+document.body.addEventListener('click', handleInteraction, { once: true });
+document.body.addEventListener('touchstart', handleInteraction, { once: true });
 
-    function hideLoader() {
-        loader.style.display = 'none';
-        iframe.style.opacity = '1'; // Fade in the frame once loaded
-    }
+// Booking feedback
+bookingBtn.addEventListener('click', () => {
+    bookingBtn.innerHTML = "Opening Form...";
+    bookingBtn.style.opacity = "0.8";
+});
 </script>
+
 </body>
 </html>
