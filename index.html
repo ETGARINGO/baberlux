@@ -28,9 +28,14 @@ html,body{
 }
 
 #main-overlay{
-    position:fixed;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle,rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 100%);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+    /* optional smooth transition if you want fade-in effect */
+    transition: background 0.3s ease-in-out;
 }
 
 .container{
