@@ -17,37 +17,37 @@
             background-color: #000;
         }
 
+        /* --- VIDEO BACKGROUND --- */
         #bg-video {
-            position: fixed; top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto; z-index: -1;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover; filter: brightness(0.5);
+            object-fit: cover;
+            filter: brightness(0.5);
         }
 
+        /* Main Info Overlay */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10; transition: all 0.5s ease;
-        }
-
-        #booking-drawer {
-            position: fixed; bottom: -100%; left: 0; width: 100%; height: 92%;
-            background: var(--bg-dark); backdrop-filter: blur(25px);
-            border-top: 2px solid var(--gold); border-radius: 30px 30px 0 0;
-            z-index: 20; transition: bottom 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-            padding: 30px; box-sizing: border-box; text-align: center;
+            z-index: 10;
         }
 
         .container {
             background: var(--glass); backdrop-filter: blur(10px);
             width: 85%; max-width: 380px; padding: 30px;
-            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.2);
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        h1, h2 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
+        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin: 5px 0; }
         .tagline { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; }
 
         .detail-block { text-align: left; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.5; }
@@ -60,22 +60,11 @@
         }
 
         .btn-gold {
-            width: 100%; padding: 18px; background: linear-gradient(135deg, #d4af37, #8b6d05);
+            display: block; width: 100%; padding: 18px; 
+            background: linear-gradient(135deg, #d4af37, #8b6d05);
             border: none; border-radius: 12px; color: black; font-weight: 800;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .btn-gold:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        input, select {
-            width: 100%; padding: 15px; margin: 12px 0; background: #111;
-            border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box;
-            font-size: 1rem;
-        }
-        input:focus, select:focus { border-color: var(--gold); outline: none; }
-
-        .close-drawer {
-            width: 40px; height: 5px; background: #555; border-radius: 5px;
-            margin: -10px auto 20px; cursor: pointer;
+            text-decoration: none; box-sizing: border-box;
         }
 
         #audio-status {
@@ -83,7 +72,9 @@
             text-transform: uppercase; letter-spacing: 1px;
             opacity: 0.7; animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        @keyframes pulse {
+            0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
+        }
     </style>
 </head>
 <body>
@@ -103,42 +94,29 @@
                 Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
             </div>
 
-            <div class="social-grid">
-                <a href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" class="btn-link" target="_blank">🗺️ Maps</a>
-                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
-                <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
-                <a href="mailto:Kingoffadezph@gmail.com" class="btn-link">📧 Email</a>
+            <div class="detail-block">
+                <strong>📧 Contact & Support</strong>
+                Kingoffadezph@gmail.com
             </div>
 
-            <button class="btn-gold" onclick="openBooking()">Proceed to Booking</button>
-            <div id="audio-status">🔊 Tap for Sound</div>
+            <div class="social-grid">
+                <a href="https://maps.google.com" class="btn-link" target="_blank">🗺️ Maps</a>
+                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
+                <a href="https://facebook.com/KingOfFadezDasma" class="btn-link" target="_blank">FB Page</a>
+                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
+            </div>
+
+            <a href="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec" class="btn-gold">Proceed to Booking</a>
+            
+            <div id="audio-status">🔊 Tap anywhere for sound</div>
         </div>
     </div>
 
-    <div id="booking-drawer">
-        <div class="close-drawer" onclick="closeBooking()"></div>
-        <h2>Book Your Cut</h2>
-        <p style="color:#666; font-size:0.8rem; margin-bottom: 20px;">Secure your slot today</p>
-        
-        <input id="name" type="text" placeholder="Client Name">
-        <input id="phone" type="tel" placeholder="Phone Number (09XXXXXXXXX)">
-        <select id="package">
-            <option value="" disabled selected>Select Service</option>
-            </select>
-        
-        <button id="confirm-btn" class="btn-gold" style="margin-top: 20px;" onclick="book()">Confirm Slot</button>
-        <p style="margin-top: 20px; font-size: 0.7rem; color: #444; cursor:pointer;" onclick="closeBooking()">CANCEL AND GO BACK</p>
-    </div>
-
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
-const drawer = document.getElementById('booking-drawer');
-const overlay = document.getElementById('main-overlay');
 const video = document.getElementById('bg-video');
 const audioStatus = document.getElementById('audio-status');
-const confirmBtn = document.getElementById('confirm-btn');
 
-// --- AUDIO ENABLE ---
+// Audio logic
 document.body.addEventListener('click', function() {
     if (video.muted) {
         video.muted = false;
@@ -146,75 +124,6 @@ document.body.addEventListener('click', function() {
         setTimeout(() => { audioStatus.style.display = 'none'; }, 2000);
     }
 }, { once: true });
-
-function openBooking() {
-    drawer.style.bottom = "0";
-    overlay.style.transform = "scale(0.95)";
-    overlay.style.filter = "blur(5px)";
-}
-
-function closeBooking() {
-    drawer.style.bottom = "-100%";
-    overlay.style.transform = "scale(1)";
-    overlay.style.filter = "none";
-}
-
-// --- DATA FETCH ---
-fetch(API + "?mode=data")
-    .then(r => r.json())
-    .then(d => {
-        const pkgSelect = document.getElementById('package');
-        // Assuming your sheet has a 'packages' array
-        if(d.packages) {
-            d.packages.slice(1).forEach(p => {
-                const opt = document.createElement('option');
-                opt.textContent = p[0];
-                opt.value = p[0];
-                pkgSelect.appendChild(opt);
-            });
-        }
-    })
-    .catch(err => console.error("Error loading services:", err));
-
-// --- SUBMIT BOOKING ---
-function book() {
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const pkg = document.getElementById('package').value;
-
-    if (!name || !phone || !pkg) {
-        alert("Please complete all fields.");
-        return;
-    }
-
-    confirmBtn.disabled = true;
-    confirmBtn.innerText = "Sanding...";
-
-    fetch(API, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify({ 
-            name: name, 
-            phone: phone, 
-            package: pkg, 
-            addons: [], 
-            total: 0,
-            timestamp: new Date().toISOString()
-        })
-    }).then(() => {
-        alert("Booking request sent! See you soon, " + name + ".");
-        confirmBtn.disabled = false;
-        confirmBtn.innerText = "Confirm Slot";
-        closeBooking();
-        // Clear fields
-        document.getElementById('name').value = "";
-        document.getElementById('phone').value = "";
-    }).catch(err => {
-        alert("Something went wrong. Please try again.");
-        confirmBtn.disabled = false;
-        confirmBtn.innerText = "Confirm Slot";
-    });
-}
 </script>
 
 </body>
