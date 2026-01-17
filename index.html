@@ -20,22 +20,21 @@ html,body{
     overflow:hidden;
 }
 
-/* BACKGROUND VIDEO: Optimized for visibility */
+/* Background Video Styling */
 #bg-video{
-    position:fixed; top:50%; left:50%;
-    min-width:100%; min-height:100%;
-    transform:translate(-50%, -50%);
-    object-fit:cover; z-index:-1;
-    /* UPDATED: Higher brightness and slight contrast boost to make the shop details pop */
-    filter: brightness(0.75) contrast(1.1) saturate(1.1); 
+    position:fixed;top:50%;left:50%;
+    min-width:100%;min-height:100%;
+    transform:translate(-50%,-50%);
+    object-fit:cover;z-index:-1;
+    /* ADJUSTED: Increased brightness from .35 to .65 to make video more visible */
+    filter:brightness(.65) contrast(1.1); 
 }
 
-/* MAIN OVERLAY: lightened the radial shadow */
+/* ADJUSTED: Lighter radial gradient to reveal more of the corners */
 #main-overlay{
-    position:fixed; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    /* UPDATED: Only darkens the edges slightly, leaving the center clear for the video */
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
     padding: 20px;
 }
 
@@ -135,7 +134,8 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase; margin: 15px 0
 <body>
 
 <video autoplay muted loop playsinline id="bg-video">
-     <source src="Facebook_1768651955020_1080p.mp4" type="video/mp4">
+     <source src="Facebook_1768651955020_1080p.mpFacebook_1768655567654_2K_1440p_.mp4
+" type="video/mp4">
 </video>
 
 <div id="main-overlay">
