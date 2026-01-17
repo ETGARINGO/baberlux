@@ -160,34 +160,67 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
     </iframe>
 </div>
 
-<<script>
-const video=document.getElementById('bg-video');
-const audioStatus=document.getElementById('audio-status');
-const bookingBtn=document.getElementById('booking-btn');
-const modal=document.getElementById('booking-modal');
-const frame=document.getElementById('booking-frame');
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
+</video>
 
-document.body.addEventListener('click',()=>{
-    if(video.muted){
-        video.muted=false;
-        video.play();
-        audioStatus.style.display='none';
+<div id="main-overlay">
+    <div class="container">
+        <div style="font-size:3.5rem">👑</div>
+        <h1>King of Fadez</h1>
+        <p class="tagline">The Standard of Dasmariñas</p>
+
+        <div class="detail-block">
+            <strong>📍 Location</strong>
+            Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+        </div>
+
+        <div class="detail-block">
+            <strong>📧 Contact</strong>
+            Kingoffadezph@gmail.com
+        </div>
+
+        <div class="social-grid">
+            <a class="btn-link" href="https://maps.google.com/?q=King+Of+Fadez+Dasmariñas" target="_blank">🗺️ Maps</a>
+            <a class="btn-link" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank">📱 TikTok</a>
+            <a class="btn-link" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank">FB Page</a>
+            <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
+        </div>
+
+        <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
+
+        <div id="audio-status">🔊 Tap anywhere for sound</div>
+    </div>
+</div>
+
+<script>
+const video = document.getElementById('bg-video');
+const audioStatus = document.getElementById('audio-status');
+const bookingBtn = document.getElementById('booking-btn');
+const modal = document.getElementById('booking-modal');
+const frame = document.getElementById('booking-frame');
+
+// This fixes the "Tap for sound" logic
+document.body.addEventListener('click', () => {
+    if (video.muted) {
+        video.muted = false;
+        // Re-trigger play in case the browser paused it due to mute status
+        video.play().catch(e => console.log("Audio play prevented")); 
+        audioStatus.style.opacity = '0'; // Smoothly hide instead of display:none
     }
-},{once:true});
+}, { once: true });
 
-bookingBtn.addEventListener('click',e=>{
+bookingBtn.addEventListener('click', e => {
     e.preventDefault();
-    document.body.style.overflow="hidden";
-    // Updated with your new URL
-    frame.src="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
-    modal.style.display="flex";
+    document.body.style.overflow = "hidden";
+    frame.src = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
+    modal.style.display = "flex";
 });
 
-function closeBooking(){
-    frame.src="";
-    modal.style.display="none";
-    // Changed this to "auto" so users can scroll the main page again after closing
-    document.body.style.overflow="auto"; 
+function closeBooking() {
+    frame.src = "";
+    modal.style.display = "none";
+    document.body.style.overflow = "hidden"; // Keep hidden if you want to prevent background scroll
 }
 </script>
 
