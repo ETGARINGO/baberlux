@@ -6,7 +6,7 @@
 <title>KOF | Home</title>
 
 <style>
-:root {
+:root{
     --gold:#d4af37;
     --glass:rgba(20,20,25,.88);
     --gold-gradient:linear-gradient(135deg,#d4af37,#b8860b);
@@ -15,7 +15,8 @@
 html,body{
     margin:0;height:100%;
     font-family:'Segoe UI',Roboto,Arial,sans-serif;
-    background:#000;color:#fff;overflow:hidden;
+    background:#000;color:#fff;
+    overflow:hidden;
 }
 
 #bg-video{
@@ -42,16 +43,8 @@ html,body{
     text-align:center;
 }
 
-h1{
-    color:var(--gold);
-    letter-spacing:4px;
-    text-transform:uppercase;
-}
-
-.tagline{
-    font-size:.75rem;color:#ccc;
-    letter-spacing:2px;margin-bottom:25px;
-}
+h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.tagline{font-size:.75rem;color:#ccc;letter-spacing:2px;margin-bottom:25px}
 
 .detail-block{text-align:left;font-size:.85rem;margin-bottom:20px}
 .detail-block strong{
@@ -78,16 +71,12 @@ h1{
     border-radius:14px;
     text-decoration:none;
     font-weight:800;color:#000;
-    display:block;
-    text-transform:uppercase;
+    display:block;text-transform:uppercase;
 }
 
-#audio-status{
-    margin-top:20px;font-size:.7rem;
-    color:var(--gold);opacity:.8;
-}
+#audio-status{margin-top:20px;font-size:.7rem;color:var(--gold);opacity:.8}
 
-/* ================= BOOKING MODAL ================= */
+/* ===== BOOKING MODAL ===== */
 
 #booking-modal{
     position:fixed;inset:0;
@@ -110,7 +99,7 @@ h1{
 
 .booking-header button{
     background:none;border:none;
-    color:#fff;font-size:1.5rem;
+    color:#fff;font-size:1.6rem;
 }
 
 #booking-frame{
@@ -150,7 +139,7 @@ h1{
         <a class="btn-link" href="http://Kingoffadezph.com/" target="_blank">🌐 Web</a>
     </div>
 
-    <!-- STAY ON SITE -->
+    <!-- EMBED BOOKING (NO REDIRECT) -->
     <a href="#" class="btn-gold" id="booking-btn">Proceed to Booking</a>
 
     <div id="audio-status">🔊 Tap anywhere for sound</div>
@@ -163,7 +152,12 @@ h1{
         <span>Booking Form</span>
         <button onclick="closeBooking()">✕</button>
     </div>
-    <iframe id="booking-frame"></iframe>
+
+    <iframe
+        id="booking-frame"
+        allow="camera; microphone; clipboard-read; clipboard-write"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
+    </iframe>
 </div>
 
 <script>
@@ -183,6 +177,7 @@ document.body.addEventListener('click',()=>{
 
 bookingBtn.addEventListener('click',e=>{
     e.preventDefault();
+    document.body.style.overflow="hidden";
     frame.src="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
     modal.style.display="flex";
 });
@@ -190,6 +185,7 @@ bookingBtn.addEventListener('click',e=>{
 function closeBooking(){
     frame.src="";
     modal.style.display="none";
+    document.body.style.overflow="hidden";
 }
 </script>
 
