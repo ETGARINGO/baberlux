@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KOF | Home</title>
+    
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="dns-prefetch" href="https://script.google.com">
+
     <style>
         :root {
             --gold: #d4af37;
@@ -11,7 +15,7 @@
         }
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: white; overflow: hidden;
             background-color: #000;
         }
@@ -25,13 +29,12 @@
             object-fit: cover; filter: brightness(0.4);
         }
 
-        /* Main Info Overlay */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 10; padding: 20px; box-sizing: border-box;
-            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: filter 0.5s ease;
         }
 
         .container {
@@ -43,16 +46,7 @@
         }
 
         h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 5px; font-size: 1.8rem; }
-        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
-
-        .detail-block { text-align: left; margin-bottom: 18px; font-size: 0.85rem; line-height: 1.4; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; text-transform: uppercase; }
-
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn-link {
-            padding: 12px; background: rgba(255,255,255,0.07); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.1);
-        }
+        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; }
 
         .btn-gold {
             display: block; width: 100%; padding: 18px; 
@@ -60,42 +54,45 @@
             border: none; border-radius: 12px; color: black; font-weight: 800;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            transition: 0.3s;
         }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
 
-        /* --- AUTO-FIT MODAL --- */
+        /* --- MODAL STYLES --- */
         #booking-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; z-index: 100;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-            opacity: 0; transition: opacity 0.4s ease;
         }
 
         .modal-content {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 92%; height: 88%; /* Auto-fit responsive size */
+            width: 92%; height: 88%; 
             max-width: 500px; max-height: 800px;
             background: #fff; border-radius: 20px;
             overflow: hidden; border: 2px solid var(--gold);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
         }
+
+        /* Loading Spinner */
+        #loader {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--gold);
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+            z-index: 99;
+        }
+        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
         .close-btn {
             position: absolute; top: 12px; right: 12px;
             background: #000; color: var(--gold); border: 2px solid var(--gold);
             border-radius: 50%; width: 36px; height: 36px;
             font-weight: bold; cursor: pointer; z-index: 101;
-            display: flex; align-items: center; justify-content: center;
         }
 
-        iframe { width: 100%; height: 100%; border: none; }
-
-        /* Blur when booking */
+        iframe { width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 0.3s ease; }
         .blur-effect { filter: blur(12px) brightness(0.5); }
-
-        #audio-status { margin-top: 15px; font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -106,66 +103,48 @@
 
     <div id="main-overlay">
         <div class="container">
-            <div style="font-size: 3rem; margin-bottom: 5px;">👑</div>
+            <div style="font-size: 3rem;">👑</div>
             <h1>King of Fadez</h1>
             <p class="tagline">The Standard of Dasmariñas</p>
-
-            <div class="detail-block">
-                <strong>📍 Location</strong>
-                Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-            </div>
-
-            <div class="social-grid">
-                <a href="https://maps.google.com/?q=King+Of+Fadez+Dasmarinas" class="btn-link" target="_blank">🗺️ Maps</a>
-                <a href="https://www.tiktok.com/@kingoffadez.ph" class="btn-link" target="_blank">📱 TikTok</a>
-                <a href="https://www.facebook.com/share/r/1NQfs6Fcer/" class="btn-link" target="_blank">FB Page</a>
-                <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
-            </div>
-
             <button onclick="openBooking()" class="btn-gold">Proceed to Booking</button>
-            
-            <div id="audio-status">🔊 Tap for sound</div>
         </div>
     </div>
 
     <div id="booking-modal">
         <div class="modal-content">
+            <div id="loader"></div>
             <button class="close-btn" onclick="closeBooking()">✕</button>
-            <iframe id="booking-frame" src=""></iframe>
+            <iframe id="booking-frame" src="" onload="hideLoader()"></iframe>
         </div>
     </div>
 
 <script>
-const video = document.getElementById('bg-video');
-const modal = document.getElementById('booking-modal');
-const overlay = document.getElementById('main-overlay');
-const iframe = document.getElementById('booking-frame');
-const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
+    const modal = document.getElementById('booking-modal');
+    const overlay = document.getElementById('main-overlay');
+    const iframe = document.getElementById('booking-frame');
+    const loader = document.getElementById('loader');
+    const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
 
-function openBooking() {
-    modal.style.display = 'block';
-    setTimeout(() => { modal.style.opacity = '1'; }, 10);
-    overlay.classList.add('blur-effect');
-    
-    // Only load if not already loaded to save resources
-    if (!iframe.src) iframe.src = bookingUrl;
-}
+    // 1. FAST TRIGGER: Start loading the iframe as soon as the user hovers over the button
+    document.querySelector('.btn-gold').addEventListener('mouseenter', function() {
+        if (!iframe.src) iframe.src = bookingUrl;
+    }, { once: true });
 
-function closeBooking() {
-    modal.style.opacity = '0';
-    setTimeout(() => { modal.style.display = 'none'; }, 400);
-    overlay.classList.remove('blur-effect');
-}
-
-// Global click to unmute
-document.body.addEventListener('click', function() {
-    if (video.muted) {
-        video.muted = false;
-        video.play();
-        document.getElementById('audio-status').style.display = 'none';
+    function openBooking() {
+        modal.style.display = 'block';
+        overlay.classList.add('blur-effect');
+        if (!iframe.src) iframe.src = bookingUrl;
     }
-}, { once: true });
-</script>
 
+    function closeBooking() {
+        modal.style.display = 'none';
+        overlay.classList.remove('blur-effect');
+    }
+
+    function hideLoader() {
+        loader.style.display = 'none';
+        iframe.style.opacity = '1'; // Fade in the frame once loaded
+    }
+</script>
 </body>
 </html>
