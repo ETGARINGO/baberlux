@@ -160,7 +160,7 @@ h1{color:var(--gold);letter-spacing:4px;text-transform:uppercase}
     </iframe>
 </div>
 
-<script>
+<<script>
 const video=document.getElementById('bg-video');
 const audioStatus=document.getElementById('audio-status');
 const bookingBtn=document.getElementById('booking-btn');
@@ -178,14 +178,16 @@ document.body.addEventListener('click',()=>{
 bookingBtn.addEventListener('click',e=>{
     e.preventDefault();
     document.body.style.overflow="hidden";
-    frame.src="https://script.google.com/macros/s/AKfycbzeVWLFNnLdZmBzr3RWX4qyNMnt4sSjgZveDZ69NoRGEvtYV0PWfoSf8FOKzJziQAoCTQ/exec";
+    // Updated with your new URL
+    frame.src="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
     modal.style.display="flex";
 });
 
 function closeBooking(){
     frame.src="";
     modal.style.display="none";
-    document.body.style.overflow="hidden";
+    // Changed this to "auto" so users can scroll the main page again after closing
+    document.body.style.overflow="auto"; 
 }
 </script>
 
