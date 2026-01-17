@@ -7,89 +7,86 @@
     <style>
         :root {
             --gold: #d4af37;
-            --bg-dark: rgba(8, 8, 10, 0.98);
             --glass: rgba(20, 20, 25, 0.85);
         }
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: white; overflow: hidden;
             background-color: #000;
         }
 
         /* --- VIDEO BACKGROUND --- */
         #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
+            position: fixed; top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -1;
             transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.4);
+            object-fit: cover; filter: brightness(0.4);
         }
 
         /* Main Info Overlay */
         #main-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10;
-            padding: 20px;
-            box-sizing: border-box;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10; padding: 20px; box-sizing: border-box;
         }
 
         .container {
-            background: var(--glass); 
-            backdrop-filter: blur(15px);
+            background: var(--glass); backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            width: 100%; 
-            max-width: 380px; 
-            padding: 30px;
-            border-radius: 25px; 
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            text-align: center; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            width: 100%; max-width: 380px; padding: 30px;
+            border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.25);
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             box-sizing: border-box;
         }
 
-        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 5px 0; font-size: 1.8rem; }
-        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 5px; }
+        .tagline { font-size: 0.7rem; color: #aaa; margin-bottom: 25px; text-transform: uppercase; }
 
-        .detail-block { text-align: left; margin-bottom: 18px; font-size: 0.85rem; line-height: 1.4; }
-        .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-block { text-align: left; margin-bottom: 18px; font-size: 0.85rem; }
+        .detail-block strong { display: block; color: var(--gold); font-size: 0.65rem; text-transform: uppercase; }
 
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        
         .btn-link {
             padding: 12px; background: rgba(255,255,255,0.07); color: white; text-decoration: none;
-            border-radius: 10px; text-align: center; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s;
+            border-radius: 10px; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.1);
         }
-        .btn-link:active { background: rgba(255,255,255,0.2); transform: scale(0.95); }
 
         .btn-gold {
             display: block; width: 100%; padding: 18px; 
             background: linear-gradient(135deg, #d4af37, #b8860b);
             border: none; border-radius: 12px; color: black; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            text-decoration: none; box-sizing: border-box;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            cursor: pointer; text-transform: uppercase; text-decoration: none;
+            box-sizing: border-box; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
-        .btn-gold:active { transform: scale(0.98); }
 
-        #audio-status {
-            margin-top: 15px; font-size: 0.65rem; color: var(--gold);
-            text-transform: uppercase; letter-spacing: 1px;
-            opacity: 0.7; animation: pulse 2s infinite;
+        /* --- MODAL STYLES --- */
+        #booking-modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: 100;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
-        @keyframes pulse {
-            0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
+
+        .modal-content {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%; max-width: 500px; height: 80vh;
+            background: #111; border-radius: 20px;
+            border: 1px solid var(--gold); overflow: hidden;
         }
+
+        .close-btn {
+            position: absolute; top: 15px; right: 15px;
+            background: var(--gold); color: black; border: none;
+            border-radius: 50%; width: 30px; height: 30px;
+            font-weight: bold; cursor: pointer; z-index: 101;
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        #audio-status { margin-top: 15px; font-size: 0.65rem; color: var(--gold); text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -100,18 +97,13 @@
 
     <div id="main-overlay">
         <div class="container">
-            <div style="font-size: 3rem; margin-bottom: 5px;">👑</div>
+            <div style="font-size: 3rem;">👑</div>
             <h1>King of Fadez</h1>
             <p class="tagline">The Standard of Dasmariñas</p>
 
             <div class="detail-block">
                 <strong>📍 Location</strong>
                 Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-            </div>
-
-            <div class="detail-block">
-                <strong>📧 Contact & Support</strong>
-                Kingoffadezph@gmail.com
             </div>
 
             <div class="social-grid">
@@ -121,30 +113,42 @@
                 <a href="http://Kingoffadezph.com/" class="btn-link" target="_blank">🌐 Web</a>
             </div>
 
-            <a href="https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec" 
-               class="btn-gold" 
-               target="_blank">Proceed to Booking</a>
+            <button onclick="openBooking()" class="btn-gold">Proceed to Booking</button>
             
-            <div id="audio-status">🔊 Tap anywhere for sound</div>
+            <div id="audio-status">🔊 Tap for sound</div>
+        </div>
+    </div>
+
+    <div id="booking-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeBooking()">✕</button>
+            <iframe id="booking-frame" src=""></iframe>
         </div>
     </div>
 
 <script>
-const video = document.getElementById('bg-video');
-const audioStatus = document.getElementById('audio-status');
+    const video = document.getElementById('bg-video');
+    const modal = document.getElementById('booking-modal');
+    const iframe = document.getElementById('booking-frame');
+    const bookingUrl = "https://script.google.com/macros/s/AKfycbwvb0Rpj1HkoM4jVOUVtBt6W5m-CJdkDD1q6GI81cuVQdzWJ_QU4--Y1zJM-ssSLH1h/exec";
 
-// Audio logic: Unmutes and ensures playback continues
-document.body.addEventListener('click', function() {
-    if (video.muted) {
-        video.muted = false;
-        video.play(); // Force play on interaction
-        audioStatus.innerHTML = "🔊 Audio Active";
-        setTimeout(() => { 
-            audioStatus.style.opacity = '0';
-            setTimeout(() => { audioStatus.style.display = 'none'; }, 500);
-        }, 2000);
+    function openBooking() {
+        modal.style.display = 'block';
+        // Only load the iframe when clicked to save data/speed
+        if (!iframe.src) iframe.src = bookingUrl;
     }
-}, { once: true });
+
+    function closeBooking() {
+        modal.style.display = 'none';
+    }
+
+    // Unmute logic
+    document.body.addEventListener('click', function() {
+        if (video.muted) {
+            video.muted = false;
+            document.getElementById('audio-status').style.display = 'none';
+        }
+    }, { once: true });
 </script>
 
 </body>
