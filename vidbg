@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King of Fadez | Premium Barbershop</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --black: #0a0a0a;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial Black', sans-serif;
+            background-color: var(--black);
+            overflow: hidden;
+        }
+
+        /* Video Background Container */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4); /* Darkens video for text readability */
+        }
+
+        /* Overlay Content */
+        .overlay {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .text-overlay {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* Dynamic Text Animation */
+        .changing-text::after {
+            content: "HIGHER STANDARDS";
+            animation: textSwap 12s infinite;
+            color: var(--white);
+        }
+
+        @keyframes textSwap {
+            0%, 20% { content: "HIGHER STANDARDS"; }
+            21%, 40% { content: "HIGH-QUALITY"; }
+            41%, 60% { content: "EXCELLENCE"; }
+            61%, 80% { content: "CONSISTENCY"; }
+            81%, 100% { content: "SATISFACTION"; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .text-overlay { font-size: 1.5rem; }
+            .logo { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <video autoplay muted loop playsinline>
+            <source src="Facebook_1768651955020_1080p.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="overlay">
+        <div class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10L60 35H40L50 10Z" fill="#d4af37"/>
+                <rect x="30" y="40" width="40" height="40" stroke="#d4af37" stroke-width="2"/>
+                <text x="50" y="70" fill="#d4af37" font-size="10" text-anchor="middle">KOF</text>
+            </svg>
+        </div>
+
+        <div class="text-overlay">
+            <div style="font-size: 0.5em; color: var(--gold);">WHAT DO WE STAND FOR?</div>
+            <div class="changing-text"></div>
+        </div>
+    </div>
+
+</body>
+</html>
