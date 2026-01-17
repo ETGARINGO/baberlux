@@ -8,137 +8,95 @@
 <style>
 :root {
     --gold: #d4af37;
-    /* Ultra-transparent glass to show the video background clearly */
     --glass: rgba(10, 10, 10, 0.35);
     --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+    margin: 0; padding: 0; height: 100%; width: 100%;
     font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background: #000;
-    color: #fff;
-    overflow: hidden;
+    background: #000; color: #fff; overflow: hidden;
 }
 
-/* AUTO-FIT VIDEO LOGIC */
+/* AUTO-FIT VIDEO */
 #bg-video {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vh;
-    min-width: 100%;
-    min-height: 100%;
+    position: fixed; top: 50%; left: 50%;
+    width: 100vw; height: 100vh;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
-    object-fit: cover; /* This ensures the video fills the screen perfectly */
-    z-index: -1;
-    filter: brightness(0.75) contrast(1.1); /* High visibility for the background */
+    object-fit: cover; z-index: -1;
+    filter: brightness(0.75) contrast(1.1);
 }
 
-/* TRANSPARENT OVERLAY */
 #main-overlay {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Very light radial fade to keep the video popping */
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
     background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 20px; box-sizing: border-box;
 }
 
 .container {
     background: var(--glass);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    width: 100%;
-    max-width: 380px;
-    padding: 35px 25px;
-    border-radius: 30px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    width: 100%; max-width: 380px;
+    padding: 35px 25px; border-radius: 30px;
     border: 1px solid rgba(212, 175, 55, 0.4);
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    box-sizing: border-box;
+    text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
 
 h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin: 10px 0 5px; font-size: 1.8rem; }
 .tagline { font-size: .75rem; color: rgba(255,255,255,0.9); letter-spacing: 2px; margin-bottom: 25px; }
 
 .detail-block { text-align: left; font-size: .85rem; margin-bottom: 20px; line-height: 1.4; }
-.detail-block strong {
-    display: block; color: var(--gold);
-    font-size: .65rem; letter-spacing: 1.5px;
-    margin-bottom: 3px;
-}
+.detail-block strong { display: block; color: var(--gold); font-size: .65rem; letter-spacing: 1.5px; margin-bottom: 3px; }
 
-.social-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 25px 0;
-}
+.social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
 
 .btn-link {
-    padding: 14px;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    text-decoration: none;
-    color: #fff;
-    font-size: .8rem;
-    transition: 0.3s;
+    padding: 14px; background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    text-decoration: none; color: #fff; font-size: .8rem; transition: 0.3s;
 }
 
-.btn-link:active { background: rgba(255,255,255,0.2); }
-
 .btn-gold {
-    width: 100%;
-    padding: 20px;
-    background: var(--gold-gradient);
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 800;
-    color: #000;
-    display: block;
-    text-transform: uppercase;
+    width: 100%; padding: 20px;
+    background: var(--gold-gradient); border-radius: 16px;
+    text-decoration: none; font-weight: 800; color: #000;
+    display: block; text-transform: uppercase;
     box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-    box-sizing: border-box;
 }
 
 #audio-status { margin-top: 20px; font-size: .7rem; color: var(--gold); font-weight: bold; animation: pulse 2s infinite; }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-/* BOOKING MODAL */
+/* ADJUSTED BOOKING MODAL: Made it transparent glass */
 #booking-modal {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    z-index: 9999;
-    display: none;
-    flex-direction: column;
+    position: fixed; inset: 0;
+    /* Semi-transparent black with blur lets the video show through */
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    z-index: 9999; display: none; flex-direction: column;
 }
 
 .booking-header {
-    height: 55px;
-    background: #111;
+    height: 65px;
+    background: rgba(0,0,0,0.5);
     color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
 }
 
-.booking-header button { background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; }
-#booking-frame { width: 100%; height: calc(100% - 55px); border: none; }
+.booking-header span { text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+
+.booking-header button { 
+    background: rgba(255,255,255,0.1); border: none; 
+    color: #fff; font-size: 1.2rem; width: 35px; height: 35px;
+    border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* Make iframe transparent to show background if form is also transparent */
+#booking-frame { width: 100%; height: calc(100% - 65px); border: none; background: transparent; }
 </style>
 </head>
 
@@ -179,7 +137,7 @@ h1 { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin:
 
 <div id="booking-modal">
     <div class="booking-header">
-        <span>Booking Form</span>
+        <span>Secure Booking</span>
         <button onclick="closeBooking()">✕</button>
     </div>
     <iframe id="booking-frame" allow="camera; microphone; clipboard-read; clipboard-write" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
@@ -192,7 +150,6 @@ const bookingBtn = document.getElementById('booking-btn');
 const modal = document.getElementById('booking-modal');
 const frame = document.getElementById('booking-frame');
 
-// Enable sound on first interaction
 document.body.addEventListener('click', () => {
     if (video.muted) {
         video.muted = false;
@@ -201,7 +158,6 @@ document.body.addEventListener('click', () => {
     }
 }, {once: true});
 
-// Open Booking Modal
 bookingBtn.addEventListener('click', e => {
     e.preventDefault();
     document.body.style.overflow = "hidden";
@@ -209,7 +165,6 @@ bookingBtn.addEventListener('click', e => {
     modal.style.display = "flex";
 });
 
-// Close Booking Modal
 function closeBooking() {
     frame.src = "";
     modal.style.display = "none";
