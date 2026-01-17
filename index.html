@@ -33,9 +33,10 @@ html,body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
-    /* optional smooth transition if you want fade-in effect */
-    transition: background 0.3s ease-in-out;
+    /* subtle transparent dark gradient for readability */
+    background: radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 100%);
+    padding: 20px;
+    pointer-events: none; /* optional: lets clicks pass through overlay */
 }
 
 .container{
