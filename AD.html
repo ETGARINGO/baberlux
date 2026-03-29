@@ -10,7 +10,7 @@
             --bg-dark: #000000;
             --gold-flat: #a67c00; 
             --gold-text: #d4af37;
-            --glass: rgba(20, 20, 22, 0.8);
+            --glass: rgba(20, 20, 22, 0.7);
         }
 
         body, html { 
@@ -25,80 +25,70 @@
             min-width: 100%; min-height: 100%;
             width: auto; height: auto;
             z-index: -1; transform: translate(-50%, -50%);
-            object-fit: cover; filter: brightness(0.4);
+            object-fit: cover; filter: brightness(0.6);
         }
 
         #auth-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
-            background: rgba(0, 0, 0, 0.5); z-index: 10;
-            transition: opacity 0.4s ease;
+            background: rgba(0, 0, 0, 0.3); z-index: 10;
+            transition: opacity 0.5s ease;
         }
 
         .login-box {
-            text-align: center; padding: 40px 25px; border-radius: 24px;
-            background: var(--glass); border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            max-width: 340px; width: 85%; 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            text-align: center; padding: 45px 30px; border-radius: 24px;
+            background: var(--glass); border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            max-width: 350px; width: 88%; 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+
+        .login-box h2 {
+            color: var(--gold-text); letter-spacing: 4px; font-weight: 900;
+            margin: 10px 0 5px 0; text-transform: uppercase; font-size: 1.25rem;
+        }
+
+        .location-tag { font-size: 0.6rem; color: #888; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+
+        input[type="password"] {
+            width: 100%; padding: 18px; margin-bottom: 15px;
+            background: #000; border: 1px solid #222; border-radius: 10px;
+            color: #fff; text-align: center; font-size: 1.1rem;
+            letter-spacing: 6px; outline: none; box-sizing: border-box;
+        }
+
+        .btn-main {
+            width: 100%; padding: 16px; border: none; border-radius: 10px;
+            background: var(--gold-flat); color: #000; font-weight: 800; 
+            text-transform: uppercase; cursor: pointer; margin-bottom: 20px;
         }
 
         .btn-option {
-            width: 100%; padding: 14px; border: 1px solid #444; border-radius: 10px;
-            background: rgba(255,255,255,0.05); color: var(--gold-text); 
+            width: 100%; padding: 14px; border: 1px solid #333; border-radius: 10px;
+            background: rgba(255,255,255,0.02); color: var(--gold-text); 
             font-weight: 700; text-transform: uppercase; cursor: pointer; 
-            font-size: 0.8rem; margin-bottom: 10px; transition: 0.3s;
+            font-size: 0.8rem; margin-bottom: 10px;
         }
-        .btn-option:hover { background: rgba(212, 175, 55, 0.1); }
 
-        /* --- FLOATING FOLDER MODAL --- */
-        #folder-modal {
+        /* --- FLOATING EXIT BUTTON --- */
+        #exit-btn {
             position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 90%;
-            height: 80%;
-            max-width: 1000px;
-            background: #fff; /* White background for Google Drive clarity */
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.9);
-            z-index: 500;
-            display: none;
-            overflow: hidden;
-            transition: 0.3s ease-out;
-            border: 2px solid var(--gold-flat);
-        }
-
-        #folder-modal.active {
-            display: block;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal-header {
-            background: #f1f3f4;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .modal-header span { color: #3c4043; font-weight: bold; font-size: 0.9rem; }
-
-        .close-modal {
-            background: #ea4335;
-            color: white;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            background: var(--gold-flat);
+            color: black;
             border: none;
-            padding: 5px 15px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: none; /* Hidden until frame opens */
             cursor: pointer;
-            font-weight: bold;
-        }
-
-        #folder-frame {
-            width: 100%;
-            height: calc(100% - 45px); /* Subtract header height */
-            border: none;
+            text-transform: uppercase;
         }
 
         #secure-frame {
@@ -113,31 +103,30 @@
         <source src="IMG_1039.MOV" type="video/mp4">
     </video>
 
+    <button id="exit-btn" onclick="closeSystem()">✕ Close & Return</button>
+
     <div id="auth-overlay">
         <div class="login-box">
             <div style="font-size: 2.5rem;">👑</div>
-            <h2 style="color:var(--gold-text); letter-spacing:3px;">KING OF FADEZ</h2>
-            <div style="font-size:0.6rem; color:#888; margin-bottom:25px;">ADMIN TERMINAL</div>
+            <h2>KING OF FADEZ</h2>
+            <div class="location-tag">Dasmariñas, Cavite</div>
             
-            <input type="password" id="accessKey" style="width:100%; padding:15px; border-radius:10px; background:#000; color:#fff; border:1px solid #333; text-align:center; letter-spacing:5px; margin-bottom:15px;" placeholder="KEY" maxlength="8">
-            <button onclick="validateKey()" style="width:100%; padding:15px; background:var(--gold-flat); border:none; border-radius:10px; font-weight:800; cursor:pointer; margin-bottom:20px;">UNLOCK ADMIN</button>
+            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" autocomplete="off">
+            <button class="btn-main" onclick="validateKey()">UNLOCK ADMIN</button>
             
-            <div style="margin: 15px 0; height: 1px; background: rgba(255,255,255,0.1);"></div>
+            <div style="margin: 20px 0; height: 1px; background: rgba(255,255,255,0.1);"></div>
             
             <button class="btn-option" onclick="openViewBook()">📖 VIEW BOOK (CLIENT)</button>
             <button class="btn-option" onclick="openDTR()">⏱️ DTR PORTAL</button>
-            <button class="btn-option" style="border-color:var(--gold-flat);" onclick="toggleFolder(true)">📁 PROOF OF BOOKINGS</button>
+            <button class="btn-option" onclick="openProof()">📁 PROOF OF BOOKINGS</button>
             
-            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 10px; display: none;">INVALID KEY</p>
+            <div class="contact-footer" style="margin-top:25px; font-size:0.65rem; color:#666;">
+                <div>📧 Kingoffadezph@gmail.com</div>
+                <div>📍 Blk 4, Lot 18 Congressional Ave</div>
+            </div>
+            
+            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ADMIN KEY</p>
         </div>
-    </div>
-
-    <div id="folder-modal">
-        <div class="modal-header">
-            <span>📁 Folder: Proof of Bookings</span>
-            <button class="close-modal" onclick="toggleFolder(false)">CLOSE ✕</button>
-        </div>
-        <iframe id="folder-frame" src=""></iframe>
     </div>
 
     <iframe id="secure-frame" src=""></iframe>
@@ -147,42 +136,56 @@
         const MANAGER_KEY = "101";
 
         const URL_BOOKING  = "https://script.google.com/macros/s/AKfycbxjLrPyptwEo4qUhYOIYeptfoN0lLQo_oh_bBE3rjLXSjzunU2YnxaL-Yvmcy-BIEDeEg/exec?page=Admin";
+        const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbwr4AVfHrczlTyt_NF0PjUGEz__LYm2rTgiBe8d7-8Y4G_PX4nM2ePgUb5JnV_dFEnS5Q/exec?page=admin";
         const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
         const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
+        // YOUR GOOGLE DRIVE FOLDER (GRID VIEW)
         const URL_PROOF    = "https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid";
 
-        const modal = document.getElementById('folder-modal');
-        const folderFrame = document.getElementById('folder-frame');
-
-        function toggleFolder(show) {
-            if(show) {
-                folderFrame.src = URL_PROOF;
-                modal.classList.add('active');
-            } else {
-                modal.classList.remove('active');
-                setTimeout(() => { folderFrame.src = ""; }, 300);
-            }
-        }
+        const overlay = document.getElementById('auth-overlay');
+        const frame   = document.getElementById('secure-frame');
+        const error   = document.getElementById('error-msg');
+        const exitBtn = document.getElementById('exit-btn');
 
         function validateKey() {
             const input = document.getElementById('accessKey').value;
-            if (input === MASTER_KEY || input === MANAGER_KEY) {
+            if (input === MASTER_KEY) {
                 launchSystem(URL_BOOKING);
+            } else if (input === MANAGER_KEY) {
+                launchSystem(URL_MANAGER);
             } else {
-                document.getElementById('error-msg').style.display = "block";
+                error.style.display = "block";
+                document.getElementById('accessKey').value = "";
             }
         }
 
         function openDTR() { launchSystem(URL_DTR); }
         function openViewBook() { launchSystem(URL_VIEWBOOK); }
+        function openProof() { launchSystem(URL_PROOF); }
 
-        function launchSystem(url) {
-            const frame = document.getElementById('secure-frame');
-            frame.src = url;
-            frame.style.display = "block";
-            // Add a back button for full frames if needed, 
-            // but for now this replaces the UI as per your previous design.
+        function launchSystem(targetUrl) {
+            frame.src = targetUrl;
+            overlay.style.opacity = "0";
+            setTimeout(() => {
+                overlay.style.display = "none";
+                frame.style.display = "block";
+                exitBtn.style.display = "block"; // Show floating exit button
+            }, 500);
         }
+
+        function closeSystem() {
+            frame.style.display = "none";
+            exitBtn.style.display = "none";
+            frame.src = ""; // Clear frame to save data/memory
+            overlay.style.display = "flex";
+            setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+        }
+
+        document.getElementById("accessKey").addEventListener("keyup", e => {
+            if (e.key === "Enter") validateKey();
+        });
+
+        window.onload = () => { document.getElementById("accessKey").focus(); };
     </script>
 </body>
 </html>
