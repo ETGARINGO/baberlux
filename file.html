@@ -3,113 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROOF OF BOOKINGS</title>
+    <title>DOCUMENT REPOSITORY</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --primary-bg: #f8f9fa;
+            --container-bg: #ffffff;
+            --accent-blue: #1a73e8; /* Google Drive Blue */
+            --text-main: #202124;
+            --text-sub: #5f6368;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg-gradient);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
             margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-card {
+            width: 100%;
+            max-width: 1250px; /* Wider to help Thumbnail names display better */
+            background: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #dadce0;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px; /* Wider for better thumbnail spacing */
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            padding: 25px;
-            box-sizing: border-box;
-        }
-
-        .header {
+        .title-section h1 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin: 0;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
+            gap: 10px;
         }
 
-        .header-info h2 {
-            color: var(--primary-color);
-            margin: 0;
-            font-size: 1.6rem;
-            letter-spacing: -0.5px;
-        }
-
-        .header-info p {
-            margin: 5px 0 0 0;
+        .title-section p {
             font-size: 0.85rem;
-            color: #666;
+            color: var(--text-sub);
+            margin: 5px 0 0 0;
         }
 
-        .badge {
-            background: var(--accent-color);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 50px;
+        .status-pill {
+            background: #e8f0fe;
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        /* Improved Wrapper for Thumbnails */
-        .embed-wrapper {
+        /* Responsive Frame Wrapper */
+        .viewport {
             position: relative;
-            padding-bottom: 80%; /* Increased height to show more text/names */
+            width: 100%;
+            padding-bottom: 75%; /* High aspect ratio for grid visibility */
             height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            background: #ffffff;
+            background: #fff;
         }
 
-        .embed-wrapper iframe {
+        .viewport iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: 0;
+            border: none;
         }
 
         @media (max-width: 768px) {
-            .embed-wrapper {
-                padding-bottom: 180%; /* Extra tall for mobile grid browsing */
+            .viewport {
+                padding-bottom: 160%; /* Taller on mobile for vertical scrolling */
             }
-            .header {
+            .card-header {
                 flex-direction: column;
-                text-align: center;
-                gap: 12px;
+                align-items: flex-start;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <div class="header-info">
-                <h2>📁 Proof of Bookings</h2>
-                <p>Showing thumbnails of recent uploads</p>
+    <div class="main-card">
+        <div class="card-header">
+            <div class="title-section">
+                <h1>📁 Proof of Bookings</h1>
+                <p>Latest updates are displayed first in the grid below.</p>
             </div>
-            <span class="badge">Live View</span>
+            <div class="status-pill">LIVE SYNC ACTIVE</div>
         </div>
 
-        <div class="embed-wrapper">
+        <div class="viewport">
             <iframe 
-                src="https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm" 
+                src="https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid" 
                 allowfullscreen>
             </iframe>
         </div>
