@@ -1,15 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Documents Portal</title>
     <style>
-        .embed-container {
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* The magic happens here: Aspect ratio for the grid */
+        .embed-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 70%; /* Adjusted for Thumbnail Grid height */
             height: 0;
             overflow: hidden;
-            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #fff;
         }
-        .embed-container iframe {
+
+        .embed-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -17,14 +75,28 @@
             height: 100%;
             border: 0;
         }
+
+        @media (max-width: 600px) {
+            .embed-wrapper {
+                padding-bottom: 150%; /* Taller aspect ratio for mobile phones */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h2>Project Documents</h2>
-    <div class="embed-container">
-        <iframe src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#list" 
-                allowfullscreen></iframe>
+    <div class="container">
+        <div class="header">
+            <h2>📁 Project Documents</h2>
+            <span class="badge">LIVE REPOSITORY</span>
+        </div>
+
+        <div class="embed-wrapper">
+            <iframe 
+                src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#grid" 
+                allowfullscreen>
+            </iframe>
+        </div>
     </div>
 
 </body>
