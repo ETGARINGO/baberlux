@@ -25,9 +25,9 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             padding: 20px;
             box-sizing: border-box;
         }
@@ -36,30 +36,37 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
 
-        h2 {
+        .header-text h2 {
             color: var(--primary-color);
             margin: 0;
             font-size: 1.5rem;
         }
 
+        .header-text p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
         .badge {
             background: var(--accent-color);
             color: white;
-            padding: 5px 12px;
+            padding: 6px 15px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
-        /* The magic happens here: Aspect ratio for the grid */
         .embed-wrapper {
             position: relative;
-            padding-bottom: 70%; /* Adjusted for Thumbnail Grid height */
+            /* List view looks better with a slightly different ratio */
+            padding-bottom: 65%; 
             height: 0;
             overflow: hidden;
             border-radius: 8px;
@@ -78,7 +85,12 @@
 
         @media (max-width: 600px) {
             .embed-wrapper {
-                padding-bottom: 150%; /* Taller aspect ratio for mobile phones */
+                padding-bottom: 160%; /* Taller for mobile list scrolling */
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
     </style>
@@ -87,13 +99,16 @@
 
     <div class="container">
         <div class="header">
-            <h2>📁 Project Documents</h2>
-            <span class="badge">REPOSITORY</span>
+            <div class="header-text">
+                <h2>📁 Proof of Bookings</h2>
+                <p>Click "Last Modified" inside the window to see newest first.</p>
+            </div>
+            <span class="badge">Live Repository</span>
         </div>
 
         <div class="embed-wrapper">
             <iframe 
-                src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#grid" 
+                src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#list" 
                 allowfullscreen>
             </iframe>
         </div>
