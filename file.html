@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-gradient);
             margin: 0;
             display: flex;
@@ -24,11 +24,11 @@
 
         .container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px; /* Wider for better thumbnail spacing */
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            padding: 20px;
+            padding: 25px;
             box-sizing: border-box;
         }
 
@@ -36,42 +36,43 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
-        .header-text h2 {
+        .header-info h2 {
             color: var(--primary-color);
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
         }
 
-        .header-text p {
+        .header-info p {
             margin: 5px 0 0 0;
             font-size: 0.85rem;
-            color: #7f8c8d;
+            color: #666;
         }
 
         .badge {
             background: var(--accent-color);
             color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
+            padding: 6px 16px;
+            border-radius: 50px;
             font-size: 0.75rem;
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
+        /* Improved Wrapper for Thumbnails */
         .embed-wrapper {
             position: relative;
-            /* List view looks better with a slightly different ratio */
-            padding-bottom: 65%; 
+            padding-bottom: 80%; /* Increased height to show more text/names */
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            background: #ffffff;
         }
 
         .embed-wrapper iframe {
@@ -83,14 +84,14 @@
             border: 0;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .embed-wrapper {
-                padding-bottom: 160%; /* Taller for mobile list scrolling */
+                padding-bottom: 180%; /* Extra tall for mobile grid browsing */
             }
             .header {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                text-align: center;
+                gap: 12px;
             }
         }
     </style>
@@ -99,16 +100,16 @@
 
     <div class="container">
         <div class="header">
-            <div class="header-text">
+            <div class="header-info">
                 <h2>📁 Proof of Bookings</h2>
-                <p>Click "Last Modified" inside the window to see newest first.</p>
+                <p>Showing thumbnails of recent uploads</p>
             </div>
-            <span class="badge">Live Repository</span>
+            <span class="badge">Live View</span>
         </div>
 
         <div class="embed-wrapper">
             <iframe 
-                src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#list" 
+                src="https://drive.google.com/embeddedfolderview?id=1p5IUxHn9kNJ-GzAM2Tge-Fz0P5j9ywwN#grid" 
                 allowfullscreen>
             </iframe>
         </div>
