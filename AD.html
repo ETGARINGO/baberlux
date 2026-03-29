@@ -48,21 +48,6 @@
             margin: 10px 0 5px 0; text-transform: uppercase; font-size: 1.25rem;
         }
 
-        .location-tag { font-size: 0.6rem; color: #888; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
-
-        input[type="password"] {
-            width: 100%; padding: 18px; margin-bottom: 15px;
-            background: #000; border: 1px solid #222; border-radius: 10px;
-            color: #fff; text-align: center; font-size: 1.1rem;
-            letter-spacing: 6px; outline: none; box-sizing: border-box;
-        }
-
-        .btn-main {
-            width: 100%; padding: 16px; border: none; border-radius: 10px;
-            background: var(--gold-flat); color: #000; font-weight: 800; 
-            text-transform: uppercase; cursor: pointer; margin-bottom: 20px;
-        }
-
         .btn-option {
             width: 100%; padding: 14px; border: 1px solid #333; border-radius: 10px;
             background: rgba(255,255,255,0.02); color: var(--gold-text); 
@@ -70,30 +55,65 @@
             font-size: 0.8rem; margin-bottom: 10px;
         }
 
-        /* --- FLOATING EXIT BUTTON --- */
-        #exit-btn {
+        /* --- INSTANT FLOATING OVERLAY CSS --- */
+        #floating-container {
             position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 200;
-            background: var(--gold-flat);
-            color: black;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; height: 85%;
+            max-width: 1100px;
+            background: #fff;
+            z-index: 500;
+            border-radius: 20px;
+            border: 3px solid var(--gold-flat);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            display: none; /* Instant off */
+            overflow: hidden;
+            transition: transform 0.2s ease-out;
+        }
+
+        #floating-container.active {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .floating-header {
+            height: 40px;
+            background: #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .floating-header span { font-size: 0.7rem; color: var(--gold-text); font-weight: bold; }
+
+        .close-btn {
+            background: #ff4444;
+            color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            display: none; /* Hidden until frame opens */
+            padding: 5px 12px;
+            border-radius: 5px;
             cursor: pointer;
-            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        #proof-frame {
+            width: 100%; height: calc(100% - 40px);
+            border: none;
         }
 
         #secure-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             border: none; display: none; z-index: 100; background: white;
+        }
+
+        #exit-btn {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            z-index: 200; background: var(--gold-flat); color: black; border: none;
+            padding: 12px 25px; border-radius: 50px; font-weight: 800;
+            display: none; cursor: pointer;
         }
     </style>
 </head>
@@ -109,24 +129,31 @@
         <div class="login-box">
             <div style="font-size: 2.5rem;">👑</div>
             <h2>KING OF FADEZ</h2>
-            <div class="location-tag">Dasmariñas, Cavite</div>
+            <div class="location-tag" style="font-size: 0.6rem; color: #888; margin-bottom: 30px;">Dasmariñas, Cavite</div>
             
-            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" autocomplete="off">
-            <button class="btn-main" onclick="validateKey()">UNLOCK ADMIN</button>
+            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8">
+            <button class="btn-main" style="width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--gold-flat); color: #000; font-weight: 800; cursor: pointer; margin-bottom: 20px;" onclick="validateKey()">UNLOCK ADMIN</button>
             
             <div style="margin: 20px 0; height: 1px; background: rgba(255,255,255,0.1);"></div>
             
             <button class="btn-option" onclick="openViewBook()">📖 VIEW BOOK (CLIENT)</button>
             <button class="btn-option" onclick="openDTR()">⏱️ DTR PORTAL</button>
-            <button class="btn-option" onclick="openProof()">📁 PROOF OF BOOKINGS</button>
+            
+            <button class="btn-option" style="border-color: var(--gold-flat);" onclick="toggleFloatingProof(true)">📁 QUICK VIEW PROOF</button>
             
             <div class="contact-footer" style="margin-top:25px; font-size:0.65rem; color:#666;">
                 <div>📧 Kingoffadezph@gmail.com</div>
-                <div>📍 Blk 4, Lot 18 Congressional Ave</div>
             </div>
-            
             <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ADMIN KEY</p>
         </div>
+    </div>
+
+    <div id="floating-container">
+        <div class="floating-header">
+            <span>INSTANT VIEW: PROOF OF BOOKINGS</span>
+            <button class="close-btn" onclick="toggleFloatingProof(false)">CLOSE ✕</button>
+        </div>
+        <iframe id="proof-frame" src=""></iframe>
     </div>
 
     <iframe id="secure-frame" src=""></iframe>
@@ -139,29 +166,38 @@
         const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbwr4AVfHrczlTyt_NF0PjUGEz__LYm2rTgiBe8d7-8Y4G_PX4nM2ePgUb5JnV_dFEnS5Q/exec?page=admin";
         const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
         const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
-        // YOUR GOOGLE DRIVE FOLDER (GRID VIEW)
         const URL_PROOF    = "https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid";
 
         const overlay = document.getElementById('auth-overlay');
         const frame   = document.getElementById('secure-frame');
-        const error   = document.getElementById('error-msg');
         const exitBtn = document.getElementById('exit-btn');
+        const floatingBox = document.getElementById('floating-container');
+        const proofFrame = document.getElementById('proof-frame');
+
+        // Logic for the INSTANT FLOATING FOLDER
+        function toggleFloatingProof(show) {
+            if (show) {
+                proofFrame.src = URL_PROOF;
+                floatingBox.style.display = 'block';
+                setTimeout(() => floatingBox.classList.add('active'), 10);
+            } else {
+                floatingBox.classList.remove('active');
+                setTimeout(() => {
+                    floatingBox.style.display = 'none';
+                    proofFrame.src = ""; // Stop loading
+                }, 200);
+            }
+        }
 
         function validateKey() {
             const input = document.getElementById('accessKey').value;
-            if (input === MASTER_KEY) {
-                launchSystem(URL_BOOKING);
-            } else if (input === MANAGER_KEY) {
-                launchSystem(URL_MANAGER);
-            } else {
-                error.style.display = "block";
-                document.getElementById('accessKey').value = "";
-            }
+            if (input === MASTER_KEY) launchSystem(URL_BOOKING);
+            else if (input === MANAGER_KEY) launchSystem(URL_MANAGER);
+            else document.getElementById('error-msg').style.display = "block";
         }
 
         function openDTR() { launchSystem(URL_DTR); }
         function openViewBook() { launchSystem(URL_VIEWBOOK); }
-        function openProof() { launchSystem(URL_PROOF); }
 
         function launchSystem(targetUrl) {
             frame.src = targetUrl;
@@ -169,23 +205,21 @@
             setTimeout(() => {
                 overlay.style.display = "none";
                 frame.style.display = "block";
-                exitBtn.style.display = "block"; // Show floating exit button
+                exitBtn.style.display = "block";
             }, 500);
         }
 
         function closeSystem() {
             frame.style.display = "none";
             exitBtn.style.display = "none";
-            frame.src = ""; // Clear frame to save data/memory
+            frame.src = "";
             overlay.style.display = "flex";
-            setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+            setTimeout(() => overlay.style.opacity = "1", 10);
         }
 
         document.getElementById("accessKey").addEventListener("keyup", e => {
             if (e.key === "Enter") validateKey();
         });
-
-        window.onload = () => { document.getElementById("accessKey").focus(); };
     </script>
 </body>
 </html>
