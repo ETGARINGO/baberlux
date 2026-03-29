@@ -28,6 +28,7 @@
             object-fit: cover; filter: brightness(0.6);
         }
 
+        /* --- UI OVERLAYS --- */
         #auth-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
@@ -43,11 +44,6 @@
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
 
-        .login-box h2 {
-            color: var(--gold-text); letter-spacing: 4px; font-weight: 900;
-            margin: 10px 0 5px 0; text-transform: uppercase; font-size: 1.25rem;
-        }
-
         .btn-option {
             width: 100%; padding: 14px; border: 1px solid #333; border-radius: 10px;
             background: rgba(255,255,255,0.02); color: var(--gold-text); 
@@ -55,65 +51,50 @@
             font-size: 0.8rem; margin-bottom: 10px;
         }
 
-        /* --- INSTANT FLOATING OVERLAY CSS --- */
-        #floating-container {
+        /* --- THE INSTANT FLOATING MODAL --- */
+        #folder-modal {
             position: fixed;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 90%; height: 85%;
-            max-width: 1100px;
-            background: #fff;
-            z-index: 500;
-            border-radius: 20px;
-            border: 3px solid var(--gold-flat);
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
-            display: none; /* Instant off */
-            overflow: hidden;
-            transition: transform 0.2s ease-out;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 92%; height: 80%;
+            max-width: 1000px;
+            z-index: 1000;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid var(--gold-flat);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            display: none;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        #floating-container.active {
-            display: block;
-            transform: translate(-50%, -50%) scale(1);
+        #folder-modal.active {
+            display: block; opacity: 1; transform: translate(-50%, -50%) scale(1);
         }
 
-        .floating-header {
-            height: 40px;
-            background: #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
+        .modal-header {
+            background: #1a1a1a; padding: 10px 15px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .floating-header span { font-size: 0.7rem; color: var(--gold-text); font-weight: bold; }
-
-        .close-btn {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.7rem;
+        /* --- NAVIGATION BUTTONS (FOOTER) --- */
+        #nav-controls {
+            position: fixed; bottom: 20px; width: 100%;
+            display: none; justify-content: center; gap: 15px; z-index: 500;
         }
 
-        #proof-frame {
-            width: 100%; height: calc(100% - 40px);
-            border: none;
+        .floating-btn {
+            padding: 12px 20px; border-radius: 50px; border: none;
+            font-weight: 800; font-size: 0.7rem; cursor: pointer;
+            text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+
+        .btn-proof-toggle { background: var(--gold-flat); color: black; }
+        .btn-exit { background: #ff4444; color: white; }
 
         #secure-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             border: none; display: none; z-index: 100; background: white;
-        }
-
-        #exit-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            z-index: 200; background: var(--gold-flat); color: black; border: none;
-            padding: 12px 25px; border-radius: 50px; font-weight: 800;
-            display: none; cursor: pointer;
         }
     </style>
 </head>
@@ -123,37 +104,34 @@
         <source src="IMG_1039.MOV" type="video/mp4">
     </video>
 
-    <button id="exit-btn" onclick="closeSystem()">✕ Close & Return</button>
+    <div id="nav-controls">
+        <button class="floating-btn btn-proof-toggle" onclick="toggleProofModal()">📁 Instant Proof View</button>
+        <button class="floating-btn btn-exit" onclick="closeSystem()">✕ Close All</button>
+    </div>
 
     <div id="auth-overlay">
         <div class="login-box">
-            <div style="font-size: 2.5rem;">👑</div>
-            <h2>KING OF FADEZ</h2>
-            <div class="location-tag" style="font-size: 0.6rem; color: #888; margin-bottom: 30px;">Dasmariñas, Cavite</div>
+            <div style="font-size: 2rem;">👑</div>
+            <h2 style="color:var(--gold-text); margin:10px 0;">KING OF FADEZ</h2>
             
-            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8">
-            <button class="btn-main" style="width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--gold-flat); color: #000; font-weight: 800; cursor: pointer; margin-bottom: 20px;" onclick="validateKey()">UNLOCK ADMIN</button>
+            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" 
+                   style="width:100%; padding:15px; background:#000; color:#fff; border:1px solid #333; border-radius:10px; text-align:center; margin-bottom:15px;">
+            <button onclick="validateKey()" style="width:100%; padding:15px; background:var(--gold-flat); border:none; border-radius:10px; font-weight:800; cursor:pointer; margin-bottom:20px;">UNLOCK ADMIN</button>
             
-            <div style="margin: 20px 0; height: 1px; background: rgba(255,255,255,0.1);"></div>
+            <div style="height:1px; background:rgba(255,255,255,0.1); margin:15px 0;"></div>
             
-            <button class="btn-option" onclick="openViewBook()">📖 VIEW BOOK (CLIENT)</button>
-            <button class="btn-option" onclick="openDTR()">⏱️ DTR PORTAL</button>
-            
-            <button class="btn-option" style="border-color: var(--gold-flat);" onclick="toggleFloatingProof(true)">📁 QUICK VIEW PROOF</button>
-            
-            <div class="contact-footer" style="margin-top:25px; font-size:0.65rem; color:#666;">
-                <div>📧 Kingoffadezph@gmail.com</div>
-            </div>
-            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 15px; display: none;">INVALID ADMIN KEY</p>
+            <button class="btn-option" onclick="launchSystem('https://kingoffadezbarbershop.web247.online/')">📖 VIEW BOOK (CLIENT)</button>
+            <button class="btn-option" onclick="launchSystem('https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec')">⏱️ DTR PORTAL</button>
+            <button class="btn-option" style="border-color:var(--gold-flat);" onclick="toggleProofModal()">📁 QUICK FOLDER VIEW</button>
         </div>
     </div>
 
-    <div id="floating-container">
-        <div class="floating-header">
-            <span>INSTANT VIEW: PROOF OF BOOKINGS</span>
-            <button class="close-btn" onclick="toggleFloatingProof(false)">CLOSE ✕</button>
+    <div id="folder-modal">
+        <div class="modal-header">
+            <span style="font-size:0.7rem; color:var(--gold-text); font-weight:bold;">REPOSITORY: PROOF OF BOOKINGS</span>
+            <button onclick="toggleProofModal()" style="background:#ff4444; color:white; border:none; padding:5px 10px; border-radius:4px; font-weight:bold; cursor:pointer;">CLOSE ✕</button>
         </div>
-        <iframe id="proof-frame" src=""></iframe>
+        <iframe id="proof-frame" src="" style="width:100%; height:calc(100% - 40px); border:none;"></iframe>
     </div>
 
     <iframe id="secure-frame" src=""></iframe>
@@ -164,62 +142,51 @@
 
         const URL_BOOKING  = "https://script.google.com/macros/s/AKfycbxjLrPyptwEo4qUhYOIYeptfoN0lLQo_oh_bBE3rjLXSjzunU2YnxaL-Yvmcy-BIEDeEg/exec?page=Admin";
         const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbwr4AVfHrczlTyt_NF0PjUGEz__LYm2rTgiBe8d7-8Y4G_PX4nM2ePgUb5JnV_dFEnS5Q/exec?page=admin";
-        const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
-        const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
         const URL_PROOF    = "https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid";
 
         const overlay = document.getElementById('auth-overlay');
-        const frame   = document.getElementById('secure-frame');
-        const exitBtn = document.getElementById('exit-btn');
-        const floatingBox = document.getElementById('floating-container');
+        const mainFrame = document.getElementById('secure-frame');
+        const proofModal = document.getElementById('folder-modal');
         const proofFrame = document.getElementById('proof-frame');
-
-        // Logic for the INSTANT FLOATING FOLDER
-        function toggleFloatingProof(show) {
-            if (show) {
-                proofFrame.src = URL_PROOF;
-                floatingBox.style.display = 'block';
-                setTimeout(() => floatingBox.classList.add('active'), 10);
-            } else {
-                floatingBox.classList.remove('active');
-                setTimeout(() => {
-                    floatingBox.style.display = 'none';
-                    proofFrame.src = ""; // Stop loading
-                }, 200);
-            }
-        }
+        const navControls = document.getElementById('nav-controls');
 
         function validateKey() {
             const input = document.getElementById('accessKey').value;
             if (input === MASTER_KEY) launchSystem(URL_BOOKING);
             else if (input === MANAGER_KEY) launchSystem(URL_MANAGER);
-            else document.getElementById('error-msg').style.display = "block";
+            else alert("INVALID KEY");
         }
 
-        function openDTR() { launchSystem(URL_DTR); }
-        function openViewBook() { launchSystem(URL_VIEWBOOK); }
-
-        function launchSystem(targetUrl) {
-            frame.src = targetUrl;
+        function launchSystem(url) {
+            mainFrame.src = url;
             overlay.style.opacity = "0";
             setTimeout(() => {
                 overlay.style.display = "none";
-                frame.style.display = "block";
-                exitBtn.style.display = "block";
+                mainFrame.style.display = "block";
+                navControls.style.display = "flex";
             }, 500);
         }
 
-        function closeSystem() {
-            frame.style.display = "none";
-            exitBtn.style.display = "none";
-            frame.src = "";
-            overlay.style.display = "flex";
-            setTimeout(() => overlay.style.opacity = "1", 10);
+        // Toggle Proof folder instantly without leaving current navigation
+        function toggleProofModal() {
+            if (proofModal.classList.contains('active')) {
+                proofModal.classList.remove('active');
+                setTimeout(() => { proofModal.style.display = 'none'; }, 300);
+            } else {
+                if (!proofFrame.src) proofFrame.src = URL_PROOF; // Load only once
+                proofModal.style.display = 'block';
+                setTimeout(() => { proofModal.classList.add('active'); }, 10);
+            }
         }
 
-        document.getElementById("accessKey").addEventListener("keyup", e => {
-            if (e.key === "Enter") validateKey();
-        });
+        function closeSystem() {
+            mainFrame.style.display = "none";
+            navControls.style.display = "none";
+            mainFrame.src = "";
+            overlay.style.display = "flex";
+            setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+            if (proofModal.classList.contains('active')) toggleProofModal();
+        }
     </script>
 </body>
 </html>
