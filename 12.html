@@ -959,6 +959,7 @@
         <div class="viewer-header">
             <div class="viewer-tabs">
                 <button type="button" class="tab-btn active" data-tab="main" onclick="openInFrame('main', true)">✂️ Main</button>
+                <button type="button" class="tab-btn" id="admin-tab-btn" data-tab="admin" style="display: none;" onclick="openInFrame('admin', true)">🔐 Admin</button>
                 <button type="button" class="tab-btn" data-tab="maps" onclick="openInFrame('maps')">🗺️ Maps</button>
                 <button type="button" class="tab-btn" data-tab="tiktok" onclick="openInFrame('tiktok')">📱 TikTok</button>
                 <button type="button" class="tab-btn" data-tab="fb" onclick="openInFrame('fb')">📘 FB</button>
@@ -974,14 +975,14 @@
         <div class="iframe-stage">
             <div id="frame-loader">
                 <div class="spinner"></div>
-                <span>Loading Inside KOF...</span>
+                <span id="loader-text">Loading Inside KOF...</span>
             </div>
+            <!-- Unrestricted GAS frame permissions so Admin login, storage, printing & QR scanner run smoothly -->
             <iframe 
                 id="app-frame" 
                 src="about:blank"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads"
                 referrerpolicy="no-referrer-when-downgrade"
-                allow="geolocation; payment; clipboard-write"
+                allow="camera; microphone; geolocation; payment; clipboard-read; clipboard-write; fullscreen"
                 loading="eager">
             </iframe>
         </div>
@@ -1006,7 +1007,9 @@ const overlay = document.getElementById('inframe-overlay');
 const wrapper = document.getElementById('main-wrapper');
 const iframe = document.getElementById('app-frame');
 const loader = document.getElementById('frame-loader');
+const loaderText = document.getElementById('loader-text');
 const backBtn = document.getElementById('back-frame-btn');
+const adminTabBtn = document.getElementById('admin-tab-btn');
 const floatingBar = document.getElementById('floating-app-bar');
 const installModal = document.getElementById('install-modal');
 const iosOrb = document.getElementById('ios-assistive-orb');
@@ -1017,6 +1020,7 @@ let activeUrl = "";
 let frameHistory = [];
 let deferredInstallPrompt = null;
 let userDismissedBar = false;
+let lastAdminPromptTime = 0;
 
 /* =========================================================
    1. IPHONE / iOS ASSISTIVETOUCH FLOATING ORB LOGIC
@@ -1085,16 +1089,17 @@ let userDismissedBar = false;
 
         try { iosOrb.setPointerCapture(e.pointerId); } catch (_) {}
 
-        // Long press detection (550ms) -> triggers "Are you Admin?"
+        // Long press detection (500ms) -> triggers "Are you Admin?"
         clearTimeout(longPressTimer);
         longPressTimer = setTimeout(() => {
             if (isPointerDown && !isDragging) {
                 longPressTriggered = true;
+                clearTimeout(singleTapTimer);
                 iosOrb.classList.remove('holding');
                 if (navigator.vibrate) navigator.vibrate(40);
                 openAdminConfirm();
             }
-        }, 550);
+        }, 500);
     });
 
     iosOrb.addEventListener('pointermove', (e) => {
@@ -1141,10 +1146,9 @@ let userDismissedBar = false;
             return;
         }
 
-        // Distinguish Double-Tap vs Single-Tap
+        // Distinguish Double-Tap vs Single-Tap (420ms window for reliable mobile & desktop taps)
         const now = Date.now();
-        if (now - lastTapTime < 320) {
-            // Double-tap detected -> triggers "Are you Admin?"
+        if (now - lastTapTime < 420) {
             clearTimeout(singleTapTimer);
             lastTapTime = 0;
             if (navigator.vibrate) navigator.vibrate(35);
@@ -1154,14 +1158,21 @@ let userDismissedBar = false;
             clearTimeout(singleTapTimer);
             singleTapTimer = setTimeout(() => {
                 openIosQuickMenu();
-            }, 330);
+            }, 430);
         }
     }
 
     iosOrb.addEventListener('pointerup', handlePointerEnd);
     iosOrb.addEventListener('pointercancel', handlePointerEnd);
 
-    // Keep orb inside viewport on window resize / rotation
+    // Native double-click fallback for desktop mice/trackpads
+    iosOrb.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        clearTimeout(singleTapTimer);
+        clearTimeout(longPressTimer);
+        openAdminConfirm();
+    });
+
     window.addEventListener('resize', snapToNearestEdge);
     resetIdleTimer();
 })();
@@ -1177,6 +1188,10 @@ function closeIosQuickMenu() {
 }
 
 function openAdminConfirm() {
+    const now = Date.now();
+    if (now - lastAdminPromptTime < 400) return;
+    lastAdminPromptTime = now;
+
     closeIosQuickMenu();
     adminConfirmModal.classList.add('active');
     adminConfirmModal.setAttribute('aria-hidden', 'false');
@@ -1189,6 +1204,7 @@ function closeAdminConfirm() {
 
 function confirmAdminYes() {
     closeAdminConfirm();
+    if (adminTabBtn) adminTabBtn.style.display = 'inline-block';
     openInFrame(ADMIN_SCRIPT_URL, true);
 }
 
@@ -1300,6 +1316,7 @@ function resolveTargetUrl(routeOrUrl) {
     if (ROUTES[routeOrUrl]) return ROUTES[routeOrUrl];
     if (routeOrUrl.startsWith("?")) return `${MAIN_SCRIPT_URL}${routeOrUrl}`;
     if (routeOrUrl.startsWith("branch=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
+    if (routeOrUrl.startsWith("page=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
     return routeOrUrl;
 }
 
@@ -1311,8 +1328,13 @@ function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
     const resolvedUrl = resolveTargetUrl(routeOrUrl);
     if (!resolvedUrl) return;
 
-    const isMainBooking = resolvedUrl.startsWith(MAIN_SCRIPT_URL);
-    const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : '');
+    const isAdminRoute = routeOrUrl === 'admin' || resolvedUrl.includes('page=admin');
+    const isMainBooking = !isAdminRoute && resolvedUrl.startsWith(MAIN_SCRIPT_URL);
+    const activeTab = isAdminRoute ? 'admin' : (ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : ''));
+
+    if (isAdminRoute && adminTabBtn) {
+        adminTabBtn.style.display = 'inline-block';
+    }
 
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
@@ -1328,6 +1350,9 @@ function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
             frameHistory.push(resolvedUrl);
         }
         activeUrl = resolvedUrl;
+        if (loaderText) {
+            loaderText.textContent = isAdminRoute ? "Loading Admin Panel..." : "Loading Inside KOF...";
+        }
         loader.classList.remove('hidden');
         iframe.src = resolvedUrl;
         updateBackButton();
@@ -1433,7 +1458,7 @@ window.addEventListener('message', (event) => {
     if (!data) return;
 
     if (typeof data === 'string') {
-        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=')) {
+        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=') || data.startsWith('page=')) {
             openInFrame(data, true);
         }
     } else if (typeof data === 'object') {
@@ -1442,6 +1467,8 @@ window.addEventListener('message', (event) => {
             openInFrame(target, true);
         } else if (data.branch) {
             openInFrame(`${MAIN_SCRIPT_URL}?branch=${encodeURIComponent(data.branch)}`, true);
+        } else if (data.page) {
+            openInFrame(`${MAIN_SCRIPT_URL}?page=${encodeURIComponent(data.page)}`, true);
         }
     }
 });
