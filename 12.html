@@ -1,540 +1,666 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#080808">
-  <meta name="robots" content="noindex,nofollow">
-  <title>KING OF FADEZ | Management System</title>
-  <style>
-    :root {
-      --bg: #050505;
-      --gold: #d4af37;
-      --gold-dark: #a67c00;
-      --gold-light: #f9e6a1;
-      --white: #ffffff;
-      --muted: #999999;
-      --line: rgba(212, 175, 55, 0.25);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<meta name="robots" content="noindex,nofollow">
+<title>KING OF FADEZ | Direct Terminal</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+:root{
+ --black:#050505;
+ --gold:#d4af37;
+ --gold-dark:#98701c;
+ --gold-light:#f9e6a1;
+ --glass:rgba(10,10,10,.86);
+ --line:rgba(212,175,55,.3);
+ --red:#ff6262;
+}
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      overflow: hidden;
-      overscroll-behavior: none;
-    }
+*{box-sizing:border-box}
 
-    button {
-      font: inherit;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
+html,body{
+ width:100%;height:100%;
+ margin:0;overflow:hidden;
+ background:var(--black);
+ color:white;
+ font-family:Inter,"Segoe UI",Arial,sans-serif;
+ overscroll-behavior:none;
+}
 
-    /* BACKGROUND LAYERS */
-    .bg-fallback {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: 
-        radial-gradient(ellipse at 50% 30%, #332710 0%, transparent 55%),
-        linear-gradient(145deg, #17130a, #030303 75%);
-    }
+button{font:inherit;cursor:pointer}
 
-    #bg-video {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      filter: brightness(0.35) saturate(0.7);
-    }
+#background{
+ position:fixed;inset:0;z-index:0;
+ background:
+ radial-gradient(ellipse at 50% 35%,#392b12 0%,transparent 55%),
+ linear-gradient(145deg,#151109,#030303);
+}
 
-    #ambient {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
-    }
+#bg-video{
+ position:fixed;inset:0;
+ width:100%;height:100%;
+ object-fit:cover;
+ opacity:.28;
+ filter:brightness(.45);
+ pointer-events:none;
+}
 
-    #particles {
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: hidden;
-    }
+#ambient{
+ position:fixed;inset:0;z-index:1;
+ pointer-events:none;
+ background:linear-gradient(180deg,#0005,#000c);
+}
 
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0;
-      box-shadow: 0 0 12px var(--gold);
-      animation: floatUp linear infinite;
-    }
+#particles{
+ position:fixed;inset:0;
+ z-index:2;pointer-events:none;
+ overflow:hidden;
+}
 
-    /* ANIMATIONS */
-    @keyframes floatUp {
-      0% { transform: translateY(20px); opacity: 0; }
-      15% { opacity: 0.6; }
-      85% { opacity: 0.4; }
-      100% { transform: translateY(-110vh) translateX(35px); opacity: 0; }
-    }
+.particle{
+ position:absolute;
+ width:3px;height:3px;
+ border-radius:50%;
+ background:var(--gold);
+ box-shadow:0 0 12px var(--gold);
+ opacity:0;
+ animation:rise linear infinite;
+}
 
-    @keyframes goldPulse {
-      0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-      50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.45); }
-    }
+@keyframes rise{
+ 0%{transform:translateY(20px);opacity:0}
+ 15%{opacity:.6}
+ 85%{opacity:.35}
+ 100%{transform:translateY(-110vh) translateX(35px);opacity:0}
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+@keyframes spin{
+ to{transform:rotate(360deg)}
+}
 
-    @keyframes crownFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
+@keyframes pulse{
+ 0%,100%{box-shadow:0 0 12px #d4af3722}
+ 50%{box-shadow:0 0 30px #d4af3766}
+}
 
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(12px)}
+ to{opacity:1;transform:translateY(0)}
+}
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+@keyframes shimmer{
+ 0%{background-position:-200%}
+ 100%{background-position:200%}
+}
 
-    /* TOP HEADER */
-    .brand {
-      position: fixed;
-      top: 22px;
-      left: 25px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+/* HEADER */
 
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, #f5dc82, #98701c);
-      color: #080808;
-      font-size: 21px;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
-    }
+#header{
+ position:fixed;top:0;left:0;right:0;
+ height:62px;z-index:20;
+ display:flex;align-items:center;
+ justify-content:space-between;
+ padding:0 20px;
+ background:rgba(5,5,5,.78);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--line);
+}
 
-    .brand-name {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: var(--gold);
-    }
+.brand{
+ display:flex;align-items:center;gap:11px;
+}
 
-    .brand-sub {
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: #aaaaaa;
-      margin-top: 3px;
-    }
+.brand-icon{
+ width:36px;height:36px;
+ display:grid;place-items:center;
+ border-radius:10px;
+ color:#080808;
+ font-size:22px;
+ background:linear-gradient(145deg,#f5dc82,#98701c);
+}
 
-    .status {
-      position: fixed;
-      top: 28px;
-      right: 25px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: #cccccc;
-    }
+.brand-title{
+ color:var(--gold);
+ font-size:12px;
+ font-weight:950;
+ letter-spacing:3px;
+}
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #36d98a;
-      box-shadow: 0 0 10px #36d98a;
-    }
+.brand-sub{
+ color:#999;
+ font-size:8px;
+ letter-spacing:1.5px;
+ margin-top:4px;
+}
 
-    /* PORTAL GATEWAY */
-    #portal {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
+.connection{
+ display:flex;align-items:center;gap:8px;
+ font-size:9px;letter-spacing:1.5px;
+ color:#aaa;
+}
 
-    #portal.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+.dot{
+ width:7px;height:7px;
+ background:#35dc91;
+ border-radius:50%;
+ box-shadow:0 0 10px #35dc91;
+}
 
-    .portal-card {
-      width: 100%;
-      max-width: 410px;
-      padding: 40px 30px 32px;
-      border: 1px solid var(--line);
-      border-radius: 25px;
-      background: linear-gradient(145deg, rgba(25, 23, 17, 0.92), rgba(5, 5, 5, 0.96));
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      text-align: center;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85);
-      animation: fadeIn 0.7s ease, goldPulse 5s infinite;
-    }
+/* APPLICATION */
 
-    .crown {
-      font-size: 48px;
-      color: var(--gold);
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.4));
-      animation: crownFloat 3s ease-in-out infinite;
-    }
+#app-container{
+ position:fixed;
+ top:62px;left:0;right:0;bottom:0;
+ z-index:5;background:#fff;
+}
 
-    .portal-card h1 {
-      color: var(--gold);
-      letter-spacing: 4px;
-      font-size: 26px;
-      margin: 12px 0 6px;
-      font-weight: 900;
-    }
+#app-frame{
+ display:block;
+ width:100%;height:100%;
+ border:0;background:white;
+}
 
-    .tagline {
-      font-size: 10px;
-      color: #aaaaaa;
-      letter-spacing: 4px;
-    }
+/* FLOATING CONTROL */
 
-    .location {
-      font-size: 10px;
-      color: var(--gold-light);
-      letter-spacing: 2.5px;
-      margin: 22px 0 25px;
-    }
+#controls{
+ position:fixed;
+ top:75px;right:14px;
+ z-index:30;
+ display:flex;gap:7px;
+ padding:7px;
+ border:1px solid var(--line);
+ border-radius:30px;
+ background:rgba(5,5,5,.88);
+ backdrop-filter:blur(15px);
+ box-shadow:0 5px 20px #0008;
+ transition:opacity .3s;
+}
 
-    .action-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+.control{
+ border:0;border-radius:25px;
+ padding:10px 14px;
+ font-size:9px;font-weight:900;
+ letter-spacing:1px;
+ color:var(--gold-light);
+ background:#ffffff12;
+}
 
-    .btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-    }
+.control.gold{
+ background:linear-gradient(110deg,#98701c,#f4d979,#b68a26);
+ background-size:200%;
+ color:#080808;
+ animation:shimmer 5s linear infinite;
+}
 
-    .btn:active {
-      transform: scale(0.97);
-    }
+.control:active{transform:scale(.95)}
 
-    .btn-gold {
-      color: #090909;
-      background: linear-gradient(110deg, #98701c, #f4d979, #b68a26);
-      background-size: 200% 100%;
-      animation: shimmer 5s linear infinite;
-    }
+/* LOADING SCREEN */
 
-    .btn-gold:hover {
-      box-shadow: 0 5px 25px rgba(212, 175, 55, 0.45);
-    }
+#loading{
+ position:fixed;inset:0;
+ z-index:15;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
+ text-align:center;
+ padding:25px;
+ background:
+ radial-gradient(ellipse at 50% 40%,#251d0e,#050505 65%);
+ transition:opacity .5s,visibility .5s;
+}
 
-    .btn-outline {
-      color: var(--gold-light);
-      border-color: #5b4b25;
-      background: rgba(212, 175, 55, 0.055);
-    }
+#loading.done{
+ opacity:0;visibility:hidden;
+ pointer-events:none;
+}
 
-    .btn-outline:hover {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--gold);
-    }
+.loader{
+ width:52px;height:52px;
+ border:3px solid #ffffff15;
+ border-top-color:var(--gold);
+ border-right-color:var(--gold-light);
+ border-radius:50%;
+ animation:spin .8s linear infinite;
+ margin-bottom:25px;
+}
 
-    .divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 22px 0 16px;
-    }
+.loading-crown{
+ font-size:35px;
+ color:var(--gold);
+ margin-bottom:12px;
+}
 
-    .footer-note {
-      font-size: 9px;
-      color: #777777;
-      letter-spacing: 1.5px;
-      line-height: 1.6;
-    }
+#loading h1{
+ font-size:17px;
+ color:var(--gold);
+ letter-spacing:4px;
+ margin:0 0 10px;
+}
 
-    /* APP WORKSPACE */
-    #workspace {
-      position: fixed;
-      inset: 0;
-      z-index: 30;
-      background: #050505;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
+#loading p{
+ color:#999;
+ font-size:10px;
+ line-height:1.8;
+ letter-spacing:1px;
+ max-width:320px;
+}
 
-    #workspace.active {
-      display: block;
-      opacity: 1;
-    }
+.loading-status{
+ color:#d4af37;
+ font-size:9px;
+ letter-spacing:2px;
+ margin-top:22px;
+}
 
-    #app-frame {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #ffffff;
-    }
+.loading-line{
+ width:180px;height:2px;
+ background:#ffffff15;
+ overflow:hidden;
+ margin-top:12px;
+ border-radius:10px;
+}
 
-    /* FLOATING TOOLBAR */
-    #toolbar {
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 50px;
-      background: rgba(8, 8, 8, 0.9);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-    }
+.loading-line:after{
+ content:"";
+ display:block;
+ height:100%;width:40%;
+ background:var(--gold);
+ animation:progress 1.5s ease-in-out infinite;
+}
 
-    .tool-btn {
-      border: 0;
-      border-radius: 30px;
-      padding: 8px 14px;
-      color: var(--gold-light);
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
+@keyframes progress{
+ from{transform:translateX(-100%)}
+ to{transform:translateX(350%)}
+}
 
-    .tool-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-    }
+/* ERROR / RETRY PANEL */
 
-    .tool-btn.exit {
-      background: #351313;
-      color: #ff7777;
-    }
+#connection-error{
+ display:none;
+ position:fixed;inset:0;
+ z-index:18;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:#080808f5;
+}
 
-    .tool-btn.exit:hover {
-      background: #4d1919;
-    }
+.error-card{
+ width:100%;max-width:370px;
+ padding:28px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:#12110d;
+ text-align:center;
+ animation:fadeIn .4s ease;
+}
 
-    /* LOADING OVERLAY */
-    #loading {
-      position: absolute;
-      inset: 0;
-      z-index: 40;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background: #080808;
-      color: var(--gold);
-      text-align: center;
-    }
+.error-card h2{
+ color:var(--gold);
+ font-size:16px;
+ letter-spacing:2px;
+}
 
-    #loading.show {
-      display: flex;
-    }
+.error-card p{
+ font-size:11px;
+ color:#aaa;
+ line-height:1.8;
+}
 
-    .loader {
-      width: 42px;
-      height: 42px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-bottom: 18px;
-    }
+.error-actions{
+ display:flex;gap:10px;
+ margin-top:20px;
+}
 
-    #loading h3 {
-      font-size: 12px;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-    }
+.error-actions button{
+ flex:1;padding:13px 8px;
+ border-radius:9px;border:0;
+ font-size:10px;font-weight:900;
+}
 
-    #loading p {
-      color: #888888;
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
+.retry{
+ background:var(--gold);
+ color:#080808;
+}
 
-    /* MOBILE ADJUSTMENTS */
-    @media (max-width: 600px) {
-      .brand { top: 16px; left: 16px; }
-      .status { top: 24px; right: 16px; font-size: 8px; }
-      .portal-card { padding: 34px 22px 26px; }
-      .portal-card h1 { font-size: 22px; }
-      #toolbar {
-        top: auto;
-        bottom: 14px;
-        width: calc(100% - 24px);
-        justify-content: center;
-      }
-      .tool-btn { flex: 1; text-align: center; padding: 10px; }
-    }
+.dismiss{
+ background:#282828;color:white;
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+/* FOOTER */
+
+#footer{
+ position:fixed;
+ bottom:0;left:0;right:0;
+ z-index:10;
+ height:22px;
+ pointer-events:none;
+ background:linear-gradient(transparent,#0008);
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+ #header{height:55px;padding:0 12px}
+ .brand-title{font-size:10px;letter-spacing:2px}
+ .brand-sub{font-size:7px}
+ .brand-icon{width:32px;height:32px}
+ .connection{font-size:8px}
+ #app-container{top:55px}
+ #controls{
+  top:auto;right:10px;bottom:28px;
+ }
+ .control{padding:11px 13px}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation-duration:.01ms!important;
+  transition-duration:.01ms!important;
+ }
+}
+</style>
 </head>
+
 <body>
 
-  <!-- AMBIENT BACKGROUND -->
-  <div class="bg-fallback"></div>
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="IMG_1039.MOV" type="video/quicktime">
-    <source src="IMG_1039.MOV" type="video/mp4">
-  </video>
-  <div id="ambient"></div>
-  <div id="particles"></div>
+<div id="background"></div>
 
-  <!-- HEADER -->
-  <div class="brand">
-    <div class="brand-icon">♛</div>
-    <div>
-      <div class="brand-name">KING OF FADEZ</div>
-      <div class="brand-sub">PREMIUM MANAGEMENT SYSTEM</div>
-    </div>
+<video id="bg-video" autoplay muted loop playsinline>
+ <source src="IMG_1039.MOV" type="video/quicktime">
+ <source src="IMG_1039.MOV" type="video/mp4">
+</video>
+
+<div id="ambient"></div>
+<div id="particles"></div>
+
+<!-- HEADER -->
+<header id="header">
+ <div class="brand">
+  <div class="brand-icon">♛</div>
+  <div>
+   <div class="brand-title">KING OF FADEZ</div>
+   <div class="brand-sub">MANAGEMENT TERMINAL</div>
   </div>
+ </div>
 
-  <div class="status">
-    <span class="status-dot"></span>
-    <span>SYSTEM ONLINE</span>
+ <div class="connection">
+  <span class="dot"></span>
+  <span id="network-status">CONNECTING</span>
+ </div>
+</header>
+
+<!-- DIRECT APPLICATION -->
+<main id="app-container">
+ <iframe
+  id="app-frame"
+  title="King of Fadez Management Application"
+  src="about:blank"
+  allow="fullscreen; clipboard-read; clipboard-write"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin">
+ </iframe>
+</main>
+
+<!-- FLOATING CONTROLS -->
+<div id="controls">
+ <button class="control" onclick="refreshApp()">↻ REFRESH</button>
+ <button class="control gold" onclick="toggleControls()">♛ KOF</button>
+</div>
+
+<!-- LOADING -->
+<section id="loading">
+ <div class="loading-crown">♛</div>
+ <div class="loader"></div>
+ <h1>KING OF FADEZ</h1>
+ <p>INITIALIZING MANAGEMENT SYSTEM</p>
+ <div class="loading-status" id="loading-status">
+  ESTABLISHING CONNECTION...
+ </div>
+ <div class="loading-line"></div>
+</section>
+
+<!-- CONNECTION WARNING -->
+<section id="connection-error">
+ <div class="error-card">
+  <div style="font-size:35px">⚠️</div>
+  <h2>CONNECTION DELAY</h2>
+  <p id="error-message">
+   The application is taking longer than expected.
+   It may be processing a redirect or loading external resources.
+  </p>
+  <div class="error-actions">
+   <button class="retry" onclick="refreshApp()">RETRY</button>
+   <button class="dismiss" onclick="hideError()">CONTINUE WAITING</button>
   </div>
+ </div>
+</section>
 
-  <!-- MAIN LANDING CARD -->
-  <main id="portal">
-    <div class="portal-card">
-      <div class="crown">♛</div>
-      <h1>KING OF FADEZ</h1>
-      <div class="tagline">BARBERSHOP MANAGEMENT</div>
-      <div class="location">DASMARIÑAS • CAVITE</div>
+<div id="footer"></div>
 
-      <div class="action-group">
-        <button class="btn btn-gold" onclick="launchInApp()">LAUNCH EMBEDDED VIEW</button>
-        <button class="btn btn-outline" onclick="launchTab()">OPEN IN NEW TAB (RECOMMENDED)</button>
-      </div>
+<script>
+"use strict";
 
-      <div class="divider"></div>
-      <div class="footer-note">AUTHORIZED BARBERSHOP OPERATIONS PORTAL</div>
-    </div>
-  </main>
+/* =========================================
+   KOF DIRECT OPEN CONFIGURATION
+========================================= */
 
-  <!-- WORKSPACE CONTAINER -->
-  <section id="workspace">
-    <div id="toolbar">
-      <button class="tool-btn" onclick="reloadApp()">↻ REFRESH</button>
-      <button class="tool-btn" onclick="launchTab()">↗ OPEN TAB</button>
-      <button class="tool-btn exit" onclick="closeApp()">✕ HOME</button>
-    </div>
+// Use the latest application URL supplied
+// in your uploaded HTML.
 
-    <div id="loading">
-      <div class="loader"></div>
-      <h3>CONNECTING TO SYSTEM</h3>
-      <p>Please wait while the workspace loads...</p>
-    </div>
+const APP_URL =
+ "https://script.google.com/macros/s/AKfycbwN1heg3YsO0MjPt58M7H_QBbnnR6fjxMTMhahHzjMdLimwo2ZfCjGby_mHlPGBvBGI/exec";
 
-    <iframe id="app-frame" title="King of Fadez System"></iframe>
-  </section>
+// Automatic loading timeout.
+// This is only a warning, not an iframe error detector.
+const WARNING_DELAY = 20000;
 
-  <script>
-    const APP_URL = "https://script.google.com/macros/s/AKfycbwN1heg3YsO0MjPt58M7H_QBbnnR6fjxMTMhahHzjMdLimwo2ZfCjGby_mHlPGBvBGI/exec";
+const frame = document.getElementById("app-frame");
+const loading = document.getElementById("loading");
+const errorPanel = document.getElementById("connection-error");
+const statusText = document.getElementById("network-status");
+const loadingStatus = document.getElementById("loading-status");
 
-    const portal = document.getElementById('portal');
-    const workspace = document.getElementById('workspace');
-    const frame = document.getElementById('app-frame');
-    const loading = document.getElementById('loading');
+let warningTimer = null;
+let loadTimer = null;
+let loaded = false;
+let controlsVisible = true;
 
-    // Generate ambient gold particles
-    function initParticles() {
-      const container = document.getElementById('particles');
-      for (let i = 0; i < 22; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.bottom = -(Math.random() * 20) + 'vh';
-        p.style.animationDuration = (8 + Math.random() * 10) + 's';
-        p.style.animationDelay = (Math.random() * 8) + 's';
-        container.appendChild(p);
-      }
-    }
+/* =========================================
+   PARTICLES
+========================================= */
 
-    function launchInApp() {
-      portal.classList.add('hidden');
-      workspace.classList.add('active');
-      loading.classList.add('show');
-      
-      frame.src = APP_URL;
-      frame.onload = () => {
-        loading.classList.remove('show');
-      };
-    }
+(function initParticles(){
 
-    function launchTab() {
-      window.open(APP_URL, '_blank');
-    }
+ const container = document.getElementById("particles");
 
-    function reloadApp() {
-      loading.classList.add('show');
-      frame.src = APP_URL;
-    }
+ for(let i=0;i<22;i++){
 
-    function closeApp() {
-      workspace.classList.remove('active');
-      portal.classList.remove('hidden');
-      setTimeout(() => {
-        frame.src = 'about:blank';
-      }, 400);
-    }
+  const particle = document.createElement("div");
 
-    initParticles();
-  </script>
+  particle.className = "particle";
+
+  particle.style.left =
+   Math.random()*100+"%";
+
+  particle.style.bottom =
+   Math.random()*-20+"vh";
+
+  particle.style.animationDuration =
+   (8+Math.random()*12)+"s";
+
+  particle.style.animationDelay =
+   Math.random()*10+"s";
+
+  container.appendChild(particle);
+ }
+
+})();
+
+/* =========================================
+   AUTOMATIC DIRECT OPEN
+========================================= */
+
+function directOpen(){
+
+ loaded = false;
+
+ clearTimeout(warningTimer);
+ clearTimeout(loadTimer);
+
+ loading.classList.remove("done");
+
+ errorPanel.style.display = "none";
+
+ loadingStatus.textContent =
+  "CONNECTING TO MANAGEMENT SERVER...";
+
+ statusText.textContent = "CONNECTING";
+
+ // Directly load the application in the iframe.
+ // No login, no launch screen, no new browser tab.
+
+ frame.src = APP_URL;
+
+ // Show a warning if loading takes too long.
+ warningTimer = setTimeout(()=>{
+
+  if(!loaded){
+
+   loadingStatus.textContent =
+    "WAITING FOR APPLICATION RESPONSE...";
+
+   errorPanel.style.display = "flex";
+
+  }
+
+ },WARNING_DELAY);
+
+}
+
+/* =========================================
+   IFRAME LOAD EVENT
+========================================= */
+
+frame.addEventListener("load",()=>{
+
+ // An iframe load event does not guarantee
+ // the remote app rendered successfully.
+ loaded = true;
+
+ clearTimeout(warningTimer);
+ clearTimeout(loadTimer);
+
+ loading.classList.add("done");
+
+ errorPanel.style.display = "none";
+
+ statusText.textContent =
+  navigator.onLine ? "SYSTEM CONNECTED" : "OFFLINE";
+
+});
+
+/* =========================================
+   REFRESH
+========================================= */
+
+function refreshApp(){
+
+ errorPanel.style.display = "none";
+
+ loading.classList.remove("done");
+
+ loadingStatus.textContent =
+  "RECONNECTING TO SYSTEM...";
+
+ statusText.textContent = "RECONNECTING";
+
+ // Reopen the same URL inside the same iframe.
+ frame.src = "about:blank";
+
+ clearTimeout(loadTimer);
+
+ loadTimer = setTimeout(()=>{
+  frame.src = APP_URL;
+ },100);
+
+ loaded = false;
+
+ clearTimeout(warningTimer);
+
+ warningTimer = setTimeout(()=>{
+
+  if(!loaded){
+   errorPanel.style.display = "flex";
+  }
+
+ },WARNING_DELAY+100);
+
+}
+
+/* =========================================
+   CONTINUE WAITING
+========================================= */
+
+function hideError(){
+
+ errorPanel.style.display = "none";
+
+ loadingStatus.textContent =
+  "STILL CONNECTING...";
+
+}
+
+/* =========================================
+   MINIMAL FLOATING CONTROLS
+========================================= */
+
+function toggleControls(){
+
+ controlsVisible = !controlsVisible;
+
+ document.getElementById("controls").style.opacity =
+  controlsVisible ? "1" : ".18";
+
+ document.getElementById("controls").style.transform =
+  controlsVisible ? "scale(1)" : "scale(.85)";
+
+}
+
+/* =========================================
+   NETWORK STATUS
+========================================= */
+
+window.addEventListener("online",()=>{
+
+ statusText.textContent = "NETWORK ONLINE";
+
+});
+
+window.addEventListener("offline",()=>{
+
+ statusText.textContent = "NETWORK OFFLINE";
+
+ loadingStatus.textContent =
+  "CHECK YOUR INTERNET CONNECTION";
+
+});
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+ directOpen();
+
+});
+
+</script>
+
 </body>
 </html>
