@@ -4,10 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KOF | Home</title>
-    
+
+    <!-- PWA / Home Screen App Meta Tags (All Devices: iOS, Android, Windows, macOS) -->
+    <meta name="application-name" content="King of Fadez">
+    <meta name="apple-mobile-web-app-title" content="King of Fadez">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0b0b0e">
+    <meta name="msapplication-TileColor" content="#0b0b0e">
+
+    <link id="dynamic-favicon" rel="icon" type="image/png">
+    <link id="dynamic-apple-icon" rel="apple-touch-icon">
+    <link id="dynamic-manifest" rel="manifest">
+
     <link rel="preconnect" href="https://script.google.com">
     <link rel="preconnect" href="https://script.googleusercontent.com">
     <link rel="preconnect" href="https://www.google.com">
+
+    <script>
+    // Self-Contained Dynamic App Icon & Web App Manifest Generator (HTML-Only PWA)
+    (function initSingleFilePWA() {
+        function createCrownIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            const bgGrad = ctx.createLinearGradient(0, 0, size, size);
+            bgGrad.addColorStop(0, '#18181f');
+            bgGrad.addColorStop(1, '#050507');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, size, size);
+
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = size * 0.03;
+            ctx.strokeRect(size * 0.05, size * 0.05, size * 0.9, size * 0.9);
+
+            ctx.font = `${Math.floor(size * 0.46)}px "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('👑', size / 2, size * 0.44);
+
+            ctx.fillStyle = '#d4af37';
+            ctx.font = `800 ${Math.floor(size * 0.13)}px "Segoe UI", Arial, sans-serif`;
+            ctx.fillText('KOF', size / 2, size * 0.77);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        try {
+            const icon192 = createCrownIcon(192);
+            const icon512 = createCrownIcon(512);
+
+            document.getElementById('dynamic-favicon').href = icon192;
+            document.getElementById('dynamic-apple-icon').href = icon512;
+
+            const manifestObj = {
+                name: "King of Fadez",
+                short_name: "KOF",
+                description: "King of Fadez — The Standard of Dasmariñas",
+                start_url: window.location.href,
+                scope: window.location.origin + "/",
+                display: "standalone",
+                orientation: "portrait",
+                background_color: "#000000",
+                theme_color: "#0b0b0e",
+                icons: [
+                    { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+                    { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+                ]
+            };
+
+            const manifestUri = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifestObj));
+            document.getElementById('dynamic-manifest').setAttribute('href', manifestUri);
+        } catch (_) {}
+    })();
+    </script>
 
     <style>
         :root {
@@ -27,7 +100,7 @@
             padding: 0;
             height: 100%;
             height: 100dvh;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: white;
             overflow: hidden;
             background-color: #000;
@@ -139,6 +212,474 @@
             transform: scale(0.98);
         }
 
+        /* --- IPHONE / iOS STYLE ASSISTIVETOUCH FLOATING ORB --- */
+        #ios-assistive-orb {
+            position: fixed;
+            top: 22%;
+            right: 14px;
+            width: 58px;
+            height: 58px;
+            border-radius: 17px;
+            background: rgba(28, 28, 32, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            z-index: 120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            opacity: 0.88;
+            transition: opacity 0.35s ease, transform 0.18s ease, box-shadow 0.25s ease;
+        }
+
+        #ios-assistive-orb.idle {
+            opacity: 0.45;
+        }
+
+        #ios-assistive-orb:hover {
+            opacity: 1;
+        }
+
+        #ios-assistive-orb.holding {
+            transform: scale(1.12);
+            opacity: 1;
+            border-color: var(--gold);
+            box-shadow: 0 0 24px rgba(212, 175, 55, 0.65), 0 10px 28px rgba(0, 0, 0, 0.85);
+        }
+
+        #ios-assistive-orb.snapping {
+            transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, transform 0.18s ease;
+        }
+
+        /* Nested iOS Concentric Rings */
+        .ios-ring-outer {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .ios-ring-mid {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .ios-ring-inner {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff, #e6d598);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+        }
+
+        /* iOS AssistiveTouch Quick Menu (Single Tap) */
+        #ios-quick-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 130;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
+
+        #ios-quick-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .ios-menu-box {
+            width: 250px;
+            background: rgba(28, 28, 32, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 28px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+            transform: scale(0.9);
+            transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
+
+        #ios-quick-menu.active .ios-menu-box {
+            transform: scale(1);
+        }
+
+        .ios-menu-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 12px 8px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .ios-menu-item:active {
+            transform: scale(0.94);
+            background: rgba(212, 175, 55, 0.22);
+        }
+
+        .ios-menu-icon {
+            font-size: 1.4rem;
+        }
+
+        .ios-menu-hint {
+            grid-column: 1 / -1;
+            font-size: 0.65rem;
+            color: #aaa;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        /* --- iOS ALERT DIALOG ("ARE YOU ADMIN?") --- */
+        #admin-confirm-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        #admin-confirm-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .ios-alert-box {
+            width: 100%;
+            max-width: 290px;
+            background: rgba(34, 34, 38, 0.94);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.92);
+            transform: scale(1.06);
+            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        #admin-confirm-modal.active .ios-alert-box {
+            transform: scale(1);
+        }
+
+        .ios-alert-body {
+            padding: 20px 18px 18px 18px;
+        }
+
+        .ios-alert-icon {
+            font-size: 1.9rem;
+            margin-bottom: 6px;
+        }
+
+        .ios-alert-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 6px 0;
+        }
+
+        .ios-alert-desc {
+            font-size: 0.78rem;
+            color: #ccc;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .ios-alert-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .ios-alert-btn {
+            background: transparent;
+            border: none;
+            padding: 13px 10px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .ios-alert-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ios-alert-btn.no {
+            color: #ff5e57;
+            font-weight: 500;
+            border-right: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .ios-alert-btn.yes {
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        /* --- FLOATING DOWNLOADABLE APP BAR (ALL DEVICES) --- */
+        #floating-app-bar {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 15, 20, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid var(--gold);
+            border-radius: 999px;
+            padding: 8px 12px 8px 14px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 18px rgba(212, 175, 55, 0.22);
+            width: max-content;
+            max-width: calc(100vw - 24px);
+            animation: floatPulse 3s ease-in-out infinite;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #floating-app-bar.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 20px);
+        }
+
+        @keyframes floatPulse {
+            0%, 100% { box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 14px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 24px rgba(212, 175, 55, 0.45); }
+        }
+
+        .app-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .app-bar-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #000;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .app-bar-text {
+            line-height: 1.15;
+        }
+
+        .app-bar-title {
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .app-bar-sub {
+            font-size: 0.64rem;
+            color: #bbb;
+        }
+
+        .btn-install-now {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-install-now:active {
+            transform: scale(0.96);
+        }
+
+        .btn-dismiss-app {
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            line-height: 1;
+        }
+
+        .btn-dismiss-app:hover {
+            color: #fff;
+        }
+
+        /* --- UNIVERSAL DEVICE INSTALL MODAL --- */
+        #install-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 140;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        #install-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media (min-width: 520px) {
+            #install-modal {
+                align-items: center;
+            }
+        }
+
+        .install-card {
+            background: #141419;
+            border: 1.5px solid var(--gold);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px 22px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            position: relative;
+        }
+
+        .install-card h2 {
+            color: var(--gold);
+            font-size: 1.15rem;
+            margin: 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .install-card p {
+            color: #ccc;
+            font-size: 0.8rem;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+        }
+
+        .install-steps {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: #eee;
+        }
+
+        .install-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-badge {
+            background: var(--gold-gradient);
+            color: #000;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            flex-shrink: 0;
+        }
+
+        .install-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-copy-link {
+            flex: 1;
+            padding: 12px;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.76rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-close-install {
+            flex: 1;
+            padding: 12px;
+            background: var(--gold-gradient);
+            border: none;
+            color: #000;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.76rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
         /* --- PERSISTENT IN-PAGE IFRAME VIEWER --- */
         #inframe-overlay {
             position: fixed;
@@ -175,7 +716,6 @@
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
         }
 
-        /* --- TOP NAVIGATION BAR INSIDE VIEWER --- */
         .viewer-header {
             display: flex;
             align-items: center;
@@ -265,7 +805,6 @@
             background: #fff;
         }
 
-        /* --- LOADING SPINNER --- */
         #frame-loader {
             position: absolute;
             inset: 0;
@@ -340,6 +879,80 @@
     </div>
 </div>
 
+<!-- IPHONE / iOS ASSISTIVETOUCH FLOATING ORB (DRAGGABLE + EDGE SNAP + DOUBLE TAP / LONG PRESS ADMIN) -->
+<div id="ios-assistive-orb" role="button" tabindex="0" aria-label="KOF Quick Assistive Button">
+    <div class="ios-ring-outer">
+        <div class="ios-ring-mid">
+            <div class="ios-ring-inner"></div>
+        </div>
+    </div>
+</div>
+
+<!-- iOS ASSISTIVETOUCH QUICK MENU (OPENS ON SINGLE TAP) -->
+<div id="ios-quick-menu" aria-hidden="true" onclick="if(event.target===this) closeIosQuickMenu()">
+    <div class="ios-menu-box">
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('main', true);">
+            <span class="ios-menu-icon">✂️</span>
+            <span>Book Now</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); triggerInstallApp();">
+            <span class="ios-menu-icon">📲</span>
+            <span>Install App</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('maps');">
+            <span class="ios-menu-icon">🗺️</span>
+            <span>Location</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); closeInFrame();">
+            <span class="ios-menu-icon">🏠</span>
+            <span>Home</span>
+        </button>
+        <div class="ios-menu-hint">Double-tap or hold orb for Admin</div>
+    </div>
+</div>
+
+<!-- iOS ADMIN CONFIRMATION MODAL ("ARE YOU ADMIN?") -->
+<div id="admin-confirm-modal" aria-hidden="true" onclick="if(event.target===this) closeAdminConfirm()">
+    <div class="ios-alert-box" role="dialog" aria-modal="true" aria-labelledby="admin-alert-title">
+        <div class="ios-alert-body">
+            <div class="ios-alert-icon">🔐</div>
+            <h3 class="ios-alert-title" id="admin-alert-title">Are you Admin?</h3>
+            <p class="ios-alert-desc">Select Yes to open the King of Fadez Admin Panel in-frame.</p>
+        </div>
+        <div class="ios-alert-actions">
+            <button type="button" class="ios-alert-btn no" onclick="closeAdminConfirm()">No</button>
+            <button type="button" class="ios-alert-btn yes" onclick="confirmAdminYes()">Yes</button>
+        </div>
+    </div>
+</div>
+
+<!-- FLOATING ADD-TO-HOME-SCREEN APP BAR (ALL DEVICES) -->
+<div id="floating-app-bar" role="region" aria-label="Install King of Fadez App">
+    <div class="app-bar-info">
+        <div class="app-bar-icon">👑</div>
+        <div class="app-bar-text">
+            <div class="app-bar-title">KOF Booking App</div>
+            <div class="app-bar-sub" id="app-bar-subtitle">Add to Home Screen</div>
+        </div>
+    </div>
+    <button type="button" class="btn-install-now" onclick="triggerInstallApp()">📲 Install</button>
+    <button type="button" class="btn-dismiss-app" title="Hide" onclick="dismissFloatingBar()">✕</button>
+</div>
+
+<!-- UNIVERSAL DEVICE INSTALL GUIDE MODAL (iOS / ANDROID / DESKTOP / IN-APP BROWSERS) -->
+<div id="install-modal" aria-hidden="true" onclick="if(event.target===this) closeInstallModal()">
+    <div class="install-card">
+        <div style="font-size: 2.4rem;">👑</div>
+        <h2>Add KOF to Home Screen</h2>
+        <p id="install-device-desc">Install the King of Fadez app on your device for instant one-tap booking.</p>
+        <div class="install-steps" id="install-steps-list"></div>
+        <div class="install-actions">
+            <button type="button" class="btn-copy-link" id="copy-url-btn" onclick="copyAppUrl()">🔗 Copy Link</button>
+            <button type="button" class="btn-close-install" onclick="closeInstallModal()">Got It</button>
+        </div>
+    </div>
+</div>
+
 <!-- PERSISTENT IN-FRAME VIEWER (ALWAYS ON PAGE / ZERO DNS EXIT / ZERO REDIRECTS) -->
 <div id="inframe-overlay" aria-hidden="true">
     <div class="viewer-shell">
@@ -353,7 +966,7 @@
             </div>
             <div class="viewer-actions">
                 <button type="button" id="back-frame-btn" class="icon-btn" title="Previous sub-page" onclick="goBackInFrame()" disabled>←</button>
-                <button type="button" class="icon-btn" title="Reload frame" onclick="reloadFrame()">↻</button>
+                <button type="button" class="icon-btn" title="Reload current frame" onclick="reloadFrame()">↻</button>
                 <button type="button" class="icon-btn" title="Back to Home" onclick="closeInFrame()">✕</button>
             </div>
         </div>
@@ -363,12 +976,6 @@
                 <div class="spinner"></div>
                 <span>Loading Inside KOF...</span>
             </div>
-            <!--
-                STRICT ANTI-ESCAPE SANDBOX:
-                - Allows scripts, same-origin, forms, modals, and downloads inside the iframe.
-                - Blocks top-level navigation (`allow-top-navigation` omitted) so sub-buttons NEVER exit your DNS.
-                - Blocks external tab popups (`allow-popups` omitted) so sub-buttons NEVER open outside tabs.
-            -->
             <iframe 
                 id="app-frame" 
                 src="about:blank"
@@ -382,10 +989,12 @@
 </div>
 
 <script>
-const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
+const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTLkCi-QOaJ4fUuD-gbj2_7-JD1kkTpLUbJYsUrThMw4NKzY1Ojsle-6Z0-_QN9GE9/exec";
+const ADMIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec?page=admin";
 
 const ROUTES = {
     main: MAIN_SCRIPT_URL,
+    admin: ADMIN_SCRIPT_URL,
     maps: "https://www.google.com/maps?q=King+Of+Fadez+Dasmariñas&output=embed",
     tiktok: "https://www.tiktok.com/embed/@kingoffadez.ph",
     fb: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1NQfs6Fcer%2F&show_text=true&width=500",
@@ -398,11 +1007,294 @@ const wrapper = document.getElementById('main-wrapper');
 const iframe = document.getElementById('app-frame');
 const loader = document.getElementById('frame-loader');
 const backBtn = document.getElementById('back-frame-btn');
+const floatingBar = document.getElementById('floating-app-bar');
+const installModal = document.getElementById('install-modal');
+const iosOrb = document.getElementById('ios-assistive-orb');
+const iosQuickMenu = document.getElementById('ios-quick-menu');
+const adminConfirmModal = document.getElementById('admin-confirm-modal');
 
 let activeUrl = "";
 let frameHistory = [];
+let deferredInstallPrompt = null;
+let userDismissedBar = false;
 
-// Resolves route names, full URLs, or sub-page query strings (?branch=...) into a valid in-frame URL
+/* =========================================================
+   1. IPHONE / iOS ASSISTIVETOUCH FLOATING ORB LOGIC
+      (Draggable, Edge-Snapping, Double-Tap & Long-Press Admin)
+   ========================================================= */
+(function setupIosAssistiveOrb() {
+    let isPointerDown = false;
+    let isDragging = false;
+    let longPressTriggered = false;
+    let startX = 0;
+    let startY = 0;
+    let initialLeft = 0;
+    let initialTop = 0;
+    let longPressTimer = null;
+    let singleTapTimer = null;
+    let idleTimer = null;
+    let lastTapTime = 0;
+
+    function resetIdleTimer() {
+        iosOrb.classList.remove('idle');
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            if (!isPointerDown) iosOrb.classList.add('idle');
+        }, 3200);
+    }
+
+    function snapToNearestEdge() {
+        const rect = iosOrb.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 12;
+
+        const centerX = rect.left + rect.width / 2;
+        const targetLeft = centerX < vw / 2 ? margin : (vw - rect.width - margin);
+        const clampedTop = Math.max(margin, Math.min(vh - rect.height - margin, rect.top));
+
+        iosOrb.classList.add('snapping');
+        iosOrb.style.right = 'auto';
+        iosOrb.style.left = `${targetLeft}px`;
+        iosOrb.style.top = `${clampedTop}px`;
+
+        setTimeout(() => {
+            iosOrb.classList.remove('snapping');
+        }, 350);
+    }
+
+    iosOrb.addEventListener('pointerdown', (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+
+        isPointerDown = true;
+        isDragging = false;
+        longPressTriggered = false;
+        resetIdleTimer();
+
+        const rect = iosOrb.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = rect.left;
+        initialTop = rect.top;
+
+        iosOrb.style.right = 'auto';
+        iosOrb.style.left = `${initialLeft}px`;
+        iosOrb.style.top = `${initialTop}px`;
+        iosOrb.classList.remove('snapping');
+        iosOrb.classList.add('holding');
+
+        try { iosOrb.setPointerCapture(e.pointerId); } catch (_) {}
+
+        // Long press detection (550ms) -> triggers "Are you Admin?"
+        clearTimeout(longPressTimer);
+        longPressTimer = setTimeout(() => {
+            if (isPointerDown && !isDragging) {
+                longPressTriggered = true;
+                iosOrb.classList.remove('holding');
+                if (navigator.vibrate) navigator.vibrate(40);
+                openAdminConfirm();
+            }
+        }, 550);
+    });
+
+    iosOrb.addEventListener('pointermove', (e) => {
+        if (!isPointerDown) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!isDragging && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+            isDragging = true;
+            clearTimeout(longPressTimer);
+            iosOrb.classList.remove('holding');
+        }
+
+        if (isDragging) {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const w = iosOrb.offsetWidth;
+            const h = iosOrb.offsetHeight;
+
+            const nextLeft = Math.max(6, Math.min(vw - w - 6, initialLeft + dx));
+            const nextTop = Math.max(6, Math.min(vh - h - 6, initialTop + dy));
+
+            iosOrb.style.left = `${nextLeft}px`;
+            iosOrb.style.top = `${nextTop}px`;
+        }
+    });
+
+    function handlePointerEnd(e) {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        clearTimeout(longPressTimer);
+        iosOrb.classList.remove('holding');
+        resetIdleTimer();
+
+        try { iosOrb.releasePointerCapture(e.pointerId); } catch (_) {}
+
+        if (isDragging) {
+            snapToNearestEdge();
+            return;
+        }
+
+        if (longPressTriggered) {
+            return;
+        }
+
+        // Distinguish Double-Tap vs Single-Tap
+        const now = Date.now();
+        if (now - lastTapTime < 320) {
+            // Double-tap detected -> triggers "Are you Admin?"
+            clearTimeout(singleTapTimer);
+            lastTapTime = 0;
+            if (navigator.vibrate) navigator.vibrate(35);
+            openAdminConfirm();
+        } else {
+            lastTapTime = now;
+            clearTimeout(singleTapTimer);
+            singleTapTimer = setTimeout(() => {
+                openIosQuickMenu();
+            }, 330);
+        }
+    }
+
+    iosOrb.addEventListener('pointerup', handlePointerEnd);
+    iosOrb.addEventListener('pointercancel', handlePointerEnd);
+
+    // Keep orb inside viewport on window resize / rotation
+    window.addEventListener('resize', snapToNearestEdge);
+    resetIdleTimer();
+})();
+
+function openIosQuickMenu() {
+    iosQuickMenu.classList.add('active');
+    iosQuickMenu.setAttribute('aria-hidden', 'false');
+}
+
+function closeIosQuickMenu() {
+    iosQuickMenu.classList.remove('active');
+    iosQuickMenu.setAttribute('aria-hidden', 'true');
+}
+
+function openAdminConfirm() {
+    closeIosQuickMenu();
+    adminConfirmModal.classList.add('active');
+    adminConfirmModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeAdminConfirm() {
+    adminConfirmModal.classList.remove('active');
+    adminConfirmModal.setAttribute('aria-hidden', 'true');
+}
+
+function confirmAdminYes() {
+    closeAdminConfirm();
+    openInFrame(ADMIN_SCRIPT_URL, true);
+}
+
+/* =========================================================
+   2. UNIVERSAL ADD-TO-HOME-SCREEN APP SYSTEM (ALL DEVICES)
+   ========================================================= */
+function isAlreadyStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.matchMedia('(display-mode: fullscreen)').matches ||
+           window.navigator.standalone === true;
+}
+
+function getDeviceEnvironment() {
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isInApp = /FBAN|FBAV|Instagram|TikTok|Bytedance|Musical_ly|Messenger|Line|Snapchat/i.test(ua);
+    return { isIOS, isAndroid, isInApp };
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const sub = document.getElementById('app-bar-subtitle');
+    if (sub) sub.textContent = "One-tap instant install";
+    if (!isAlreadyStandalone() && !userDismissedBar) {
+        floatingBar.classList.remove('hidden');
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    floatingBar.classList.add('hidden');
+    closeInstallModal();
+});
+
+async function triggerInstallApp() {
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        if (choice && choice.outcome === 'accepted') {
+            floatingBar.classList.add('hidden');
+        }
+        return;
+    }
+
+    const { isIOS, isAndroid, isInApp } = getDeviceEnvironment();
+    const descEl = document.getElementById('install-device-desc');
+    const stepsEl = document.getElementById('install-steps-list');
+
+    if (isInApp) {
+        descEl.textContent = "You are viewing inside an in-app browser (Facebook/TikTok/IG). Open in your main browser to install:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the <strong>•••</strong> or <strong>⋮</strong> menu icon in the corner.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Select <strong>"Open in Safari"</strong> or <strong>"Open in Chrome"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Tap <strong>📲 Install</strong> at the bottom to add KOF to your Home Screen.</span></div>
+        `;
+    } else if (isIOS) {
+        descEl.textContent = "Add King of Fadez directly to your iPhone or iPad Home Screen:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the <strong>Share</strong> button (<strong>⎋</strong> box with up arrow) in Safari's bar.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Scroll down and tap <strong>"Add to Home Screen"</strong> (<strong>＋</strong>).</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Tap <strong>"Add"</strong> in the top-right corner to finish.</span></div>
+        `;
+    } else if (isAndroid) {
+        descEl.textContent = "Install King of Fadez on your Android Home Screen:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the browser menu icon (<strong>⋮</strong>) at the top-right.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Confirm <strong>"Install / Add"</strong> to place KOF on your Home Screen.</span></div>
+        `;
+    } else {
+        descEl.textContent = "Install King of Fadez on your Computer or Device:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Click the <strong>Install / Share</strong> icon in your browser's address bar or menu.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Choose <strong>"Install King of Fadez"</strong> or <strong>"Add to Dock / Home Screen"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Launch KOF anytime directly from your desktop or home screen.</span></div>
+        `;
+    }
+
+    installModal.classList.add('active');
+    installModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeInstallModal() {
+    installModal.classList.remove('active');
+    installModal.setAttribute('aria-hidden', 'true');
+}
+
+function dismissFloatingBar() {
+    userDismissedBar = true;
+    floatingBar.classList.add('hidden');
+}
+
+function copyAppUrl() {
+    const btn = document.getElementById('copy-url-btn');
+    navigator.clipboard?.writeText(window.location.href).then(() => {
+        btn.textContent = "✓ Copied!";
+        setTimeout(() => { btn.textContent = "🔗 Copy Link"; }, 2000);
+    }).catch(() => {});
+}
+
+/* =========================================================
+   3. IN-FRAME ROUTING SYSTEM (NEVER EXITS PAGE OR DNS)
+   ========================================================= */
 function resolveTargetUrl(routeOrUrl) {
     if (!routeOrUrl) return "";
     if (ROUTES[routeOrUrl]) return ROUTES[routeOrUrl];
@@ -415,17 +1307,17 @@ function updateBackButton() {
     backBtn.disabled = frameHistory.length <= 1;
 }
 
-// Opens any main page or sub-landing page strictly inside the iframe
 function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
     const resolvedUrl = resolveTargetUrl(routeOrUrl);
     if (!resolvedUrl) return;
 
-    const isScriptUrl = resolvedUrl.startsWith(MAIN_SCRIPT_URL) || resolvedUrl.includes("script.google.com/macros/");
-    const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isScriptUrl ? 'main' : '');
+    const isMainBooking = resolvedUrl.startsWith(MAIN_SCRIPT_URL);
+    const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : '');
 
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     wrapper.classList.add('blur-active');
+    floatingBar.classList.add('hidden');
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === activeTab);
@@ -444,7 +1336,6 @@ function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
     syncParentDnsUrl(resolvedUrl);
 }
 
-// Navigate backwards between sub-pages inside the frame
 function goBackInFrame() {
     if (frameHistory.length <= 1) return;
     frameHistory.pop();
@@ -453,7 +1344,6 @@ function goBackInFrame() {
     openInFrame(previousUrl, true, true);
 }
 
-// Mirrors sub-page query parameters (e.g., ?branch=kof19a7) onto your own DNS URL without redirecting
 function syncParentDnsUrl(targetUrl) {
     try {
         const parsed = new URL(targetUrl);
@@ -475,16 +1365,28 @@ function closeInFrame() {
     overlay.setAttribute('aria-hidden', 'true');
     wrapper.classList.remove('blur-active');
     window.history.replaceState({}, "", window.location.pathname);
+
+    if (!isAlreadyStandalone() && !userDismissedBar) {
+        floatingBar.classList.remove('hidden');
+    }
 }
 
 iframe.addEventListener('load', () => {
     loader.classList.add('hidden');
 });
 
-// Auto-handle direct sub-landing URLs on your DNS (e.g., yourdomain.com/?branch=kof19a7 or #kof19a7)
 window.addEventListener('DOMContentLoaded', () => {
+    if (isAlreadyStandalone()) {
+        floatingBar.classList.add('hidden');
+    }
+
     const params = new URLSearchParams(window.location.search);
     const hashValue = window.location.hash.replace(/^#/, '').trim();
+
+    if (params.get('page') === 'admin') {
+        openInFrame(ADMIN_SCRIPT_URL, true);
+        return;
+    }
 
     if (params.toString()) {
         openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
@@ -497,7 +1399,6 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Preload main Apps Script silently in background so booking opens immediately
     setTimeout(() => {
         if (!activeUrl) {
             activeUrl = MAIN_SCRIPT_URL;
