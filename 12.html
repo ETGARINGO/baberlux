@@ -1,538 +1,995 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>King of Fadez | Dasmariñas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #d4af37;
-            --gold-light: #f3d56b;
-            --gold-dark: #8b6d05;
-            --bg-dark: rgba(10, 10, 12, 0.96);
-            --glass: rgba(18, 18, 22, 0.78);
-            --border-gold: rgba(212, 175, 55, 0.35);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<meta name="robots" content="noindex,nofollow">
+<title>KING OF FADEZ | Secure Terminal</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+<style>
+:root{
+ --bg:#050505;
+ --panel:rgba(15,15,15,.94);
+ --gold:#d4af37;
+ --gold2:#a67c00;
+ --gold-light:#f9e6a1;
+ --white:#fff;
+ --muted:#999;
+ --danger:#ff4545;
+ --line:rgba(212,175,55,.23);
+ --glass:rgba(10,10,10,.78);
+}
 
-        body, html {
-            height: 100%;
-            height: 100dvh;
-            width: 100vw;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #ffffff;
-            background: #000;
-            overflow: hidden;
-            position: fixed;
-            touch-action: manipulation;
-        }
+*{box-sizing:border-box}
 
-        /* --- LOCKED VIDEO BACKGROUND (NO CLICK ESCAPE) --- */
-        .v-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-            background: #050505;
-            pointer-events: none; /* Prevents tapping video to exit to Facebook */
-        }
+html,body{
+ margin:0;width:100%;height:100%;
+ background:var(--bg);color:white;
+ font-family:Inter,"Segoe UI",Arial,sans-serif;
+ overflow:hidden;
+ overscroll-behavior:none;
+}
 
-        .v-bg iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 100vh;
-            transform: translate(-50%, -50%) scale(1.85);
-            border: none;
-            pointer-events: none;
-            filter: brightness(0.65) contrast(1.1);
-        }
+button,input{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 
-        /* --- MAIN INFO OVERLAY --- */
-        #main-overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.88) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            padding-top: max(20px, env(safe-area-inset-top));
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
-            z-index: 10;
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-        }
+#bg-video{
+ position:fixed;inset:0;
+ width:100%;height:100%;
+ object-fit:cover;
+ z-index:0;
+ filter:brightness(.35) saturate(.7);
+}
 
-        .container {
-            background: var(--glass);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            width: 100%;
-            max-width: 400px;
-            padding: 28px 24px;
-            border-radius: 28px;
-            border: 1px solid var(--border-gold);
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
+.bg-fallback{
+ position:fixed;inset:0;z-index:0;
+ background:
+ radial-gradient(ellipse at 50% 30%,#332710 0%,transparent 50%),
+ linear-gradient(145deg,#17130a,#030303 70%);
+}
 
-        .crown-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.2), rgba(0, 0, 0, 0.6));
-            border: 1px solid var(--border-gold);
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
-        }
+#ambient{
+ position:fixed;inset:0;z-index:1;
+ pointer-events:none;
+ background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.75));
+}
 
-        h1, h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 900;
-        }
+#particles{
+ position:fixed;inset:0;z-index:2;
+ pointer-events:none;overflow:hidden;
+}
 
-        h1 { font-size: 1.5rem; margin-bottom: 4px; }
-        h2 { font-size: 1.3rem; margin-bottom: 4px; }
+.particle{
+ position:absolute;
+ width:3px;height:3px;border-radius:50%;
+ background:var(--gold);
+ opacity:0;
+ box-shadow:0 0 12px var(--gold);
+ animation:floatUp linear infinite;
+}
 
-        .tagline {
-            font-size: 0.7rem;
-            color: #aaa;
-            letter-spacing: 2.5px;
-            margin-bottom: 22px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
+@keyframes floatUp{
+ 0%{transform:translateY(20px);opacity:0}
+ 15%{opacity:.6}
+ 85%{opacity:.4}
+ 100%{transform:translateY(-110vh) translateX(35px);opacity:0}
+}
 
-        /* Detail Blocks */
-        .detail-card {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 18px;
-            text-align: left;
-        }
+@keyframes goldPulse{
+ 0%,100%{box-shadow:0 0 12px rgba(212,175,55,.15)}
+ 50%{box-shadow:0 0 28px rgba(212,175,55,.45)}
+}
 
-        .detail-block {
-            font-size: 0.82rem;
-            line-height: 1.45;
-            color: #e5e5e5;
-        }
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(15px) scale(.98)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
 
-        .detail-block + .detail-block {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
+@keyframes spin{to{transform:rotate(360deg)}}
 
-        .detail-block strong {
-            display: block;
-            color: var(--gold);
-            font-size: 0.68rem;
-            letter-spacing: 1px;
-            margin-bottom: 3px;
-            text-transform: uppercase;
-        }
+@keyframes shimmer{
+ 0%{background-position:-200% 0}
+ 100%{background-position:200% 0}
+}
 
-        /* In-Frame Action Grid */
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+/* BRAND */
 
-        .btn-link {
-            padding: 12px 10px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.78rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
+.brand{
+ position:fixed;top:22px;left:25px;
+ z-index:20;
+ display:flex;align-items:center;gap:10px;
+}
 
-        .btn-link:active {
-            transform: scale(0.97);
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--gold);
-        }
+.brand-icon{
+ width:38px;height:38px;border-radius:12px;
+ display:grid;place-items:center;
+ background:linear-gradient(145deg,#f5dc82,#98701c);
+ color:#080808;font-size:21px;
+ box-shadow:0 0 20px #d4af3730;
+}
 
-        /* Primary Gold CTA */
-        .btn-gold {
-            width: 100%;
-            padding: 17px;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-            border: none;
-            border-radius: 14px;
-            color: #08080a;
-            font-weight: 800;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
+.brand-name{
+ font-size:12px;font-weight:900;
+ letter-spacing:3px;color:var(--gold);
+}
 
-        .btn-gold:active { transform: scale(0.98); }
-        .btn-gold:disabled { opacity: 0.6; cursor: not-allowed; }
+.brand-sub{
+ font-size:9px;letter-spacing:2px;
+ color:#aaa;margin-top:4px;
+}
 
-        /* --- BOOKING DRAWER --- */
-        #booking-drawer {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            width: 100%;
-            height: 88dvh;
-            background: var(--bg-dark);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-top: 2px solid var(--gold);
-            border-radius: 30px 30px 0 0;
-            z-index: 25;
-            transition: bottom 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-            padding: 24px 24px max(24px, env(safe-area-inset-bottom));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* STATUS */
 
-        .drawer-inner {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+.status{
+ position:fixed;top:27px;right:25px;
+ z-index:20;
+ display:flex;align-items:center;gap:8px;
+ font-size:9px;letter-spacing:2px;color:#ccc;
+}
 
-        .close-drawer-bar {
-            width: 44px;
-            height: 5px;
-            background: #444;
-            border-radius: 5px;
-            margin: 0 auto 22px;
-            cursor: pointer;
-        }
+.status-dot{
+ width:7px;height:7px;border-radius:50%;
+ background:#36d98a;
+ box-shadow:0 0 10px #36d98a;
+}
 
-        .form-group {
-            margin-top: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+/* LOGIN */
 
-        input, select {
-            width: 100%;
-            padding: 15px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 0.9rem;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+#auth{
+ position:fixed;inset:0;z-index:10;
+ display:flex;align-items:center;justify-content:center;
+ padding:80px 15px 65px;
+ overflow-y:auto;
+ transition:opacity .4s,visibility .4s;
+}
 
-        input:focus, select:focus {
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.08);
-        }
+#auth.hidden{
+ opacity:0;visibility:hidden;pointer-events:none;
+}
 
-        select option {
-            background: #121215;
-            color: #fff;
-        }
+.login-card{
+ position:relative;
+ width:100%;max-width:390px;
+ padding:34px 30px 25px;
+ border:1px solid var(--line);
+ border-radius:25px;
+ background:linear-gradient(145deg,rgba(25,23,17,.93),rgba(5,5,5,.96));
+ backdrop-filter:blur(22px);
+ -webkit-backdrop-filter:blur(22px);
+ text-align:center;
+ box-shadow:0 25px 80px #000c;
+ animation:fadeIn .7s ease, goldPulse 5s infinite;
+}
 
-        .btn-cancel {
-            margin-top: 18px;
-            background: none;
-            border: none;
-            color: #777;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 10px;
-        }
+.crown{
+ font-size:48px;
+ filter:drop-shadow(0 0 12px #d4af3755);
+ animation:crownFloat 3s ease-in-out infinite;
+}
 
-        /* --- IN-FRAME PORTAL MODAL (PREVENTS EXTERNAL NAVIGATION) --- */
-        #inframe-modal {
-            position: fixed;
-            inset: 0;
-            background: #08080a;
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+@keyframes crownFloat{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-7px)}
+}
 
-        #inframe-modal.active {
-            transform: translateY(0);
-        }
+.login-card h1{
+ color:var(--gold);
+ letter-spacing:4px;
+ font-size:25px;margin:10px 0 5px;
+ font-weight:950;
+}
 
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 18px;
-            background: #111115;
-            border-bottom: 1px solid var(--border-gold);
-        }
+.tagline{
+ font-size:9px;color:#aaa;
+ letter-spacing:4px;margin-bottom:13px;
+}
 
-        .modal-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--gold);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+.location{
+ font-size:10px;color:var(--gold-light);
+ letter-spacing:2px;margin:20px 0 25px;
+}
 
-        .modal-close {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.72rem;
-            font-weight: 800;
-            cursor: pointer;
-        }
+.field{
+ width:100%;padding:16px;
+ border-radius:11px;
+ border:1px solid #34302a;
+ background:#080808;
+ color:white;
+ outline:none;
+ text-align:center;
+ letter-spacing:7px;
+ font-size:17px;
+ transition:.3s;
+}
 
-        #portal-frame {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #fff;
-        }
+.field:focus{
+ border-color:var(--gold);
+ box-shadow:0 0 15px #d4af3725;
+}
 
-        /* --- TOAST NOTIFICATION --- */
-        #toast {
-            position: fixed;
-            top: max(20px, env(safe-area-inset-top));
-            left: 50%;
-            transform: translate(-50%, -150%);
-            background: #141418;
-            border: 1px solid var(--gold);
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            text-align: center;
-            width: max-content;
-            max-width: 90vw;
-        }
+.btn{
+ width:100%;padding:15px;
+ border-radius:11px;border:1px solid transparent;
+ font-size:11px;font-weight:900;
+ letter-spacing:1.5px;
+ transition:transform .2s,box-shadow .2s,background .2s;
+ margin-bottom:10px;
+}
 
-        #toast.show {
-            transform: translate(-50%, 0);
-        }
-    </style>
+.btn:active{transform:scale(.97)}
+
+.btn-gold{
+ color:#090909;
+ background:linear-gradient(110deg,#98701c,#f4d979,#b68a26);
+ background-size:200% 100%;
+ animation:shimmer 5s linear infinite;
+}
+
+.btn-gold:hover{box-shadow:0 5px 25px #d4af3755}
+
+.btn-outline{
+ color:var(--gold-light);
+ border-color:#5b4b25;
+ background:rgba(212,175,55,.055);
+}
+
+.btn-outline:hover{
+ background:rgba(212,175,55,.15);
+ border-color:var(--gold);
+}
+
+.divider{
+ height:1px;background:#ffffff17;
+ margin:18px 0;
+}
+
+.section-label{
+ text-align:left;color:#999;
+ font-size:9px;letter-spacing:2px;
+ margin:15px 0 12px;
+}
+
+.contact{
+ font-size:10px;color:#999;
+ line-height:2.1;margin-top:15px;
+}
+
+.contact strong{color:var(--gold-light)}
+
+#error{
+ display:none;
+ font-size:10px;color:#ff6262;
+ margin:12px 0;
+}
+
+.version{
+ font-size:8px;color:#555;
+ margin-top:15px;letter-spacing:2px;
+}
+
+/* FLOATING PROOF */
+
+#proof-float{
+ position:fixed;right:20px;bottom:25px;
+ z-index:80;
+ display:flex;align-items:center;gap:9px;
+ padding:13px 19px;
+ border:1px solid #e4c45b;
+ border-radius:50px;
+ background:linear-gradient(120deg,#9b711c,#f1d779);
+ color:#090909;
+ font-size:10px;font-weight:950;
+ letter-spacing:1px;
+ box-shadow:0 5px 30px #d4af3744;
+ animation:goldPulse 3s infinite;
+}
+
+#proof-float:hover{transform:translateY(-3px)}
+
+/* WORKSPACE */
+
+#workspace{
+ position:fixed;inset:0;
+ z-index:30;
+ background:#050505;
+ display:none;
+ opacity:0;
+ transition:opacity .4s;
+}
+
+#workspace.active{
+ display:block;opacity:1;
+}
+
+#workspace iframe{
+ position:absolute;inset:0;
+ width:100%;height:100%;
+ border:0;background:white;
+}
+
+/* WORKSPACE TOOLBAR */
+
+#toolbar{
+ position:absolute;
+ top:12px;left:50%;
+ transform:translateX(-50%);
+ z-index:50;
+ display:flex;align-items:center;gap:7px;
+ padding:7px;
+ border:1px solid #d4af374d;
+ border-radius:50px;
+ background:rgba(8,8,8,.91);
+ backdrop-filter:blur(18px);
+ box-shadow:0 5px 25px #0008;
+ transition:opacity .3s,transform .3s;
+}
+
+#toolbar:hover{opacity:1}
+
+.tool-btn{
+ border:0;border-radius:30px;
+ padding:10px 14px;
+ color:var(--gold-light);
+ background:#ffffff0b;
+ font-size:9px;font-weight:900;
+ letter-spacing:.6px;
+ white-space:nowrap;
+}
+
+.tool-btn:hover{background:#d4af3726}
+
+.tool-btn.exit{
+ background:#351313;
+ color:#ff7777;
+}
+
+.tool-btn.proof{
+ background:#d4af37;
+ color:#080808;
+}
+
+/* LOADING */
+
+#loading{
+ position:absolute;inset:0;
+ z-index:40;
+ display:none;
+ align-items:center;justify-content:center;
+ flex-direction:column;
+ background:#080808;
+ color:var(--gold);
+ text-align:center;
+}
+
+#loading.show{display:flex}
+
+.loader{
+ width:42px;height:42px;
+ border:3px solid #ffffff18;
+ border-top-color:var(--gold);
+ border-radius:50%;
+ animation:spin .8s linear infinite;
+ margin-bottom:20px;
+}
+
+#loading h3{
+ font-size:12px;letter-spacing:3px;
+}
+
+#loading p{
+ color:#888;font-size:10px;
+ max-width:280px;line-height:1.7;
+ padding:0 15px;
+}
+
+.loading-actions{margin-top:12px;display:none}
+
+/* PROOF REPOSITORY */
+
+#proof-modal{
+ position:fixed;inset:0;
+ z-index:100;
+ display:flex;align-items:center;justify-content:center;
+ padding:12px;
+ background:rgba(0,0,0,.83);
+ backdrop-filter:blur(12px);
+ visibility:hidden;opacity:0;
+ transition:.3s;
+}
+
+#proof-modal.open{
+ visibility:visible;opacity:1;
+}
+
+.proof-window{
+ width:100%;height:100%;
+ max-width:1250px;max-height:900px;
+ display:flex;flex-direction:column;
+ background:#090909;
+ border:1px solid #d4af3755;
+ border-radius:17px;overflow:hidden;
+ transform:scale(.97);
+ transition:transform .3s;
+}
+
+#proof-modal.open .proof-window{transform:scale(1)}
+
+.proof-header{
+ min-height:60px;
+ padding:12px 17px;
+ display:flex;align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ background:linear-gradient(90deg,#17130a,#080808);
+ border-bottom:1px solid var(--line);
+}
+
+.proof-title{
+ color:var(--gold);
+ font-size:11px;font-weight:950;
+ letter-spacing:2px;
+}
+
+.proof-description{
+ color:#777;font-size:9px;margin-top:5px;
+}
+
+.close-btn{
+ border:0;border-radius:8px;
+ background:#371616;color:#ff7777;
+ font-size:10px;font-weight:900;
+ padding:11px 15px;
+}
+
+#proof-frame{
+ width:100%;height:100%;flex:1;
+ border:0;background:#fff;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+ .brand{top:15px;left:14px}
+ .status{top:24px;right:14px;font-size:8px}
+ .login-card{padding:30px 22px 20px}
+ .login-card h1{font-size:22px}
+ #toolbar{
+  top:auto;bottom:12px;
+  width:calc(100% - 16px);
+  justify-content:center;
+  border-radius:15px;
+  flex-wrap:wrap;
+ }
+ .tool-btn{padding:10px 12px;font-size:8px}
+ #proof-float{right:12px;bottom:85px;padding:12px 15px}
+ .proof-window{border-radius:10px}
+ .proof-header{min-height:65px}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation-duration:.01ms!important;
+  transition-duration:.01ms!important;
+ }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Toast Notification -->
-    <div id="toast"></div>
+<div class="bg-fallback"></div>
 
-    <!-- Locked Background Video -->
-    <div class="v-bg">
-        <iframe 
-            src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1511247623312332%2F&show_text=0&width=267&autoplay=1&muted=1&loop=1" 
-            allow="autoplay" 
-            sandbox="allow-scripts allow-same-origin">
-        </iframe>
+<video id="bg-video" autoplay muted loop playsinline>
+ <source src="IMG_1039.MOV" type="video/quicktime">
+ <source src="IMG_1039.MOV" type="video/mp4">
+</video>
+
+<div id="ambient"></div>
+<div id="particles"></div>
+
+<!-- BRAND -->
+<div class="brand">
+ <div class="brand-icon">♛</div>
+ <div>
+  <div class="brand-name">KING OF FADEZ</div>
+  <div class="brand-sub">PREMIUM MANAGEMENT SYSTEM</div>
+ </div>
+</div>
+
+<div class="status">
+ <span class="status-dot"></span>
+ <span>TERMINAL READY</span>
+</div>
+
+<!-- AUTHENTICATION -->
+<section id="auth">
+
+ <div class="login-card">
+
+  <div class="crown">👑</div>
+
+  <h1>KING OF FADEZ</h1>
+  <div class="tagline">BARBERSHOP MANAGEMENT</div>
+
+  <div class="location">DASMARIÑAS • CAVITE</div>
+
+  <input
+   type="password"
+   id="accessKey"
+   class="field"
+   placeholder="ADMIN KEY"
+   maxlength="20"
+   autocomplete="off"
+   aria-label="Access key"
+  >
+
+  <button class="btn btn-gold" onclick="validateKey()">
+   UNLOCK TERMINAL →
+  </button>
+
+  <div id="error">ACCESS DENIED — INVALID CREDENTIALS</div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">QUICK ACCESS</div>
+
+  <button class="btn btn-outline" onclick="openProof()">
+   📁 PROOF OF BOOKING
+  </button>
+
+  <button class="btn btn-outline" onclick="openClient()">
+   📖 CLIENT BOOKING VIEW
+  </button>
+
+  <button class="btn btn-outline" onclick="openDTR()">
+   ⏱ DTR PORTAL
+  </button>
+
+  <div class="contact">
+   📧 <strong>Kingoffadezph@gmail.com</strong><br>
+   📍 Blk 4, Lot 18 Congressional Ave
+  </div>
+
+  <div class="version">KOF SECURE TERMINAL • VERSION 2.0</div>
+
+ </div>
+</section>
+
+<!-- FLOATING PROOF BUTTON -->
+<button id="proof-float" onclick="openProof()">
+ 📁 PROOF OF BOOKING
+</button>
+
+<!-- MAIN WORKSPACE -->
+<section id="workspace">
+
+ <iframe
+  id="secure-frame"
+  src="about:blank"
+  title="King of Fadez Workspace"
+  allow="fullscreen; clipboard-read; clipboard-write"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin">
+ </iframe>
+
+ <div id="loading">
+  <div class="loader"></div>
+  <h3 id="loading-title">INITIALIZING SYSTEM</h3>
+  <p id="loading-message">
+   Connecting to secure management terminal...
+  </p>
+  <div class="loading-actions" id="loading-actions">
+   <button class="tool-btn" onclick="retryCurrent()">
+    RETRY CONNECTION
+   </button>
+   <button class="tool-btn exit" onclick="closeSystem()">
+    RETURN HOME
+   </button>
+  </div>
+ </div>
+
+ <nav id="toolbar">
+
+  <button class="tool-btn" onclick="goHome()">
+   ⌂ HOME
+  </button>
+
+  <button class="tool-btn proof" onclick="openProof()">
+   📁 PROOF
+  </button>
+
+  <button class="tool-btn" onclick="openDTR()">
+   ⏱ DTR
+  </button>
+
+  <button class="tool-btn" onclick="openClient()">
+   📖 CLIENT
+  </button>
+
+  <button class="tool-btn exit" onclick="closeSystem()">
+   ✕ EXIT
+  </button>
+
+ </nav>
+
+</section>
+
+<!-- PROOF REPOSITORY OVERLAY -->
+<section id="proof-modal">
+
+ <div class="proof-window">
+
+  <header class="proof-header">
+
+   <div>
+    <div class="proof-title">♛ KOF | PROOF REPOSITORY</div>
+    <div class="proof-description">
+     BOOKING DOCUMENTS AND PAYMENT RECORDS
     </div>
+   </div>
 
-    <!-- Main Screen -->
-    <div id="main-overlay">
-        <div class="container">
-            <div class="crown-badge">👑</div>
-            <h1>King of Fadez</h1>
-            <p class="tagline">The Standard of Dasmariñas</p>
+   <button class="close-btn" onclick="closeProof()">
+    CLOSE ✕
+   </button>
 
-            <div class="detail-card">
-                <div class="detail-block">
-                    <strong>📍 Location</strong>
-                    Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
-                </div>
-                <div class="detail-block">
-                    <strong>📧 Contact & Support</strong>
-                    Kingoffadezph@gmail.com
-                </div>
-            </div>
+  </header>
 
-            <!-- All buttons open inside the In-Frame Portal Modal -->
-            <div class="social-grid">
-                <button type="button" class="btn-link" onclick="openInFrame('Store Location', 'https://maps.google.com/maps?q=14.3381712,120.9504125&hl=en&z=17&output=embed')">🗺️ Maps</button>
-                <button type="button" class="btn-link" onclick="openInFrame('TikTok // @kingoffadez.ph', 'https://www.tiktok.com/embed/@kingoffadez.ph')">📱 TikTok</button>
-                <button type="button" class="btn-link" onclick="openInFrame('Facebook Page', 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Ffacebook.com%2FKingOfFadezDasma&tabs=timeline&width=360&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false')">📘 FB Page</button>
-                <button type="button" class="btn-link" onclick="openInFrame('Official Website', 'https://Kingoffadezph.com/')">🌐 Web</button>
-            </div>
+  <iframe
+   id="proof-frame"
+   src="about:blank"
+   title="Proof of Booking Repository"
+   allow="fullscreen"
+   allowfullscreen>
+  </iframe>
 
-            <button type="button" class="btn-gold" onclick="openBooking()">Proceed to Booking</button>
-        </div>
-    </div>
-
-    <!-- Booking Drawer -->
-    <div id="booking-drawer">
-        <div class="drawer-inner">
-            <div class="close-drawer-bar" onclick="closeBooking()"></div>
-            <h2>Book Your Cut</h2>
-            <p style="color:#888; font-size:0.8rem;">Select your service and details below</p>
-            
-            <div class="form-group">
-                <input id="name" type="text" placeholder="Client Full Name" autocomplete="name">
-                <input id="phone" type="tel" placeholder="Mobile Number (e.g. 09XX...)" autocomplete="tel">
-                <select id="package">
-                    <option value="" disabled selected>Loading Services...</option>
-                </select>
-            </div>
-            
-            <button id="submit-btn" type="button" class="btn-gold" style="margin-top: 22px;" onclick="book()">Confirm Slot</button>
-            <button type="button" class="btn-cancel" onclick="closeBooking()">Cancel and Go Back</button>
-        </div>
-    </div>
-
-    <!-- Sandboxed In-Frame Portal Modal (Zero Exit DNS) -->
-    <div id="inframe-modal">
-        <div class="modal-header">
-            <span id="modal-title" class="modal-title">In-App Viewer</span>
-            <button type="button" class="modal-close" onclick="closeInFrame()">✕ RETURN</button>
-        </div>
-        <iframe 
-            id="portal-frame" 
-            src="about:blank"
-            sandbox="allow-scripts allow-forms allow-same-origin"
-            allow="geolocation">
-        </iframe>
-    </div>
+ </div>
+</section>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec";
-const drawer = document.getElementById('booking-drawer');
-const overlay = document.getElementById('main-overlay');
-const modal = document.getElementById('inframe-modal');
-const portalFrame = document.getElementById('portal-frame');
-const modalTitle = document.getElementById('modal-title');
+"use strict";
 
-function showToast(msg) {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3200);
+/* ========================================
+   KOF TERMINAL CONFIGURATION
+======================================== */
+
+// IMPORTANT:
+// These client-side keys are demonstration credentials.
+// For real security, authenticate on the server.
+
+const MASTER_KEY = "1234";
+const MANAGER_KEY = "101";
+
+const URLS = {
+ admin:
+ "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec?page=Admin",
+
+ manager:
+ "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec?page=admin",
+
+ dtr:
+ "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec",
+
+ client:
+ "https://kingoffadezbarbershop.web247.online/12",
+
+ proof:
+ "https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid"
+};
+
+/* ========================================
+   ELEMENTS
+======================================== */
+
+const $ = id => document.getElementById(id);
+
+const auth = $("auth");
+const workspace = $("workspace");
+const frame = $("secure-frame");
+const loading = $("loading");
+const proofModal = $("proof-modal");
+const proofFrame = $("proof-frame");
+
+let currentURL = "";
+let currentModule = "";
+let loadingTimer = null;
+let loadWarningTimer = null;
+let frameLoaded = false;
+
+/* ========================================
+   PARTICLE ANIMATION
+======================================== */
+
+(function createParticles(){
+
+ const container = $("particles");
+
+ for(let i=0;i<24;i++){
+
+  const p = document.createElement("div");
+
+  p.className = "particle";
+  p.style.left = Math.random()*100+"%";
+  p.style.bottom = "-10px";
+
+  p.style.animationDuration =
+   (9+Math.random()*13)+"s";
+
+  p.style.animationDelay =
+   (Math.random()*12)+"s";
+
+  container.appendChild(p);
+ }
+
+})();
+
+/* ========================================
+   AUTHENTICATION
+======================================== */
+
+function validateKey(){
+
+ const key = $("accessKey").value.trim();
+
+ $("error").style.display = "none";
+
+ if(key === MASTER_KEY){
+  launchSystem(URLS.admin,"ADMIN DASHBOARD");
+ }
+
+ else if(key === MANAGER_KEY){
+  launchSystem(URLS.manager,"MANAGER DASHBOARD");
+ }
+
+ else{
+  $("error").style.display = "block";
+  $("accessKey").value = "";
+  $("accessKey").focus();
+ }
+
 }
 
-// Keep all external content strictly inside the app frame
-function openInFrame(title, url) {
-    modalTitle.textContent = title;
-    portalFrame.src = url;
-    modal.classList.add('active');
+$("accessKey").addEventListener("keydown",e=>{
+ if(e.key === "Enter") validateKey();
+});
+
+/* ========================================
+   WORKSPACE NAVIGATION
+======================================== */
+
+function launchSystem(url,name){
+
+ if(!url) return;
+
+ currentURL = url;
+ currentModule = name;
+
+ auth.classList.add("hidden");
+
+ workspace.style.display = "block";
+
+ requestAnimationFrame(()=>{
+  workspace.classList.add("active");
+ });
+
+ showLoading(
+  "CONNECTING TO "+name,
+  "Please wait while the terminal loads..."
+ );
+
+ frameLoaded = false;
+
+ // Load the destination inside the persistent iframe.
+ frame.src = url;
+
+ clearTimeout(loadingTimer);
+ clearTimeout(loadWarningTimer);
+
+ // Warning only: iframe load events cannot reliably
+ // identify cross-origin HTTP errors.
+ loadingTimer = setTimeout(()=>{
+
+  if(!frameLoaded){
+
+   $("loading-title").textContent =
+    "CONNECTION TAKING LONGER";
+
+   $("loading-message").textContent =
+    "The destination may be processing a redirect or loading external services. You can wait or retry.";
+
+   $("loading-actions").style.display = "block";
+
+  }
+
+ },15000);
+
 }
 
-function closeInFrame() {
-    modal.classList.remove('active');
-    setTimeout(() => {
-        portalFrame.src = "about:blank";
-    }, 350);
+function showLoading(title,message){
+
+ loading.classList.add("show");
+
+ $("loading-title").textContent = title;
+ $("loading-message").textContent = message;
+
+ $("loading-actions").style.display = "none";
+
 }
 
-function openBooking() {
-    drawer.style.bottom = "0";
-    overlay.style.transform = "scale(0.93)";
-    overlay.style.opacity = "0.4";
+frame.addEventListener("load",()=>{
+
+ frameLoaded = true;
+
+ clearTimeout(loadingTimer);
+ clearTimeout(loadWarningTimer);
+
+ // The iframe's load event does not prove that
+ // the remote application rendered successfully.
+
+ setTimeout(()=>{
+  loading.classList.remove("show");
+ },350);
+
+});
+
+function retryCurrent(){
+
+ if(!currentURL) return;
+
+ frameLoaded = false;
+
+ showLoading(
+  "RECONNECTING",
+  "Reopening "+currentModule+"..."
+ );
+
+ frame.src = currentURL;
+
+ clearTimeout(loadingTimer);
+
+ loadingTimer = setTimeout(()=>{
+
+  if(!frameLoaded){
+
+   $("loading-title").textContent =
+    "STILL WAITING";
+
+   $("loading-message").textContent =
+    "The remote application may be unavailable or may prohibit iframe embedding.";
+
+   $("loading-actions").style.display = "block";
+
+  }
+
+ },15000);
+
 }
 
-function closeBooking() {
-    drawer.style.bottom = "-100%";
-    overlay.style.transform = "scale(1)";
-    overlay.style.opacity = "1";
+/* ========================================
+   QUICK ACCESS
+======================================== */
+
+function openDTR(){
+ launchSystem(URLS.dtr,"DTR PORTAL");
 }
 
-// Load Services from Google Apps Script
-fetch(API + "?mode=data")
-    .then(r => r.json())
-    .then(d => {
-        const pkgSelect = document.getElementById('package');
-        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
-        if (d && d.packages) {
-            d.packages.slice(1).forEach(p => {
-                const opt = document.createElement('option');
-                opt.textContent = p[0];
-                opt.value = p[0];
-                pkgSelect.appendChild(opt);
-            });
-        }
-    })
-    .catch(() => {
-        const pkgSelect = document.getElementById('package');
-        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
-    });
-
-function book() {
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const pkg = document.getElementById('package').value;
-    const btn = document.getElementById('submit-btn');
-
-    if (!name || !phone || !pkg) {
-        showToast("⚠️ Please complete all fields.");
-        return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Confirming...";
-
-    fetch(API, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify({ name, phone, package: pkg, addons: [], total: 0 })
-    })
-    .then(() => {
-        showToast("👑 Slot confirmed! We'll see you soon.");
-        document.getElementById('name').value = "";
-        document.getElementById('phone').value = "";
-        document.getElementById('package').selectedIndex = 0;
-        closeBooking();
-    })
-    .catch(() => {
-        showToast("⚠️ Network error. Please try again.");
-    })
-    .finally(() => {
-        btn.disabled = false;
-        btn.textContent = "Confirm Slot";
-    });
+function openClient(){
+ launchSystem(URLS.client,"CLIENT BOOKING");
 }
+
+/* ========================================
+   HOME / EXIT
+======================================== */
+
+function goHome(){
+
+ if(proofModal.classList.contains("open")){
+  closeProof();
+ }
+
+ clearTimeout(loadingTimer);
+
+ workspace.classList.remove("active");
+
+ setTimeout(()=>{
+  workspace.style.display = "none";
+  auth.classList.remove("hidden");
+  $("accessKey").value = "";
+ },300);
+
+}
+
+function closeSystem(){
+
+ currentURL = "";
+ currentModule = "";
+
+ clearTimeout(loadingTimer);
+
+ frame.src = "about:blank";
+
+ loading.classList.remove("show");
+
+ goHome();
+
+}
+
+/* ========================================
+   PROOF REPOSITORY OVERLAY
+======================================== */
+
+function openProof(){
+
+ proofModal.classList.add("open");
+
+ // Load only once. Keep the repository available
+ // during subsequent opens.
+
+ if(!proofFrame.dataset.loaded){
+
+  proofFrame.src = URLS.proof;
+  proofFrame.dataset.loaded = "true";
+
+ }
+
+}
+
+function closeProof(){
+
+ proofModal.classList.remove("open");
+
+}
+
+/* ========================================
+   KEYBOARD SHORTCUTS
+======================================== */
+
+document.addEventListener("keydown",e=>{
+
+ if(e.key === "Escape"){
+
+  if(proofModal.classList.contains("open")){
+   closeProof();
+  }
+
+  // Do not forcibly close the active workspace
+  // when Escape is pressed.
+
+ }
+
+ if(e.altKey && e.key.toLowerCase()==="h"){
+  if(workspace.classList.contains("active")){
+   goHome();
+  }
+ }
+
+});
+
+/* ========================================
+   NETWORK STATUS
+======================================== */
+
+window.addEventListener("online",()=>{
+ document.querySelector(".status span:last-child")
+ .textContent = "NETWORK ONLINE";
+});
+
+window.addEventListener("offline",()=>{
+ document.querySelector(".status span:last-child")
+ .textContent = "NETWORK OFFLINE";
+});
+
+/* ========================================
+   INITIALIZATION
+======================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+ $("accessKey").focus();
+
+});
+
 </script>
-
 </body>
 </html>
