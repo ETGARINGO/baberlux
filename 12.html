@@ -245,11 +245,9 @@
             opacity: 1;
         }
 
-        #ios-assistive-orb.holding {
-            transform: scale(1.12);
+        #ios-assistive-orb:active {
+            transform: scale(0.95);
             opacity: 1;
-            border-color: var(--gold);
-            box-shadow: 0 0 24px rgba(212, 175, 55, 0.65), 0 10px 28px rgba(0, 0, 0, 0.85);
         }
 
         #ios-assistive-orb.snapping {
@@ -288,7 +286,7 @@
             pointer-events: none;
         }
 
-        /* iOS AssistiveTouch Quick Menu (Single Tap) */
+        /* iOS AssistiveTouch Quick Menu */
         #ios-quick-menu {
             position: fixed;
             inset: 0;
@@ -353,108 +351,6 @@
 
         .ios-menu-icon {
             font-size: 1.4rem;
-        }
-
-        .ios-menu-hint {
-            grid-column: 1 / -1;
-            font-size: 0.65rem;
-            color: #aaa;
-            text-align: center;
-            padding-top: 2px;
-        }
-
-        /* --- iOS ALERT DIALOG ("ARE YOU ADMIN?") --- */
-        #admin-confirm-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 150;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-        }
-
-        #admin-confirm-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .ios-alert-box {
-            width: 100%;
-            max-width: 290px;
-            background: rgba(34, 34, 38, 0.94);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            overflow: hidden;
-            text-align: center;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.92);
-            transform: scale(1.06);
-            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
-        }
-
-        #admin-confirm-modal.active .ios-alert-box {
-            transform: scale(1);
-        }
-
-        .ios-alert-body {
-            padding: 20px 18px 18px 18px;
-        }
-
-        .ios-alert-icon {
-            font-size: 1.9rem;
-            margin-bottom: 6px;
-        }
-
-        .ios-alert-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 0 0 6px 0;
-        }
-
-        .ios-alert-desc {
-            font-size: 0.78rem;
-            color: #ccc;
-            margin: 0;
-            line-height: 1.35;
-        }
-
-        .ios-alert-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-top: 1px solid rgba(255, 255, 255, 0.14);
-        }
-
-        .ios-alert-btn {
-            background: transparent;
-            border: none;
-            padding: 13px 10px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.15s ease;
-        }
-
-        .ios-alert-btn:active {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .ios-alert-btn.no {
-            color: #ff5e57;
-            font-weight: 500;
-            border-right: 1px solid rgba(255, 255, 255, 0.14);
-        }
-
-        .ios-alert-btn.yes {
-            color: var(--gold-light);
-            font-weight: 700;
         }
 
         /* --- FLOATING DOWNLOADABLE APP BAR (ALL DEVICES) --- */
@@ -879,7 +775,7 @@
     </div>
 </div>
 
-<!-- IPHONE / iOS ASSISTIVETOUCH FLOATING ORB (DRAGGABLE + EDGE SNAP + DOUBLE TAP / LONG PRESS ADMIN) -->
+<!-- IPHONE / iOS ASSISTIVETOUCH FLOATING ORB (DRAGGABLE + EDGE SNAP + QUICK MENU) -->
 <div id="ios-assistive-orb" role="button" tabindex="0" aria-label="KOF Quick Assistive Button">
     <div class="ios-ring-outer">
         <div class="ios-ring-mid">
@@ -888,7 +784,7 @@
     </div>
 </div>
 
-<!-- iOS ASSISTIVETOUCH QUICK MENU (OPENS ON SINGLE TAP) -->
+<!-- iOS ASSISTIVETOUCH QUICK MENU (OPENS ON TAP) -->
 <div id="ios-quick-menu" aria-hidden="true" onclick="if(event.target===this) closeIosQuickMenu()">
     <div class="ios-menu-box">
         <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('main', true);">
@@ -907,22 +803,6 @@
             <span class="ios-menu-icon">🏠</span>
             <span>Home</span>
         </button>
-        <div class="ios-menu-hint">Double-tap or hold orb for Admin</div>
-    </div>
-</div>
-
-<!-- iOS ADMIN CONFIRMATION MODAL ("ARE YOU ADMIN?") -->
-<div id="admin-confirm-modal" aria-hidden="true" onclick="if(event.target===this) closeAdminConfirm()">
-    <div class="ios-alert-box" role="dialog" aria-modal="true" aria-labelledby="admin-alert-title">
-        <div class="ios-alert-body">
-            <div class="ios-alert-icon">🔐</div>
-            <h3 class="ios-alert-title" id="admin-alert-title">Are you Admin?</h3>
-            <p class="ios-alert-desc">Select Yes to open the King of Fadez Admin Panel in-frame.</p>
-        </div>
-        <div class="ios-alert-actions">
-            <button type="button" class="ios-alert-btn no" onclick="closeAdminConfirm()">No</button>
-            <button type="button" class="ios-alert-btn yes" onclick="confirmAdminYes()">Yes</button>
-        </div>
     </div>
 </div>
 
@@ -959,7 +839,6 @@
         <div class="viewer-header">
             <div class="viewer-tabs">
                 <button type="button" class="tab-btn active" data-tab="main" onclick="openInFrame('main', true)">✂️ Main</button>
-                <button type="button" class="tab-btn" id="admin-tab-btn" data-tab="admin" style="display: none;" onclick="openInFrame('admin', true)">🔐 Admin</button>
                 <button type="button" class="tab-btn" data-tab="maps" onclick="openInFrame('maps')">🗺️ Maps</button>
                 <button type="button" class="tab-btn" data-tab="tiktok" onclick="openInFrame('tiktok')">📱 TikTok</button>
                 <button type="button" class="tab-btn" data-tab="fb" onclick="openInFrame('fb')">📘 FB</button>
@@ -975,9 +854,8 @@
         <div class="iframe-stage">
             <div id="frame-loader">
                 <div class="spinner"></div>
-                <span id="loader-text">Loading Inside KOF...</span>
+                <span>Loading Inside KOF...</span>
             </div>
-            <!-- Unrestricted GAS frame permissions so Admin login, storage, printing & QR scanner run smoothly -->
             <iframe 
                 id="app-frame" 
                 src="about:blank"
@@ -991,11 +869,9 @@
 
 <script>
 const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
-const ADMIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec?page=admin";
 
 const ROUTES = {
     main: MAIN_SCRIPT_URL,
-    admin: ADMIN_SCRIPT_URL,
     maps: "https://www.google.com/maps?q=King+Of+Fadez+Dasmariñas&output=embed",
     tiktok: "https://www.tiktok.com/embed/@kingoffadez.ph",
     fb: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1NQfs6Fcer%2F&show_text=true&width=500",
@@ -1007,37 +883,29 @@ const overlay = document.getElementById('inframe-overlay');
 const wrapper = document.getElementById('main-wrapper');
 const iframe = document.getElementById('app-frame');
 const loader = document.getElementById('frame-loader');
-const loaderText = document.getElementById('loader-text');
 const backBtn = document.getElementById('back-frame-btn');
-const adminTabBtn = document.getElementById('admin-tab-btn');
 const floatingBar = document.getElementById('floating-app-bar');
 const installModal = document.getElementById('install-modal');
 const iosOrb = document.getElementById('ios-assistive-orb');
 const iosQuickMenu = document.getElementById('ios-quick-menu');
-const adminConfirmModal = document.getElementById('admin-confirm-modal');
 
 let activeUrl = "";
 let frameHistory = [];
 let deferredInstallPrompt = null;
 let userDismissedBar = false;
-let lastAdminPromptTime = 0;
 
 /* =========================================================
    1. IPHONE / iOS ASSISTIVETOUCH FLOATING ORB LOGIC
-      (Draggable, Edge-Snapping, Double-Tap & Long-Press Admin)
+      (Draggable, Edge-Snapping & Instant Quick Menu)
    ========================================================= */
 (function setupIosAssistiveOrb() {
     let isPointerDown = false;
     let isDragging = false;
-    let longPressTriggered = false;
     let startX = 0;
     let startY = 0;
     let initialLeft = 0;
     let initialTop = 0;
-    let longPressTimer = null;
-    let singleTapTimer = null;
     let idleTimer = null;
-    let lastTapTime = 0;
 
     function resetIdleTimer() {
         iosOrb.classList.remove('idle');
@@ -1072,7 +940,6 @@ let lastAdminPromptTime = 0;
 
         isPointerDown = true;
         isDragging = false;
-        longPressTriggered = false;
         resetIdleTimer();
 
         const rect = iosOrb.getBoundingClientRect();
@@ -1085,21 +952,8 @@ let lastAdminPromptTime = 0;
         iosOrb.style.left = `${initialLeft}px`;
         iosOrb.style.top = `${initialTop}px`;
         iosOrb.classList.remove('snapping');
-        iosOrb.classList.add('holding');
 
         try { iosOrb.setPointerCapture(e.pointerId); } catch (_) {}
-
-        // Long press detection (500ms) -> triggers "Are you Admin?"
-        clearTimeout(longPressTimer);
-        longPressTimer = setTimeout(() => {
-            if (isPointerDown && !isDragging) {
-                longPressTriggered = true;
-                clearTimeout(singleTapTimer);
-                iosOrb.classList.remove('holding');
-                if (navigator.vibrate) navigator.vibrate(40);
-                openAdminConfirm();
-            }
-        }, 500);
     });
 
     iosOrb.addEventListener('pointermove', (e) => {
@@ -1110,8 +964,6 @@ let lastAdminPromptTime = 0;
 
         if (!isDragging && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
             isDragging = true;
-            clearTimeout(longPressTimer);
-            iosOrb.classList.remove('holding');
         }
 
         if (isDragging) {
@@ -1131,8 +983,6 @@ let lastAdminPromptTime = 0;
     function handlePointerEnd(e) {
         if (!isPointerDown) return;
         isPointerDown = false;
-        clearTimeout(longPressTimer);
-        iosOrb.classList.remove('holding');
         resetIdleTimer();
 
         try { iosOrb.releasePointerCapture(e.pointerId); } catch (_) {}
@@ -1142,36 +992,11 @@ let lastAdminPromptTime = 0;
             return;
         }
 
-        if (longPressTriggered) {
-            return;
-        }
-
-        // Distinguish Double-Tap vs Single-Tap (420ms window for reliable mobile & desktop taps)
-        const now = Date.now();
-        if (now - lastTapTime < 420) {
-            clearTimeout(singleTapTimer);
-            lastTapTime = 0;
-            if (navigator.vibrate) navigator.vibrate(35);
-            openAdminConfirm();
-        } else {
-            lastTapTime = now;
-            clearTimeout(singleTapTimer);
-            singleTapTimer = setTimeout(() => {
-                openIosQuickMenu();
-            }, 430);
-        }
+        openIosQuickMenu();
     }
 
     iosOrb.addEventListener('pointerup', handlePointerEnd);
     iosOrb.addEventListener('pointercancel', handlePointerEnd);
-
-    // Native double-click fallback for desktop mice/trackpads
-    iosOrb.addEventListener('dblclick', (e) => {
-        e.preventDefault();
-        clearTimeout(singleTapTimer);
-        clearTimeout(longPressTimer);
-        openAdminConfirm();
-    });
 
     window.addEventListener('resize', snapToNearestEdge);
     resetIdleTimer();
@@ -1185,27 +1010,6 @@ function openIosQuickMenu() {
 function closeIosQuickMenu() {
     iosQuickMenu.classList.remove('active');
     iosQuickMenu.setAttribute('aria-hidden', 'true');
-}
-
-function openAdminConfirm() {
-    const now = Date.now();
-    if (now - lastAdminPromptTime < 400) return;
-    lastAdminPromptTime = now;
-
-    closeIosQuickMenu();
-    adminConfirmModal.classList.add('active');
-    adminConfirmModal.setAttribute('aria-hidden', 'false');
-}
-
-function closeAdminConfirm() {
-    adminConfirmModal.classList.remove('active');
-    adminConfirmModal.setAttribute('aria-hidden', 'true');
-}
-
-function confirmAdminYes() {
-    closeAdminConfirm();
-    if (adminTabBtn) adminTabBtn.style.display = 'inline-block';
-    openInFrame(ADMIN_SCRIPT_URL, true);
 }
 
 /* =========================================================
@@ -1316,7 +1120,6 @@ function resolveTargetUrl(routeOrUrl) {
     if (ROUTES[routeOrUrl]) return ROUTES[routeOrUrl];
     if (routeOrUrl.startsWith("?")) return `${MAIN_SCRIPT_URL}${routeOrUrl}`;
     if (routeOrUrl.startsWith("branch=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
-    if (routeOrUrl.startsWith("page=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
     return routeOrUrl;
 }
 
@@ -1326,15 +1129,10 @@ function updateBackButton() {
 
 function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
     const resolvedUrl = resolveTargetUrl(routeOrUrl);
-    if (!resolvedUrl) return;
+    if (!resolvedUrl || resolvedUrl.includes('page=admin')) return;
 
-    const isAdminRoute = routeOrUrl === 'admin' || resolvedUrl.includes('page=admin');
-    const isMainBooking = !isAdminRoute && resolvedUrl.startsWith(MAIN_SCRIPT_URL);
-    const activeTab = isAdminRoute ? 'admin' : (ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : ''));
-
-    if (isAdminRoute && adminTabBtn) {
-        adminTabBtn.style.display = 'inline-block';
-    }
+    const isMainBooking = resolvedUrl.startsWith(MAIN_SCRIPT_URL);
+    const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : '');
 
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
@@ -1350,9 +1148,6 @@ function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
             frameHistory.push(resolvedUrl);
         }
         activeUrl = resolvedUrl;
-        if (loaderText) {
-            loaderText.textContent = isAdminRoute ? "Loading Admin Panel..." : "Loading Inside KOF...";
-        }
         loader.classList.remove('hidden');
         iframe.src = resolvedUrl;
         updateBackButton();
@@ -1406,19 +1201,15 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     const params = new URLSearchParams(window.location.search);
+    params.delete('page');
     const hashValue = window.location.hash.replace(/^#/, '').trim();
-
-    if (params.get('page') === 'admin') {
-        openInFrame(ADMIN_SCRIPT_URL, true);
-        return;
-    }
 
     if (params.toString()) {
         openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
         return;
     }
 
-    if (hashValue) {
+    if (hashValue && !hashValue.toLowerCase().includes('admin')) {
         const query = hashValue.includes('=') ? hashValue : `branch=${encodeURIComponent(hashValue)}`;
         openInFrame(`${MAIN_SCRIPT_URL}?${query}`, true);
         return;
@@ -1458,7 +1249,7 @@ window.addEventListener('message', (event) => {
     if (!data) return;
 
     if (typeof data === 'string') {
-        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=') || data.startsWith('page=')) {
+        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=')) {
             openInFrame(data, true);
         }
     } else if (typeof data === 'object') {
@@ -1467,8 +1258,6 @@ window.addEventListener('message', (event) => {
             openInFrame(target, true);
         } else if (data.branch) {
             openInFrame(`${MAIN_SCRIPT_URL}?branch=${encodeURIComponent(data.branch)}`, true);
-        } else if (data.page) {
-            openInFrame(`${MAIN_SCRIPT_URL}?page=${encodeURIComponent(data.page)}`, true);
         }
     }
 });
