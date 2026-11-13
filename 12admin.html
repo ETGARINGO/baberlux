@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" type="image/png" href="SHOP_BRANDING.jpg">
+  <link rel="apple-touch-icon" href="SHOP_BRANDING.jpg">
+  <title>KOF | Admin Control Setup</title>
+
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-dim: rgba(212, 175, 55, 0.25);
+      --glass: rgba(10, 10, 10, 0.68);
+      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --green: #2ecc71;
+      --red: #e74c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #050505;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* BACKGROUND VIDEO */
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.4) contrast(1.1);
+      z-index: 0;
+    }
+
+    /* MAIN OVERLAY */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 2;
+      overflow-y: auto;
+    }
+
+    /* GLASS CARD */
+    .card {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px 22px;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 28px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+    }
+
+    .admin-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .crown-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.6));
+      line-height: 1;
+    }
+
+    h1 {
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin: 8px 0 4px;
+      font-size: 1.55rem;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .tagline {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    /* PIN LOCK SCREEN */
+    #lock-screen {
+      display: block;
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.4rem;
+      letter-spacing: 8px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 14px;
+      color: var(--gold);
+      font-weight: 900;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .pin-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+    }
+
+    #pin-error {
+      color: var(--red);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    /* ADMIN DASHBOARD (HIDDEN UNTIL UNLOCKED) */
+    #admin-panel {
+      display: none;
+    }
+
+    /* SHOP STATUS BAR */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .dot.closed {
+      background: var(--red);
+      box-shadow: 0 0 8px var(--red);
+    }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* CONTROL GRID */
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .ctrl-btn {
+      padding: 15px 10px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .ctrl-btn span.icon {
+      font-size: 1.35rem;
+    }
+
+    .ctrl-btn:hover, .ctrl-btn:active {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    /* PRIMARY ACTION BUTTON */
+    .primary-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-size: 0.88rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+    }
+
+    .secondary-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      gap: 10px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #bbb;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sub-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ADMIN MODAL */
+    #adminModal {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    }
+
+    #adminModal.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .modal-header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #adminFrame {
+      width: 100%;
+      height: calc(100% - 58px);
+      border: none;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VIDEO BACKGROUND -->
+  <video id="bg-video" autoplay muted loop playsinline preload="metadata">
+    <source src="IMG_1039.MOV" type="video/mp4">
+    <source src="IMG_1039.MOV" type="video/quicktime">
+  </video>
+
+  <!-- MAIN OVERLAY -->
+  <div id="overlay">
+    <div class="card">
+      <div class="admin-badge">🔐 Admin Control Setup</div>
+      <div class="crown-icon">👑</div>
+      <h1>King of Fadez</h1>
+      <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
+
+      <!-- 1. PIN LOCK SCREEN -->
+      <div id="lock-screen">
+        <input type="password" id="pinInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="••••" />
+        <div id="pin-error">Invalid Admin PIN. Try again.</div>
+        <button class="primary-btn" id="unlockBtn">Unlock Admin Panel</button>
+      </div>
+
+      <!-- 2. ADMIN CONTROL PANEL -->
+      <div id="admin-panel">
+        <!-- Shop Status Toggle -->
+        <div class="status-bar">
+          <div class="status-indicator">
+            <span class="dot" id="statusDot"></span>
+            <span id="statusText">SHOP OPEN</span>
+          </div>
+          <button class="toggle-btn" id="toggleStatusBtn">Switch Status</button>
+        </div>
+
+        <!-- Quick Admin Modules -->
+        <div class="control-grid">
+          <button class="ctrl-btn" data-title="Live Appointments" data-route="admin">
+            <span class="icon">📅</span>
+            <span>Bookings Queue</span>
+          </button>
+          <button class="ctrl-btn" data-title="Walk-In / POS Entry" data-route="walkin">
+            <span class="icon">✂️</span>
+            <span>Walk-In / POS</span>
+          </button>
+          <button class="ctrl-btn" data-title="Barber Roster & Shifts" data-route="barbers">
+            <span class="icon">💈</span>
+            <span>Barbers & Shifts</span>
+          </button>
+          <button class="ctrl-btn" data-title="Services & Pricing Setup" data-route="settings">
+            <span class="icon">⚙️</span>
+            <span>Shop Setup</span>
+          </button>
+        </div>
+
+        <!-- Launch Full Admin Dashboard -->
+        <button class="primary-btn" id="openFullAdmin">Open Full Admin Console</button>
+
+        <!-- Utility Row -->
+        <div class="secondary-actions">
+          <button class="sub-btn" id="openClientView">👁️ Preview Client App</button>
+          <button class="sub-btn" id="lockBtn">🔒 Lock Console</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN MODAL -->
+  <div id="adminModal">
+    <div class="modal-header">
+      <span id="modalTitle">Admin Console</span>
+      <div class="header-actions">
+        <button class="icon-btn" id="reloadFrame" title="Reload">↻ Refresh</button>
+        <button class="icon-btn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+    </div>
+
+    <iframe
+      id="adminFrame"
+      src=""
+      allow="camera; microphone; clipboard-read; clipboard-write; geolocation">
+    </iframe>
+  </div>
+
+  <script>
+    // ==========================================
+    // CONFIGURATION (EDIT YOUR PIN & SCRIPT URL)
+    // ==========================================
+    const ADMIN_PIN = "2026"; // Change this to your preferred 4-6 digit PIN
+    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
+    const BRANCH = "main";
+
+    // DOM Elements
+    const lockScreen = document.getElementById('lock-screen');
+    const adminPanel = document.getElementById('admin-panel');
+    const pinInput = document.getElementById('pinInput');
+    const pinError = document.getElementById('pin-error');
+    const adminModal = document.getElementById('adminModal');
+    const adminFrame = document.getElementById('adminFrame');
+    const modalTitle = document.getElementById('modalTitle');
+
+    // Check Session Unlock State
+    if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+      showAdminPanel();
+    }
+
+    function showAdminPanel() {
+      lockScreen.style.display = 'none';
+      adminPanel.style.display = 'block';
+    }
+
+    function lockAdminPanel() {
+      sessionStorage.removeItem('kof_admin_unlocked');
+      pinInput.value = '';
+      adminPanel.style.display = 'none';
+      lockScreen.style.display = 'block';
+    }
+
+    // Unlock Handler
+    function attemptUnlock() {
+      if (pinInput.value === ADMIN_PIN) {
+        pinError.style.display = 'none';
+        sessionStorage.setItem('kof_admin_unlocked', 'true');
+        showAdminPanel();
+      } else {
+        pinError.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }
+
+    document.getElementById('unlockBtn').addEventListener('click', attemptUnlock);
+    pinInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') attemptUnlock();
+    });
+    document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
+
+    // Shop Status Toggle (Saved Locally)
+    let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+
+    function updateStatusUI() {
+      if (isShopOpen) {
+        statusDot.classList.remove('closed');
+        statusText.textContent = 'SHOP OPEN';
+        statusText.style.color = '#2ecc71';
+      } else {
+        statusDot.classList.add('closed');
+        statusText.textContent = 'SHOP CLOSED';
+        statusText.style.color = '#e74c3c';
+      }
+    }
+    updateStatusUI();
+
+    document.getElementById('toggleStatusBtn').addEventListener('click', () => {
+      isShopOpen = !isShopOpen;
+      localStorage.setItem('kof_shop_open', isShopOpen);
+      updateStatusUI();
+    });
+
+    // Open Modal with Route Parameters
+    function launchRoute(title, viewParam) {
+      modalTitle.textContent = title;
+      const targetUrl = `${BASE_SCRIPT_URL}?branch=${BRANCH}&view=${viewParam}`;
+      if (adminFrame.src !== targetUrl) {
+        adminFrame.src = targetUrl;
+      }
+      adminModal.style.display = 'flex';
+      requestAnimationFrame(() => adminModal.classList.add('active'));
+    }
+
+    // Grid Buttons
+    document.querySelectorAll('.ctrl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        launchRoute(btn.dataset.title, btn.dataset.route);
+      });
+    });
+
+    // Full Admin & Client Preview Buttons
+    document.getElementById('openFullAdmin').addEventListener('click', () => {
+      launchRoute('Full Admin Console', 'admin');
+    });
+
+    document.getElementById('openClientView').addEventListener('click', () => {
+      launchRoute('Client Booking Preview', 'client');
+    });
+
+    // Modal Controls
+    document.getElementById('reloadFrame').addEventListener('click', () => {
+      adminFrame.src = adminFrame.src;
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      adminModal.classList.remove('active');
+      setTimeout(() => {
+        adminModal.style.display = 'none';
+      }, 350);
+    });
+  </script>
+
+</body>
+</html>
