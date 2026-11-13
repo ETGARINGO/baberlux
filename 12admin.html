@@ -1,14 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <link rel="icon" type="image/png" href="SHOP_BRANDING.jpg">
-  <link rel="apple-touch-icon" href="SHOP_BRANDING.jpg">
+  <title>King of Fadez | Admin Control Setup</title>
+  <meta name="description" content="King of Fadez • Dasmariñas Branch Command Center & Admin Control Setup">
+
+  <!-- Browser & App Icons -->
+  <link rel="icon" type="image/gif" href="kof.gif">
+  <link rel="apple-touch-icon" href="kof.gif">
+
+  <!-- Open Graph (Facebook Messenger, Viber, WhatsApp, Telegram, iMessage, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="King of Fadez">
+  <meta property="og:title" content="King of Fadez | Dasmariñas Branch">
+  <meta property="og:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta property="og:image" content="kof.gif">
+  <meta property="og:image:secure_url" content="kof.gif">
+  <meta property="og:image:type" content="image/gif">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez Logo">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch">
+  <meta name="twitter:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta name="twitter:image" content="kof.gif">
+
+  <!-- Schema.org Fallback (Google / Viber / Android Shares) -->
+  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch">
+  <meta itemprop="description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta itemprop="image" content="kof.gif">
+
   <!-- Instant link prefetching for lightning speed -->
   <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbwfB1ilomuUsWhYme_6lUNLKZi5rQR0EpkbFv6V9SaC3M9F6l1pywp8_04FDsxET_4DNw/exec?page=admin&branch=main">
-  <title>KOF | Admin Control Setup</title>
 
   <style>
     :root {
@@ -117,10 +144,22 @@
       letter-spacing: 0.8px;
     }
 
-    .crown-icon {
-      font-size: 2.4rem;
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
-      line-height: 1;
+    .brand-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2px auto 8px;
+    }
+
+    .brand-logo {
+      width: 86px;
+      height: 86px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+      display: block;
     }
 
     h1 {
@@ -128,7 +167,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 3px;
-      margin: 6px 0 2px;
+      margin: 4px 0 2px;
       font-size: 1.45rem;
       text-transform: uppercase;
       font-weight: 900;
@@ -462,7 +501,9 @@
         <span id="liveClock">--:--</span>
       </div>
 
-      <div class="crown-icon">👑</div>
+      <div class="brand-logo-wrap">
+        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
+      </div>
       <h1>King of Fadez</h1>
       <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
 
