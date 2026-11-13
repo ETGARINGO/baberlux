@@ -1,538 +1,423 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080808">
 <meta name="robots" content="noindex,nofollow">
-
-<title>KING OF FADEZ | Main Portal</title>
-
+<title>KING OF FADEZ</title>
 <style>
-:root {
-  --bg: #050505;
-  --gold: #d4af37;
-  --gold-light: #f9e6a1;
-  --panel: #101010;
-  --muted: #999;
+:root{
+ --bg:#050505;--gold:#d4af37;--gold-light:#f9e6a1;
+ --line:rgba(212,175,55,.23);
 }
-
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+html,body{
+ margin:0;width:100%;height:100%;background:var(--bg);color:#fff;
+ font-family:Inter,"Segoe UI",Arial,sans-serif;overflow:hidden;overscroll-behavior:none;
 }
+button,input{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: var(--bg);
-  color: white;
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  overscroll-behavior: none;
+/* Background */
+.bg-fallback{
+ position:fixed;inset:0;z-index:0;
+ background:radial-gradient(ellipse at 50% 30%,#332710 0%,transparent 50%),linear-gradient(145deg,#17130a,#030303 70%);
 }
-
-body {
-  position: fixed;
-  inset: 0;
+#bg-video{
+ position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+ filter:brightness(.35) saturate(.7);
 }
-
-#background {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 0%, #332710 0%, transparent 50%),
-    linear-gradient(145deg, #17130a, #030303 75%);
-  z-index: 0;
+#ambient{
+ position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.75));
 }
-
-#particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
+#particles{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.particle{
+ position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);
+ opacity:0;box-shadow:0 0 12px var(--gold);animation:floatUp linear infinite;
 }
-
-.particle {
-  position: absolute;
-  bottom: -10px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 12px var(--gold);
-  animation: floatUp linear infinite;
+@keyframes floatUp{
+ 0%{transform:translateY(20px);opacity:0}
+ 15%{opacity:.6}85%{opacity:.4}
+ 100%{transform:translateY(-110vh) translateX(35px);opacity:0}
 }
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  15% { opacity: .6; }
-  85% { opacity: .4; }
-  100% {
-    transform: translateY(-110vh) translateX(30px);
-    opacity: 0;
-  }
+@keyframes goldPulse{
+ 0%,100%{box-shadow:0 0 12px rgba(212,175,55,.15)}
+ 50%{box-shadow:0 0 28px rgba(212,175,55,.45)}
 }
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* Brand + status */
+.brand{position:fixed;top:22px;left:25px;z-index:20;display:flex;align-items:center;gap:10px}
+.brand-icon{
+ width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#f5dc82,#98701c);color:#080808;font-size:21px;
+ box-shadow:0 0 20px #d4af3730;
 }
-
-@keyframes pulse {
-  50% { opacity: .45; }
+.brand-name{font-size:12px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+.brand-sub{font-size:9px;letter-spacing:2px;color:#aaa;margin-top:4px}
+.status{
+ position:fixed;top:27px;right:25px;z-index:20;display:flex;align-items:center;gap:8px;
+ font-size:9px;letter-spacing:2px;color:#ccc;
 }
+.status-dot{width:7px;height:7px;border-radius:50%;background:#36d98a;box-shadow:0 0 10px #36d98a}
 
-/* HEADER */
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 65px;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  background: rgba(5,5,5,.94);
-  border-bottom: 1px solid rgba(212,175,55,.25);
-  backdrop-filter: blur(18px);
+/* Login */
+#auth{
+ position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+ padding:80px 15px 65px;overflow-y:auto;transition:opacity .4s,visibility .4s;
 }
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 11px;
+#auth.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.login-card{
+ width:100%;max-width:390px;padding:34px 30px 25px;border:1px solid var(--line);
+ border-radius:25px;background:linear-gradient(145deg,rgba(25,23,17,.93),rgba(5,5,5,.96));
+ backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);text-align:center;
+ box-shadow:0 25px 80px #000c;animation:fadeIn .7s ease,goldPulse 5s infinite;
 }
-
-.brand-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg,#f5dc82,#98701c);
-  color: #080808;
-  font-size: 22px;
+.crown{font-size:48px;filter:drop-shadow(0 0 12px #d4af3755);animation:crownFloat 3s ease-in-out infinite}
+.login-card h1{color:var(--gold);letter-spacing:4px;font-size:25px;margin:10px 0 5px;font-weight:900}
+.tagline{font-size:9px;color:#aaa;letter-spacing:4px}
+.location{font-size:10px;color:var(--gold-light);letter-spacing:2px;margin:20px 0 25px}
+.field{
+ width:100%;padding:16px;border-radius:11px;border:1px solid #34302a;background:#080808;
+ color:#fff;outline:none;text-align:center;letter-spacing:7px;font-size:17px;transition:.3s;
 }
-
-.brand-name {
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 950;
-  letter-spacing: 3px;
+.field:focus{border-color:var(--gold);box-shadow:0 0 15px #d4af3725}
+.btn{
+ width:100%;padding:15px;border-radius:11px;border:1px solid transparent;
+ font-size:11px;font-weight:900;letter-spacing:1.5px;margin-top:10px;
+ transition:transform .2s,box-shadow .2s,background .2s;
 }
+.btn:active{transform:scale(.97)}
+.btn-gold{color:#090909;background:linear-gradient(110deg,#98701c,#f4d979,#b68a26);background-size:200% 100%;animation:shimmer 5s linear infinite}
+.btn-gold:hover{box-shadow:0 5px 25px #d4af3755}
+.btn-outline{color:var(--gold-light);border-color:#5b4b25;background:rgba(212,175,55,.055)}
+.btn-outline:hover{background:rgba(212,175,55,.15);border-color:var(--gold)}
+.divider{height:1px;background:#ffffff17;margin:20px 0 6px}
+.section-label{text-align:left;color:#999;font-size:9px;letter-spacing:2px;margin:14px 0 4px}
+#error{display:none;font-size:10px;color:#ff6262;margin:12px 0 0}
+.version{font-size:8px;color:#555;margin-top:18px;letter-spacing:2px}
 
-.brand-sub {
-  color: #999;
-  font-size: 8px;
-  letter-spacing: 2px;
-  margin-top: 4px;
+/* Workspace */
+#workspace{position:fixed;inset:0;z-index:30;background:#050505;display:none;opacity:0;transition:opacity .4s}
+#workspace.active{display:block;opacity:1}
+#secure-frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+
+#toolbar{
+ position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:50;
+ display:flex;align-items:center;gap:7px;padding:7px;border:1px solid #d4af374d;
+ border-radius:50px;background:rgba(8,8,8,.91);backdrop-filter:blur(18px);
+ box-shadow:0 5px 25px #0008;
 }
-
-.status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: #ccc;
+.tool-btn{
+ border:0;border-radius:30px;padding:10px 14px;color:var(--gold-light);background:#ffffff0b;
+ font-size:9px;font-weight:900;letter-spacing:.6px;white-space:nowrap;
 }
+.tool-btn:hover{background:#d4af3726}
+.tool-btn.exit{background:#351313;color:#ff7777}
+.tool-btn.proof{background:var(--gold);color:#080808}
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #36d98a;
-  box-shadow: 0 0 10px #36d98a;
+/* Loading */
+#loading{
+ position:absolute;inset:0;z-index:40;display:none;align-items:center;justify-content:center;
+ flex-direction:column;background:#080808;color:var(--gold);text-align:center;
 }
-
-/* MAIN WORKSPACE */
-
-#workspace {
-  position: fixed;
-  inset: 65px 0 0;
-  z-index: 5;
-  background: #fff;
+#loading.show{display:flex}
+.loader{
+ width:42px;height:42px;border:3px solid #ffffff18;border-top-color:var(--gold);
+ border-radius:50%;animation:spin .8s linear infinite;margin-bottom:20px;
 }
+#loading h3{font-size:12px;letter-spacing:3px}
+#loading p{color:#888;font-size:10px;max-width:280px;line-height:1.7;padding:0 15px}
+#loading-actions{margin-top:12px;display:none;gap:8px}
 
-#main-frame {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: white;
+/* Proof overlay */
+#proof-modal{
+ position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+ padding:12px;background:rgba(0,0,0,.83);backdrop-filter:blur(12px);
+ visibility:hidden;opacity:0;transition:.3s;
 }
-
-/* LOADING */
-
-#loading {
-  position: fixed;
-  inset: 65px 0 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: #080808;
-  text-align: center;
-  transition: opacity .4s, visibility .4s;
+#proof-modal.open{visibility:visible;opacity:1}
+.proof-window{
+ width:100%;height:100%;max-width:1250px;max-height:900px;display:flex;flex-direction:column;
+ background:#090909;border:1px solid #d4af3755;border-radius:17px;overflow:hidden;
+ transform:scale(.97);transition:transform .3s;
 }
-
-#loading.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+#proof-modal.open .proof-window{transform:scale(1)}
+.proof-header{
+ min-height:60px;padding:12px 17px;display:flex;align-items:center;justify-content:space-between;
+ gap:10px;background:linear-gradient(90deg,#17130a,#080808);border-bottom:1px solid var(--line);
 }
+.proof-title{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:2px}
+.proof-description{color:#777;font-size:9px;margin-top:5px}
+.close-btn{border:0;border-radius:8px;background:#371616;color:#ff7777;font-size:10px;font-weight:900;padding:11px 15px}
+#proof-frame{width:100%;height:100%;flex:1;border:0;background:#fff}
 
-.loader {
-  width: 43px;
-  height: 43px;
-  border: 3px solid #ffffff18;
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-  margin-bottom: 22px;
+@media(max-width:600px){
+ .brand{top:15px;left:14px}
+ .status{top:24px;right:14px;font-size:8px}
+ .login-card{padding:30px 22px 20px}
+ .login-card h1{font-size:22px}
+ #toolbar{
+  top:auto;bottom:12px;width:calc(100% - 16px);justify-content:center;
+  border-radius:15px;flex-wrap:wrap;
+ }
+ .tool-btn{padding:10px 12px;font-size:8px}
+ .proof-window{border-radius:10px}
 }
-
-.loading-title {
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 3px;
-}
-
-.loading-message {
-  color: #888;
-  font-size: 10px;
-  max-width: 300px;
-  line-height: 1.8;
-  padding: 0 20px;
-}
-
-.loading-button {
-  margin-top: 15px;
-  padding: 11px 20px;
-  background: linear-gradient(110deg,#98701c,#f4d979);
-  border: 0;
-  border-radius: 9px;
-  color: #080808;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-/* FOOTER */
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 22px;
-  z-index: 15;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #080808;
-  border-top: 1px solid #d4af3720;
-  color: #777;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-}
-
-/* MOBILE */
-
-@media(max-width:600px) {
-  .header {
-    height: 55px;
-    padding: 0 12px;
-  }
-
-  .brand-icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .brand-name {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
-  .brand-sub {
-    font-size: 7px;
-  }
-
-  .status {
-    font-size: 7px;
-    letter-spacing: .5px;
-  }
-
-  #workspace {
-    inset: 55px 0 0;
-  }
-
-  #loading {
-    inset: 55px 0 0;
-  }
-
-  .footer {
-    height: 18px;
-    font-size: 7px;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
-
 <body>
 
-<div id="background"></div>
+<div class="bg-fallback"></div>
+<video id="bg-video" autoplay muted loop playsinline>
+ <source src="IMG_1039.MOV" type="video/quicktime">
+ <source src="IMG_1039.MOV" type="video/mp4">
+</video>
+<div id="ambient"></div>
 <div id="particles"></div>
 
-<!-- PERMANENT BRAND HEADER -->
+<div class="brand">
+ <div class="brand-icon">♛</div>
+ <div>
+  <div class="brand-name">KING OF FADEZ</div>
+  <div class="brand-sub">PREMIUM MANAGEMENT SYSTEM</div>
+ </div>
+</div>
 
-<header class="header">
+<div class="status">
+ <span class="status-dot"></span>
+ <span id="status-text">TERMINAL READY</span>
+</div>
 
-  <div class="brand">
-    <div class="brand-icon">♛</div>
+<!-- LOGIN -->
+<section id="auth">
+ <div class="login-card">
+  <div class="crown">👑</div>
+  <h1>KING OF FADEZ</h1>
+  <div class="tagline">BARBERSHOP MANAGEMENT</div>
+  <div class="location">DASMARIÑAS • CAVITE</div>
 
-    <div>
-      <div class="brand-name">KING OF FADEZ</div>
-      <div class="brand-sub">BARBERSHOP MANAGEMENT SYSTEM</div>
-    </div>
-  </div>
+  <input type="password" id="accessKey" class="field" placeholder="ACCESS KEY"
+         maxlength="20" autocomplete="off" aria-label="Access key">
+  <div id="error">INVALID ACCESS KEY</div>
+  <button class="btn btn-gold" onclick="validateKey()">ENTER</button>
 
-  <div class="status">
-    <span class="status-dot"></span>
-    <span id="network-status">SYSTEM ACTIVE</span>
-  </div>
+  <div class="divider"></div>
+  <div class="section-label">QUICK ACCESS</div>
+  <button class="btn btn-outline" onclick="openClient()">📖 CLIENT BOOKING</button>
+  <button class="btn btn-outline" onclick="openDTR()">⏱ DTR PORTAL</button>
 
-</header>
-
-<!-- PERMANENT MAIN FORM -->
-
-<main id="workspace">
-
-  <iframe
-    id="main-frame"
-    title="KING OF FADEZ Main Form"
-    src="about:blank"
-    allow="fullscreen; clipboard-read; clipboard-write"
-    allowfullscreen
-    referrerpolicy="strict-origin-when-cross-origin">
-  </iframe>
-
-</main>
-
-<!-- LOADING SCREEN -->
-
-<section id="loading">
-
-  <div class="loader"></div>
-
-  <div class="loading-title" id="loading-title">
-    INITIALIZING PORTAL
-  </div>
-
-  <p class="loading-message" id="loading-message">
-    Connecting to KING OF FADEZ main management form.
-    Please wait...
-  </p>
-
-  <button
-    class="loading-button"
-    id="retry-button"
-    onclick="reloadMainForm()"
-    style="display:none">
-    RECONNECT
-  </button>
-
+  <div class="version">KOF TERMINAL</div>
+ </div>
 </section>
 
-<footer class="footer">
-  KING OF FADEZ • MAIN PORTAL • SECURE SESSION
-</footer>
+<!-- WORKSPACE -->
+<section id="workspace">
+ <iframe id="secure-frame" src="about:blank" title="King of Fadez Workspace"
+  allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+ <div id="loading">
+  <div class="loader"></div>
+  <h3 id="loading-title">INITIALIZING SYSTEM</h3>
+  <p id="loading-message">Connecting to secure management terminal...</p>
+  <div id="loading-actions">
+   <button class="tool-btn" onclick="retryCurrent()">RETRY CONNECTION</button>
+   <button class="tool-btn exit" onclick="closeSystem()">RETURN HOME</button>
+  </div>
+ </div>
+
+ <nav id="toolbar">
+  <button class="tool-btn" onclick="goHome()">⌂ HOME</button>
+  <button class="tool-btn proof" onclick="openProof()">📁 PROOF</button>
+  <button class="tool-btn" onclick="openDTR()">⏱ DTR</button>
+  <button class="tool-btn" onclick="openClient()">📖 CLIENT</button>
+  <button class="tool-btn exit" onclick="closeSystem()">✕ EXIT</button>
+ </nav>
+</section>
+
+<!-- PROOF REPOSITORY -->
+<section id="proof-modal">
+ <div class="proof-window">
+  <header class="proof-header">
+   <div>
+    <div class="proof-title">♛ KOF | PROOF REPOSITORY</div>
+    <div class="proof-description">BOOKING DOCUMENTS AND PAYMENT RECORDS</div>
+   </div>
+   <button class="close-btn" onclick="closeProof()">CLOSE ✕</button>
+  </header>
+  <iframe id="proof-frame" src="about:blank" title="Proof of Booking Repository"
+   allow="fullscreen" allowfullscreen></iframe>
+ </div>
+</section>
 
 <script>
 "use strict";
 
-/* =====================================
-   MAIN PORTAL CONFIGURATION
-===================================== */
+/* ---------- CONFIG ----------
+   NOTE: a key checked in the browser is visible to anyone who views the
+   page source. It only hides the link; it is not real security. Protect
+   sensitive data on the server (e.g. in your Apps Script) instead. */
 
-const MAIN_FORM_URL =
-"https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec";
+const MANAGER_KEY = "101";
 
-/* =====================================
-   ELEMENTS
-===================================== */
+const URLS = {
+ client: "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec",
+ manager: "",  // paste your manager dashboard URL
+ dtr: "",      // paste your DTR portal URL
+ proof: ""     // paste your proof repository URL
+};
 
-const frame = document.getElementById("main-frame");
-const loading = document.getElementById("loading");
+/* ---------- HELPERS ---------- */
+const $ = id => document.getElementById(id);
+const auth = $("auth"), workspace = $("workspace"), frame = $("secure-frame"),
+      loading = $("loading"), proofModal = $("proof-modal"), proofFrame = $("proof-frame");
 
-const loadingTitle =
-document.getElementById("loading-title");
+let currentURL = "", currentModule = "", loadingTimer = null, frameLoaded = false;
 
-const loadingMessage =
-document.getElementById("loading-message");
-
-const retryButton =
-document.getElementById("retry-button");
-
-let loadingTimer = null;
-let loadTimer = null;
-
-/* =====================================
-   PARTICLES
-===================================== */
-
-(function createParticles() {
-
-  const container =
-  document.getElementById("particles");
-
-  for (let i = 0; i < 20; i++) {
-
-    const particle =
-    document.createElement("div");
-
-    particle.className = "particle";
-
-    particle.style.left =
-    Math.random() * 100 + "%";
-
-    particle.style.animationDuration =
-    (9 + Math.random() * 12) + "s";
-
-    particle.style.animationDelay =
-    Math.random() * 12 + "s";
-
-    container.appendChild(particle);
-  }
-
+/* ---------- PARTICLES ---------- */
+(function(){
+ const c = $("particles");
+ for(let i=0;i<24;i++){
+  const p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random()*100+"%";
+  p.style.bottom = "-10px";
+  p.style.animationDuration = (9+Math.random()*13)+"s";
+  p.style.animationDelay = (Math.random()*12)+"s";
+  c.appendChild(p);
+ }
 })();
 
-/* =====================================
-   LOAD MAIN FORM
-===================================== */
+/* ---------- LOGIN ---------- */
+function validateKey(){
+ const key = $("accessKey").value.trim();
+ $("error").style.display = "none";
 
-function loadMainForm() {
+ if(key === MANAGER_KEY){
+  launchSystem(URLS.manager,"MANAGER DASHBOARD");
+ } else {
+  $("error").style.display = "block";
+  $("accessKey").value = "";
+  $("accessKey").focus();
+ }
+}
+$("accessKey").addEventListener("keydown",e=>{ if(e.key==="Enter") validateKey(); });
 
-  clearTimeout(loadingTimer);
-  clearTimeout(loadTimer);
-
-  loading.classList.remove("hidden");
-
-  loadingTitle.textContent =
-  "CONNECTING TO MAIN FORM";
-
-  loadingMessage.textContent =
-  "Please wait while KING OF FADEZ loads your management portal.";
-
-  retryButton.style.display = "none";
-
-  // Always load the main form inside this iframe.
-  frame.src = MAIN_FORM_URL;
-
-  loadingTimer = setTimeout(() => {
-
-    loadingTitle.textContent =
-    "LOADING TAKING LONGER";
-
-    loadingMessage.textContent =
-    "The form is taking longer than expected. Please wait or reconnect.";
-
-    retryButton.style.display = "inline-block";
-
-  }, 20000);
-
+/* ---------- WORKSPACE ---------- */
+function showLoading(title,message){
+ loading.classList.add("show");
+ $("loading-title").textContent = title;
+ $("loading-message").textContent = message;
+ $("loading-actions").style.display = "none";
 }
 
-/* =====================================
-   FRAME STATUS
-===================================== */
-
-frame.addEventListener("load", () => {
-
-  clearTimeout(loadingTimer);
-
-  // The load event only indicates iframe navigation.
-  // It does not guarantee that the remote form rendered.
-
-  loadTimer = setTimeout(() => {
-
-    loading.classList.add("hidden");
-
-  }, 500);
-
-});
-
-/* =====================================
-   RECONNECT
-===================================== */
-
-function reloadMainForm() {
-
-  loadMainForm();
-
+function startLoadTimer(title,message){
+ clearTimeout(loadingTimer);
+ loadingTimer = setTimeout(()=>{
+  if(!frameLoaded){
+   $("loading-title").textContent = title;
+   $("loading-message").textContent = message;
+   $("loading-actions").style.display = "flex";
+  }
+ },15000);
 }
 
-/* =====================================
-   NETWORK STATUS
-===================================== */
+function launchSystem(url,name){
+ if(!url){
+  alert(name+" is not configured yet.");
+  return;
+ }
+ currentURL = url;
+ currentModule = name;
+ frameLoaded = false;
 
-window.addEventListener("online", () => {
+ auth.classList.add("hidden");
+ workspace.style.display = "block";
+ requestAnimationFrame(()=>workspace.classList.add("active"));
 
-  document.getElementById("network-status")
-  .textContent = "NETWORK ONLINE";
+ showLoading("CONNECTING TO "+name,"Please wait while the terminal loads...");
+ frame.src = url;
+ startLoadTimer(
+  "CONNECTION TAKING LONGER",
+  "The destination may be redirecting or loading external services. You can wait or retry."
+ );
+}
 
+frame.addEventListener("load",()=>{
+ if(frame.src === "about:blank" || !currentURL) return;
+ frameLoaded = true;
+ clearTimeout(loadingTimer);
+ setTimeout(()=>loading.classList.remove("show"),350);
 });
 
-window.addEventListener("offline", () => {
+function retryCurrent(){
+ if(!currentURL) return;
+ frameLoaded = false;
+ showLoading("RECONNECTING","Reopening "+currentModule+"...");
+ frame.src = currentURL;
+ startLoadTimer(
+  "STILL WAITING",
+  "The remote application may be unavailable or may block iframe embedding."
+ );
+}
 
-  document.getElementById("network-status")
-  .textContent = "NETWORK OFFLINE";
+function openDTR(){ launchSystem(URLS.dtr,"DTR PORTAL"); }
+function openClient(){ launchSystem(URLS.client,"CLIENT BOOKING"); }
 
+function goHome(){
+ if(proofModal.classList.contains("open")) closeProof();
+ clearTimeout(loadingTimer);
+ workspace.classList.remove("active");
+ setTimeout(()=>{
+  workspace.style.display = "none";
+  auth.classList.remove("hidden");
+  $("accessKey").value = "";
+ },300);
+}
+
+function closeSystem(){
+ currentURL = "";
+ currentModule = "";
+ clearTimeout(loadingTimer);
+ frame.src = "about:blank";
+ loading.classList.remove("show");
+ goHome();
+}
+
+/* ---------- PROOF REPOSITORY ---------- */
+function openProof(){
+ if(!URLS.proof){
+  alert("Proof repository is not configured yet.");
+  return;
+ }
+ proofModal.classList.add("open");
+ if(!proofFrame.dataset.loaded){
+  proofFrame.src = URLS.proof;
+  proofFrame.dataset.loaded = "true";
+ }
+}
+function closeProof(){ proofModal.classList.remove("open"); }
+
+/* ---------- SHORTCUTS ---------- */
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape" && proofModal.classList.contains("open")) closeProof();
+ if(e.altKey && e.key.toLowerCase()==="h" && workspace.classList.contains("active")) goHome();
 });
 
-/* =====================================
-   INITIALIZE
-===================================== */
+/* ---------- NETWORK STATUS ---------- */
+window.addEventListener("online",()=>{ $("status-text").textContent = "NETWORK ONLINE"; });
+window.addEventListener("offline",()=>{ $("status-text").textContent = "NETWORK OFFLINE"; });
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  loadMainForm();
-
-});
-
-/*
-  PERMANENT PORTAL DESIGN
-
-  - No administrator login.
-  - No manager login.
-  - No master key.
-  - No exit button.
-  - No home navigation.
-  - No external module navigation.
-  - Main form always embedded.
-  - Reconnection reloads the same form.
-*/
-
+document.addEventListener("DOMContentLoaded",()=>$("accessKey").focus());
 </script>
-
 </body>
 </html>
