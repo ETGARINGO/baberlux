@@ -66,7 +66,7 @@
             -webkit-backdrop-filter: blur(18px);
             width: 100%;
             max-width: 390px;
-            padding: 35px 28px;
+            padding: 32px 26px;
             border-radius: 28px;
             border: 1px solid rgba(212, 175, 55, 0.35);
             text-align: center;
@@ -77,14 +77,14 @@
             color: var(--gold);
             text-transform: uppercase;
             letter-spacing: 4px;
-            margin: 10px 0 5px 0;
+            margin: 8px 0 5px 0;
             font-size: 1.85rem;
         }
 
         .tagline {
             font-size: 0.75rem;
             color: #ccc;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             text-transform: uppercase;
             letter-spacing: 2.5px;
         }
@@ -92,18 +92,18 @@
         .social-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 22px 0;
+            gap: 10px;
+            margin: 20px 0;
         }
 
         .btn-link {
-            padding: 14px 10px;
+            padding: 13px 10px;
             background: rgba(255, 255, 255, 0.06);
             color: white;
             text-decoration: none;
             border-radius: 12px;
             text-align: center;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.12);
             cursor: pointer;
@@ -120,7 +120,7 @@
         .btn-gold {
             display: block;
             width: 100%;
-            padding: 18px;
+            padding: 17px;
             background: var(--gold-gradient);
             border: none;
             border-radius: 14px;
@@ -132,10 +132,33 @@
             letter-spacing: 1.5px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 8px 22px rgba(212, 175, 55, 0.28);
+            margin-bottom: 10px;
         }
 
         .btn-gold:active {
             transform: scale(0.98);
+        }
+
+        /* --- SUB-LANDING BRANCH BUTTON --- */
+        .btn-sub {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 14px;
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-sub:hover, .btn-sub:active {
+            background: rgba(212, 175, 55, 0.24);
+            border-color: var(--gold);
         }
 
         /* --- PERSISTENT IN-PAGE IFRAME VIEWER --- */
@@ -143,13 +166,13 @@
             position: fixed;
             inset: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 10px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -164,7 +187,7 @@
             width: 100%;
             height: 100%;
             max-width: 540px;
-            max-height: 860px;
+            max-height: 880px;
             background: #111115;
             border-radius: 22px;
             overflow: hidden;
@@ -174,7 +197,7 @@
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
         }
 
-        /* Top Navigation Bar Inside Viewer (Keeps User On-Page) */
+        /* Top Navigation Bar Inside Viewer */
         .viewer-header {
             display: flex;
             align-items: center;
@@ -299,7 +322,7 @@
         }
 
         #audio-status {
-            margin-top: 18px;
+            margin-top: 16px;
             font-size: 0.7rem;
             color: var(--gold);
             text-transform: uppercase;
@@ -316,29 +339,33 @@
 
 <div id="main-wrapper">
     <div class="container">
-        <div style="font-size: 3.4rem; margin-bottom: 5px;">👑</div>
+        <div style="font-size: 3.3rem; margin-bottom: 4px;">👑</div>
         <h1>King of Fadez</h1>
         <p class="tagline">The Standard of Dasmariñas</p>
 
         <div class="social-grid">
-            <button type="button" class="btn-link" data-route="maps" onclick="openInFrame('maps')">🗺️ Maps</button>
-            <button type="button" class="btn-link" data-route="tiktok" onclick="openInFrame('tiktok')">📱 TikTok</button>
-            <button type="button" class="btn-link" data-route="fb" onclick="openInFrame('fb')">📘 FB Page</button>
-            <button type="button" class="btn-link" data-route="web" onclick="openInFrame('web')">🌐 Web</button>
+            <button type="button" class="btn-link" onclick="openInFrame('maps')">🗺️ Maps</button>
+            <button type="button" class="btn-link" onclick="openInFrame('tiktok')">📱 TikTok</button>
+            <button type="button" class="btn-link" onclick="openInFrame('fb')">📘 FB Page</button>
+            <button type="button" class="btn-link" onclick="openInFrame('web')">🌐 Web</button>
         </div>
 
         <button type="button" onclick="openInFrame('booking')" class="btn-gold">Proceed to Booking</button>
+        
+        <!-- Sub-Landing Branch Button (Always Opens In-Frame, Never Exits DNS) -->
+        <button type="button" onclick="openSubBranch('kof19a7')" class="btn-sub">📍 Book Branch: KOF 19A7</button>
         
         <div id="audio-status">🔊 Tap anywhere for sound</div>
     </div>
 </div>
 
-<!-- PERSISTENT IN-FRAME VIEWER (NEVER EXITS PAGE OR DNS) -->
+<!-- PERSISTENT IN-FRAME VIEWER (ZERO REDIRECTS / ZERO DNS EXIT) -->
 <div id="inframe-overlay" aria-hidden="true">
     <div class="viewer-shell">
         <div class="viewer-header">
             <div class="viewer-tabs">
-                <button type="button" class="tab-btn active" data-tab="booking" onclick="openInFrame('booking')">✂️ Book</button>
+                <button type="button" class="tab-btn active" data-tab="booking" onclick="openInFrame('booking')">✂️ Main</button>
+                <button type="button" class="tab-btn" data-tab="kof19a7" onclick="openSubBranch('kof19a7')">📍 KOF 19A7</button>
                 <button type="button" class="tab-btn" data-tab="maps" onclick="openInFrame('maps')">🗺️ Maps</button>
                 <button type="button" class="tab-btn" data-tab="tiktok" onclick="openInFrame('tiktok')">📱 TikTok</button>
                 <button type="button" class="tab-btn" data-tab="fb" onclick="openInFrame('fb')">📘 FB</button>
@@ -355,11 +382,15 @@
                 <div class="spinner"></div>
                 <span>Loading Inside KOF...</span>
             </div>
-            <!-- Sandbox blocks allow-top-navigation so embedded pages CANNOT redirect your domain/DNS -->
+            <!--
+                STRICT ANTI-ESCAPE SANDBOX:
+                - Omitting `allow-top-navigation` blocks top-frame redirects.
+                - Omitting `allow-popups` blocks target="_blank" & window.open() from escaping to script.google.com.
+            -->
             <iframe 
                 id="app-frame" 
                 src="about:blank"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads"
                 referrerpolicy="no-referrer-when-downgrade"
                 allow="geolocation; payment; clipboard-write"
                 loading="eager">
@@ -369,8 +400,11 @@
 </div>
 
 <script>
+const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
+
 const ROUTES = {
-    booking: "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec",
+    booking: BASE_SCRIPT_URL,
+    kof19a7: `${BASE_SCRIPT_URL}?branch=kof19a7`,
     maps: "https://www.google.com/maps?q=King+Of+Fadez+Dasmariñas&output=embed",
     tiktok: "https://www.tiktok.com/embed/@kingoffadez.ph",
     fb: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1NQfs6Fcer%2F&show_text=true&width=500",
@@ -383,61 +417,129 @@ const wrapper = document.getElementById('main-wrapper');
 const iframe = document.getElementById('app-frame');
 const loader = document.getElementById('frame-loader');
 
-let currentRoute = null;
+let activeUrl = "";
 
-// Preload booking engine silently in the background so it is always ready on the page
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        if (!currentRoute) {
-            currentRoute = 'booking';
-            iframe.src = ROUTES.booking;
-        }
-    }, 800);
-});
+// Core loader: accepts EITHER a route key ('kof19a7') OR any full sub-landing URL
+function openInFrame(routeOrUrl, tabKey = null, forceReload = false) {
+    const resolvedUrl = ROUTES[routeOrUrl] || routeOrUrl;
+    if (!resolvedUrl) return;
 
-function openInFrame(routeKey) {
-    const targetUrl = ROUTES[routeKey];
-    if (!targetUrl) return;
+    const resolvedTab = tabKey || (ROUTES[routeOrUrl] ? routeOrUrl : detectTabFromUrl(resolvedUrl));
 
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     wrapper.classList.add('blur-active');
 
-    // Update active tab styling
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === routeKey);
+        btn.classList.toggle('active', btn.dataset.tab === resolvedTab);
     });
 
-    // Only reload iframe if switching to a different route
-    if (currentRoute !== routeKey || iframe.src === 'about:blank') {
-        currentRoute = routeKey;
+    if (forceReload || activeUrl !== resolvedUrl || iframe.src === 'about:blank') {
+        activeUrl = resolvedUrl;
         loader.classList.remove('hidden');
-        iframe.src = targetUrl;
+        iframe.src = resolvedUrl;
     }
+
+    // Keep user on your own DNS while syncing ?branch=... in the address bar
+    syncParentDnsUrl(resolvedUrl);
+}
+
+// Helper specifically for any sub-landing branch parameter (e.g., openSubBranch('kof19a7'))
+function openSubBranch(branchCode) {
+    const subUrl = `${BASE_SCRIPT_URL}?branch=${encodeURIComponent(branchCode)}`;
+    openInFrame(subUrl, branchCode);
+}
+
+function detectTabFromUrl(url) {
+    try {
+        const parsed = new URL(url);
+        const branch = parsed.searchParams.get('branch');
+        if (branch) return branch;
+    } catch (_) {}
+    if (url.startsWith(BASE_SCRIPT_URL)) return 'booking';
+    return '';
+}
+
+function syncParentDnsUrl(targetUrl) {
+    try {
+        const parsed = new URL(targetUrl);
+        if (targetUrl.startsWith(BASE_SCRIPT_URL)) {
+            const search = parsed.search; // e.g., "?branch=kof19a7" or ""
+            const nextParentUrl = `${window.location.pathname}${search}`;
+            window.history.replaceState({ inframeUrl: targetUrl }, "", nextParentUrl);
+        }
+    } catch (_) {}
 }
 
 function reloadFrame() {
-    if (!currentRoute) return;
+    if (!activeUrl) return;
     loader.classList.remove('hidden');
-    iframe.src = ROUTES[currentRoute];
+    iframe.src = activeUrl;
 }
 
 function closeInFrame() {
-    // Hides overlay without destroying the iframe so state stays preserved on the page
     overlay.classList.remove('active');
     overlay.setAttribute('aria-hidden', 'true');
     wrapper.classList.remove('blur-active');
+    // Reset query string back to root of your DNS without leaving the page
+    window.history.replaceState({}, "", window.location.pathname);
 }
 
 iframe.addEventListener('load', () => {
     loader.classList.add('hidden');
 });
 
-// Hard-block any accidental top-level anchor navigation so the browser never exits this page/DNS
+// 1. AUTO-OPEN SUB-LANDING PAGES FROM YOUR OWN DNS URL
+// If a visitor opens `yourdomain.com/?branch=kof19a7` or `yourdomain.com/#kof19a7`,
+// it immediately opens inside the iframe without redirecting to script.google.com.
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const hashValue = window.location.hash.replace(/^#/, '').trim();
+
+    if (params.toString()) {
+        const directSubUrl = `${BASE_SCRIPT_URL}?${params.toString()}`;
+        openInFrame(directSubUrl);
+        return;
+    }
+
+    if (hashValue) {
+        const cleanBranch = hashValue.replace(/^branch=/i, '');
+        openSubBranch(cleanBranch);
+        return;
+    }
+
+    // Silent background preload of main booking page so it opens instantaneously
+    setTimeout(() => {
+        if (!activeUrl) {
+            activeUrl = ROUTES.booking;
+            iframe.src = ROUTES.booking;
+        }
+    }, 800);
+});
+
+// 2. INTERCEPT EVERY LINK CLICK ON THE PARENT PAGE SO NOTHING EXITS YOUR DNS
 document.addEventListener('click', (e) => {
-    const anchor = e.target.closest('a');
-    if (anchor && anchor.href) {
-        e.preventDefault();
+    const anchor = e.target.closest('a[href]');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href || href.startsWith('javascript:')) return;
+
+    e.preventDefault();
+    openInFrame(anchor.href);
+});
+
+// 3. POSTMESSAGE LISTENER FOR SUB-PAGE BUTTONS INSIDE GOOGLE APPS SCRIPT
+// Allows buttons inside the Apps Script sub-pages to tell the parent frame to switch URLs cleanly
+window.addEventListener('message', (event) => {
+    const data = event.data;
+    if (!data) return;
+
+    if (typeof data === 'string' && data.startsWith('http')) {
+        openInFrame(data);
+    } else if (typeof data === 'object') {
+        if (data.url) openInFrame(data.url);
+        else if (data.branch) openSubBranch(data.branch);
     }
 });
 
