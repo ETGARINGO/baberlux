@@ -1,554 +1,1264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#080808">
-  <meta name="robots" content="noindex,nofollow">
-  <title>KING OF FADEZ | Management System</title>
-  <style>
-    :root {
-      --bg: #050505;
-      --gold: #d4af37;
-      --gold-dark: #a67c00;
-      --gold-light: #f9e6a1;
-      --white: #ffffff;
-      --muted: #999999;
-      --line: rgba(212, 175, 55, 0.25);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KOF | Home</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <!-- PWA / Home Screen App Meta Tags (All Devices: iOS, Android, Windows, macOS) -->
+    <meta name="application-name" content="King of Fadez">
+    <meta name="apple-mobile-web-app-title" content="King of Fadez">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0b0b0e">
+    <meta name="msapplication-TileColor" content="#0b0b0e">
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      overflow: hidden;
-      overscroll-behavior: none;
-    }
+    <link id="dynamic-favicon" rel="icon" type="image/png">
+    <link id="dynamic-apple-icon" rel="apple-touch-icon">
+    <link id="dynamic-manifest" rel="manifest">
 
-    button {
-      font: inherit;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
 
-    /* BACKGROUND LAYERS */
-    .bg-fallback {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: 
-        radial-gradient(ellipse at 50% 30%, #332710 0%, transparent 55%),
-        linear-gradient(145deg, #17130a, #030303 75%);
-    }
+    <script>
+    // Self-Contained Dynamic App Icon & Web App Manifest Generator (Stays on Your DNS)
+    (function initSingleFilePWA() {
+        function createCrownIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
 
-    #bg-video {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      filter: brightness(0.35) saturate(0.7);
-    }
+            const bgGrad = ctx.createLinearGradient(0, 0, size, size);
+            bgGrad.addColorStop(0, '#18181f');
+            bgGrad.addColorStop(1, '#050507');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, size, size);
 
-    #ambient {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
-    }
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = size * 0.03;
+            ctx.strokeRect(size * 0.05, size * 0.05, size * 0.9, size * 0.9);
 
-    #particles {
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: hidden;
-    }
+            ctx.font = `${Math.floor(size * 0.46)}px "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('👑', size / 2, size * 0.44);
 
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0;
-      box-shadow: 0 0 12px var(--gold);
-      animation: floatUp linear infinite;
-    }
+            ctx.fillStyle = '#d4af37';
+            ctx.font = `800 ${Math.floor(size * 0.13)}px "Segoe UI", Arial, sans-serif`;
+            ctx.fillText('KOF', size / 2, size * 0.77);
 
-    /* ANIMATIONS */
-    @keyframes floatUp {
-      0% { transform: translateY(20px); opacity: 0; }
-      15% { opacity: 0.6; }
-      85% { opacity: 0.4; }
-      100% { transform: translateY(-110vh) translateX(35px); opacity: 0; }
-    }
+            return canvas.toDataURL('image/png');
+        }
 
-    @keyframes goldPulse {
-      0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-      50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.45); }
-    }
+        try {
+            const icon192 = createCrownIcon(192);
+            const icon512 = createCrownIcon(512);
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+            document.getElementById('dynamic-favicon').href = icon192;
+            document.getElementById('dynamic-apple-icon').href = icon512;
 
-    @keyframes crownFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
+            const hostStartUrl = window.location.origin + window.location.pathname;
+            const manifestObj = {
+                name: "King of Fadez",
+                short_name: "KOF",
+                description: "King of Fadez — The Standard of Dasmariñas",
+                start_url: hostStartUrl,
+                scope: window.location.origin + "/",
+                display: "standalone",
+                orientation: "portrait",
+                background_color: "#000000",
+                theme_color: "#0b0b0e",
+                icons: [
+                    { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+                    { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+                ]
+            };
 
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
+            const manifestUri = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifestObj));
+            document.getElementById('dynamic-manifest').setAttribute('href', manifestUri);
+        } catch (_) {}
+    })();
+    </script>
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f3d06b;
+            --glass: rgba(20, 20, 25, 0.88);
+            --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+        }
 
-    /* TOP HEADER */
-    .brand {
-      position: fixed;
-      top: 22px;
-      left: 25px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, #f5dc82, #98701c);
-      color: #080808;
-      font-size: 21px;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
-    }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            height: 100dvh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+            background-color: #000;
+        }
 
-    .brand-name {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: var(--gold);
-    }
+        /* --- VIDEO BACKGROUND --- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.35);
+        }
 
-    .brand-sub {
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: #aaaaaa;
-      margin-top: 3px;
-    }
+        /* --- MAIN CONTENT CONTAINER --- */
+        #main-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 20px;
+            transition: filter 0.4s ease, opacity 0.4s ease;
+        }
 
-    .status {
-      position: fixed;
-      top: 28px;
-      right: 25px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: #cccccc;
-    }
+        .container {
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            width: 100%;
+            max-width: 390px;
+            padding: 38px 28px;
+            border-radius: 28px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.92);
+        }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #36d98a;
-      box-shadow: 0 0 10px #36d98a;
-    }
+        h1 {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 8px 0 6px 0;
+            font-size: 1.85rem;
+        }
 
-    /* PORTAL GATEWAY */
-    #portal {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
+        .tagline {
+            font-size: 0.75rem;
+            color: #ccc;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+        }
 
-    #portal.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+        /* --- GOLD BOOKING BUTTON --- */
+        .btn-gold {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-weight: 800;
+            font-size: 0.92rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.28);
+        }
 
-    .portal-card {
-      width: 100%;
-      max-width: 410px;
-      padding: 40px 30px 32px;
-      border: 1px solid var(--line);
-      border-radius: 25px;
-      background: linear-gradient(145deg, rgba(25, 23, 17, 0.92), rgba(5, 5, 5, 0.96));
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      text-align: center;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85);
-      animation: fadeIn 0.7s ease, goldPulse 5s infinite;
-    }
+        .btn-gold:active {
+            transform: scale(0.98);
+        }
 
-    .crown {
-      font-size: 48px;
-      color: var(--gold);
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.4));
-      animation: crownFloat 3s ease-in-out infinite;
-    }
+        /* --- IPHONE / iOS STYLE ASSISTIVETOUCH FLOATING ORB --- */
+        #ios-assistive-orb {
+            position: fixed;
+            top: 22%;
+            right: 14px;
+            width: 58px;
+            height: 58px;
+            border-radius: 17px;
+            background: rgba(28, 28, 32, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            z-index: 120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            opacity: 0.88;
+            transition: opacity 0.35s ease, transform 0.18s ease, box-shadow 0.25s ease;
+        }
 
-    .portal-card h1 {
-      color: var(--gold);
-      letter-spacing: 4px;
-      font-size: 26px;
-      margin: 12px 0 6px;
-      font-weight: 900;
-    }
+        #ios-assistive-orb.idle {
+            opacity: 0.45;
+        }
 
-    .tagline {
-      font-size: 10px;
-      color: #aaaaaa;
-      letter-spacing: 4px;
-    }
+        #ios-assistive-orb:hover {
+            opacity: 1;
+        }
 
-    .location {
-      font-size: 10px;
-      color: var(--gold-light);
-      letter-spacing: 2.5px;
-      margin: 22px 0 25px;
-    }
+        #ios-assistive-orb:active {
+            transform: scale(0.95);
+            opacity: 1;
+        }
 
-    .action-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        #ios-assistive-orb.snapping {
+            transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, transform 0.18s ease;
+        }
 
-    .btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-    }
+        .ios-ring-outer {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
+        .ios-ring-mid {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
 
-    .btn-gold {
-      color: #090909;
-      background: linear-gradient(110deg, #98701c, #f4d979, #b68a26);
-      background-size: 200% 100%;
-      animation: shimmer 5s linear infinite;
-    }
+        .ios-ring-inner {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff, #e6d598);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+        }
 
-    .btn-gold:hover {
-      box-shadow: 0 5px 25px rgba(212, 175, 55, 0.45);
-    }
+        /* iOS AssistiveTouch Quick Menu (Main Only) */
+        #ios-quick-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 130;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
 
-    .btn-outline {
-      color: var(--gold-light);
-      border-color: #5b4b25;
-      background: rgba(212, 175, 55, 0.055);
-    }
+        #ios-quick-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-    .btn-outline:hover {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--gold);
-    }
+        .ios-menu-box {
+            width: 250px;
+            background: rgba(28, 28, 32, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 28px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+            transform: scale(0.9);
+            transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
 
-    .divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 22px 0 16px;
-    }
+        #ios-quick-menu.active .ios-menu-box {
+            transform: scale(1);
+        }
 
-    .footer-note {
-      font-size: 9px;
-      color: #777777;
-      letter-spacing: 1.5px;
-      line-height: 1.6;
-    }
+        .ios-menu-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 12px 8px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
 
-    /* APP WORKSPACE */
-    #workspace {
-      position: fixed;
-      inset: 0;
-      z-index: 30;
-      background: #050505;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
+        .ios-menu-item:active {
+            transform: scale(0.94);
+            background: rgba(212, 175, 55, 0.22);
+        }
 
-    #workspace.active {
-      display: block;
-      opacity: 1;
-    }
+        .ios-menu-icon {
+            font-size: 1.4rem;
+        }
 
-    #app-frame {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #ffffff;
-    }
+        /* --- FLOATING DOWNLOADABLE APP BAR (ALL DEVICES) --- */
+        #floating-app-bar {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 15, 20, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid var(--gold);
+            border-radius: 999px;
+            padding: 8px 12px 8px 14px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 18px rgba(212, 175, 55, 0.22);
+            width: max-content;
+            max-width: calc(100vw - 24px);
+            animation: floatPulse 3s ease-in-out infinite;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
 
-    /* FLOATING TOOLBAR */
-    #toolbar {
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 50px;
-      background: rgba(8, 8, 8, 0.9);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-    }
+        #floating-app-bar.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 20px);
+        }
 
-    .tool-btn {
-      border: 0;
-      border-radius: 30px;
-      padding: 8px 14px;
-      color: var(--gold-light);
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
+        @keyframes floatPulse {
+            0%, 100% { box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 14px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 24px rgba(212, 175, 55, 0.45); }
+        }
 
-    .tool-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-    }
+        .app-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+        }
 
-    .tool-btn.admin {
-      background: rgba(212, 175, 55, 0.2);
-      color: var(--gold);
-      border: 1px solid var(--gold);
-    }
+        .app-bar-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #000;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
 
-    .tool-btn.exit {
-      background: #351313;
-      color: #ff7777;
-    }
+        .app-bar-text {
+            line-height: 1.15;
+        }
 
-    .tool-btn.exit:hover {
-      background: #4d1919;
-    }
+        .app-bar-title {
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
 
-    /* LOADING OVERLAY */
-    #loading {
-      position: absolute;
-      inset: 0;
-      z-index: 40;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background: #080808;
-      color: var(--gold);
-      text-align: center;
-    }
+        .app-bar-sub {
+            font-size: 0.64rem;
+            color: #bbb;
+        }
 
-    #loading.show {
-      display: flex;
-    }
+        .btn-install-now {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
 
-    .loader {
-      width: 42px;
-      height: 42px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-bottom: 18px;
-    }
+        .btn-install-now:active {
+            transform: scale(0.96);
+        }
 
-    #loading h3 {
-      font-size: 12px;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-    }
+        .btn-dismiss-app {
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            line-height: 1;
+        }
 
-    #loading p {
-      color: #888888;
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
+        .btn-dismiss-app:hover {
+            color: #fff;
+        }
 
-    /* MOBILE ADJUSTMENTS */
-    @media (max-width: 600px) {
-      .brand { top: 16px; left: 16px; }
-      .status { top: 24px; right: 16px; font-size: 8px; }
-      .portal-card { padding: 34px 22px 26px; }
-      .portal-card h1 { font-size: 22px; }
-      #toolbar {
-        top: auto;
-        bottom: 14px;
-        width: calc(100% - 24px);
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .tool-btn { padding: 8px 10px; font-size: 8px; }
-    }
+        /* --- UNIVERSAL DEVICE INSTALL MODAL --- */
+        #install-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 140;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+        #install-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media (min-width: 520px) {
+            #install-modal {
+                align-items: center;
+            }
+        }
+
+        .install-card {
+            background: #141419;
+            border: 1.5px solid var(--gold);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px 22px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            position: relative;
+        }
+
+        .install-card h2 {
+            color: var(--gold);
+            font-size: 1.15rem;
+            margin: 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .install-card p {
+            color: #ccc;
+            font-size: 0.8rem;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+        }
+
+        .install-steps {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: #eee;
+        }
+
+        .install-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-badge {
+            background: var(--gold-gradient);
+            color: #000;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            flex-shrink: 0;
+        }
+
+        .install-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-copy-link {
+            flex: 1;
+            padding: 12px;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.76rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-close-install {
+            flex: 1;
+            padding: 12px;
+            background: var(--gold-gradient);
+            border: none;
+            color: #000;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.76rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* --- PERSISTENT IN-PAGE IFRAME VIEWER (MAIN ONLY / ZERO DNS EXIT) --- */
+        #inframe-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #inframe-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .viewer-shell {
+            width: 100%;
+            height: 100%;
+            max-width: 540px;
+            max-height: 880px;
+            background: #111115;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+        }
+
+        .viewer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: #0b0b0e;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            gap: 8px;
+        }
+
+        .viewer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .viewer-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            background: #1a1a20;
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover:not(:disabled) {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .icon-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .iframe-stage {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            background: #fff;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #fff;
+        }
+
+        #frame-loader {
+            position: absolute;
+            inset: 0;
+            background: #121216;
+            color: var(--gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 5;
+            transition: opacity 0.25s ease;
+        }
+
+        #frame-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .blur-active {
+            filter: blur(15px);
+        }
+
+        #audio-status {
+            margin-top: 18px;
+            font-size: 0.7rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- AMBIENT BACKGROUND -->
-  <div class="bg-fallback"></div>
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="IMG_1039.MOV" type="video/quicktime">
-    <source src="IMG_1039.MOV" type="video/mp4">
-  </video>
-  <div id="ambient"></div>
-  <div id="particles"></div>
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="AQN2AjNNAJA3M0mzqjxkbDvoQH0XgE_FQtu9Ualt919hCRz_T1_TRvKPmgowcj-he_VFEkQuaJrCmjwBgHSxPXhsrTz7ZRGi1sHMLDpnC5BSZw.mp4" type="video/mp4">
+</video>
 
-  <!-- HEADER -->
-  <div class="brand">
-    <div class="brand-icon">♛</div>
-    <div>
-      <div class="brand-name">KING OF FADEZ</div>
-      <div class="brand-sub">PREMIUM MANAGEMENT SYSTEM</div>
+<div id="main-wrapper">
+    <div class="container">
+        <div style="font-size: 3.3rem; margin-bottom: 4px;">👑</div>
+        <h1>King of Fadez</h1>
+        <p class="tagline">The Standard of Dasmariñas</p>
+
+        <button type="button" onclick="openInFrame('main', true)" class="btn-gold">Proceed to Booking</button>
+        
+        <div id="audio-status">🔊 Tap anywhere for sound</div>
     </div>
-  </div>
+</div>
 
-  <div class="status">
-    <span class="status-dot"></span>
-    <span>SYSTEM ONLINE</span>
-  </div>
-
-  <!-- MAIN LANDING CARD -->
-  <main id="portal">
-    <div class="portal-card">
-      <div class="crown">♛</div>
-      <h1>KING OF FADEZ</h1>
-      <div class="tagline">BARBERSHOP MANAGEMENT</div>
-      <div class="location">DASMARIÑAS • CAVITE</div>
-
-      <div class="action-group">
-        <button class="btn btn-gold" onclick="launchInApp()">LAUNCH EMBEDDED VIEW</button>
-        <button class="btn btn-outline" onclick="launchAdminTab()">ADMIN PORTAL</button>
-        <button class="btn btn-outline" onclick="launchTab()">OPEN IN NEW TAB</button>
-      </div>
-
-      <div class="divider"></div>
-      <div class="footer-note">AUTHORIZED BARBERSHOP OPERATIONS PORTAL</div>
+<!-- IPHONE / iOS ASSISTIVETOUCH FLOATING ORB (DRAGGABLE + EDGE SNAP + QUICK MENU) -->
+<div id="ios-assistive-orb" role="button" tabindex="0" aria-label="KOF Quick Assistive Button">
+    <div class="ios-ring-outer">
+        <div class="ios-ring-mid">
+            <div class="ios-ring-inner"></div>
+        </div>
     </div>
-  </main>
+</div>
 
-  <!-- WORKSPACE CONTAINER -->
-  <section id="workspace">
-    <div id="toolbar">
-      <button class="tool-btn" onclick="reloadApp()">↻ REFRESH</button>
-      <button class="tool-btn admin" onclick="launchAdminTab()">🛡️ ADMIN</button>
-      <button class="tool-btn" onclick="launchTab()">↗ OPEN TAB</button>
-      <button class="tool-btn exit" onclick="closeApp()">✕ HOME</button>
+<!-- iOS ASSISTIVETOUCH QUICK MENU (MAIN ONLY) -->
+<div id="ios-quick-menu" aria-hidden="true" onclick="if(event.target===this) closeIosQuickMenu()">
+    <div class="ios-menu-box">
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('main', true);">
+            <span class="ios-menu-icon">✂️</span>
+            <span>Book Now</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); triggerInstallApp();">
+            <span class="ios-menu-icon">📲</span>
+            <span>Install App</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('main', true);">
+            <span class="ios-menu-icon">↻</span>
+            <span>Reload Main</span>
+        </button>
+        <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); closeInFrame();">
+            <span class="ios-menu-icon">🏠</span>
+            <span>Home</span>
+        </button>
     </div>
+</div>
 
-    <div id="loading">
-      <div class="loader"></div>
-      <h3>CONNECTING TO SYSTEM</h3>
-      <p>Please wait while the workspace loads...</p>
+<!-- FLOATING ADD-TO-HOME-SCREEN APP BAR (ALL DEVICES) -->
+<div id="floating-app-bar" role="region" aria-label="Install King of Fadez App">
+    <div class="app-bar-info">
+        <div class="app-bar-icon">👑</div>
+        <div class="app-bar-text">
+            <div class="app-bar-title">KOF Booking App</div>
+            <div class="app-bar-sub" id="app-bar-subtitle">Add to Home Screen</div>
+        </div>
     </div>
+    <button type="button" class="btn-install-now" onclick="triggerInstallApp()">📲 Install</button>
+    <button type="button" class="btn-dismiss-app" title="Hide" onclick="dismissFloatingBar()">✕</button>
+</div>
 
-    <iframe id="app-frame" title="King of Fadez System" allow="clipboard-write"></iframe>
-  </section>
+<!-- UNIVERSAL DEVICE INSTALL GUIDE MODAL (iOS / ANDROID / DESKTOP / IN-APP BROWSERS) -->
+<div id="install-modal" aria-hidden="true" onclick="if(event.target===this) closeInstallModal()">
+    <div class="install-card">
+        <div style="font-size: 2.4rem;">👑</div>
+        <h2>Add KOF to Home Screen</h2>
+        <p id="install-device-desc">Install the King of Fadez app on your device for instant one-tap booking.</p>
+        <div class="install-steps" id="install-steps-list"></div>
+        <div class="install-actions">
+            <button type="button" class="btn-copy-link" id="copy-url-btn" onclick="copyAppUrl()">🔗 Copy Link</button>
+            <button type="button" class="btn-close-install" onclick="closeInstallModal()">Got It</button>
+        </div>
+    </div>
+</div>
 
-  <script>
-    const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec?branch=main";
-    const ADMIN_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec?bpage=dmin";
+<!-- PERSISTENT IN-FRAME VIEWER (MAIN ONLY / STRICT NO-EXIT DNS LOCK) -->
+<div id="inframe-overlay" aria-hidden="true">
+    <div class="viewer-shell">
+        <div class="viewer-header">
+            <div class="viewer-brand">
+                <span>✂️</span>
+                <span>KOF Main Booking</span>
+            </div>
+            <div class="viewer-actions">
+                <button type="button" id="back-frame-btn" class="icon-btn" title="Previous sub-page" onclick="goBackInFrame()" disabled>←</button>
+                <button type="button" class="icon-btn" title="Reload booking" onclick="reloadFrame()">↻</button>
+                <button type="button" class="icon-btn" title="Back to Home" onclick="closeInFrame()">✕</button>
+            </div>
+        </div>
 
-    const portal = document.getElementById('portal');
-    const workspace = document.getElementById('workspace');
-    const frame = document.getElementById('app-frame');
-    const loading = document.getElementById('loading');
+        <div class="iframe-stage">
+            <div id="frame-loader">
+                <div class="spinner"></div>
+                <span>Loading KOF Booking...</span>
+            </div>
+            <!--
+                STRICT NO-EXIT DNS SANDBOX:
+                - Allows scripts, forms, same-origin storage, modals, and downloads inside the frame.
+                - Blocks top-level navigation (`allow-top-navigation`) and popups (`allow-popups`) so nothing inside the frame can ever leave your DNS or change the browser URL.
+            -->
+            <iframe 
+                id="app-frame" 
+                name="kof_main_inframe"
+                src="about:blank"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads"
+                referrerpolicy="no-referrer-when-downgrade"
+                allow="camera; microphone; geolocation; payment; clipboard-read; clipboard-write; fullscreen"
+                loading="eager">
+            </iframe>
+        </div>
+    </div>
+</div>
 
-    // Generate ambient gold particles
-    function initParticles() {
-      const container = document.getElementById('particles');
-      for (let i = 0; i < 22; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.bottom = -(Math.random() * 20) + 'vh';
-        p.style.animationDuration = (8 + Math.random() * 10) + 's';
-        p.style.animationDelay = (Math.random() * 8) + 's';
-        container.appendChild(p);
-      }
+<script>
+const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
+
+const video = document.getElementById('bg-video');
+const overlay = document.getElementById('inframe-overlay');
+const wrapper = document.getElementById('main-wrapper');
+const iframe = document.getElementById('app-frame');
+const loader = document.getElementById('frame-loader');
+const backBtn = document.getElementById('back-frame-btn');
+const floatingBar = document.getElementById('floating-app-bar');
+const installModal = document.getElementById('install-modal');
+const iosOrb = document.getElementById('ios-assistive-orb');
+const iosQuickMenu = document.getElementById('ios-quick-menu');
+
+let activeUrl = "";
+let frameHistory = [];
+let deferredInstallPrompt = null;
+let userDismissedBar = false;
+
+/* =========================================================
+   1. IPHONE / iOS ASSISTIVETOUCH FLOATING ORB LOGIC
+      (Draggable, Edge-Snapping & Instant Main Quick Menu)
+   ========================================================= */
+(function setupIosAssistiveOrb() {
+    let isPointerDown = false;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let initialLeft = 0;
+    let initialTop = 0;
+    let idleTimer = null;
+
+    function resetIdleTimer() {
+        iosOrb.classList.remove('idle');
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            if (!isPointerDown) iosOrb.classList.add('idle');
+        }, 3200);
     }
 
-    function launchInApp() {
-      portal.classList.add('hidden');
-      workspace.classList.add('active');
-      loading.classList.add('show');
-      
-      frame.src = MAIN_SCRIPT_URL;
-      frame.onload = () => {
-        loading.classList.remove('show');
-      };
+    function snapToNearestEdge() {
+        const rect = iosOrb.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 12;
+
+        const centerX = rect.left + rect.width / 2;
+        const targetLeft = centerX < vw / 2 ? margin : (vw - rect.width - margin);
+        const clampedTop = Math.max(margin, Math.min(vh - rect.height - margin, rect.top));
+
+        iosOrb.classList.add('snapping');
+        iosOrb.style.right = 'auto';
+        iosOrb.style.left = `${targetLeft}px`;
+        iosOrb.style.top = `${clampedTop}px`;
+
+        setTimeout(() => {
+            iosOrb.classList.remove('snapping');
+        }, 350);
     }
 
-    function launchTab() {
-      window.open(MAIN_SCRIPT_URL, '_blank');
+    iosOrb.addEventListener('pointerdown', (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+
+        isPointerDown = true;
+        isDragging = false;
+        resetIdleTimer();
+
+        const rect = iosOrb.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = rect.left;
+        initialTop = rect.top;
+
+        iosOrb.style.right = 'auto';
+        iosOrb.style.left = `${initialLeft}px`;
+        iosOrb.style.top = `${initialTop}px`;
+        iosOrb.classList.remove('snapping');
+
+        try { iosOrb.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+
+    iosOrb.addEventListener('pointermove', (e) => {
+        if (!isPointerDown) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!isDragging && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+            isDragging = true;
+        }
+
+        if (isDragging) {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const w = iosOrb.offsetWidth;
+            const h = iosOrb.offsetHeight;
+
+            const nextLeft = Math.max(6, Math.min(vw - w - 6, initialLeft + dx));
+            const nextTop = Math.max(6, Math.min(vh - h - 6, initialTop + dy));
+
+            iosOrb.style.left = `${nextLeft}px`;
+            iosOrb.style.top = `${nextTop}px`;
+        }
+    });
+
+    function handlePointerEnd(e) {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        resetIdleTimer();
+
+        try { iosOrb.releasePointerCapture(e.pointerId); } catch (_) {}
+
+        if (isDragging) {
+            snapToNearestEdge();
+            return;
+        }
+
+        openIosQuickMenu();
     }
 
-    function launchAdminTab() {
-      window.open(ADMIN_URL, '_blank');
+    iosOrb.addEventListener('pointerup', handlePointerEnd);
+    iosOrb.addEventListener('pointercancel', handlePointerEnd);
+
+    window.addEventListener('resize', snapToNearestEdge);
+    resetIdleTimer();
+})();
+
+function openIosQuickMenu() {
+    iosQuickMenu.classList.add('active');
+    iosQuickMenu.setAttribute('aria-hidden', 'false');
+}
+
+function closeIosQuickMenu() {
+    iosQuickMenu.classList.remove('active');
+    iosQuickMenu.setAttribute('aria-hidden', 'true');
+}
+
+/* =========================================================
+   2. UNIVERSAL ADD-TO-HOME-SCREEN APP SYSTEM (ALL DEVICES)
+   ========================================================= */
+function isAlreadyStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.matchMedia('(display-mode: fullscreen)').matches ||
+           window.navigator.standalone === true;
+}
+
+function getDeviceEnvironment() {
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isInApp = /FBAN|FBAV|Instagram|TikTok|Bytedance|Musical_ly|Messenger|Line|Snapchat/i.test(ua);
+    return { isIOS, isAndroid, isInApp };
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const sub = document.getElementById('app-bar-subtitle');
+    if (sub) sub.textContent = "One-tap instant install";
+    if (!isAlreadyStandalone() && !userDismissedBar) {
+        floatingBar.classList.remove('hidden');
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    floatingBar.classList.add('hidden');
+    closeInstallModal();
+});
+
+async function triggerInstallApp() {
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        if (choice && choice.outcome === 'accepted') {
+            floatingBar.classList.add('hidden');
+        }
+        return;
     }
 
-    function reloadApp() {
-      loading.classList.add('show');
-      frame.src = MAIN_SCRIPT_URL;
+    const { isIOS, isAndroid, isInApp } = getDeviceEnvironment();
+    const descEl = document.getElementById('install-device-desc');
+    const stepsEl = document.getElementById('install-steps-list');
+
+    if (isInApp) {
+        descEl.textContent = "You are viewing inside an in-app browser (Facebook/TikTok/IG). Open in your main browser to install:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the <strong>•••</strong> or <strong>⋮</strong> menu icon in the corner.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Select <strong>"Open in Safari"</strong> or <strong>"Open in Chrome"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Tap <strong>📲 Install</strong> at the bottom to add KOF to your Home Screen.</span></div>
+        `;
+    } else if (isIOS) {
+        descEl.textContent = "Add King of Fadez directly to your iPhone or iPad Home Screen:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the <strong>Share</strong> button (<strong>⎋</strong> box with up arrow) in Safari's bar.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Scroll down and tap <strong>"Add to Home Screen"</strong> (<strong>＋</strong>).</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Tap <strong>"Add"</strong> in the top-right corner to finish.</span></div>
+        `;
+    } else if (isAndroid) {
+        descEl.textContent = "Install King of Fadez on your Android Home Screen:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Tap the browser menu icon (<strong>⋮</strong>) at the top-right.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Confirm <strong>"Install / Add"</strong> to place KOF on your Home Screen.</span></div>
+        `;
+    } else {
+        descEl.textContent = "Install King of Fadez on your Computer or Device:";
+        stepsEl.innerHTML = `
+            <div class="install-step"><span class="step-badge">1</span><span>Click the <strong>Install / Share</strong> icon in your browser's address bar or menu.</span></div>
+            <div class="install-step"><span class="step-badge">2</span><span>Choose <strong>"Install King of Fadez"</strong> or <strong>"Add to Dock / Home Screen"</strong>.</span></div>
+            <div class="install-step"><span class="step-badge">3</span><span>Launch KOF anytime directly from your desktop or home screen.</span></div>
+        `;
     }
 
-    function closeApp() {
-      workspace.classList.remove('active');
-      portal.classList.remove('hidden');
-      setTimeout(() => {
-        frame.src = 'about:blank';
-      }, 400);
+    installModal.classList.add('active');
+    installModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeInstallModal() {
+    installModal.classList.remove('active');
+    installModal.setAttribute('aria-hidden', 'true');
+}
+
+function dismissFloatingBar() {
+    userDismissedBar = true;
+    floatingBar.classList.add('hidden');
+}
+
+function copyAppUrl() {
+    const btn = document.getElementById('copy-url-btn');
+    const cleanHostUrl = window.location.origin + window.location.pathname;
+    navigator.clipboard?.writeText(cleanHostUrl).then(() => {
+        btn.textContent = "✓ Copied!";
+        setTimeout(() => { btn.textContent = "🔗 Copy Link"; }, 2000);
+    }).catch(() => {});
+}
+
+/* =========================================================
+   3. MAIN-ONLY IN-FRAME LOCK (STRICTLY NEVER EXITS YOUR DNS)
+   ========================================================= */
+function resolveMainOnlyUrl(routeOrUrl) {
+    if (!routeOrUrl || routeOrUrl === "main") return MAIN_SCRIPT_URL;
+    const input = String(routeOrUrl).trim();
+
+    if (input.startsWith("?")) return `${MAIN_SCRIPT_URL}${input}`;
+    if (/^(branch|sub|service|barber|id)=/i.test(input)) return `${MAIN_SCRIPT_URL}?${input}`;
+
+    try {
+        const parsed = new URL(input, window.location.href);
+        // Only allow MAIN_SCRIPT_URL (preserving query parameters for sub-views)
+        if (parsed.origin === "https://script.google.com" && input.startsWith(MAIN_SCRIPT_URL)) {
+            return `${MAIN_SCRIPT_URL}${parsed.search}`;
+        }
+    } catch (_) {}
+
+    // Fallback: always stay strictly on MAIN_SCRIPT_URL inside the frame
+    return MAIN_SCRIPT_URL;
+}
+
+function updateBackButton() {
+    backBtn.disabled = frameHistory.length <= 1;
+}
+
+function keepHostDnsClean() {
+    try {
+        if (window.location.search || window.location.hash) {
+            window.history.replaceState({}, "", window.location.pathname);
+        }
+    } catch (_) {}
+}
+
+function openInFrame(routeOrUrl = "main", forceReload = false, skipHistoryPush = false) {
+    const resolvedUrl = resolveMainOnlyUrl(routeOrUrl);
+
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    wrapper.classList.add('blur-active');
+    floatingBar.classList.add('hidden');
+
+    if (forceReload || activeUrl !== resolvedUrl || iframe.src === 'about:blank') {
+        if (!skipHistoryPush && activeUrl !== resolvedUrl) {
+            frameHistory.push(resolvedUrl);
+        }
+        activeUrl = resolvedUrl;
+        loader.classList.remove('hidden');
+        iframe.src = resolvedUrl;
+        updateBackButton();
     }
 
-    initParticles();
-  </script>
+    keepHostDnsClean();
+}
+
+function goBackInFrame() {
+    if (frameHistory.length <= 1) return;
+    frameHistory.pop();
+    const previousUrl = frameHistory[frameHistory.length - 1];
+    updateBackButton();
+    openInFrame(previousUrl, true, true);
+}
+
+function reloadFrame() {
+    const target = activeUrl || MAIN_SCRIPT_URL;
+    loader.classList.remove('hidden');
+    iframe.src = target;
+}
+
+function closeInFrame() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    wrapper.classList.remove('blur-active');
+    keepHostDnsClean();
+
+    if (!isAlreadyStandalone() && !userDismissedBar) {
+        floatingBar.classList.remove('hidden');
+    }
+}
+
+iframe.addEventListener('load', () => {
+    loader.classList.add('hidden');
+});
+
+function handleInboundQueryOrHash() {
+    const params = new URLSearchParams(window.location.search);
+    params.delete('page');
+    const hashValue = window.location.hash.replace(/^#/, '').trim();
+
+    if (params.toString()) {
+        openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
+        return true;
+    }
+
+    if (hashValue && !hashValue.toLowerCase().includes('admin')) {
+        const query = hashValue.includes('=') ? hashValue : `branch=${encodeURIComponent(hashValue)}`;
+        openInFrame(`${MAIN_SCRIPT_URL}?${query}`, true);
+        return true;
+    }
+
+    return false;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (isAlreadyStandalone()) {
+        floatingBar.classList.add('hidden');
+    }
+
+    if (handleInboundQueryOrHash()) {
+        return;
+    }
+
+    // Preload Main Booking silently inside the frame for instant opening
+    setTimeout(() => {
+        if (!activeUrl) {
+            activeUrl = MAIN_SCRIPT_URL;
+            frameHistory = [MAIN_SCRIPT_URL];
+            iframe.src = MAIN_SCRIPT_URL;
+            updateBackButton();
+        }
+    }, 500);
+});
+
+window.addEventListener('hashchange', handleInboundQueryOrHash);
+
+// 1. TRAP ALL <a> CLICKS ON THE OUTER PAGE INSIDE THE FRAME (NO DNS EXIT)
+document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a[href]');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href || href.startsWith('javascript:')) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openInFrame(anchor.href, true);
+}, true);
+
+// 2. TRAP ALL <form> SUBMISSIONS ON THE OUTER PAGE INSIDE THE FRAME
+document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const formData = new FormData(form);
+    const query = new URLSearchParams(formData).toString();
+    const targetUrl = query ? `${MAIN_SCRIPT_URL}?${query}` : MAIN_SCRIPT_URL;
+
+    openInFrame(targetUrl, true);
+}, true);
+
+// 3. BLOCK window.open() FROM OPENING NEW WINDOWS OR LEAVING YOUR DNS
+window.open = function(url) {
+    openInFrame(url || 'main', true);
+    return {
+        closed: false,
+        focus: function() {},
+        blur: function() {},
+        close: function() {},
+        location: {
+            set href(nextUrl) { openInFrame(nextUrl || 'main', true); },
+            get href() { return activeUrl || MAIN_SCRIPT_URL; },
+            replace: function(nextUrl) { openInFrame(nextUrl || 'main', true); },
+            assign: function(nextUrl) { openInFrame(nextUrl || 'main', true); }
+        }
+    };
+};
+
+// 4. FORWARD ANY SUB-BUTTON POSTMESSAGE EVENTS INTO MAIN IN-FRAME
+window.addEventListener('message', (event) => {
+    const data = event.data;
+    if (!data) return;
+
+    if (typeof data === 'string') {
+        const trimmed = data.trim();
+        if (trimmed.startsWith('http') || trimmed.startsWith('?') || trimmed.includes('=')) {
+            openInFrame(trimmed, true);
+        }
+    } else if (typeof data === 'object') {
+        const target = data.url || data.href || data.src || data.link || data.redirect;
+        if (target) {
+            openInFrame(target, true);
+        } else if (data.branch) {
+            openInFrame(`${MAIN_SCRIPT_URL}?branch=${encodeURIComponent(data.branch)}`, true);
+        } else if (data.sub) {
+            openInFrame(`${MAIN_SCRIPT_URL}?sub=${encodeURIComponent(data.sub)}`, true);
+        } else if (data.query) {
+            const q = String(data.query).replace(/^\?/, '');
+            openInFrame(`${MAIN_SCRIPT_URL}?${q}`, true);
+        }
+    }
+});
+
+// Tap anywhere to unmute background video
+document.body.addEventListener('click', function() {
+    if (video.muted) {
+        video.muted = false;
+        video.play().catch(() => {});
+        const audioLabel = document.getElementById('audio-status');
+        if (audioLabel) audioLabel.style.display = 'none';
+    }
+}, { once: true });
+</script>
+
 </body>
 </html>
