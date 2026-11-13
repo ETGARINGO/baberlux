@@ -6,6 +6,7 @@
     <title>KOF | Home</title>
     
     <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
     <link rel="preconnect" href="https://www.google.com">
 
     <style>
@@ -66,7 +67,7 @@
             -webkit-backdrop-filter: blur(18px);
             width: 100%;
             max-width: 390px;
-            padding: 32px 26px;
+            padding: 34px 28px;
             border-radius: 28px;
             border: 1px solid rgba(212, 175, 55, 0.35);
             text-align: center;
@@ -93,7 +94,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin: 20px 0;
+            margin: 22px 0;
         }
 
         .btn-link {
@@ -120,7 +121,7 @@
         .btn-gold {
             display: block;
             width: 100%;
-            padding: 17px;
+            padding: 18px;
             background: var(--gold-gradient);
             border: none;
             border-radius: 14px;
@@ -132,33 +133,10 @@
             letter-spacing: 1.5px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 8px 22px rgba(212, 175, 55, 0.28);
-            margin-bottom: 10px;
         }
 
         .btn-gold:active {
             transform: scale(0.98);
-        }
-
-        /* --- SUB-LANDING BRANCH BUTTON --- */
-        .btn-sub {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: rgba(212, 175, 55, 0.12);
-            border: 1px solid rgba(212, 175, 55, 0.55);
-            border-radius: 14px;
-            color: var(--gold-light);
-            font-weight: 700;
-            font-size: 0.82rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-sub:hover, .btn-sub:active {
-            background: rgba(212, 175, 55, 0.24);
-            border-color: var(--gold);
         }
 
         /* --- PERSISTENT IN-PAGE IFRAME VIEWER --- */
@@ -197,7 +175,7 @@
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
         }
 
-        /* Top Navigation Bar Inside Viewer */
+        /* --- TOP NAVIGATION BAR INSIDE VIEWER --- */
         .viewer-header {
             display: flex;
             align-items: center;
@@ -259,11 +237,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s ease;
         }
 
-        .icon-btn:hover {
+        .icon-btn:hover:not(:disabled) {
             background: var(--gold);
             color: #000;
+        }
+
+        .icon-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
         }
 
         .iframe-stage {
@@ -281,7 +265,7 @@
             background: #fff;
         }
 
-        /* Loading Spinner */
+        /* --- LOADING SPINNER --- */
         #frame-loader {
             position: absolute;
             inset: 0;
@@ -350,28 +334,25 @@
             <button type="button" class="btn-link" onclick="openInFrame('web')">🌐 Web</button>
         </div>
 
-        <button type="button" onclick="openInFrame('booking')" class="btn-gold">Proceed to Booking</button>
-        
-        <!-- Sub-Landing Branch Button (Always Opens In-Frame, Never Exits DNS) -->
-        <button type="button" onclick="openSubBranch('kof19a7')" class="btn-sub">📍 Book Branch: KOF 19A7</button>
+        <button type="button" onclick="openInFrame('main', true)" class="btn-gold">Proceed to Booking</button>
         
         <div id="audio-status">🔊 Tap anywhere for sound</div>
     </div>
 </div>
 
-<!-- PERSISTENT IN-FRAME VIEWER (ZERO REDIRECTS / ZERO DNS EXIT) -->
+<!-- PERSISTENT IN-FRAME VIEWER (ALWAYS ON PAGE / ZERO DNS EXIT / ZERO REDIRECTS) -->
 <div id="inframe-overlay" aria-hidden="true">
     <div class="viewer-shell">
         <div class="viewer-header">
             <div class="viewer-tabs">
-                <button type="button" class="tab-btn active" data-tab="booking" onclick="openInFrame('booking')">✂️ Main</button>
-                <button type="button" class="tab-btn" data-tab="kof19a7" onclick="openSubBranch('kof19a7')">📍 KOF 19A7</button>
+                <button type="button" class="tab-btn active" data-tab="main" onclick="openInFrame('main', true)">✂️ Main</button>
                 <button type="button" class="tab-btn" data-tab="maps" onclick="openInFrame('maps')">🗺️ Maps</button>
                 <button type="button" class="tab-btn" data-tab="tiktok" onclick="openInFrame('tiktok')">📱 TikTok</button>
                 <button type="button" class="tab-btn" data-tab="fb" onclick="openInFrame('fb')">📘 FB</button>
                 <button type="button" class="tab-btn" data-tab="web" onclick="openInFrame('web')">🌐 Web</button>
             </div>
             <div class="viewer-actions">
+                <button type="button" id="back-frame-btn" class="icon-btn" title="Previous sub-page" onclick="goBackInFrame()" disabled>←</button>
                 <button type="button" class="icon-btn" title="Reload frame" onclick="reloadFrame()">↻</button>
                 <button type="button" class="icon-btn" title="Back to Home" onclick="closeInFrame()">✕</button>
             </div>
@@ -384,8 +365,9 @@
             </div>
             <!--
                 STRICT ANTI-ESCAPE SANDBOX:
-                - Omitting `allow-top-navigation` blocks top-frame redirects.
-                - Omitting `allow-popups` blocks target="_blank" & window.open() from escaping to script.google.com.
+                - Allows scripts, same-origin, forms, modals, and downloads inside the iframe.
+                - Blocks top-level navigation (`allow-top-navigation` omitted) so sub-buttons NEVER exit your DNS.
+                - Blocks external tab popups (`allow-popups` omitted) so sub-buttons NEVER open outside tabs.
             -->
             <iframe 
                 id="app-frame" 
@@ -400,11 +382,10 @@
 </div>
 
 <script>
-const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec";
+const MAIN_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTLkCi-QOaJ4fUuD-gbj2_7-JD1kkTpLUbJYsUrThMw4NKzY1Ojsle-6Z0-_QN9GE9/exec";
 
 const ROUTES = {
-    booking: BASE_SCRIPT_URL,
-    kof19a7: `${BASE_SCRIPT_URL}?branch=kof19a7`,
+    main: MAIN_SCRIPT_URL,
     maps: "https://www.google.com/maps?q=King+Of+Fadez+Dasmariñas&output=embed",
     tiktok: "https://www.tiktok.com/embed/@kingoffadez.ph",
     fb: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1NQfs6Fcer%2F&show_text=true&width=500",
@@ -416,56 +397,68 @@ const overlay = document.getElementById('inframe-overlay');
 const wrapper = document.getElementById('main-wrapper');
 const iframe = document.getElementById('app-frame');
 const loader = document.getElementById('frame-loader');
+const backBtn = document.getElementById('back-frame-btn');
 
 let activeUrl = "";
+let frameHistory = [];
 
-// Core loader: accepts EITHER a route key ('kof19a7') OR any full sub-landing URL
-function openInFrame(routeOrUrl, tabKey = null, forceReload = false) {
-    const resolvedUrl = ROUTES[routeOrUrl] || routeOrUrl;
+// Resolves route names, full URLs, or sub-page query strings (?branch=...) into a valid in-frame URL
+function resolveTargetUrl(routeOrUrl) {
+    if (!routeOrUrl) return "";
+    if (ROUTES[routeOrUrl]) return ROUTES[routeOrUrl];
+    if (routeOrUrl.startsWith("?")) return `${MAIN_SCRIPT_URL}${routeOrUrl}`;
+    if (routeOrUrl.startsWith("branch=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
+    return routeOrUrl;
+}
+
+function updateBackButton() {
+    backBtn.disabled = frameHistory.length <= 1;
+}
+
+// Opens any main page or sub-landing page strictly inside the iframe
+function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
+    const resolvedUrl = resolveTargetUrl(routeOrUrl);
     if (!resolvedUrl) return;
 
-    const resolvedTab = tabKey || (ROUTES[routeOrUrl] ? routeOrUrl : detectTabFromUrl(resolvedUrl));
+    const isScriptUrl = resolvedUrl.startsWith(MAIN_SCRIPT_URL) || resolvedUrl.includes("script.google.com/macros/");
+    const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isScriptUrl ? 'main' : '');
 
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     wrapper.classList.add('blur-active');
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === resolvedTab);
+        btn.classList.toggle('active', btn.dataset.tab === activeTab);
     });
 
     if (forceReload || activeUrl !== resolvedUrl || iframe.src === 'about:blank') {
+        if (!skipHistoryPush && activeUrl !== resolvedUrl) {
+            frameHistory.push(resolvedUrl);
+        }
         activeUrl = resolvedUrl;
         loader.classList.remove('hidden');
         iframe.src = resolvedUrl;
+        updateBackButton();
     }
 
-    // Keep user on your own DNS while syncing ?branch=... in the address bar
     syncParentDnsUrl(resolvedUrl);
 }
 
-// Helper specifically for any sub-landing branch parameter (e.g., openSubBranch('kof19a7'))
-function openSubBranch(branchCode) {
-    const subUrl = `${BASE_SCRIPT_URL}?branch=${encodeURIComponent(branchCode)}`;
-    openInFrame(subUrl, branchCode);
+// Navigate backwards between sub-pages inside the frame
+function goBackInFrame() {
+    if (frameHistory.length <= 1) return;
+    frameHistory.pop();
+    const previousUrl = frameHistory[frameHistory.length - 1];
+    updateBackButton();
+    openInFrame(previousUrl, true, true);
 }
 
-function detectTabFromUrl(url) {
-    try {
-        const parsed = new URL(url);
-        const branch = parsed.searchParams.get('branch');
-        if (branch) return branch;
-    } catch (_) {}
-    if (url.startsWith(BASE_SCRIPT_URL)) return 'booking';
-    return '';
-}
-
+// Mirrors sub-page query parameters (e.g., ?branch=kof19a7) onto your own DNS URL without redirecting
 function syncParentDnsUrl(targetUrl) {
     try {
         const parsed = new URL(targetUrl);
-        if (targetUrl.startsWith(BASE_SCRIPT_URL)) {
-            const search = parsed.search; // e.g., "?branch=kof19a7" or ""
-            const nextParentUrl = `${window.location.pathname}${search}`;
+        if (targetUrl.includes("script.google.com/macros/")) {
+            const nextParentUrl = `${window.location.pathname}${parsed.search}`;
             window.history.replaceState({ inframeUrl: targetUrl }, "", nextParentUrl);
         }
     } catch (_) {}
@@ -481,7 +474,6 @@ function closeInFrame() {
     overlay.classList.remove('active');
     overlay.setAttribute('aria-hidden', 'true');
     wrapper.classList.remove('blur-active');
-    // Reset query string back to root of your DNS without leaving the page
     window.history.replaceState({}, "", window.location.pathname);
 }
 
@@ -489,35 +481,34 @@ iframe.addEventListener('load', () => {
     loader.classList.add('hidden');
 });
 
-// 1. AUTO-OPEN SUB-LANDING PAGES FROM YOUR OWN DNS URL
-// If a visitor opens `yourdomain.com/?branch=kof19a7` or `yourdomain.com/#kof19a7`,
-// it immediately opens inside the iframe without redirecting to script.google.com.
+// Auto-handle direct sub-landing URLs on your DNS (e.g., yourdomain.com/?branch=kof19a7 or #kof19a7)
 window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const hashValue = window.location.hash.replace(/^#/, '').trim();
 
     if (params.toString()) {
-        const directSubUrl = `${BASE_SCRIPT_URL}?${params.toString()}`;
-        openInFrame(directSubUrl);
+        openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
         return;
     }
 
     if (hashValue) {
-        const cleanBranch = hashValue.replace(/^branch=/i, '');
-        openSubBranch(cleanBranch);
+        const query = hashValue.includes('=') ? hashValue : `branch=${encodeURIComponent(hashValue)}`;
+        openInFrame(`${MAIN_SCRIPT_URL}?${query}`, true);
         return;
     }
 
-    // Silent background preload of main booking page so it opens instantaneously
+    // Preload main Apps Script silently in background so booking opens immediately
     setTimeout(() => {
         if (!activeUrl) {
-            activeUrl = ROUTES.booking;
-            iframe.src = ROUTES.booking;
+            activeUrl = MAIN_SCRIPT_URL;
+            frameHistory = [MAIN_SCRIPT_URL];
+            iframe.src = MAIN_SCRIPT_URL;
+            updateBackButton();
         }
-    }, 800);
+    }, 600);
 });
 
-// 2. INTERCEPT EVERY LINK CLICK ON THE PARENT PAGE SO NOTHING EXITS YOUR DNS
+// Intercept any <a> link clicks on the outer page so nothing ever exits your DNS
 document.addEventListener('click', (e) => {
     const anchor = e.target.closest('a[href]');
     if (!anchor) return;
@@ -526,20 +517,31 @@ document.addEventListener('click', (e) => {
     if (!href || href.startsWith('javascript:')) return;
 
     e.preventDefault();
-    openInFrame(anchor.href);
-});
+    openInFrame(anchor.href, true);
+}, true);
 
-// 3. POSTMESSAGE LISTENER FOR SUB-PAGE BUTTONS INSIDE GOOGLE APPS SCRIPT
-// Allows buttons inside the Apps Script sub-pages to tell the parent frame to switch URLs cleanly
+// Block window.open() from escaping outside the page
+window.open = function(url) {
+    if (url) openInFrame(url, true);
+    return null;
+};
+
+// Listen for postMessage navigation events from sub-buttons inside the embedded frame
 window.addEventListener('message', (event) => {
     const data = event.data;
     if (!data) return;
 
-    if (typeof data === 'string' && data.startsWith('http')) {
-        openInFrame(data);
+    if (typeof data === 'string') {
+        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=')) {
+            openInFrame(data, true);
+        }
     } else if (typeof data === 'object') {
-        if (data.url) openInFrame(data.url);
-        else if (data.branch) openSubBranch(data.branch);
+        const target = data.url || data.href || data.src;
+        if (target) {
+            openInFrame(target, true);
+        } else if (data.branch) {
+            openInFrame(`${MAIN_SCRIPT_URL}?branch=${encodeURIComponent(data.branch)}`, true);
+        }
     }
 });
 
