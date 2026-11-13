@@ -105,42 +105,9 @@
       color: #ccc;
     }
 
-    /* PIN LOCK SCREEN */
-    #lock-screen {
-      display: block;
-    }
-
-    .pin-input {
-      width: 100%;
-      padding: 15px;
-      font-size: 1.4rem;
-      letter-spacing: 8px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 14px;
-      color: var(--gold);
-      font-weight: 900;
-      margin-bottom: 14px;
-      outline: none;
-    }
-
-    .pin-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
-    }
-
-    #pin-error {
-      color: var(--red);
-      font-size: 0.75rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: none;
-    }
-
-    /* ADMIN DASHBOARD (HIDDEN UNTIL UNLOCKED) */
+    /* ADMIN DASHBOARD */
     #admin-panel {
-      display: none;
+      display: block;
     }
 
     /* SHOP STATUS BAR */
@@ -240,13 +207,12 @@
 
     .secondary-actions {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       margin-top: 14px;
-      gap: 10px;
     }
 
     .sub-btn {
-      flex: 1;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.06);
@@ -337,14 +303,7 @@
       <h1>King of Fadez</h1>
       <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
 
-      <!-- 1. PIN LOCK SCREEN -->
-      <div id="lock-screen">
-        <input type="password" id="pinInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="••••" />
-        <div id="pin-error">Invalid Admin PIN. Try again.</div>
-        <button class="primary-btn" id="unlockBtn">Unlock Admin Panel</button>
-      </div>
-
-      <!-- 2. ADMIN CONTROL PANEL -->
+      <!-- ADMIN CONTROL PANEL -->
       <div id="admin-panel">
         <!-- Shop Status Toggle -->
         <div class="status-bar">
@@ -381,7 +340,6 @@
         <!-- Utility Row -->
         <div class="secondary-actions">
           <button class="sub-btn" id="openClientView">👁️ Preview Client App</button>
-          <button class="sub-btn" id="lockBtn">🔒 Lock Console</button>
         </div>
       </div>
     </div>
@@ -406,56 +364,15 @@
 
   <script>
     // ==========================================
-    // CONFIGURATION (EDIT YOUR PIN & SCRIPT URL)
+    // CONFIGURATION (EDIT YOUR SCRIPT URL)
     // ==========================================
-    const ADMIN_PIN = "2026"; // Change this to your preferred 4-6 digit PIN
     const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBHs5chxyOcId3CqxQOkeUPAeF5SeBluT0naSKqFmPsFtJ98ctlAL5tqXcINQ57SPa/exec?page=admin";
     const BRANCH = "main";
 
     // DOM Elements
-    const lockScreen = document.getElementById('lock-screen');
-    const adminPanel = document.getElementById('admin-panel');
-    const pinInput = document.getElementById('pinInput');
-    const pinError = document.getElementById('pin-error');
     const adminModal = document.getElementById('adminModal');
     const adminFrame = document.getElementById('adminFrame');
     const modalTitle = document.getElementById('modalTitle');
-
-    // Check Session Unlock State
-    if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-      showAdminPanel();
-    }
-
-    function showAdminPanel() {
-      lockScreen.style.display = 'none';
-      adminPanel.style.display = 'block';
-    }
-
-    function lockAdminPanel() {
-      sessionStorage.removeItem('kof_admin_unlocked');
-      pinInput.value = '';
-      adminPanel.style.display = 'none';
-      lockScreen.style.display = 'block';
-    }
-
-    // Unlock Handler
-    function attemptUnlock() {
-      if (pinInput.value === ADMIN_PIN) {
-        pinError.style.display = 'none';
-        sessionStorage.setItem('kof_admin_unlocked', 'true');
-        showAdminPanel();
-      } else {
-        pinError.style.display = 'block';
-        pinInput.value = '';
-        pinInput.focus();
-      }
-    }
-
-    document.getElementById('unlockBtn').addEventListener('click', attemptUnlock);
-    pinInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') attemptUnlock();
-    });
-    document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
 
     // Shop Status Toggle (Saved Locally)
     let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
