@@ -254,7 +254,6 @@
             transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, transform 0.18s ease;
         }
 
-        /* Nested iOS Concentric Rings */
         .ios-ring-outer {
             width: 40px;
             height: 40px;
@@ -784,7 +783,7 @@
     </div>
 </div>
 
-<!-- iOS ASSISTIVETOUCH QUICK MENU (OPENS ON TAP) -->
+<!-- iOS ASSISTIVETOUCH QUICK MENU -->
 <div id="ios-quick-menu" aria-hidden="true" onclick="if(event.target===this) closeIosQuickMenu()">
     <div class="ios-menu-box">
         <button type="button" class="ios-menu-item" onclick="closeIosQuickMenu(); openInFrame('main', true);">
@@ -833,7 +832,7 @@
     </div>
 </div>
 
-<!-- PERSISTENT IN-FRAME VIEWER (ALWAYS ON PAGE / ZERO DNS EXIT / ZERO REDIRECTS) -->
+<!-- PERSISTENT IN-FRAME VIEWER (FORCED IN-FRAME ALWAYS / ZERO DNS EXIT / ZERO REDIRECTS) -->
 <div id="inframe-overlay" aria-hidden="true">
     <div class="viewer-shell">
         <div class="viewer-header">
@@ -856,9 +855,16 @@
                 <div class="spinner"></div>
                 <span>Loading Inside KOF...</span>
             </div>
+            <!--
+                STRICT ANTI-ESCAPE SANDBOX:
+                - `allow-scripts allow-same-origin allow-forms allow-modals allow-downloads` lets Google Apps Script & sub-pages run completely.
+                - Omitting `allow-top-navigation` and `allow-popups` forces ALL sub-clicks, target="_top", target="_blank", and window.open() calls to stay trapped inside the frame and NEVER exit your DNS.
+            -->
             <iframe 
                 id="app-frame" 
+                name="kof_inframe_stage"
                 src="about:blank"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads"
                 referrerpolicy="no-referrer-when-downgrade"
                 allow="camera; microphone; geolocation; payment; clipboard-read; clipboard-write; fullscreen"
                 loading="eager">
@@ -1113,14 +1119,35 @@ function copyAppUrl() {
 }
 
 /* =========================================================
-   3. IN-FRAME ROUTING SYSTEM (NEVER EXITS PAGE OR DNS)
+   3. FORCED IN-FRAME ROUTING SYSTEM (ZERO EXIT / ZERO REDIRECT)
    ========================================================= */
+function normalizeExternalUrl(rawUrl) {
+    if (!rawUrl) return "";
+    let url = String(rawUrl).trim();
+
+    // Upgrade http://kingoffadezph.com to https:// so modern browsers never block iframe embedding
+    if (/^http:\/\/kingoffadezph\.com/i.test(url)) {
+        url = url.replace(/^http:\/\//i, "https://");
+    }
+
+    // Convert raw Google Maps links to embed-compatible format so they stay in-frame
+    if (/^https?:\/\/(www\.)?maps\.google\.com/i.test(url) && !url.includes("output=embed")) {
+        const sep = url.includes("?") ? "&" : "?";
+        url = `${url}${sep}output=embed`;
+    }
+
+    return url;
+}
+
 function resolveTargetUrl(routeOrUrl) {
     if (!routeOrUrl) return "";
-    if (ROUTES[routeOrUrl]) return ROUTES[routeOrUrl];
-    if (routeOrUrl.startsWith("?")) return `${MAIN_SCRIPT_URL}${routeOrUrl}`;
-    if (routeOrUrl.startsWith("branch=")) return `${MAIN_SCRIPT_URL}?${routeOrUrl}`;
-    return routeOrUrl;
+    const input = String(routeOrUrl).trim();
+
+    if (ROUTES[input]) return ROUTES[input];
+    if (input.startsWith("?")) return `${MAIN_SCRIPT_URL}${input}`;
+    if (/^(branch|sub|service|barber|id)=/i.test(input)) return `${MAIN_SCRIPT_URL}?${input}`;
+
+    return normalizeExternalUrl(input);
 }
 
 function updateBackButton() {
@@ -1129,9 +1156,9 @@ function updateBackButton() {
 
 function openInFrame(routeOrUrl, forceReload = false, skipHistoryPush = false) {
     const resolvedUrl = resolveTargetUrl(routeOrUrl);
-    if (!resolvedUrl || resolvedUrl.includes('page=admin')) return;
+    if (!resolvedUrl) return;
 
-    const isMainBooking = resolvedUrl.startsWith(MAIN_SCRIPT_URL);
+    const isMainBooking = resolvedUrl.startsWith(MAIN_SCRIPT_URL) || resolvedUrl.includes("script.google.com/macros/");
     const activeTab = ROUTES[routeOrUrl] ? routeOrUrl : (isMainBooking ? 'main' : '');
 
     overlay.classList.add('active');
@@ -1195,26 +1222,39 @@ iframe.addEventListener('load', () => {
     loader.classList.add('hidden');
 });
 
+// Auto-open sub-pages passed via query string (?branch=...) or hash (#branch=...) directly in-frame
+function handleUrlStateNavigation() {
+    const params = new URLSearchParams(window.location.search);
+    const hashValue = window.location.hash.replace(/^#/, '').trim();
+
+    if (params.toString()) {
+        openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
+        return true;
+    }
+
+    if (hashValue) {
+        if (/^https?:\/\//i.test(hashValue)) {
+            openInFrame(hashValue, true);
+        } else {
+            const query = hashValue.includes('=') ? hashValue : `branch=${encodeURIComponent(hashValue)}`;
+            openInFrame(`${MAIN_SCRIPT_URL}?${query}`, true);
+        }
+        return true;
+    }
+
+    return false;
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     if (isAlreadyStandalone()) {
         floatingBar.classList.add('hidden');
     }
 
-    const params = new URLSearchParams(window.location.search);
-    params.delete('page');
-    const hashValue = window.location.hash.replace(/^#/, '').trim();
-
-    if (params.toString()) {
-        openInFrame(`${MAIN_SCRIPT_URL}?${params.toString()}`, true);
+    if (handleUrlStateNavigation()) {
         return;
     }
 
-    if (hashValue && !hashValue.toLowerCase().includes('admin')) {
-        const query = hashValue.includes('=') ? hashValue : `branch=${encodeURIComponent(hashValue)}`;
-        openInFrame(`${MAIN_SCRIPT_URL}?${query}`, true);
-        return;
-    }
-
+    // Preload main booking page silently so clicking opens immediately
     setTimeout(() => {
         if (!activeUrl) {
             activeUrl = MAIN_SCRIPT_URL;
@@ -1225,7 +1265,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 600);
 });
 
-// Intercept any <a> link clicks on the outer page so nothing ever exits your DNS
+window.addEventListener('hashchange', handleUrlStateNavigation);
+
+// 1. FORCE ALL <a> SUB-CLICKS ON THE OUTER PAGE INTO THE IFRAME (CAPTURE PHASE)
 document.addEventListener('click', (e) => {
     const anchor = e.target.closest('a[href]');
     if (!anchor) return;
@@ -1234,30 +1276,65 @@ document.addEventListener('click', (e) => {
     if (!href || href.startsWith('javascript:')) return;
 
     e.preventDefault();
+    e.stopImmediatePropagation();
     openInFrame(anchor.href, true);
 }, true);
 
-// Block window.open() from escaping outside the page
+// 2. FORCE ALL <form> SUBMISSIONS ON THE OUTER PAGE INTO THE IFRAME
+document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const action = form.getAttribute('action') || MAIN_SCRIPT_URL;
+    const formData = new FormData(form);
+    const query = new URLSearchParams(formData).toString();
+    const separator = action.includes('?') ? '&' : '?';
+    const targetUrl = query ? `${action}${separator}${query}` : action;
+
+    openInFrame(targetUrl, true);
+}, true);
+
+// 3. OVERRIDE window.open() SO ANY SCRIPTED POPUP OR SUB-CLICK REDIRECTS INTO THE IFRAME
 window.open = function(url) {
     if (url) openInFrame(url, true);
-    return null;
+    return {
+        closed: false,
+        focus: function() {},
+        blur: function() {},
+        close: function() {},
+        location: {
+            set href(nextUrl) { if (nextUrl) openInFrame(nextUrl, true); },
+            get href() { return activeUrl; },
+            replace: function(nextUrl) { if (nextUrl) openInFrame(nextUrl, true); },
+            assign: function(nextUrl) { if (nextUrl) openInFrame(nextUrl, true); }
+        }
+    };
 };
 
-// Listen for postMessage navigation events from sub-buttons inside the embedded frame
+// 4. RECEIVE ALL SUB-BUTTON / SUB-LANDING NAVIGATION MESSAGES FROM INSIDE THE FRAME
 window.addEventListener('message', (event) => {
     const data = event.data;
     if (!data) return;
 
     if (typeof data === 'string') {
-        if (data.startsWith('http') || data.startsWith('?') || data.startsWith('branch=')) {
-            openInFrame(data, true);
+        const trimmed = data.trim();
+        if (trimmed.startsWith('http') || trimmed.startsWith('?') || trimmed.includes('=')) {
+            openInFrame(trimmed, true);
         }
     } else if (typeof data === 'object') {
-        const target = data.url || data.href || data.src;
+        const target = data.url || data.href || data.src || data.link || data.redirect;
         if (target) {
             openInFrame(target, true);
         } else if (data.branch) {
             openInFrame(`${MAIN_SCRIPT_URL}?branch=${encodeURIComponent(data.branch)}`, true);
+        } else if (data.sub) {
+            openInFrame(`${MAIN_SCRIPT_URL}?sub=${encodeURIComponent(data.sub)}`, true);
+        } else if (data.query) {
+            const q = String(data.query).replace(/^\?/, '');
+            openInFrame(`${MAIN_SCRIPT_URL}?${q}`, true);
         }
     }
 });
