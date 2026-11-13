@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>King of Fadez | Dasmariñas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f3d56b;
+            --gold-dark: #8b6d05;
+            --bg-dark: rgba(10, 10, 12, 0.96);
+            --glass: rgba(18, 18, 22, 0.78);
+            --border-gold: rgba(212, 175, 55, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            height: 100%;
+            height: 100dvh;
+            width: 100vw;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            background: #000;
+            overflow: hidden;
+            position: fixed;
+            touch-action: manipulation;
+        }
+
+        /* --- LOCKED VIDEO BACKGROUND (NO CLICK ESCAPE) --- */
+        .v-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background: #050505;
+            pointer-events: none; /* Prevents tapping video to exit to Facebook */
+        }
+
+        .v-bg iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%) scale(1.85);
+            border: none;
+            pointer-events: none;
+            filter: brightness(0.65) contrast(1.1);
+        }
+
+        /* --- MAIN INFO OVERLAY --- */
+        #main-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.88) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 10;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+        }
+
+        .container {
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            width: 100%;
+            max-width: 400px;
+            padding: 28px 24px;
+            border-radius: 28px;
+            border: 1px solid var(--border-gold);
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .crown-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.2), rgba(0, 0, 0, 0.6));
+            border: 1px solid var(--border-gold);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+        }
+
+        h1, h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        h1 { font-size: 1.5rem; margin-bottom: 4px; }
+        h2 { font-size: 1.3rem; margin-bottom: 4px; }
+
+        .tagline {
+            font-size: 0.7rem;
+            color: #aaa;
+            letter-spacing: 2.5px;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Detail Blocks */
+        .detail-card {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .detail-block {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: #e5e5e5;
+        }
+
+        .detail-block + .detail-block {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .detail-block strong {
+            display: block;
+            color: var(--gold);
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        /* In-Frame Action Grid */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-link {
+            padding: 12px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-link:active {
+            transform: scale(0.97);
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        /* Primary Gold CTA */
+        .btn-gold {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 14px;
+            color: #08080a;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-gold:active { transform: scale(0.98); }
+        .btn-gold:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* --- BOOKING DRAWER --- */
+        #booking-drawer {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 88dvh;
+            background: var(--bg-dark);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 2px solid var(--gold);
+            border-radius: 30px 30px 0 0;
+            z-index: 25;
+            transition: bottom 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 24px 24px max(24px, env(safe-area-inset-bottom));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .drawer-inner {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close-drawer-bar {
+            width: 44px;
+            height: 5px;
+            background: #444;
+            border-radius: 5px;
+            margin: 0 auto 22px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        select option {
+            background: #121215;
+            color: #fff;
+        }
+
+        .btn-cancel {
+            margin-top: 18px;
+            background: none;
+            border: none;
+            color: #777;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* --- IN-FRAME PORTAL MODAL (PREVENTS EXTERNAL NAVIGATION) --- */
+        #inframe-modal {
+            position: fixed;
+            inset: 0;
+            background: #08080a;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        #inframe-modal.active {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: #111115;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .modal-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        #portal-frame {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        /* --- TOAST NOTIFICATION --- */
+        #toast {
+            position: fixed;
+            top: max(20px, env(safe-area-inset-top));
+            left: 50%;
+            transform: translate(-50%, -150%);
+            background: #141418;
+            border: 1px solid var(--gold);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            text-align: center;
+            width: max-content;
+            max-width: 90vw;
+        }
+
+        #toast.show {
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+
+    <!-- Locked Background Video -->
+    <div class="v-bg">
+        <iframe 
+            src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1511247623312332%2F&show_text=0&width=267&autoplay=1&muted=1&loop=1" 
+            allow="autoplay" 
+            sandbox="allow-scripts allow-same-origin">
+        </iframe>
+    </div>
+
+    <!-- Main Screen -->
+    <div id="main-overlay">
+        <div class="container">
+            <div class="crown-badge">👑</div>
+            <h1>King of Fadez</h1>
+            <p class="tagline">The Standard of Dasmariñas</p>
+
+            <div class="detail-card">
+                <div class="detail-block">
+                    <strong>📍 Location</strong>
+                    Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+                </div>
+                <div class="detail-block">
+                    <strong>📧 Contact & Support</strong>
+                    Kingoffadezph@gmail.com
+                </div>
+            </div>
+
+            <!-- All buttons open inside the In-Frame Portal Modal -->
+            <div class="social-grid">
+                <button type="button" class="btn-link" onclick="openInFrame('Store Location', 'https://maps.google.com/maps?q=14.3381712,120.9504125&hl=en&z=17&output=embed')">🗺️ Maps</button>
+                <button type="button" class="btn-link" onclick="openInFrame('TikTok // @kingoffadez.ph', 'https://www.tiktok.com/embed/@kingoffadez.ph')">📱 TikTok</button>
+                <button type="button" class="btn-link" onclick="openInFrame('Facebook Page', 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Ffacebook.com%2FKingOfFadezDasma&tabs=timeline&width=360&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false')">📘 FB Page</button>
+                <button type="button" class="btn-link" onclick="openInFrame('Official Website', 'https://Kingoffadezph.com/')">🌐 Web</button>
+            </div>
+
+            <button type="button" class="btn-gold" onclick="openBooking()">Proceed to Booking</button>
+        </div>
+    </div>
+
+    <!-- Booking Drawer -->
+    <div id="booking-drawer">
+        <div class="drawer-inner">
+            <div class="close-drawer-bar" onclick="closeBooking()"></div>
+            <h2>Book Your Cut</h2>
+            <p style="color:#888; font-size:0.8rem;">Select your service and details below</p>
+            
+            <div class="form-group">
+                <input id="name" type="text" placeholder="Client Full Name" autocomplete="name">
+                <input id="phone" type="tel" placeholder="Mobile Number (e.g. 09XX...)" autocomplete="tel">
+                <select id="package">
+                    <option value="" disabled selected>Loading Services...</option>
+                </select>
+            </div>
+            
+            <button id="submit-btn" type="button" class="btn-gold" style="margin-top: 22px;" onclick="book()">Confirm Slot</button>
+            <button type="button" class="btn-cancel" onclick="closeBooking()">Cancel and Go Back</button>
+        </div>
+    </div>
+
+    <!-- Sandboxed In-Frame Portal Modal (Zero Exit DNS) -->
+    <div id="inframe-modal">
+        <div class="modal-header">
+            <span id="modal-title" class="modal-title">In-App Viewer</span>
+            <button type="button" class="modal-close" onclick="closeInFrame()">✕ RETURN</button>
+        </div>
+        <iframe 
+            id="portal-frame" 
+            src="about:blank"
+            sandbox="allow-scripts allow-forms allow-same-origin"
+            allow="geolocation">
+        </iframe>
+    </div>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbyHa-4lFEOcib8bo166EwiaeM1GNnjnh9EpuPLoXpyveDD9HxJwYd7S6zihLAeCfO8/exec";
+const drawer = document.getElementById('booking-drawer');
+const overlay = document.getElementById('main-overlay');
+const modal = document.getElementById('inframe-modal');
+const portalFrame = document.getElementById('portal-frame');
+const modalTitle = document.getElementById('modal-title');
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+// Keep all external content strictly inside the app frame
+function openInFrame(title, url) {
+    modalTitle.textContent = title;
+    portalFrame.src = url;
+    modal.classList.add('active');
+}
+
+function closeInFrame() {
+    modal.classList.remove('active');
+    setTimeout(() => {
+        portalFrame.src = "about:blank";
+    }, 350);
+}
+
+function openBooking() {
+    drawer.style.bottom = "0";
+    overlay.style.transform = "scale(0.93)";
+    overlay.style.opacity = "0.4";
+}
+
+function closeBooking() {
+    drawer.style.bottom = "-100%";
+    overlay.style.transform = "scale(1)";
+    overlay.style.opacity = "1";
+}
+
+// Load Services from Google Apps Script
+fetch(API + "?mode=data")
+    .then(r => r.json())
+    .then(d => {
+        const pkgSelect = document.getElementById('package');
+        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
+        if (d && d.packages) {
+            d.packages.slice(1).forEach(p => {
+                const opt = document.createElement('option');
+                opt.textContent = p[0];
+                opt.value = p[0];
+                pkgSelect.appendChild(opt);
+            });
+        }
+    })
+    .catch(() => {
+        const pkgSelect = document.getElementById('package');
+        pkgSelect.innerHTML = '<option value="" disabled selected>Select Service Package</option>';
+    });
+
+function book() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const pkg = document.getElementById('package').value;
+    const btn = document.getElementById('submit-btn');
+
+    if (!name || !phone || !pkg) {
+        showToast("⚠️ Please complete all fields.");
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Confirming...";
+
+    fetch(API, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({ name, phone, package: pkg, addons: [], total: 0 })
+    })
+    .then(() => {
+        showToast("👑 Slot confirmed! We'll see you soon.");
+        document.getElementById('name').value = "";
+        document.getElementById('phone').value = "";
+        document.getElementById('package').selectedIndex = 0;
+        closeBooking();
+    })
+    .catch(() => {
+        showToast("⚠️ Network error. Please try again.");
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.textContent = "Confirm Slot";
+    });
+}
+</script>
+
+</body>
+</html>
