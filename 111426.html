@@ -17,15 +17,31 @@
   <link rel="manifest" id="pwa-manifest">
 
   <!-- Browser & App Icons -->
-  <link rel="icon" type="image/gif" href="kof.gif">
-  <link rel="apple-touch-icon" href="kof.gif">
+  <link rel="icon" type="image/gif" href="kol.gif">
+  <link rel="apple-touch-icon" href="kol.gif">
 
-  <!-- Open Graph -->
+  <!-- Open Graph (Messenger, Viber, WhatsApp, Telegram, iMessage, Facebook) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez">
   <meta property="og:title" content="King of Fadez | Book Your Appointment">
   <meta property="og:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
-  <meta property="og:image" content="kof.gif">
+  <meta property="og:image" content="kol.gif">
+  <meta property="og:image:secure_url" content="kol.gif">
+  <meta property="og:image:type" content="image/gif">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez Logo">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
+  <meta name="twitter:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta name="twitter:image" content="kol.gif">
+
+  <!-- Schema.org Fallback -->
+  <meta itemprop="name" content="King of Fadez | Book Your Appointment">
+  <meta itemprop="description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta itemprop="image" content="kol.gif">
 
   <!-- Performance Hints -->
   <link rel="preconnect" href="https://script.google.com">
@@ -34,7 +50,7 @@
   <style>
     :root {
       --gold: #d4af37;
-      --glass: rgba(12, 12, 12, 0.75);
+      --glass: rgba(12, 12, 12, 0.78);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
     }
 
@@ -192,9 +208,7 @@
       transform: scale(0.98);
     }
 
-    /* ========================================================
-       iOS ASSISTIVETOUCH FLOATING MENU (Draggable & Interactive)
-       ======================================================== */
+    /* iOS ASSISTIVETOUCH FLOATING MENU BUBBLE */
     #assistive-bubble {
       position: fixed;
       bottom: 90px;
@@ -214,7 +228,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
       user-select: none;
       touch-action: none;
-      transition: transform 0.15s ease, opacity 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     #assistive-bubble img {
@@ -273,10 +287,6 @@
       border-color: var(--gold);
     }
 
-    .assistive-item span.icon {
-      font-size: 1.1rem;
-    }
-
     /* FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) */
     #webSheetBackdrop {
       position: fixed;
@@ -289,10 +299,7 @@
       transition: opacity 0.3s ease;
     }
 
-    #webSheetBackdrop.active {
-      display: block;
-      opacity: 1;
-    }
+    #webSheetBackdrop.active { display: block; opacity: 1; }
 
     #webSheet {
       position: fixed;
@@ -314,10 +321,7 @@
       overflow: hidden;
     }
 
-    #webSheet.active {
-      display: flex;
-      transform: translate(-50%, 0);
-    }
+    #webSheet.active { display: flex; transform: translate(-50%, 0); }
 
     .sheet-drag-bar {
       width: 44px;
@@ -350,11 +354,7 @@
       text-transform: uppercase;
     }
 
-    .sheet-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .sheet-actions { display: flex; align-items: center; gap: 8px; }
 
     .sheet-icon-btn {
       background: rgba(255, 255, 255, 0.08);
@@ -398,24 +398,10 @@
     }
 
     #webSheetLoader.hidden { opacity: 0; }
-
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 3px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.65s linear infinite;
-    }
-
+    .spinner { width: 28px; height: 28px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #webSheetFrame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+    #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
 
     /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
@@ -447,46 +433,11 @@
       pointer-events: auto;
     }
 
-    .install-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .install-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid var(--gold);
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .install-text strong {
-      display: block;
-      font-size: 0.82rem;
-      color: var(--gold);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .install-text span {
-      display: block;
-      font-size: 0.68rem;
-      color: #d0d0d0;
-      margin-top: 2px;
-    }
-
-    .install-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
+    .install-info { display: flex; align-items: center; gap: 10px; text-align: left; flex: 1; min-width: 0; }
+    .install-icon { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--gold); object-fit: cover; flex-shrink: 0; }
+    .install-text strong { display: block; font-size: 0.82rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .install-text span { display: block; font-size: 0.68rem; color: #d0d0d0; margin-top: 2px; }
+    .install-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
     #install-btn {
       background: var(--gold-gradient);
@@ -656,7 +607,7 @@
 
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
   <div id="assistive-bubble" title="AssistiveTouch Menu">
-    <img src="kof.gif" alt="Menu" id="logo-source">
+    <img src="kol.gif" alt="Menu" id="logo-source">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
@@ -683,7 +634,7 @@
   <div id="overlay">
     <div class="card">
       <div class="brand-logo-wrap">
-        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
+        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
       </div>
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
@@ -743,7 +694,7 @@
   <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
   <div id="install-float" role="region" aria-label="Install App">
     <div class="install-info">
-      <img src="kof.gif" alt="App Icon" class="install-icon">
+      <img src="kol.gif" alt="App Icon" class="install-icon">
       <div class="install-text">
         <strong>Download KOF App</strong>
         <span id="install-subtext">Install on iOS, Android, or PC</span>
@@ -786,7 +737,6 @@
   <script>
     const booking = document.getElementById('booking');
 
-    // Open & Close Booking Modal
     function openBookingModal(e) {
       if (e) e.preventDefault();
       booking.style.display = 'flex';
@@ -823,13 +773,10 @@
       if (!isDragging) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
-      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
-        hasMoved = true;
-      }
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
       let newX = initialX + dx;
       let newY = initialY + dy;
       
-      // Clamp to screen bounds
       newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
       newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
 
@@ -839,15 +786,13 @@
       bubble.style.bottom = 'auto';
     });
 
-    bubble.addEventListener('pointerup', (e) => {
+    bubble.addEventListener('pointerup', () => {
       isDragging = false;
       if (!hasMoved) {
-        // Toggle menu
         const isOpen = menu.classList.contains('active');
         if (isOpen) {
           menu.classList.remove('active');
         } else {
-          // Position menu near the bubble
           const bRect = bubble.getBoundingClientRect();
           menu.style.bottom = (window.innerHeight - bRect.top + 10) + 'px';
           menu.style.right = (window.innerWidth - bRect.right) + 'px';
@@ -856,14 +801,12 @@
       }
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!bubble.contains(e.target) && !menu.contains(e.target)) {
         menu.classList.remove('active');
       }
     });
 
-    // Assistive menu actions
     document.getElementById('menuBook').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
@@ -934,7 +877,7 @@
         ctx.drawImage(imgEl, 0, 0, size, size);
         return canvas.toDataURL('image/png');
       } catch (e) {
-        return new URL('kof.gif', window.location.href).href;
+        return new URL('kol.gif', window.location.href).href;
       }
     }
 
@@ -992,14 +935,14 @@
     else if (isAndroid) installSubtext.textContent = 'Install Android App • Fast Booking';
     else if (isWindows || isMac) installSubtext.textContent = 'Install Desktop App on PC / Mac';
 
-    if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
-      setTimeout(() => installFloat.classList.add('show'), 1500);
+    if (!isStandalone && !sessionStorage.getItem('kol_install_dismissed')) {
+      setTimeout(() => installFloat.classList.add('show'), 1800);
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
+      if (!isStandalone && !sessionStorage.getItem('kol_install_dismissed')) {
         installFloat.classList.add('show');
       }
     });
@@ -1041,7 +984,7 @@
 
     dismissBtn.addEventListener('click', () => {
       installFloat.classList.remove('show');
-      sessionStorage.setItem('kof_install_dismissed', 'true');
+      sessionStorage.setItem('kol_install_dismissed', 'true');
     });
 
     document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
