@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows System Setup — DNS &amp; Public Visibility Status</title>
+    <!-- Load Tailwind CSS for responsive layout and utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Strictly enforce native Windows / OS system font stack */
+        body {
+            font-family: "Segoe UI Variable", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Subtle Windows 11 Setup Mica-inspired ambient backdrop */
+        .win-setup-bg {
+            background-color: #0b192c;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(0, 120, 212, 0.35) 0px, transparent 55%),
+                radial-gradient(at 85% 80%, rgba(216, 59, 1, 0.22) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(16, 42, 67, 0.9) 0px, transparent 100%);
+        }
+
+        /* Subtle status indicator pulse */
+        @keyframes statusPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.45;
+            }
+        }
+
+        .status-blink {
+            animation: statusPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="win-setup-bg text-slate-900 min-h-screen flex flex-col justify-between selection:bg-[#0078D4] selection:text-white">
+
+    <!-- Top Windows Setup System Status Bar -->
+    <header class="w-full bg-[#0a1322]/90 backdrop-blur-md border-b border-white/10 text-slate-200 px-4 py-2.5 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2.5">
+                <!-- Windows-style 4-pane System Icon -->
+                <svg class="w-4 h-4 text-[#38bdf8] shrink-0" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h4A1.5 1.5 0 0 1 8 2.5v4A1.5 1.5 0 0 1 6.5 8h-4A1.5 1.5 0 0 1 1 6.5v-4zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v4A1.5 1.5 0 0 1 13.5 8h-3A1.5 1.5 0 0 1 9 6.5v-4zm-8 8A1.5 1.5 0 0 1 2.5 9h4A1.5 1.5 0 0 1 8 10.5v3A1.5 1.5 0 0 1 6.5 15h-4A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
+                </svg>
+                <span class="font-semibold tracking-wide text-white">Windows System Setup &amp; DNS Configuration</span>
+                <span class="hidden sm:inline text-slate-500">|</span>
+                <span class="hidden sm:inline text-slate-400">Network &amp; Deployment Provisioning</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-rose-500/20 border border-rose-400/30 text-rose-200 font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-rose-400 status-blink"></span>
+                    DNS Public Visibility: OFF / NOT VISIBLE
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Centered Windows Setup Dialog Window -->
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <section id="setup-window" role="dialog" aria-labelledby="setup-title" aria-describedby="setup-summary" class="w-full max-w-3xl bg-[#f3f4f6] rounded-xl shadow-[0_24px_60px_rgba(0,0,0,0.65)] border border-white/25 overflow-hidden">
+            
+            <!-- Classic Modern Windows Title Bar -->
+            <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between select-none">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-5 h-5 rounded bg-[#0078D4] text-white flex items-center justify-center">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-700">System Setup Wizard — DNS &amp; Public Visibility Guard</span>
+                </div>
+                <!-- Decorative Window Caption Controls -->
+                <div class="flex items-center gap-1.5 text-slate-400">
+                    <span id="live-timestamp" class="text-[11px] font-medium text-slate-500 mr-2 hidden sm:inline">Checking DNS...</span>
+                    <span class="w-3 h-3 rounded-full bg-slate-200 inline-block" title="Minimize"></span>
+                    <span class="w-3 h-3 rounded-full bg-slate-200 inline-block" title="Maximize"></span>
+                    <span class="w-3 h-3 rounded-full bg-rose-400 inline-block" title="Status Locked"></span>
+                </div>
+            </div>
+
+            <!-- Setup Wizard Progress Stepper -->
+            <div class="bg-slate-100 border-b border-slate-200 px-5 sm:px-8 py-3">
+                <div class="flex items-center justify-between text-xs font-medium text-slate-500 gap-2">
+                    <div class="flex items-center gap-2 text-[#0078D4] font-semibold">
+                        <span class="w-5 h-5 rounded-full bg-[#0078D4] text-white flex items-center justify-center text-[11px]">✓</span>
+                        <span>1. Core Build</span>
+                    </div>
+                    <div class="h-px bg-slate-300 flex-1"></div>
+                    <div class="flex items-center gap-2 text-rose-700 font-bold">
+                        <span class="w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-[11px]">!</span>
+                        <span>2. DNS &amp; Public Routing</span>
+                    </div>
+                    <div class="h-px bg-slate-300 flex-1"></div>
+                    <div class="flex items-center gap-2 text-slate-400">
+                        <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px]">3</span>
+                        <span>3. Live Stabilization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Window Body -->
+            <div class="p-5 sm:p-8 space-y-6">
+
+                <!-- Primary Alert Callout Banner -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0">
+                            <!-- DNS / Globe Off SVG -->
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-rose-100 text-rose-800 border border-rose-200">
+                                    DNS Public Visibility: OFF / NOT VISIBLE
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100 text-amber-800">
+                                    Propagation Suspended
+                                </span>
+                            </div>
+                            <h1 id="setup-title" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2">
+                                System DNS &amp; Site Are Currently NOT Publicly Visible
+                            </h1>
+                            <p id="setup-summary" class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                Public DNS routing and external web visibility for this system are currently <strong class="text-rose-700 font-semibold">restricted and offline to the public</strong>. To unlock DNS propagation and restore public access, please contact the system developer, update your payment, and request stabilization of this dynamic system.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Windows System Diagnostic & Action Checklist -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-600">
+                            System Configuration &amp; Action Checklist
+                        </h2>
+                        <span class="text-xs font-mono text-slate-500">ERR_DNS_PUBLIC_RESTRICTED</span>
+                    </div>
+
+                    <div class="divide-y divide-slate-100">
+                        <!-- Item 1: DNS Status -->
+                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-start gap-3">
+                                <span class="mt-0.5 w-5 h-5 rounded-md bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 text-xs font-bold">✕</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-900">Public DNS Records &amp; Domain Routing</p>
+                                    <p class="text-xs text-slate-500">External DNS resolution is suspended; public visitors cannot reach this system.</p>
+                                </div>
+                            </div>
+                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 shrink-0">
+                                OFF / NOT VISIBLE
+                            </span>
+                        </div>
+
+                        <!-- Item 2: Payment & Account Authorization -->
+                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-start gap-3">
+                                <span class="mt-0.5 w-5 h-5 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold">!</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-900">1. Update Payment &amp; Hosting Authorization</p>
+                                    <p class="text-xs text-slate-500">Settle or update account billing to authorize active DNS &amp; server provisioning.</p>
+                                </div>
+                            </div>
+                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
+                                Required
+                            </span>
+                        </div>
+
+                        <!-- Item 3: Dynamic System Stabilization -->
+                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-start gap-3">
+                                <span class="mt-0.5 w-5 h-5 rounded-md bg-sky-100 text-[#0078D4] flex items-center justify-center shrink-0 text-xs font-bold">⚙</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-900">2. Stabilize Dynamic System &amp; Publish DNS</p>
+                                    <p class="text-xs text-slate-500">Contact the system developer to finalize stability checks and enable public visibility.</p>
+                                </div>
+                            </div>
+                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-sky-50 text-[#0078D4] border border-sky-200 shrink-0">
+                                Pending Developer
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer Support & Contact Channels -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    <!-- Developer Email Card -->
+                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-10 h-10 rounded-lg bg-[#0078D4]/10 text-[#0078D4] flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">System Developer Email</p>
+                                <p id="dev-contact-text" class="text-sm font-mono font-semibold text-slate-900 truncate">apponline247@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="copy-contact-btn" class="flex-1 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-xs font-semibold text-slate-800 border border-slate-300 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                                </svg>
+                                <span id="copy-btn-label">Copy Email</span>
+                            </button>
+                            <a href="mailto:apponline247@gmail.com?subject=DNS%20Visibility%20%26%20System%20Stabilization%20Request&body=Hello%20System%20Developer%2C%0A%0AOur%20system%20DNS%20is%20currently%20showing%20NOT%20PUBLICLY%20VISIBLE.%20Please%20assist%20us%20with%20updating%20payment%20and%20stabilizing%20the%20dynamic%20system%20to%20restore%20public%20access." class="px-3.5 py-2 rounded-lg bg-[#0078D4] hover:bg-[#106ebe] text-xs font-semibold text-white transition">
+                                Email Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Developer Facebook Card -->
+                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-[#1877F2] flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Developer Direct Support</p>
+                                <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-[#1877F2] hover:underline truncate block">
+                                    facebook.com/on.line.151642
+                                </a>
+                            </div>
+                        </div>
+                        <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="w-full px-3 py-2 rounded-lg bg-[#1877F2] hover:bg-[#166fe5] text-xs font-semibold text-white transition flex items-center justify-center gap-1.5">
+                            <span>Message Developer on Facebook</span>
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive DNS Diagnostic Output Box (Hidden until requested) -->
+                <div id="dns-diagnostic-panel" class="hidden rounded-xl bg-slate-900 text-slate-200 p-4 border border-slate-700 font-mono text-xs space-y-1.5">
+                    <div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-1.5 mb-2">
+                        <span>Windows DNS &amp; Public Visibility Diagnostic</span>
+                        <button type="button" id="close-diag-btn" class="text-slate-400 hover:text-white cursor-pointer">Close [×]</button>
+                    </div>
+                    <p><span class="text-sky-400">&gt;</span> DNS Propagation State: <span class="text-rose-400 font-bold">UNPROPAGATED / RESTRICTED</span></p>
+                    <p><span class="text-sky-400">&gt;</span> Public External Endpoint: <span class="text-rose-400 font-bold">NOT VISIBLE (OFFLINE)</span></p>
+                    <p><span class="text-sky-400">&gt;</span> Dynamic System Stability: <span class="text-amber-300">HOLD — Awaiting Developer Stabilization &amp; Payment Update</span></p>
+                    <p><span class="text-sky-400">&gt;</span> Assigned Support Contact: <span class="text-emerald-300">apponline247@gmail.com</span></p>
+                </div>
+
+            </div>
+
+            <!-- Windows Setup Bottom Action Footer -->
+            <div class="bg-white border-t border-slate-200 px-5 sm:px-8 py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <button type="button" id="run-diag-btn" class="px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-300 transition flex items-center justify-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <span>Verify DNS Status</span>
+                </button>
+
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                    <button type="button" id="acknowledge-btn" class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs sm:text-sm border border-slate-300 transition cursor-pointer">
+                        <span id="ack-btn-text">Acknowledge Status</span>
+                    </button>
+
+                    <a href="mailto:apponline247@gmail.com?subject=Restore%20Public%20DNS%20Visibility%20%26%20Update%20Payment&body=Hello%2C%0A%0APlease%20help%20update%20our%20payment%2C%20stabilize%20the%20dynamic%20system%2C%20and%20enable%20public%20DNS%20visibility." class="px-5 py-2.5 rounded-lg bg-[#0078D4] hover:bg-[#106ebe] active:bg-[#005a9e] text-white font-semibold text-xs sm:text-sm shadow-sm transition flex items-center justify-center gap-2">
+                        <span>Contact System Developer</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Bottom System Status Footer -->
+    <footer class="py-3.5 px-4 text-center text-xs text-slate-400 border-t border-white/10 bg-[#08101d]/80">
+        Windows System Setup &amp; DNS Provisioning Guard &bull; Status Code: <span class="font-mono text-rose-300">DNS_PUBLIC_OFF_0x00</span>
+    </footer>
+
+    <!-- Interactive Setup Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Live System Verification Timestamp
+            const timestampEl = document.getElementById('live-timestamp');
+            if (timestampEl) {
+                const now = new Date();
+                const formatted = now.toLocaleString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                timestampEl.textContent = `Checked: ${formatted}`;
+            }
+
+            // 2. One-click Copy Developer Email (iframe-safe fallback)
+            const copyBtn = document.getElementById('copy-contact-btn');
+            const copyLabel = document.getElementById('copy-btn-label');
+            const contactText = document.getElementById('dev-contact-text');
+
+            if (copyBtn && contactText) {
+                copyBtn.addEventListener('click', () => {
+                    const textToCopy = contactText.textContent.trim();
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = textToCopy;
+                    tempInput.style.position = 'fixed';
+                    tempInput.style.opacity = '0';
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+
+                    try {
+                        document.execCommand('copy');
+                        copyLabel.textContent = 'Copied!';
+                        copyBtn.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+                        copyBtn.classList.remove('bg-slate-100', 'text-slate-800', 'border-slate-300');
+
+                        setTimeout(() => {
+                            copyLabel.textContent = 'Copy Email';
+                            copyBtn.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+                            copyBtn.classList.add('bg-slate-100', 'text-slate-800', 'border-slate-300');
+                        }, 2200);
+                    } catch (err) {
+                        copyLabel.textContent = 'Select & Copy';
+                    } finally {
+                        document.body.removeChild(tempInput);
+                    }
+                });
+            }
+
+            // 3. Toggle DNS Diagnostic Output Panel
+            const diagBtn = document.getElementById('run-diag-btn');
+            const diagPanel = document.getElementById('dns-diagnostic-panel');
+            const closeDiagBtn = document.getElementById('close-diag-btn');
+
+            if (diagBtn && diagPanel) {
+                diagBtn.addEventListener('click', () => {
+                    diagPanel.classList.toggle('hidden');
+                });
+            }
+
+            if (closeDiagBtn && diagPanel) {
+                closeDiagBtn.addEventListener('click', () => {
+                    diagPanel.classList.add('hidden');
+                });
+            }
+
+            // 4. Acknowledge Setup Notice State
+            const ackBtn = document.getElementById('acknowledge-btn');
+            const ackBtnText = document.getElementById('ack-btn-text');
+            let isAcknowledged = false;
+
+            if (ackBtn && ackBtnText) {
+                ackBtn.addEventListener('click', () => {
+                    isAcknowledged = !isAcknowledged;
+                    if (isAcknowledged) {
+                        ackBtnText.textContent = '✓ Notice Acknowledged';
+                        ackBtn.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+                        ackBtn.classList.remove('bg-white', 'text-slate-800', 'border-slate-300');
+                    } else {
+                        ackBtnText.textContent = 'Acknowledge Status';
+                        ackBtn.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+                        ackBtn.classList.add('bg-white', 'text-slate-800', 'border-slate-300');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
