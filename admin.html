@@ -7,7 +7,7 @@
   <title>King of Fadez | Admin Control Setup</title>
   <meta name="description" content="King of Fadez • Dasmariñas Branch Command Center & Admin Control Setup">
 
-  <!-- Universal Web App / PWA Meta Tags (iOS, Android, Windows, macOS) -->
+  <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="KOF Admin">
@@ -17,16 +17,16 @@
   <link rel="manifest" id="pwa-manifest">
 
   <!-- Browser & App Icons -->
-  <link rel="icon" type="image/gif" href="kof.gif">
-  <link rel="apple-touch-icon" href="kof.gif">
+  <link rel="icon" type="image/gif" href="kol.gif">
+  <link rel="apple-touch-icon" href="kol.gif">
 
-  <!-- Open Graph (Facebook Messenger, Viber, WhatsApp, Telegram, iMessage, LinkedIn) -->
+  <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez">
-  <meta property="og:title" content="King of Fadez | Dasmariñas Branch">
+  <meta property="og:title" content="King of Fadez | Dasmariñas Branch Admin">
   <meta property="og:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
-  <meta property="og:image" content="kof.gif">
-  <meta property="og:image:secure_url" content="kof.gif">
+  <meta property="og:image" content="kol.gif">
+  <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -34,17 +34,18 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch">
+  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch Admin">
   <meta name="twitter:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
-  <meta name="twitter:image" content="kof.gif">
+  <meta name="twitter:image" content="kol.gif">
 
-  <!-- Schema.org Fallback (Google / Viber / Android Shares) -->
-  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch">
+  <!-- Schema.org Fallback -->
+  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch Admin">
   <meta itemprop="description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
-  <meta itemprop="image" content="kof.gif">
+  <meta itemprop="image" content="kol.gif">
 
   <!-- Instant link prefetching for lightning speed -->
   <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?page=admin&branch=main">
+  <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
     :root {
@@ -67,27 +68,22 @@
       width: 100%;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #050505;
+      background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
       color: #fff;
       overflow: hidden;
       overscroll-behavior: none;
     }
 
-    #bg-video {
+    /* LIGHTNING FAST AMBIENT GLOW (NO VIDEO LAG) */
+    .bg-glow {
       position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.35) contrast(1.15);
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
       z-index: 0;
-    }
-
-    .vignette {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.88) 100%);
-      z-index: 1;
       pointer-events: none;
     }
 
@@ -394,7 +390,176 @@
       text-decoration: none;
     }
 
-    /* FLOATING APP DOWNLOAD SUGGESTION (IOS / ANDROID / PC) */
+    /* =========================================================
+       iOS ASSISTIVETOUCH FLOATING MENU (ALWAYS VISIBLE ON TOP)
+       ========================================================= */
+    #assistive-bubble {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      background: rgba(14, 14, 14, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      z-index: 10005; /* Highest layer so it is ALWAYS visible */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.15s ease;
+    }
+
+    #assistive-bubble img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    #assistive-menu {
+      position: fixed;
+      bottom: 156px;
+      right: 20px;
+      width: 220px;
+      background: rgba(12, 12, 12, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 20px;
+      padding: 12px;
+      z-index: 10006; /* Always above everything */
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      transform: scale(0.9) translateY(10px);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    #assistive-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .assistive-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .assistive-item:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+    }
+
+    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    #webSheet {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #080808;
+      z-index: 9990;
+      display: none;
+      flex-direction: column;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    }
+
+    #webSheet.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .websheet-header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .websheet-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .websheet-icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .websheet-scroll-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 60px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #fff;
+    }
+
+    #webSheetLoader {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      color: var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 2;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    #webSheetLoader.hidden { opacity: 0; }
+    #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
+
+    /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
       position: fixed;
       bottom: max(16px, env(safe-area-inset-bottom));
@@ -412,24 +577,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      z-index: 50;
+      z-index: 9985;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.22);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       pointer-events: none;
-    }
-
-    @media (min-width: 768px) {
-      #install-float {
-        left: auto;
-        right: 24px;
-        bottom: 24px;
-        transform: translateY(150%);
-        max-width: 375px;
-      }
-      #install-float.show {
-        transform: translateY(0) !important;
-      }
     }
 
     #install-float.show {
@@ -460,7 +612,6 @@
       display: block;
       font-size: 0.82rem;
       color: var(--gold);
-      letter-spacing: 0.4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -489,18 +640,7 @@
       font-size: 0.72rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
-      transition: transform 0.15s;
-    }
-
-    #install-btn:hover {
-      filter: brightness(1.08);
-    }
-
-    #install-btn:active {
-      transform: scale(0.96);
     }
 
     #dismiss-install {
@@ -516,28 +656,20 @@
       place-items: center;
     }
 
-    #dismiss-install:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.16);
-    }
-
     /* UNIVERSAL DEVICE INSTALL GUIDE MODAL */
     #device-guide {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.84);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 10010;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
 
-    #device-guide.active {
-      display: flex;
-    }
+    #device-guide.active { display: flex; }
 
     .guide-sheet {
       width: 100%;
@@ -547,7 +679,6 @@
       border-radius: 24px;
       padding: 24px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
     }
 
     .guide-badge {
@@ -557,31 +688,17 @@
       color: var(--gold);
       font-size: 0.65rem;
       font-weight: 800;
-      letter-spacing: 1px;
       padding: 4px 10px;
       border-radius: 20px;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 {
-      color: #fff;
-      font-size: 1.02rem;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .guide-sheet p {
-      font-size: 0.78rem;
-      color: #bbb;
-      line-height: 1.45;
-      margin-bottom: 14px;
-    }
+    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       padding: 14px;
       text-align: left;
@@ -591,14 +708,8 @@
       margin-bottom: 16px;
     }
 
-    .guide-steps b {
-      color: var(--gold);
-    }
-
-    .guide-btns {
-      display: flex;
-      gap: 8px;
-    }
+    .guide-steps b { color: var(--gold); }
+    .guide-btns { display: flex; gap: 8px; }
 
     .guide-btn-secondary {
       flex: 1;
@@ -626,7 +737,7 @@
       cursor: pointer;
     }
 
-    /* INSTANT ADMIN MODAL (KEEPS USER LOCKED ON CUSTOM DNS) */
+    /* INSTANT ADMIN MODAL (DNS LOCKED) */
     #adminModal {
       position: fixed;
       inset: 0;
@@ -704,9 +815,7 @@
       pointer-events: none;
     }
 
-    #frameLoader.hidden {
-      opacity: 0;
-    }
+    #frameLoader.hidden { opacity: 0; }
 
     .spinner {
       width: 30px;
@@ -731,12 +840,45 @@
 </head>
 <body>
 
-  <!-- VIDEO BACKGROUND -->
-  <video id="bg-video" autoplay muted loop playsinline preload="auto">
-    <source src="IMG_1039.MOV" type="video/mp4">
-    <source src="IMG_1039.MOV" type="video/quicktime">
-  </video>
-  <div class="vignette"></div>
+  <!-- LIGHTNING FAST CSS BACKGROUND GLOW -->
+  <div class="bg-glow"></div>
+
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
+  <div id="assistive-bubble" title="Admin AssistiveTouch">
+    <img src="kol.gif" alt="Admin Menu" id="logo-source">
+  </div>
+
+  <!-- ASSISTIVETOUCH POPUP MENU -->
+  <div id="assistive-menu">
+    <a href="#" class="assistive-item" id="menuBookings">
+      <span class="icon">📅</span>
+      <span>Live Bookings</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuWalkin">
+      <span class="icon">✂️</span>
+      <span>POS / Walk-In</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuBarbers">
+      <span class="icon">💈</span>
+      <span>Barbers & Shifts</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuSettings">
+      <span class="icon">⚙️</span>
+      <span>Shop Setup</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuDetails">
+      <span class="icon">📜</span>
+      <span>Shop Details</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuInstallApp">
+      <span class="icon">📥</span>
+      <span>Download App</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuClient">
+      <span class="icon">👁️</span>
+      <span>Client Preview</span>
+    </a>
+  </div>
 
   <!-- MAIN OVERLAY -->
   <div id="overlay">
@@ -747,7 +889,7 @@
       </div>
 
       <div class="brand-logo-wrap">
-        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo" id="logo-source">
+        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
       </div>
       <h1>King of Fadez</h1>
       <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
@@ -814,17 +956,44 @@
         <button class="primary-btn" id="openFullAdmin">Open Full Admin Console</button>
 
         <div class="secondary-actions">
-          <button class="sub-btn" id="openClientView">👁️ Client Preview</button>
+          <button class="sub-btn" id="openClientView">👁️ Preview</button>
+          <button class="sub-btn" id="openWebBtn">🌐 Details</button>
           <button class="sub-btn" id="lockBtn">🔒 Lock</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT (IOS / ANDROID / PC) -->
+  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+  <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
+    <div class="websheet-header">
+      <span>👑 King of Fadez • Official Details</span>
+      <div class="websheet-actions">
+        <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="websheet-scroll-container">
+      <div id="webSheetLoader">
+        <div class="spinner"></div>
+        <span>Loading Full Details...</span>
+      </div>
+      <iframe
+        id="webSheetFrame"
+        src="about:blank"
+        title="King of Fadez Details"
+        loading="lazy"
+        scrolling="yes"
+        allow="geolocation; clipboard-read; clipboard-write"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
   <div id="install-float" role="region" aria-label="Install Admin App">
     <div class="install-info">
-      <img src="kof.gif" alt="App Icon" class="install-icon">
+      <img src="kol.gif" alt="App Icon" class="install-icon">
       <div class="install-text">
         <strong>Install KOF Admin App</strong>
         <span id="install-subtext">Add to iOS, Android, or PC</span>
@@ -850,7 +1019,7 @@
     </div>
   </div>
 
-  <!-- INSTANT PRE-LOADED ADMIN MODAL (NO-EXIT DNS LOCKED FRAME) -->
+  <!-- INSTANT ADMIN MODAL (DNS LOCKED) -->
   <div id="adminModal">
     <div class="modal-header">
       <span id="modalTitle">Admin Console</span>
@@ -865,7 +1034,6 @@
         <div class="spinner"></div>
         <span>Loading App...</span>
       </div>
-      <!-- Sandbox intentionally omits allow-top-navigation so sublinks inside GAS cannot exit your custom DNS -->
       <iframe
         id="adminFrame"
         src="about:blank"
@@ -879,6 +1047,7 @@
   <script>
     const ADMIN_PIN = "2026";
     const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec";
+    const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
     const BRANCH = "main";
 
     const mainCard = document.getElementById('mainCard');
@@ -895,7 +1064,6 @@
     let currentSrc = "";
     let pendingSublink = null;
 
-    // Live Clock
     function updateClock() {
       const now = new Date();
       document.getElementById('liveClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -903,7 +1071,6 @@
     updateClock();
     setInterval(updateClock, 15000);
 
-    // Check if URL has a sublink query/hash on load
     function parseInitialSublink() {
       const params = new URLSearchParams(window.location.search);
       const pageParam = params.get('page');
@@ -918,7 +1085,6 @@
     }
     parseInitialSublink();
 
-    // Instant unlock check
     if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
       showAdminPanel();
     }
@@ -988,7 +1154,6 @@
 
     document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
 
-    // Shop Status Toggle
     let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
     const statusDot = document.getElementById('statusDot');
     const statusText = document.getElementById('statusText');
@@ -1006,20 +1171,176 @@
       updateStatusUI();
     });
 
-    // Open any URL directly inside the DNS-locked modal without leaving the domain
+    // =========================================================================
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & MENU LOGIC
+    // =========================================================================
+    const bubble = document.getElementById('assistive-bubble');
+    const menu = document.getElementById('assistive-menu');
+    let isDragging = false;
+    let hasMoved = false;
+    let startX, startY, initialX, initialY;
+
+    bubble.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = bubble.getBoundingClientRect();
+      initialX = rect.left;
+      initialY = rect.top;
+      bubble.setPointerCapture(e.pointerId);
+    });
+
+    bubble.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
+      let newX = initialX + dx;
+      let newY = initialY + dy;
+      
+      newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
+      newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
+
+      bubble.style.left = newX + 'px';
+      bubble.style.top = newY + 'px';
+      bubble.style.right = 'auto';
+      bubble.style.bottom = 'auto';
+    });
+
+    bubble.addEventListener('pointerup', () => {
+      isDragging = false;
+      if (!hasMoved) {
+        const isOpen = menu.classList.contains('active');
+        if (isOpen) {
+          menu.classList.remove('active');
+        } else {
+          const bRect = bubble.getBoundingClientRect();
+          menu.style.bottom = (window.innerHeight - bRect.top + 10) + 'px';
+          menu.style.right = (window.innerWidth - bRect.right) + 'px';
+          menu.classList.add('active');
+        }
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!bubble.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    document.getElementById('menuBookings').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        launchRoute('Live Appointments', 'admin', 'admin');
+      } else {
+        alert('Please enter Admin PIN first.');
+      }
+    });
+
+    document.getElementById('menuWalkin').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        launchRoute('Walk-In / POS Entry', 'admin', 'walkin');
+      } else {
+        alert('Please enter Admin PIN first.');
+      }
+    });
+
+    document.getElementById('menuBarbers').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        launchRoute('Barber Roster & Shifts', 'admin', 'barbers');
+      } else {
+        alert('Please enter Admin PIN first.');
+      }
+    });
+
+    document.getElementById('menuSettings').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        launchRoute('Services & Pricing Setup', 'admin', 'settings');
+      } else {
+        alert('Please enter Admin PIN first.');
+      }
+    });
+
+    document.getElementById('menuDetails').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      openWebSheet(e);
+    });
+
+    document.getElementById('menuInstallApp').addEventListener('click', async (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
+    document.getElementById('menuClient').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      launchRoute('Client Booking Preview', 'client', 'client');
+    });
+
+    // =========================================================================
+    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
+    // =========================================================================
+    const webSheet = document.getElementById('webSheet');
+    const webSheetFrame = document.getElementById('webSheetFrame');
+    const webSheetLoader = document.getElementById('webSheetLoader');
+    let webSheetLoaded = false;
+
+    function openWebSheet(e) {
+      if (e) e.preventDefault();
+      menu.classList.remove('active');
+      if (!webSheetLoaded) {
+        webSheetLoader.classList.remove('hidden');
+        webSheetFrame.src = DETAILS_URL;
+        webSheetLoaded = true;
+      }
+      webSheet.style.display = 'flex';
+      requestAnimationFrame(() => webSheet.classList.add('active'));
+    }
+
+    function closeWebSheet() {
+      webSheet.classList.remove('active');
+      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
+    }
+
+    webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
+
+    document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
+    document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
+    document.getElementById('reloadWebSheet').addEventListener('click', () => {
+      webSheetLoader.classList.remove('hidden');
+      webSheetFrame.src = DETAILS_URL;
+    });
+
+    // =========================================================================
+    // DNS-LOCKED ADMIN CONSOLE MODAL
+    // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
       modalTitle.textContent = title || 'Admin Console';
-
       if (currentSrc !== targetUrl) {
         currentSrc = targetUrl;
         frameLoader.classList.remove('hidden');
         adminFrame.src = targetUrl;
       }
-
       if (!adminModal.classList.contains('active')) {
         history.pushState({ kofModalOpen: true }, '', window.location.href);
       }
-
       adminModal.style.display = 'flex';
       requestAnimationFrame(() => adminModal.classList.add('active'));
     }
@@ -1028,9 +1349,7 @@
       if (!adminModal.classList.contains('active')) return;
       adminModal.classList.remove('active');
       setTimeout(() => {
-        if (!adminModal.classList.contains('active')) {
-          adminModal.style.display = 'none';
-        }
+        if (!adminModal.classList.contains('active')) adminModal.style.display = 'none';
       }, 220);
 
       if (!fromPopState && history.state && history.state.kofModalOpen) {
@@ -1038,7 +1357,6 @@
       }
     }
 
-    // Lightning Fast Route Launcher (Stays 100% on current DNS)
     function launchRoute(title, pageParam, viewParam) {
       const url = new URL(BASE_SCRIPT_URL);
       url.searchParams.set('page', pageParam);
@@ -1047,45 +1365,45 @@
       openUrlInLockedDns(title, url.toString());
     }
 
-    adminFrame.addEventListener('load', () => {
-      frameLoader.classList.add('hidden');
-    });
+    adminFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
 
-    // Global Link & Sublink Interceptor: Prevents any <a> or sublink from exiting the DNS
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href]');
       if (!link) return;
-
       const rawHref = link.getAttribute('href');
       if (!rawHref || rawHref.startsWith('javascript:')) return;
-
       e.preventDefault();
 
       if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
         const cleanView = rawHref.replace(/^[#?]+/, '');
         const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
-        const page = subParams.get('page') || link.dataset.page || 'admin';
-        const view = subParams.get('view') || link.dataset.view || cleanView || 'admin';
-        launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+        launchRoute(
+          link.dataset.title || link.textContent.trim(),
+          subParams.get('page') || link.dataset.page || 'admin',
+          subParams.get('view') || link.dataset.view || cleanView || 'admin'
+        );
         return;
       }
 
       try {
         const resolved = new URL(rawHref, window.location.href);
         if (resolved.origin === window.location.origin) {
-          const page = resolved.searchParams.get('page') || link.dataset.page || 'admin';
-          const view = resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin';
-          launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+          launchRoute(
+            link.dataset.title || link.textContent.trim(),
+            resolved.searchParams.get('page') || link.dataset.page || 'admin',
+            resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin'
+          );
         } else {
           openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
         }
       } catch (_) {}
     }, true);
 
-    // Keep Device / Messenger / Viber Back Button inside the DNS without exiting
     history.replaceState({ kofBaseDns: true }, '', window.location.href);
     window.addEventListener('popstate', () => {
-      if (adminModal.classList.contains('active')) {
+      if (webSheet.classList.contains('active')) {
+        closeWebSheet();
+      } else if (adminModal.classList.contains('active')) {
         closeLockedModal(true);
       } else {
         history.pushState({ kofBaseDns: true }, '', window.location.href);
@@ -1107,7 +1425,7 @@
     document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
 
     // =========================================================================
-    // UNIVERSAL PWA ENGINE (ANDROID, IOS, WINDOWS & MAC PC)
+    // PWA & INSTALL ENGINE
     // =========================================================================
     function createPngIcon(imgEl, size) {
       try {
@@ -1120,12 +1438,12 @@
         ctx.drawImage(imgEl, 0, 0, size, size);
         return canvas.toDataURL('image/png');
       } catch (e) {
-        return new URL('kof.gif', window.location.href).href;
+        return new URL('kol.gif', window.location.href).href;
       }
     }
 
     function initUniversalManifest() {
-      const logoImg = document.getElementById('logo-source');
+      const logoImg = document.querySelector('.brand-logo');
       const buildManifest = () => {
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
@@ -1147,29 +1465,20 @@
         const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
         document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
       };
-
       if (logoImg.complete) buildManifest();
       else logoImg.addEventListener('load', buildManifest);
     }
-
     initUniversalManifest();
 
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      const swCode = `
-        self.addEventListener('install', (e) => self.skipWaiting());
-        self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
-        self.addEventListener('fetch', (e) => {});
-      `;
-      const swBlob = new Blob([swCode], { type: 'application/javascript' });
-      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+      const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => self.clients.claim());`;
+      navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' }))).catch(() => {});
     }
 
     const ua = navigator.userAgent || '';
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/i.test(ua);
-    const isMac = /Macintosh|MacIntel/i.test(ua) && !isIOS;
-    const isWindows = /Windows/i.test(ua);
     const isInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview|Line|Viber/i.test(ua);
 
     const installFloat = document.getElementById('install-float');
@@ -1179,23 +1488,13 @@
     const deviceGuide = document.getElementById('device-guide');
     const deviceBadge = document.getElementById('device-badge');
     const guideSteps = document.getElementById('guide-steps');
-    const closeGuide = document.getElementById('close-guide');
-    const copyLinkBtn = document.getElementById('copy-link-btn');
-
     let deferredPrompt = null;
 
-    if (isIOS) {
-      installSubtext.textContent = 'Add Admin App to iPhone / iPad';
-    } else if (isAndroid) {
-      installSubtext.textContent = 'Install Android Admin App';
-    } else if (isWindows || isMac) {
-      installSubtext.textContent = 'Install Desktop App on PC / Mac';
-    }
+    if (isIOS) installSubtext.textContent = 'Add Admin App to iPhone / iPad';
+    else if (isAndroid) installSubtext.textContent = 'Install Android Admin App';
 
     if (!isStandalone && !sessionStorage.getItem('kof_admin_install_dismissed')) {
-      setTimeout(() => {
-        installFloat.classList.add('show');
-      }, 1500);
+      setTimeout(() => installFloat.classList.add('show'), 1500);
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -1209,37 +1508,13 @@
     function openPlatformGuide() {
       if (isInAppBrowser) {
         deviceBadge.textContent = 'In-App Browser Detected';
-        guideSteps.innerHTML = `
-          1. Tap the <b>•••</b> or <b>Share</b> icon at the top/bottom corner.<br>
-          2. Select <b>"Open in Browser"</b> (Safari or Chrome).<br>
-          3. Tap <b>Install</b> again to save KOF Admin to your device.
-        `;
+        guideSteps.innerHTML = `1. Tap <b>•••</b> or <b>Share</b>.<br>2. Select <b>"Open in Browser"</b>.<br>3. Tap <b>Install</b> again.`;
       } else if (isIOS) {
         deviceBadge.textContent = 'iOS • iPhone & iPad';
-        guideSteps.innerHTML = `
-          1. Tap the <b>Share</b> icon (⬆️) in Safari's toolbar.<br>
-          2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
-          3. Tap <b>Add</b> in the top-right corner.
-        `;
-      } else if (isAndroid) {
-        deviceBadge.textContent = 'Android Device';
-        guideSteps.innerHTML = `
-          1. Tap the <b>⋮ Menu</b> icon in the top-right of Chrome.<br>
-          2. Tap <b>"Install app"</b> or <b>"Add to Home screen"</b>.<br>
-          3. Confirm by tapping <b>Install</b>.
-        `;
-      } else if (isMac) {
-        deviceBadge.textContent = 'macOS Desktop';
-        guideSteps.innerHTML = `
-          1. In <b>Chrome/Edge</b>: Click the <b>Install icon (⊕)</b> in the right side of the address bar.<br>
-          2. In <b>Safari</b>: Click <b>File → Add to Dock</b> in the top menu bar.
-        `;
+        guideSteps.innerHTML = `1. Tap <b>Share</b> (⬆️) in Safari.<br>2. Tap <b>"Add to Home Screen"</b>.<br>3. Tap <b>Add</b>.`;
       } else {
-        deviceBadge.textContent = 'Windows / Desktop PC';
-        guideSteps.innerHTML = `
-          1. Look at the right side of your browser's address bar and click the <b>Install App icon (⊕)</b>.<br>
-          2. Or click the <b>⋮ / ••• Menu → Save and share → Install KOF Admin</b>.
-        `;
+        deviceBadge.textContent = 'Android / PC';
+        guideSteps.innerHTML = `1. Tap <b>⋮ Menu</b> in browser.<br>2. Select <b>"Install app"</b> or <b>"Add to Home screen"</b>.`;
       }
       deviceGuide.classList.add('active');
     }
@@ -1248,19 +1523,17 @@
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          installFloat.classList.remove('show');
-        }
+        if (outcome === 'accepted') installFloat.classList.remove('show');
         deferredPrompt = null;
       } else {
         openPlatformGuide();
       }
     });
 
-    copyLinkBtn.addEventListener('click', () => {
+    document.getElementById('copy-link-btn').addEventListener('click', (e) => {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        copyLinkBtn.textContent = 'Copied!';
-        setTimeout(() => copyLinkBtn.textContent = 'Copy Link', 2000);
+        e.target.textContent = 'Copied!';
+        setTimeout(() => e.target.textContent = 'Copy Link', 2000);
       });
     });
 
@@ -1269,13 +1542,8 @@
       sessionStorage.setItem('kof_admin_install_dismissed', 'true');
     });
 
-    closeGuide.addEventListener('click', () => {
-      deviceGuide.classList.remove('active');
-    });
-
-    window.addEventListener('appinstalled', () => {
-      installFloat.classList.remove('show');
-    });
+    document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
+    window.addEventListener('appinstalled', () => installFloat.classList.remove('show'));
   </script>
 
 </body>
