@@ -7,11 +7,13 @@
   <title>King of Fadez | Booking App</title>
   <meta name="description" content="King of Fadez • The Standard of Dasmariñas — Book your haircut & grooming appointment online.">
 
-  <!-- PWA / Mobile Web App Capabilities -->
+  <!-- Universal Web App / PWA Meta Tags (iOS, Android, Windows, macOS) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="King of Fadez">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="King of Fadez">
+  <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
   <!-- Browser & App Icons -->
@@ -218,18 +220,18 @@
       50% { opacity: 1; }
     }
 
-    /* FLOATING APP DOWNLOAD SUGGESTION */
+    /* FLOATING APP DOWNLOAD SUGGESTION (RESPONSIVE FOR MOBILE & PC) */
     #install-float {
       position: fixed;
       bottom: max(18px, env(safe-area-inset-bottom));
       left: 50%;
-      transform: translateX(-50%) translateY(140%);
+      transform: translateX(-50%) translateY(150%);
       width: calc(100% - 32px);
-      max-width: 380px;
-      background: rgba(14, 14, 14, 0.88);
+      max-width: 400px;
+      background: rgba(14, 14, 14, 0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(212, 175, 55, 0.55);
+      border: 1px solid rgba(212, 175, 55, 0.6);
       border-radius: 20px;
       padding: 12px 14px;
       display: flex;
@@ -237,10 +239,23 @@
       justify-content: space-between;
       gap: 10px;
       z-index: 50;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 18px rgba(212, 175, 55, 0.18);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.22);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       pointer-events: none;
+    }
+
+    @media (min-width: 768px) {
+      #install-float {
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+        transform: translateY(150%);
+        max-width: 370px;
+      }
+      #install-float.show {
+        transform: translateY(0) !important;
+      }
     }
 
     #install-float.show {
@@ -252,15 +267,15 @@
     .install-info {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       text-align: left;
       flex: 1;
       min-width: 0;
     }
 
     .install-icon {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       border: 1px solid var(--gold);
       object-fit: cover;
@@ -269,7 +284,7 @@
 
     .install-text strong {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--gold);
       letter-spacing: 0.4px;
       white-space: nowrap;
@@ -279,8 +294,8 @@
 
     .install-text span {
       display: block;
-      font-size: 0.68rem;
-      color: #ccc;
+      font-size: 0.69rem;
+      color: #d0d0d0;
       margin-top: 2px;
     }
 
@@ -295,7 +310,7 @@
       background: var(--gold-gradient);
       color: #000;
       border: none;
-      padding: 9px 14px;
+      padding: 10px 14px;
       border-radius: 12px;
       font-size: 0.72rem;
       font-weight: 900;
@@ -303,6 +318,11 @@
       letter-spacing: 0.6px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+      transition: transform 0.15s;
+    }
+
+    #install-btn:hover {
+      filter: brightness(1.08);
     }
 
     #install-btn:active {
@@ -322,74 +342,112 @@
       place-items: center;
     }
 
-    /* IOS INSTALL GUIDE POPUP */
-    #ios-guide {
+    #dismiss-install:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* UNIVERSAL DEVICE INSTALL GUIDE MODAL */
+    #device-guide {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 100;
       display: none;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       padding: 20px;
     }
 
-    #ios-guide.active {
+    #device-guide.active {
       display: flex;
     }
 
-    .ios-sheet {
+    .guide-sheet {
       width: 100%;
       max-width: 380px;
       background: #111;
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 24px;
-      padding: 22px;
+      padding: 24px 20px;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
     }
 
-    .ios-sheet h3 {
+    .guide-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
-      font-size: 1rem;
+      font-size: 0.65rem;
+      font-weight: 800;
       letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 20px;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .ios-sheet p {
-      font-size: 0.82rem;
-      color: #ddd;
-      line-height: 1.5;
+    .guide-sheet h3 {
+      color: #fff;
+      font-size: 1.05rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .guide-sheet p {
+      font-size: 0.8rem;
+      color: #bbb;
+      line-height: 1.45;
       margin-bottom: 14px;
     }
 
-    .ios-steps {
+    .guide-steps {
       background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 12px;
+      padding: 14px;
       text-align: left;
-      font-size: 0.78rem;
-      color: #fff;
-      line-height: 1.7;
+      font-size: 0.8rem;
+      color: #f0f0f0;
+      line-height: 1.75;
       margin-bottom: 16px;
     }
 
-    .ios-steps b {
+    .guide-steps b {
       color: var(--gold);
     }
 
-    #close-ios-guide {
-      width: 100%;
+    .guide-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .guide-btn-secondary {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: transparent;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #close-guide {
+      flex: 1;
       padding: 12px;
       border-radius: 12px;
       border: none;
       background: var(--gold-gradient);
       color: #000;
-      font-weight: 800;
-      font-size: 0.8rem;
+      font-weight: 900;
+      font-size: 0.78rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -467,7 +525,7 @@
   <div id="overlay">
     <div class="card">
       <div class="brand-logo-wrap">
-        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
+        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo" id="logo-source">
       </div>
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
@@ -494,13 +552,13 @@
     </div>
   </div>
 
-  <!-- FLOATING DOWNLOAD / INSTALL APP PROMPT -->
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT (IOS / ANDROID / PC) -->
   <div id="install-float" role="region" aria-label="Install App">
     <div class="install-info">
       <img src="kof.gif" alt="App Icon" class="install-icon">
       <div class="install-text">
-        <strong>Get the KOF App</strong>
-        <span>1-tap booking on your home screen</span>
+        <strong>Download KOF App</strong>
+        <span id="install-subtext">Install on iOS, Android, or PC</span>
       </div>
     </div>
     <div class="install-actions">
@@ -509,17 +567,17 @@
     </div>
   </div>
 
-  <!-- IOS SAFARI INSTALL INSTRUCTIONS MODAL -->
-  <div id="ios-guide">
-    <div class="ios-sheet">
+  <!-- UNIVERSAL DEVICE INSTALL INSTRUCTIONS MODAL -->
+  <div id="device-guide">
+    <div class="guide-sheet">
+      <div class="guide-badge" id="device-badge">Install Guide</div>
       <h3>Install King of Fadez App</h3>
-      <p>Add our booking app directly to your iPhone Home Screen for instant access:</p>
-      <div class="ios-steps">
-        1. Tap the <b>Share</b> button (⬆️) at the bottom of Safari.<br>
-        2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
-        3. Tap <b>Add</b> in the top right corner.
+      <p id="guide-desc">Add our app to your device for instant 1-tap booking:</p>
+      <div class="guide-steps" id="guide-steps"></div>
+      <div class="guide-btns">
+        <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
+        <button id="close-guide">Got It</button>
       </div>
-      <button id="close-ios-guide">Got It</button>
     </div>
   </div>
 
@@ -569,53 +627,106 @@
       }, 400);
     });
 
-    // ==========================================
-    // FLOATING "INSTALL AS APP" LOGIC (PWA)
-    // ==========================================
-    // 1. Dynamically generate Web App Manifest so single-file HTML works as a PWA
-    const manifestData = {
-      name: "King of Fadez | Booking App",
-      short_name: "King of Fadez",
-      description: "The Standard of Dasmariñas — Book your haircut & grooming appointment.",
-      start_url: window.location.href,
-      display: "standalone",
-      background_color: "#050505",
-      theme_color: "#d4af37",
-      icons: [
-        {
-          src: new URL("kof.gif", window.location.href).href,
-          sizes: "192x192",
-          type: "image/gif"
-        },
-        {
-          src: new URL("kof.gif", window.location.href).href,
-          sizes: "512x512",
-          type: "image/gif"
-        }
-      ]
-    };
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
-    document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(manifestBlob));
+    // =========================================================================
+    // UNIVERSAL PWA ENGINE (ANDROID, IOS, WINDOWS & MAC PC)
+    // =========================================================================
 
-    // 2. Detect Standalone Mode & Handle Floating Prompt
+    // 1. Convert kof.gif into valid 192x192 & 512x512 PNG icons in-memory
+    // (Required by Android & PC Chrome/Edge to allow 1-click native installation)
+    function createPngIcon(imgEl, size) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(imgEl, 0, 0, size, size);
+        return canvas.toDataURL('image/png');
+      } catch (e) {
+        return new URL('kof.gif', window.location.href).href;
+      }
+    }
+
+    function initUniversalManifest() {
+      const logoImg = document.getElementById('logo-source');
+      const buildManifest = () => {
+        const icon192 = createPngIcon(logoImg, 192);
+        const icon512 = createPngIcon(logoImg, 512);
+        const manifestData = {
+          name: "King of Fadez | Booking App",
+          short_name: "King of Fadez",
+          description: "The Standard of Dasmariñas — Book your haircut & grooming appointment.",
+          start_url: window.location.href,
+          scope: "./",
+          display: "standalone",
+          orientation: "portrait",
+          background_color: "#050505",
+          theme_color: "#d4af37",
+          icons: [
+            { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
+      };
+
+      if (logoImg.complete) buildManifest();
+      else logoImg.addEventListener('load', buildManifest);
+    }
+
+    initUniversalManifest();
+
+    // 2. Register Lightweight Service Worker (Required for Android & Desktop Chrome PWA Install)
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      const swCode = `
+        self.addEventListener('install', (e) => self.skipWaiting());
+        self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+        self.addEventListener('fetch', (e) => {});
+      `;
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+    }
+
+    // 3. Detect Device Platform (iOS, Android, Windows/Mac PC, In-App Browsers)
+    const ua = navigator.userAgent || '';
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isMac = /Macintosh|MacIntel/i.test(ua) && !isIOS;
+    const isWindows = /Windows/i.test(ua);
+    const isInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview|Line|Viber/i.test(ua);
+
     const installFloat = document.getElementById('install-float');
+    const installSubtext = document.getElementById('install-subtext');
     const installBtn = document.getElementById('install-btn');
     const dismissBtn = document.getElementById('dismiss-install');
-    const iosGuide = document.getElementById('ios-guide');
-    const closeIosGuide = document.getElementById('close-ios-guide');
+    const deviceGuide = document.getElementById('device-guide');
+    const deviceBadge = document.getElementById('device-badge');
+    const guideSteps = document.getElementById('guide-steps');
+    const closeGuide = document.getElementById('close-guide');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
 
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     let deferredPrompt = null;
 
-    // Show floating prompt after 2 seconds if not already installed & not dismissed this session
+    // Personalize floating banner subtitle per platform
+    if (isIOS) {
+      installSubtext.textContent = 'Add to iPhone / iPad Home Screen';
+    } else if (isAndroid) {
+      installSubtext.textContent = 'Install Android App • Fast 1-Tap Booking';
+    } else if (isWindows || isMac) {
+      installSubtext.textContent = 'Install Desktop App on your PC / Mac';
+    }
+
+    // Show floating prompt automatically if not already running as an installed app
     if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
       setTimeout(() => {
         installFloat.classList.add('show');
-      }, 2000);
+      }, 1800);
     }
 
-    // Capture Chrome/Android native install prompt
+    // Capture Native Install Prompt (Android Chrome/Edge/Samsung & Desktop Chrome/Edge)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -624,35 +735,79 @@
       }
     });
 
-    // Handle Install Click
+    // Build Device-Specific Instructions when native 1-click prompt isn't available
+    function openPlatformGuide() {
+      if (isInAppBrowser) {
+        deviceBadge.textContent = 'In-App Browser Detected';
+        guideSteps.innerHTML = `
+          1. Tap the <b>•••</b> or <b>Share</b> icon at the top/bottom corner.<br>
+          2. Select <b>"Open in Browser"</b> (Safari or Chrome).<br>
+          3. Tap <b>Install</b> again to save the app to your device.
+        `;
+      } else if (isIOS) {
+        deviceBadge.textContent = 'iOS • iPhone & iPad';
+        guideSteps.innerHTML = `
+          1. Tap the <b>Share</b> icon (⬆️) in Safari's toolbar.<br>
+          2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
+          3. Tap <b>Add</b> in the top-right corner.
+        `;
+      } else if (isAndroid) {
+        deviceBadge.textContent = 'Android Device';
+        guideSteps.innerHTML = `
+          1. Tap the <b>⋮ Menu</b> icon in the top-right of Chrome.<br>
+          2. Tap <b>"Install app"</b> or <b>"Add to Home screen"</b>.<br>
+          3. Confirm by tapping <b>Install</b>.
+        `;
+      } else if (isMac) {
+        deviceBadge.textContent = 'macOS Desktop';
+        guideSteps.innerHTML = `
+          1. In <b>Chrome/Edge</b>: Click the <b>Install icon (⊕)</b> in the right side of the address bar.<br>
+          2. In <b>Safari</b>: Click <b>File → Add to Dock</b> in the top menu bar.
+        `;
+      } else {
+        deviceBadge.textContent = 'Windows / Desktop PC';
+        guideSteps.innerHTML = `
+          1. Look at the right side of your browser's address bar and click the <b>Install App icon (⊕)</b>.<br>
+          2. Or click the <b>⋮ / ••• Menu → Save and share → Install King of Fadez</b>.
+        `;
+      }
+      deviceGuide.classList.add('active');
+    }
+
+    // Handle Install Button Click
     installBtn.addEventListener('click', async () => {
       if (deferredPrompt) {
+        // Triggers native Android / Windows / Mac Chrome & Edge App Install Dialog
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
           installFloat.classList.remove('show');
         }
         deferredPrompt = null;
-      } else if (isIOS) {
-        iosGuide.classList.add('active');
       } else {
-        // Fallback instruction for browsers that don't support automatic prompt (e.g., in-app browsers)
-        alert('Tap your browser menu (⋮ or Share) and select "Add to Home Screen" or "Install App" to download.');
+        // Opens tailored guide for iOS Safari, Mac Safari, Firefox, or Messenger/TikTok in-app browser
+        openPlatformGuide();
       }
     });
 
-    // Dismiss Floating Prompt
+    // Copy Link helper (especially useful for Messenger/TikTok in-app browsers)
+    copyLinkBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        copyLinkBtn.textContent = 'Copied!';
+        setTimeout(() => copyLinkBtn.textContent = 'Copy Link', 2000);
+      });
+    });
+
+    // Dismiss & Close Handlers
     dismissBtn.addEventListener('click', () => {
       installFloat.classList.remove('show');
       sessionStorage.setItem('kof_install_dismissed', 'true');
     });
 
-    // Close iOS Guide
-    closeIosGuide.addEventListener('click', () => {
-      iosGuide.classList.remove('active');
+    closeGuide.addEventListener('click', () => {
+      deviceGuide.classList.remove('active');
     });
 
-    // Hide automatically once installed
     window.addEventListener('appinstalled', () => {
       installFloat.classList.remove('show');
     });
