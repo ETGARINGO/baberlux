@@ -24,7 +24,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
   <meta property="og:title" content="King of Fadez PH | Multi-Branch Admin Control">
-  <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Official Multi-Branch  & Admin Setup">
+  <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Official Multi-Branch & Admin Setup">
   <meta property="og:image" content="kol.gif">
   <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
@@ -1365,7 +1365,7 @@
       font-family: var(--brand-font);
       font-size: 0.72rem;
       font-weight: 700;
-      max-width: 195px;
+      max-width: 215px;
       outline: none;
       cursor: pointer;
     }
@@ -1476,7 +1476,7 @@
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
   <div id="assistive-menu">
-    <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 2 • Congressional</div>
+    <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 2 • KOF Dasma Area G</div>
     <a href="#" class="assistive-item" id="menuBookings">
       <span class="icon">📅</span>
       <span>Live Bookings</span>
@@ -1507,7 +1507,7 @@
     </a>
   </div>
 
-  <!-- FULL-PAGE AUTO-FIT SHELL -->
+  <!-- FULL-SCREEN AUTO-FIT SHELL -->
   <main id="app-shell">
     <div class="page-container lock-mode" id="mainCard">
       <div class="top-meta">
@@ -1578,7 +1578,7 @@
             </div>
             <div class="branch-tab-info">
               <span class="branch-tab-num">Branch 1</span>
-              <span class="branch-tab-name">S&D Dasma Bayan</span>
+              <span class="branch-tab-name">S&amp;D Dasma Bayan</span>
             </div>
           </button>
 
@@ -1653,7 +1653,7 @@
 
             <button type="button" class="primary-btn" id="openFullAdmin">
               <img src="b2.jfif" alt="" class="btn-mini-logo" id="openAdminBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
-              <span id="openFullAdminText">Open Branch 2 Admin Console</span>
+              <span id="openFullAdminText">Open Branch 2 • KOF Dasma Area G Console</span>
             </button>
 
             <div class="secondary-actions">
@@ -1672,7 +1672,7 @@
                     <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" onerror="this.onerror=null;this.src='kol.gif';">
                     <img src="dasmares.jfif" alt="Front Desk" class="panel-mini-recept" id="panelMiniRecept" onerror="this.onerror=null;this.src='b2.jfif';">
                   </div>
-                  <h2 class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</h2>
+                  <h2 class="branch-title" id="branchTitle">Branch 2 • KOF Dasma Area G</h2>
                 </div>
                 <span class="branch-badge" id="branchBadge">Main Branch</span>
               </div>
@@ -1680,7 +1680,7 @@
               <div class="detail-list">
                 <div class="detail-row">
                   <strong>📍 Full Location Address</strong>
-                  <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
+                  <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Area G, Dasmariñas, Cavite, Philippines</span>
                 </div>
 
                 <div class="detail-row">
@@ -1764,10 +1764,10 @@
       <div class="modal-left">
         <img src="b2.jfif" alt="Branch Logo" id="modalBranchLogo" onerror="this.onerror=null;this.src='kol.gif';">
         <select id="modalBranchSelect" aria-label="Switch Admin Branch">
-          <option value="branch1">Branch 1 • Don Placido</option>
-          <option value="branch2" selected>Branch 2 • Congressional</option>
-          <option value="branch3">Branch 3 • Slick &amp; Dapper</option>
-          <option value="branch4">Branch 4 • Imus Highway</option>
+          <option value="branch1">Branch 1 • S&amp;D Dasma Bayan</option>
+          <option value="branch2" selected>Branch 2 • KOF Dasma Area G</option>
+          <option value="branch3">Branch 3 • KOF Molino 3, Bacoor</option>
+          <option value="branch4">Branch 4 • KOF Imus</option>
         </select>
         <span id="modalTitle">Admin Console</span>
       </div>
@@ -1798,17 +1798,17 @@
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
 
     // =========================================================================
-    // MULTI-BRANCH DIRECTORY & ENDPOINT PARAMETERS
+    // MULTI-BRANCH DIRECTORY & ENDPOINT PARAMETERS (SYNCED WITH UPDATED TABS)
     // =========================================================================
     const BRANCHES = {
       branch1: {
         branchParam: "kofdasmabav0r",
         logo: "b1.jfif",
         receptionist: "S&Drec.jfif",
-        shortName: "Branch 1 • Don Placido",
-        title: "Branch 1 • Don Placido Campos Ave",
-        badge: "Dasmariñas",
-        address: "Brgy Zone 3, Don Placido Campos Avenue, Dasmariñas, Cavite, Philippines",
+        shortName: "Branch 1 • S&D Dasma Bayan",
+        title: "Branch 1 • S&D Dasma Bayan",
+        badge: "Dasmariñas Bayan",
+        address: "Brgy. Zone 3, Don Placido Campos Avenue, Dasmariñas Bayan, Cavite, Philippines",
         phoneDisplay: "(0915) 053 3669",
         phoneHref: "tel:+639150533669",
         email: "slickanddapperdasma@gmail.com",
@@ -1821,10 +1821,10 @@
         branchParam: "main",
         logo: "b2.jfif",
         receptionist: "dasmares.jfif",
-        shortName: "Branch 2 • Congressional",
-        title: "Branch 2 • Congressional Ave",
+        shortName: "Branch 2 • KOF Dasma Area G",
+        title: "Branch 2 • KOF Dasma Area G",
         badge: "Main Branch",
-        address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
+        address: "Blk 4, Lot 18 Congressional Ave, Area G, Dasmariñas, Cavite, Philippines",
         phoneDisplay: "(0956) 718 8557",
         phoneHref: "tel:+639567188557",
         email: "Kingoffadezph@gmail.com",
@@ -1838,10 +1838,10 @@
         branchParam: "branch3kofxe4",
         logo: "b3.jfif",
         receptionist: "Molinorec.jfif",
-        shortName: "Branch 3 • Slick & Dapper",
-        title: "Branch 3 • Slick and Dapper Barbershop",
-        badge: "Dasmariñas",
-        address: "Slick and Dapper Barbershop Dasmariñas",
+        shortName: "Branch 3 • KOF Molino 3, Bacoor",
+        title: "Branch 3 • KOF Molino 3, Bacoor",
+        badge: "Bacoor, Cavite",
+        address: "Molino 3, Bacoor, Cavite, Philippines",
         phoneDisplay: "(0956) 752 9543",
         phoneHref: "tel:+639567529543",
         email: "kingoffadezbacoorm3@gmail.com",
@@ -1853,10 +1853,10 @@
         branchParam: "branch4imu253",
         logo: "b4.jfif",
         receptionist: "Imusrec.jfif",
-        shortName: "Branch 4 • Imus Highway",
-        title: "Branch 4 • Emilio Aguinaldo Hwy",
+        shortName: "Branch 4 • KOF Imus",
+        title: "Branch 4 • KOF Imus",
         badge: "Imus, Cavite",
-        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma, 1, Imus, Philippines, 4103",
+        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma 1, Imus, Cavite, Philippines, 4103",
         phoneDisplay: "(0927) 994 3950",
         phoneHref: "tel:+639279943950",
         email: "kingoffadezphimus@gmail.com",
