@@ -4,18 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <title>King of Fadez | Admin Control Setup</title>
-  <meta name="description" content="King of Fadez • Dasmariñas Branch Command Center & Admin Control Setup">
+  <title>King of Fadez | Booking App</title>
+  <meta name="description" content="King of Fadez • The Standard of Dasmariñas — Book your haircut & grooming appointment online.">
+
+  <!-- PWA / Mobile Web App Capabilities -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="King of Fadez">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" id="pwa-manifest">
 
   <!-- Browser & App Icons -->
   <link rel="icon" type="image/gif" href="kof.gif">
   <link rel="apple-touch-icon" href="kof.gif">
 
-  <!-- Open Graph (Facebook Messenger, Viber, WhatsApp, Telegram, iMessage, LinkedIn) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez">
-  <meta property="og:title" content="King of Fadez | Dasmariñas Branch">
-  <meta property="og:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta property="og:title" content="King of Fadez | Book Your Appointment">
+  <meta property="og:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
   <meta property="og:image" content="kof.gif">
   <meta property="og:image:secure_url" content="kof.gif">
   <meta property="og:image:type" content="image/gif">
@@ -25,26 +32,24 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch">
-  <meta name="twitter:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
+  <meta name="twitter:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
   <meta name="twitter:image" content="kof.gif">
 
-  <!-- Schema.org Fallback (Google / Viber / Android Shares) -->
-  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch">
-  <meta itemprop="description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <!-- Schema.org Fallback -->
+  <meta itemprop="name" content="King of Fadez | Book Your Appointment">
+  <meta itemprop="description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
   <meta itemprop="image" content="kof.gif">
 
-  <!-- Instant link prefetching for lightning speed -->
-  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?page=admin&branch=main">
+  <!-- Performance Hints -->
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://script.google.com">
 
   <style>
     :root {
       --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --glass: rgba(12, 12, 12, 0.82);
-      --gold-gradient: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #aa7c11 100%);
-      --green: #2ecc71;
-      --red: #e74c3c;
+      --glass: rgba(10, 10, 10, 0.55);
+      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
     }
 
     * {
@@ -61,428 +66,390 @@
       background: #050505;
       color: #fff;
       overflow: hidden;
-      overscroll-behavior: none;
     }
 
+    /* BACKGROUND VIDEO */
     #bg-video {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.35) contrast(1.15);
+      filter: brightness(0.55) contrast(1.1);
       z-index: 0;
     }
 
-    .vignette {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.88) 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
+    /* MAIN OVERLAY */
     #overlay {
       position: fixed;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 20px;
       z-index: 2;
+      overflow-y: auto;
     }
 
+    /* GLASS CARD */
     .card {
       width: 100%;
-      max-width: 410px;
-      padding: 26px 20px;
+      max-width: 380px;
+      padding: 32px 25px;
       background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 26px;
-      border: 1px solid rgba(212, 175, 55, 0.38);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
-      will-change: transform, opacity;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-7px); }
-      40%, 80% { transform: translateX(7px); }
-    }
-
-    .shake {
-      animation: shake 0.3s ease-in-out;
-    }
-
-    .top-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .admin-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold);
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      text-transform: uppercase;
-    }
-
-    #liveClock {
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: #999;
-      letter-spacing: 0.8px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
     }
 
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2px auto 8px;
+      margin: 0 auto 10px;
     }
 
     .brand-logo {
-      width: 86px;
-      height: 86px;
+      width: 96px;
+      height: 96px;
       object-fit: cover;
       border-radius: 50%;
       border: 2px solid rgba(212, 175, 55, 0.65);
       background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.5);
       display: block;
     }
 
     h1 {
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 3px;
-      margin: 4px 0 2px;
-      font-size: 1.45rem;
+      color: var(--gold);
+      letter-spacing: 4px;
+      margin: 8px 0 5px;
+      font-size: 1.75rem;
       text-transform: uppercase;
       font-weight: 900;
     }
 
     .tagline {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-      color: #aaa;
-      font-weight: 600;
-    }
-
-    /* PIN LOCK SCREEN */
-    #lock-screen {
-      display: block;
-    }
-
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 12px;
-    }
-
-    .pin-dot {
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.5);
-      background: transparent;
-      transition: all 0.1s ease;
-    }
-
-    .pin-dot.filled {
-      background: var(--gold);
-      border-color: var(--gold);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
-    }
-
-    .pin-dot.error {
-      border-color: var(--red);
-      background: var(--red);
-    }
-
-    #pin-error {
-      color: var(--red);
       font-size: 0.72rem;
-      font-weight: 700;
-      min-height: 16px;
-      margin-bottom: 8px;
-      opacity: 0;
-      transition: opacity 0.15s;
+      letter-spacing: 2.5px;
+      margin-bottom: 24px;
+      opacity: 0.9;
+      color: #e0e0e0;
     }
 
-    #pin-error.visible {
-      opacity: 1;
-    }
-
-    .keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 270px;
-      margin: 0 auto 10px;
-    }
-
-    .key-btn {
-      height: 48px;
+    .detail {
+      text-align: left;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.45;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 12px 14px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.1s;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .key-btn:active {
-      transform: scale(0.93);
-      background: rgba(212, 175, 55, 0.25);
+    .detail strong {
+      display: block;
+      color: var(--gold);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
     }
 
-    .key-btn.action-key {
-      font-size: 0.8rem;
-      color: #aaa;
-    }
-
-    /* ADMIN DASHBOARD */
-    #admin-panel {
-      display: none;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 10px 14px;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      font-size: 0.78rem;
-    }
-
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-    }
-
-    .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green);
-    }
-
-    .dot.closed {
-      background: var(--red);
-      box-shadow: 0 0 8px var(--red);
-    }
-
-    .toggle-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .control-grid {
+    .socials {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 14px;
+      margin: 22px 0;
     }
 
-    .ctrl-btn {
-      padding: 14px 8px;
-      border-radius: 14px;
+    .link-btn {
+      padding: 13px;
+      border-radius: 12px;
       background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(212, 175, 55, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      transition: transform 0.1s;
+      font-size: 0.8rem;
+      font-weight: 600;
       text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .ctrl-btn span.icon {
-      font-size: 1.35rem;
-    }
-
-    .ctrl-btn span.sub-label {
-      font-size: 0.58rem;
-      color: #888;
-      font-weight: 500;
-    }
-
-    .ctrl-btn:active {
-      transform: scale(0.96);
+    .link-btn:hover {
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
     }
 
-    .primary-btn {
+    .book-btn {
       display: block;
       width: 100%;
-      padding: 15px;
-      border-radius: 14px;
+      padding: 18px;
+      border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.84rem;
+      font-size: 0.9rem;
       font-weight: 900;
       letter-spacing: 1px;
       text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
       text-decoration: none;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .secondary-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      gap: 10px;
+    .book-btn:active {
+      transform: scale(0.98);
     }
 
-    .sub-btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #bbb;
+    #audio-hint {
+      margin-top: 16px;
       font-size: 0.7rem;
-      font-weight: 600;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      animation: pulse 2s infinite;
       cursor: pointer;
-      text-decoration: none;
     }
 
-    /* INSTANT ADMIN MODAL (KEEPS USER LOCKED ON CUSTOM DNS) */
-    #adminModal {
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* FLOATING APP DOWNLOAD SUGGESTION */
+    #install-float {
+      position: fixed;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(140%);
+      width: calc(100% - 32px);
+      max-width: 380px;
+      background: rgba(14, 14, 14, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 20px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 50;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 18px rgba(212, 175, 55, 0.18);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #install-float.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .install-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .install-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .install-text strong {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--gold);
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .install-text span {
+      display: block;
+      font-size: 0.68rem;
+      color: #ccc;
+      margin-top: 2px;
+    }
+
+    .install-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    #install-btn {
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+    }
+
+    #install-btn:active {
+      transform: scale(0.96);
+    }
+
+    #dismiss-install {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #aaa;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    /* IOS INSTALL GUIDE POPUP */
+    #ios-guide {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #ios-guide.active {
+      display: flex;
+    }
+
+    .ios-sheet {
+      width: 100%;
+      max-width: 380px;
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 24px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+    }
+
+    .ios-sheet h3 {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .ios-sheet p {
+      font-size: 0.82rem;
+      color: #ddd;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .ios-steps {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.78rem;
+      color: #fff;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .ios-steps b {
+      color: var(--gold);
+    }
+
+    #close-ios-guide {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* BOOKING MODAL */
+    #booking {
       position: fixed;
       inset: 0;
       background: #080808;
       z-index: 9999;
       display: none;
       flex-direction: column;
-      will-change: transform, opacity;
-      transform: translate3d(0, 100%, 0);
-      transition: transform 0.22s cubic-bezier(0.1, 1, 0.2, 1);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
 
-    #adminModal.active {
+    #booking.active {
       display: flex;
-      transform: translate3d(0, 0, 0);
+      transform: translateY(0);
+      opacity: 1;
     }
 
-    .modal-header {
-      height: 54px;
+    .booking-header {
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 18px;
       color: var(--gold);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      background: #0b0b0b;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.82rem;
-      letter-spacing: 1.2px;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      flex-shrink: 0;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .icon-btn {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .iframe-wrapper {
-      position: relative;
-      width: 100%;
-      height: calc(100% - 54px);
-      background: #0a0a0a;
-    }
-
-    #frameLoader {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #0a0a0a;
-      color: var(--gold);
       gap: 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      z-index: 2;
-      opacity: 1;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
     }
 
-    #frameLoader.hidden {
-      opacity: 0;
+    #closeBooking {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
     }
 
-    .spinner {
-      width: 30px;
-      height: 30px;
-      border: 3px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    #adminFrame {
+    #booking iframe {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 60px);
       border: none;
       background: #fff;
     }
@@ -491,354 +458,204 @@
 <body>
 
   <!-- VIDEO BACKGROUND -->
-  <video id="bg-video" autoplay muted loop playsinline preload="auto">
+  <video id="bg-video" autoplay muted loop playsinline preload="metadata">
     <source src="IMG_1039.MOV" type="video/mp4">
     <source src="IMG_1039.MOV" type="video/quicktime">
   </video>
-  <div class="vignette"></div>
 
-  <!-- MAIN OVERLAY -->
+  <!-- MAIN CARD -->
   <div id="overlay">
-    <div class="card" id="mainCard">
-      <div class="top-meta">
-        <span class="admin-badge">🔐 Admin Control</span>
-        <span id="liveClock">--:--</span>
-      </div>
-
+    <div class="card">
       <div class="brand-logo-wrap">
         <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
       </div>
       <h1>King of Fadez</h1>
-      <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
+      <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
 
-      <!-- 1. PIN LOCK SCREEN -->
-      <div id="lock-screen">
-        <div class="pin-dots" id="pinDots">
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-        </div>
-        <div id="pin-error">Invalid PIN</div>
-
-        <div class="keypad">
-          <button class="key-btn" data-num="1">1</button>
-          <button class="key-btn" data-num="2">2</button>
-          <button class="key-btn" data-num="3">3</button>
-          <button class="key-btn" data-num="4">4</button>
-          <button class="key-btn" data-num="5">5</button>
-          <button class="key-btn" data-num="6">6</button>
-          <button class="key-btn" data-num="7">7</button>
-          <button class="key-btn" data-num="8">8</button>
-          <button class="key-btn" data-num="9">9</button>
-          <button class="key-btn action-key" id="clearPinBtn">CLR</button>
-          <button class="key-btn" data-num="0">0</button>
-          <button class="key-btn action-key" id="delPinBtn">⌫</button>
-        </div>
+      <div class="detail">
+        <strong>📍 LOCATION</strong>
+        Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
       </div>
 
-      <!-- 2. ADMIN CONTROL PANEL -->
-      <div id="admin-panel">
-        <div class="status-bar">
-          <div class="status-indicator">
-            <span class="dot" id="statusDot"></span>
-            <span id="statusText">SHOP OPEN</span>
-          </div>
-          <button class="toggle-btn" id="toggleStatusBtn">Switch</button>
-        </div>
-
-        <div class="control-grid">
-          <button class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
-            <span class="icon">📅</span>
-            <span>Bookings</span>
-            <span class="sub-label">Queue & List</span>
-          </button>
-          <button class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
-            <span class="icon">✂️</span>
-            <span>POS / Walk-In</span>
-            <span class="sub-label">Quick Ticket</span>
-          </button>
-          <button class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
-            <span class="icon">💈</span>
-            <span>Barbers</span>
-            <span class="sub-label">Shifts & Staff</span>
-          </button>
-          <button class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
-            <span class="icon">⚙️</span>
-            <span>Shop Setup</span>
-            <span class="sub-label">Rates & Promos</span>
-          </button>
-        </div>
-
-        <button class="primary-btn" id="openFullAdmin">Open Full Admin Console</button>
-
-        <div class="secondary-actions">
-          <button class="sub-btn" id="openClientView">👁️ Client Preview</button>
-          <button class="sub-btn" id="lockBtn">🔒 Lock</button>
-        </div>
+      <div class="detail">
+        <strong>📧 CONTACT</strong>
+        Kingoffadezph@gmail.com
       </div>
+
+      <div class="socials">
+        <a class="link-btn" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" rel="noopener">🗺️ Maps</a>
+        <a class="link-btn" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank" rel="noopener">📱 TikTok</a>
+        <a class="link-btn" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank" rel="noopener">📘 FB Page</a>
+        <a class="link-btn" href="http://Kingoffadezph.com/" target="_blank" rel="noopener">🌐 Web</a>
+      </div>
+
+      <a href="#" class="book-btn" id="openBooking">Proceed to Booking</a>
+      <div id="audio-hint">🔊 Tap anywhere to enable sound</div>
     </div>
   </div>
 
-  <!-- INSTANT PRE-LOADED ADMIN MODAL (NO-EXIT DNS LOCKED FRAME) -->
-  <div id="adminModal">
-    <div class="modal-header">
-      <span id="modalTitle">Admin Console</span>
+  <!-- FLOATING DOWNLOAD / INSTALL APP PROMPT -->
+  <div id="install-float" role="region" aria-label="Install App">
+    <div class="install-info">
+      <img src="kof.gif" alt="App Icon" class="install-icon">
+      <div class="install-text">
+        <strong>Get the KOF App</strong>
+        <span>1-tap booking on your home screen</span>
+      </div>
+    </div>
+    <div class="install-actions">
+      <button id="install-btn">Install</button>
+      <button id="dismiss-install" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- IOS SAFARI INSTALL INSTRUCTIONS MODAL -->
+  <div id="ios-guide">
+    <div class="ios-sheet">
+      <h3>Install King of Fadez App</h3>
+      <p>Add our booking app directly to your iPhone Home Screen for instant access:</p>
+      <div class="ios-steps">
+        1. Tap the <b>Share</b> button (⬆️) at the bottom of Safari.<br>
+        2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
+        3. Tap <b>Add</b> in the top right corner.
+      </div>
+      <button id="close-ios-guide">Got It</button>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking">
+    <div class="booking-header">
+      <span>Secure Booking</span>
       <div class="header-actions">
-        <button class="icon-btn" id="reloadFrame" title="Reload">↻</button>
-        <button class="icon-btn" id="closeModal" aria-label="Close">✕</button>
+        <button id="closeBooking" aria-label="Close Booking">✕</button>
       </div>
     </div>
 
-    <div class="iframe-wrapper">
-      <div id="frameLoader">
-        <div class="spinner"></div>
-        <span>Loading App...</span>
-      </div>
-      <!-- Sandbox intentionally omits allow-top-navigation so sublinks inside GAS cannot exit your custom DNS -->
-      <iframe
-        id="adminFrame"
-        src="about:blank"
-        sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups"
-        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
+    <iframe
+      id="bookingFrame"
+      src="https://script.google.com/macros/s/AKfycbxuui-O2aZRHhkc5a-z9CIvKZ-g2MoqoZNFngyZHk5GIKyMdeU_JFKMtK8xGm_VmfCNUA/exec?branch=main"
+      allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
   </div>
 
   <script>
-    const ADMIN_PIN = "2026";
-    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec";
-    const BRANCH = "main";
+    const video = document.getElementById('bg-video');
+    const hint = document.getElementById('audio-hint');
+    const booking = document.getElementById('booking');
 
-    const mainCard = document.getElementById('mainCard');
-    const lockScreen = document.getElementById('lock-screen');
-    const adminPanel = document.getElementById('admin-panel');
-    const pinDots = document.querySelectorAll('.pin-dot');
-    const pinError = document.getElementById('pin-error');
-    const adminModal = document.getElementById('adminModal');
-    const adminFrame = document.getElementById('adminFrame');
-    const frameLoader = document.getElementById('frameLoader');
-    const modalTitle = document.getElementById('modalTitle');
-
-    let enteredPin = "";
-    let currentSrc = "";
-    let pendingSublink = null;
-
-    // Live Clock
-    function updateClock() {
-      const now = new Date();
-      document.getElementById('liveClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    updateClock();
-    setInterval(updateClock, 15000);
-
-    // Check if URL has a sublink query/hash on load (e.g. ?page=admin&view=walkin or #walkin)
-    function parseInitialSublink() {
-      const params = new URLSearchParams(window.location.search);
-      const pageParam = params.get('page');
-      const viewParam = params.get('view') || window.location.hash.replace('#', '');
-      if (pageParam || viewParam) {
-        pendingSublink = {
-          title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
-          page: pageParam || 'admin',
-          view: viewParam || 'admin'
-        };
+    // Enable video audio on first user interaction
+    document.body.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        video.play().catch(() => {});
+        hint.style.display = 'none';
       }
-    }
-    parseInitialSublink();
+    }, { once: true });
 
-    // Instant unlock check
-    if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-      showAdminPanel();
-    }
-
-    function showAdminPanel() {
-      lockScreen.style.display = 'none';
-      adminPanel.style.display = 'block';
-      if (pendingSublink) {
-        const sub = pendingSublink;
-        pendingSublink = null;
-        launchRoute(sub.title, sub.page, sub.view);
-      }
-    }
-
-    function lockAdminPanel() {
-      sessionStorage.removeItem('kof_admin_unlocked');
-      enteredPin = "";
-      updatePinDots();
-      adminPanel.style.display = 'none';
-      lockScreen.style.display = 'block';
-    }
-
-    function updatePinDots(isError = false) {
-      pinDots.forEach((dot, index) => {
-        dot.classList.remove('filled', 'error');
-        if (isError) dot.classList.add('error');
-        else if (index < enteredPin.length) dot.classList.add('filled');
-      });
-    }
-
-    function handleDigitInput(digit) {
-      if (enteredPin.length >= ADMIN_PIN.length) return;
-      pinError.classList.remove('visible');
-      enteredPin += digit;
-      updatePinDots();
-
-      if (enteredPin.length === ADMIN_PIN.length) {
-        setTimeout(verifyPin, 80);
-      }
-    }
-
-    function verifyPin() {
-      if (enteredPin === ADMIN_PIN) {
-        sessionStorage.setItem('kof_admin_unlocked', 'true');
-        showAdminPanel();
-      } else {
-        updatePinDots(true);
-        pinError.classList.add('visible');
-        mainCard.classList.remove('shake');
-        void mainCard.offsetWidth;
-        mainCard.classList.add('shake');
-        setTimeout(() => { enteredPin = ""; updatePinDots(); }, 350);
-      }
-    }
-
-    document.querySelectorAll('.key-btn[data-num]').forEach(btn => {
-      btn.addEventListener('click', () => handleDigitInput(btn.dataset.num));
-    });
-    document.getElementById('clearPinBtn').addEventListener('click', () => { enteredPin = ""; updatePinDots(); });
-    document.getElementById('delPinBtn').addEventListener('click', () => { enteredPin = enteredPin.slice(0, -1); updatePinDots(); });
-
-    document.addEventListener('keydown', (e) => {
-      if (lockScreen.style.display === 'none') return;
-      if (e.key >= '0' && e.key <= '9') handleDigitInput(e.key);
-      else if (e.key === 'Backspace') { enteredPin = enteredPin.slice(0, -1); updatePinDots(); }
-    });
-
-    document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
-
-    // Shop Status Toggle
-    let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
-    const statusDot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-
-    function updateStatusUI() {
-      statusDot.classList.toggle('closed', !isShopOpen);
-      statusText.textContent = isShopOpen ? 'SHOP OPEN' : 'SHOP CLOSED';
-      statusText.style.color = isShopOpen ? '#2ecc71' : '#e74c3c';
-    }
-    updateStatusUI();
-
-    document.getElementById('toggleStatusBtn').addEventListener('click', () => {
-      isShopOpen = !isShopOpen;
-      localStorage.setItem('kof_shop_open', isShopOpen);
-      updateStatusUI();
-    });
-
-    // Open any URL directly inside the DNS-locked modal without leaving the domain
-    function openUrlInLockedDns(title, targetUrl) {
-      modalTitle.textContent = title || 'Admin Console';
-
-      if (currentSrc !== targetUrl) {
-        currentSrc = targetUrl;
-        frameLoader.classList.remove('hidden');
-        adminFrame.src = targetUrl;
-      }
-
-      if (!adminModal.classList.contains('active')) {
-        history.pushState({ kofModalOpen: true }, '', window.location.href);
-      }
-
-      adminModal.style.display = 'flex';
-      requestAnimationFrame(() => adminModal.classList.add('active'));
-    }
-
-    function closeLockedModal(fromPopState = false) {
-      if (!adminModal.classList.contains('active')) return;
-      adminModal.classList.remove('active');
-      setTimeout(() => {
-        if (!adminModal.classList.contains('active')) {
-          adminModal.style.display = 'none';
-        }
-      }, 220);
-
-      if (!fromPopState && history.state && history.state.kofModalOpen) {
-        history.back();
-      }
-    }
-
-    // Lightning Fast Route Launcher (Stays 100% on current DNS)
-    function launchRoute(title, pageParam, viewParam) {
-      const url = new URL(BASE_SCRIPT_URL);
-      url.searchParams.set('page', pageParam);
-      url.searchParams.set('branch', BRANCH);
-      if (viewParam) url.searchParams.set('view', viewParam);
-      openUrlInLockedDns(title, url.toString());
-    }
-
-    adminFrame.addEventListener('load', () => {
-      frameLoader.classList.add('hidden');
-    });
-
-    // Global Link & Sublink Interceptor: Prevents any <a> or sublink from exiting the DNS
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href]');
-      if (!link) return;
-
-      const rawHref = link.getAttribute('href');
-      if (!rawHref || rawHref.startsWith('javascript:')) return;
-
+    // Open Booking Modal
+    document.getElementById('openBooking').addEventListener('click', (e) => {
       e.preventDefault();
+      booking.style.display = 'flex';
+      requestAnimationFrame(() => booking.classList.add('active'));
+    });
 
-      // Hash or query sublink (e.g., ?page=admin&view=barbers or #walkin)
-      if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
-        const cleanView = rawHref.replace(/^[#?]+/, '');
-        const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
-        const page = subParams.get('page') || link.dataset.page || 'admin';
-        const view = subParams.get('view') || link.dataset.view || cleanView || 'admin';
-        launchRoute(link.dataset.title || link.textContent.trim(), page, view);
-        return;
-      }
+    // Close Booking Modal
+    document.getElementById('closeBooking').addEventListener('click', () => {
+      booking.classList.remove('active');
+      setTimeout(() => {
+        booking.style.display = 'none';
+      }, 400);
+    });
 
-      // Any sublink or external URL opens inside the in-app frame so the browser stays on the DNS
-      try {
-        const resolved = new URL(rawHref, window.location.href);
-        if (resolved.origin === window.location.origin) {
-          const page = resolved.searchParams.get('page') || link.dataset.page || 'admin';
-          const view = resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin';
-          launchRoute(link.dataset.title || link.textContent.trim(), page, view);
-        } else {
-          openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
+    // ==========================================
+    // FLOATING "INSTALL AS APP" LOGIC (PWA)
+    // ==========================================
+    // 1. Dynamically generate Web App Manifest so single-file HTML works as a PWA
+    const manifestData = {
+      name: "King of Fadez | Booking App",
+      short_name: "King of Fadez",
+      description: "The Standard of Dasmariñas — Book your haircut & grooming appointment.",
+      start_url: window.location.href,
+      display: "standalone",
+      background_color: "#050505",
+      theme_color: "#d4af37",
+      icons: [
+        {
+          src: new URL("kof.gif", window.location.href).href,
+          sizes: "192x192",
+          type: "image/gif"
+        },
+        {
+          src: new URL("kof.gif", window.location.href).href,
+          sizes: "512x512",
+          type: "image/gif"
         }
-      } catch (_) {
-        // Fallback stay on current DNS
-      }
-    }, true);
+      ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+    document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(manifestBlob));
 
-    // Keep Device / Messenger / Viber Back Button inside the DNS without exiting
-    history.replaceState({ kofBaseDns: true }, '', window.location.href);
-    window.addEventListener('popstate', () => {
-      if (adminModal.classList.contains('active')) {
-        closeLockedModal(true);
+    // 2. Detect Standalone Mode & Handle Floating Prompt
+    const installFloat = document.getElementById('install-float');
+    const installBtn = document.getElementById('install-btn');
+    const dismissBtn = document.getElementById('dismiss-install');
+    const iosGuide = document.getElementById('ios-guide');
+    const closeIosGuide = document.getElementById('close-ios-guide');
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    let deferredPrompt = null;
+
+    // Show floating prompt after 2 seconds if not already installed & not dismissed this session
+    if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
+      setTimeout(() => {
+        installFloat.classList.add('show');
+      }, 2000);
+    }
+
+    // Capture Chrome/Android native install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
+        installFloat.classList.add('show');
+      }
+    });
+
+    // Handle Install Click
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installFloat.classList.remove('show');
+        }
+        deferredPrompt = null;
+      } else if (isIOS) {
+        iosGuide.classList.add('active');
       } else {
-        history.pushState({ kofBaseDns: true }, '', window.location.href);
+        // Fallback instruction for browsers that don't support automatic prompt (e.g., in-app browsers)
+        alert('Tap your browser menu (⋮ or Share) and select "Add to Home Screen" or "Install App" to download.');
       }
     });
 
-    document.querySelectorAll('.ctrl-btn').forEach(btn => {
-      btn.addEventListener('click', () => launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view));
+    // Dismiss Floating Prompt
+    dismissBtn.addEventListener('click', () => {
+      installFloat.classList.remove('show');
+      sessionStorage.setItem('kof_install_dismissed', 'true');
     });
 
-    document.getElementById('openFullAdmin').addEventListener('click', () => launchRoute('Full Admin Console', 'admin', 'admin'));
-    document.getElementById('openClientView').addEventListener('click', () => launchRoute('Client Booking Preview', 'client', 'client'));
-
-    document.getElementById('reloadFrame').addEventListener('click', () => {
-      frameLoader.classList.remove('hidden');
-      adminFrame.src = adminFrame.src;
+    // Close iOS Guide
+    closeIosGuide.addEventListener('click', () => {
+      iosGuide.classList.remove('active');
     });
 
-    document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
+    // Hide automatically once installed
+    window.addEventListener('appinstalled', () => {
+      installFloat.classList.remove('show');
+    });
   </script>
 
 </body>
