@@ -2,7 +2,7 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
   <title>King of Fadez PH | Multi-Branch Booking App</title>
   <meta name="description" content="King of Fadez PH • The Standard of Dasmariñas & Cavite — Choose your preferred branch and book your haircut & grooming appointment online.">
@@ -41,7 +41,7 @@
   <!-- Fonts & Performance Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
@@ -49,8 +49,7 @@
     :root {
       --gold: #d4af37;
       --gold-light: #f3d573;
-      --glass: rgba(12, 12, 12, 0.88);
-      --panel-bg: rgba(18, 18, 18, 0.82);
+      --glass: rgba(12, 12, 12, 0.86);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
       --online-green: #22c55e;
       --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -63,87 +62,60 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html {
+    html, body {
       width: 100%;
-      min-height: 100%;
-      background: #050505;
-    }
-
-    body {
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
+      height: 100%;
       font-family: var(--brand-font);
-      background: radial-gradient(circle at 50% 10%, #1d190f 0%, #080808 55%, #030303 100%);
+      background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
       color: #fff;
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    body.modal-open {
       overflow: hidden;
     }
 
     /* AMBIENT GLOW */
     .bg-glow {
       position: fixed;
-      top: -15%;
+      top: -20%;
       left: 50%;
       transform: translateX(-50%);
-      width: min(900px, 140vw);
-      height: min(900px, 140vw);
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 70%);
       z-index: 0;
       pointer-events: none;
     }
 
-    /* FULL-PAGE AUTO-FIT SHELL */
-    #app-shell {
-      position: relative;
+    /* MAIN OVERLAY */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      padding: 16px 14px 96px;
       z-index: 2;
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding:
-        max(14px, env(safe-area-inset-top))
-        clamp(12px, 3vw, 32px)
-        max(96px, calc(env(safe-area-inset-bottom) + 84px));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* RESPONSIVE MAIN CONTAINER */
-    .page-container {
+    /* GLASS CARD */
+    .card {
+      margin: auto;
       width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
+      max-width: 435px;
+      padding: 22px 18px;
       background: var(--glass);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: clamp(22px, 3vw, 32px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
       border: 1px solid rgba(212, 175, 55, 0.38);
-      padding: clamp(18px, 3vw, 32px);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
-    }
-
-    /* TOP BRAND HERO SECTION */
-    .hero-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
-      padding-bottom: clamp(14px, 2vw, 22px);
-      margin-bottom: clamp(14px, 2vw, 22px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
     }
 
+    /* CLICKABLE HERO BRAND LOGO */
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
     }
 
     .hero-logo-btn {
@@ -167,31 +139,33 @@
     }
 
     .brand-logo {
-      width: clamp(82px, 11vw, 102px);
-      height: clamp(82px, 11vw, 102px);
+      width: 78px;
+      height: 78px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2.5px solid var(--gold);
-      background: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 0 26px rgba(212, 175, 55, 0.5);
+      border: 2px solid var(--gold);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
       display: block;
     }
 
     .hero-logo-pill {
-      margin-top: -11px;
+      margin-top: -10px;
       background: var(--gold-gradient);
       color: #000;
       font-family: var(--brand-font);
-      font-size: clamp(0.56rem, 1.3vw, 0.64rem);
+      font-size: 0.55rem;
       font-weight: 900;
       letter-spacing: 0.9px;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     }
 
-    /* FRAMED "KING OF FADEZ PH" EMBLEM WITH ANIMATED BACK FLASHING */
+    /* =========================================================
+       FRAMED "KING OF FADEZ PH" EMBLEM WITH FLASHING BACKLIGHT
+       ========================================================= */
     .brand-title-wrap {
       position: relative;
       display: inline-flex;
@@ -206,15 +180,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
+      padding: 8px 18px;
       background: #050505;
       border: 2.5px solid #ffffff;
       box-shadow:
-        0 0 20px rgba(212, 175, 55, 0.35),
+        0 0 18px rgba(212, 175, 55, 0.35),
         inset 0 0 14px rgba(212, 175, 55, 0.28);
       overflow: hidden;
     }
 
+    /* Animated flashing glow directly behind the wording */
     .title-back-flash {
       position: absolute;
       inset: -6px;
@@ -230,6 +205,7 @@
       animation: backWordFlash 1.7s ease-in-out infinite;
     }
 
+    /* Sweeping light flash passing behind the lettering */
     .title-flash-sweep {
       position: absolute;
       top: -20%;
@@ -250,6 +226,7 @@
       animation: backSweepFlash 2.6s ease-in-out infinite;
     }
 
+    /* Top & bottom border golden lens flares */
     .border-flare-top,
     .border-flare-bottom {
       position: absolute;
@@ -270,16 +247,21 @@
       animation: borderGlintFlash 1.7s ease-in-out infinite;
     }
 
-    .border-flare-top { top: -2px; }
-    .border-flare-bottom { bottom: -2px; }
+    .border-flare-top {
+      top: -2px;
+    }
+
+    .border-flare-bottom {
+      bottom: -2px;
+    }
 
     .brand-title-text {
       position: relative;
       z-index: 2;
       font-family: var(--brand-font);
       font-weight: 900;
-      font-size: clamp(1.12rem, 3.6vw, 1.75rem);
-      letter-spacing: clamp(1.6px, 0.35vw, 3px);
+      font-size: clamp(1.06rem, 4.3vw, 1.3rem);
+      letter-spacing: 1.8px;
       color: #ffffff;
       text-transform: uppercase;
       line-height: 1.1;
@@ -290,94 +272,110 @@
     }
 
     @keyframes backWordFlash {
-      0%, 100% { opacity: 0.22; transform: scale(0.86); }
-      45% { opacity: 1; transform: scale(1.08); }
-      55% { opacity: 0.45; transform: scale(0.95); }
-      70% { opacity: 0.95; transform: scale(1.05); }
+      0%, 100% {
+        opacity: 0.22;
+        transform: scale(0.86);
+      }
+      45% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+      55% {
+        opacity: 0.45;
+        transform: scale(0.95);
+      }
+      70% {
+        opacity: 0.95;
+        transform: scale(1.05);
+      }
     }
 
     @keyframes backSweepFlash {
-      0% { left: -65%; opacity: 0; }
-      20% { opacity: 0.9; }
-      65% { left: 125%; opacity: 0.9; }
-      100% { left: 125%; opacity: 0; }
+      0% {
+        left: -65%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.9;
+      }
+      65% {
+        left: 125%;
+        opacity: 0.9;
+      }
+      100% {
+        left: 125%;
+        opacity: 0;
+      }
     }
 
     @keyframes borderGlintFlash {
-      0%, 100% { opacity: 0.35; transform: translateX(-50%) scaleX(0.75); }
-      45%, 70% { opacity: 1; transform: translateX(-50%) scaleX(1.08); }
+      0%, 100% {
+        opacity: 0.35;
+        transform: translateX(-50%) scaleX(0.75);
+      }
+      45%, 70% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1.08);
+      }
     }
 
     .tagline {
-      font-size: clamp(0.65rem, 1.5vw, 0.78rem);
+      font-family: var(--brand-font);
+      font-size: 0.63rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.8px;
+      margin-bottom: 14px;
       color: #f0f0f0;
       text-transform: uppercase;
     }
 
-    /* SECTION HEADER */
+    /* BRANCH SELECTOR WITH LOGO + RECEPTIONIST BADGE */
     .selector-label {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 6px;
-      font-size: clamp(0.68rem, 1.5vw, 0.78rem);
+      font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.1px;
       color: var(--gold);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .selector-hint {
-      font-size: clamp(0.62rem, 1.3vw, 0.72rem);
+      font-size: 0.56rem;
       font-weight: 600;
-      color: #bdbdbd;
+      color: #aaa;
       letter-spacing: 0.3px;
       text-transform: none;
     }
 
-    /* AUTO-FIT BRANCH SELECTOR GRID */
     .branch-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(8px, 1.5vw, 14px);
-      margin-bottom: clamp(14px, 2.2vw, 22px);
-    }
-
-    @media (min-width: 900px) {
-      .branch-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 360px) {
-      .branch-grid {
-        grid-template-columns: 1fr;
-      }
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .branch-tab {
-      background: rgba(255, 255, 255, 0.045);
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      padding: clamp(10px, 1.5vw, 14px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 9px 10px;
       color: #fff;
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       min-width: 0;
     }
 
     .branch-tab:hover {
-      border-color: rgba(212, 175, 55, 0.65);
-      background: rgba(212, 175, 55, 0.1);
-      transform: translateY(-2px);
+      border-color: rgba(212, 175, 55, 0.6);
+      background: rgba(212, 175, 55, 0.09);
+      transform: translateY(-1px);
     }
 
     .branch-tab:active {
@@ -385,39 +383,39 @@
     }
 
     .branch-tab.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.24), rgba(184, 134, 11, 0.12));
       border-color: var(--gold);
-      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
     }
 
     .branch-avatar-pair {
       position: relative;
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
     }
 
     .branch-tab-logo {
-      width: 46px;
-      height: 46px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      border: 1.5px solid rgba(212, 175, 55, 0.65);
       background: #000;
       display: block;
     }
 
     .branch-tab.active .branch-tab-logo {
       border-color: var(--gold-light);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
 
     .branch-tab-recept {
       position: absolute;
       right: -2px;
       bottom: -2px;
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -429,13 +427,13 @@
     .branch-tab-info {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       min-width: 0;
       flex: 1;
     }
 
     .branch-tab-num {
-      font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+      font-size: 0.58rem;
       font-weight: 900;
       letter-spacing: 0.8px;
       text-transform: uppercase;
@@ -443,56 +441,36 @@
     }
 
     .branch-tab-name {
-      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-size: 0.71rem;
       font-weight: 700;
-      color: #f8f8f8;
-      line-height: 1.25;
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    /* AUTO-FIT RESPONSIVE WORKSPACE (1 COL MOBILE -> 2 COL TABLET/DESKTOP) */
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(12px, 2vw, 20px);
-      align-items: stretch;
-    }
-
-    @media (min-width: 820px) {
-      .workspace-grid {
-        grid-template-columns: 1.05fr 1.15fr;
-      }
-    }
-
-    .workspace-col {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(12px, 1.8vw, 16px);
+      color: #f5f5f5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* CLICKABLE & WELCOMING LADY RECEPTIONIST CARD */
     .receptionist-card {
       width: 100%;
-      flex: 1;
       display: flex;
       align-items: center;
-      gap: clamp(12px, 2vw, 16px);
-      padding: clamp(14px, 2.2vw, 20px);
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(20, 20, 20, 0.94));
-      border: 1.5px solid rgba(212, 175, 55, 0.68);
+      gap: 12px;
+      padding: 12px 13px;
+      margin-bottom: 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(20, 20, 20, 0.92));
+      border: 1.5px solid rgba(212, 175, 55, 0.62);
       color: #fff;
       text-align: left;
       cursor: pointer;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .receptionist-card:hover {
       transform: translateY(-2px);
       border-color: var(--gold-light);
-      box-shadow: 0 16px 34px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 14px 30px rgba(212, 175, 55, 0.22);
     }
 
     .receptionist-card:active {
@@ -501,33 +479,33 @@
 
     .recept-photo-wrap {
       position: relative;
-      width: clamp(68px, 9vw, 86px);
-      height: clamp(68px, 9vw, 86px);
+      width: 62px;
+      height: 62px;
       flex-shrink: 0;
     }
 
     .recept-photo {
-      width: 100%;
-      height: 100%;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      border: 2.5px solid var(--gold-light);
-      box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+      border: 2px solid var(--gold-light);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.45);
       background: #141414;
       display: block;
     }
 
     .recept-online-dot {
       position: absolute;
-      right: 3px;
-      bottom: 3px;
-      width: 15px;
-      height: 15px;
+      right: 2px;
+      bottom: 2px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       background: var(--online-green);
-      border: 2.5px solid #0e0e0e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+      border: 2px solid #0e0e0e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
       animation: pulseGreen 2s infinite;
     }
 
@@ -544,169 +522,153 @@
     .recept-badge-row {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
 
     .recept-pill {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
+      font-size: 0.56rem;
       font-weight: 900;
       letter-spacing: 0.7px;
       text-transform: uppercase;
       color: #000;
       background: var(--gold-gradient);
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 999px;
     }
 
     .recept-greeting {
-      font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+      font-size: 0.81rem;
       font-weight: 800;
       color: var(--gold-light);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       line-height: 1.25;
     }
 
     .recept-msg {
-      font-size: clamp(0.75rem, 1.45vw, 0.86rem);
-      color: #f2f2f2;
-      line-height: 1.45;
+      font-size: 0.7rem;
+      color: #ececec;
+      line-height: 1.38;
       font-weight: 500;
     }
 
     .recept-arrow {
-      font-size: 1.45rem;
+      font-size: 1.25rem;
       font-weight: 900;
       color: var(--gold);
       flex-shrink: 0;
-      padding-left: 4px;
+      padding-left: 2px;
     }
 
-    /* ACTIVE BRANCH DETAILS PANEL (FULL VISIBILITY, NO TRUNCATION) */
+    /* ACTIVE BRANCH DETAILS */
     .branch-panel {
-      background: var(--panel-bg);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      border-radius: 20px;
-      padding: clamp(14px, 2.2vw, 20px);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 16px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
       text-align: left;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      transition: opacity 0.18s ease;
     }
 
     .branch-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 8px;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 7px;
+      margin-bottom: 7px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .branch-header-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       min-width: 0;
     }
 
     .panel-mini-logo {
-      width: 34px;
-      height: 34px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid var(--gold);
+      border: 1px solid var(--gold);
       cursor: pointer;
       flex-shrink: 0;
     }
 
     .branch-title {
-      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--gold-light);
-      line-height: 1.25;
-      white-space: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .branch-badge {
-      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-size: 0.54rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(212, 175, 55, 0.18);
-      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
       flex-shrink: 0;
     }
 
-    .detail-list {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
+    .detail-row {
+      font-size: 0.74rem;
+      line-height: 1.42;
+      margin-bottom: 7px;
+      color: #eaeaea;
     }
 
-    .detail-row {
-      font-size: clamp(0.8rem, 1.5vw, 0.92rem);
-      line-height: 1.48;
-      color: #f3f3f3;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    .detail-row:last-child {
+      margin-bottom: 0;
     }
 
     .detail-row strong {
       display: block;
       color: var(--gold);
-      font-size: clamp(0.62rem, 1.15vw, 0.7rem);
+      font-size: 0.58rem;
       letter-spacing: 1.3px;
       text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-
-    .detail-contact-items {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px 14px;
+      margin-bottom: 2px;
     }
 
     .detail-link {
-      color: #ffffff;
-      font-weight: 600;
+      color: #fff;
       text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
-      word-break: break-word;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.5);
     }
 
     .detail-link:hover {
       color: var(--gold-light);
     }
 
-    /* DYNAMIC SOCIALS & MAP BUTTONS */
+    /* DYNAMIC SOCIALS */
     .socials {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 9px;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0 12px;
     }
 
     .link-btn {
-      padding: 12px 12px;
-      border-radius: 14px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
       font-family: var(--brand-font);
-      font-size: clamp(0.76rem, 1.4vw, 0.84rem);
+      font-size: 0.73rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -714,52 +676,45 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      transition: background 0.2s, border-color 0.2s;
     }
 
     .link-btn:hover {
-      background: rgba(212, 175, 55, 0.18);
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
-      transform: translateY(-1px);
     }
 
-    /* PRIMARY BOOKING CTA */
     .book-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
       width: 100%;
-      padding: clamp(15px, 2vw, 18px) 16px;
-      border-radius: 18px;
+      padding: 14px;
+      border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
       font-family: var(--brand-font);
-      font-size: clamp(0.84rem, 1.6vw, 0.96rem);
+      font-size: 0.81rem;
       font-weight: 900;
       letter-spacing: 0.7px;
       text-transform: uppercase;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.42);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .book-btn:hover {
-      box-shadow: 0 10px 28px rgba(212, 175, 55, 0.58);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      transition: transform 0.2s;
     }
 
     .book-btn:active {
-      transform: scale(0.985);
+      transform: scale(0.98);
     }
 
     .book-btn-logo {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid #000;
       background: #000;
-      flex-shrink: 0;
     }
 
     /* =========================================================
@@ -767,11 +722,11 @@
        ========================================================= */
     #assistive-bubble {
       position: fixed;
-      bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px));
-      right: 18px;
-      width: 56px;
-      height: 56px;
-      background: rgba(14, 14, 14, 0.9);
+      bottom: 90px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      background: rgba(14, 14, 14, 0.88);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 2px solid var(--gold);
@@ -781,15 +736,15 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
       user-select: none;
       touch-action: none;
       transition: transform 0.15s ease;
     }
 
     #assistive-bubble img {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -798,8 +753,8 @@
 
     #assistive-menu {
       position: fixed;
-      width: min(275px, calc(100vw - 24px));
-      background: rgba(12, 12, 12, 0.97);
+      width: 260px;
+      background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(212, 175, 55, 0.55);
@@ -822,7 +777,7 @@
     }
 
     .assistive-section-title {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 800;
       letter-spacing: 1.3px;
       text-transform: uppercase;
@@ -834,12 +789,12 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 9px 10px;
+      padding: 8px 10px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -847,7 +802,7 @@
     }
 
     .assistive-item:hover {
-      background: rgba(212, 175, 55, 0.16);
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
     }
 
@@ -876,22 +831,19 @@
       background: #111;
     }
 
-    /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
     #webSheet {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
+      width: 100%;
+      height: 100%;
       background: #080808;
       z-index: 9995;
       display: none;
       flex-direction: column;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(100%);
       opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
 
     #webSheet.active {
@@ -901,18 +853,17 @@
     }
 
     .websheet-header {
-      min-height: 58px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 8px 14px;
+      padding: 0 18px;
       color: var(--gold);
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
-      letter-spacing: 1px;
+      font-size: 0.8rem;
+      letter-spacing: 1.1px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -921,20 +872,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .websheet-ext-btn {
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-light);
-      padding: 7px 11px;
-      border-radius: 10px;
-      font-family: var(--brand-font);
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-decoration: none;
-      text-transform: uppercase;
     }
 
     .websheet-icon-btn {
@@ -954,7 +891,9 @@
       position: relative;
       flex: 1;
       width: 100%;
-      overflow: hidden;
+      height: calc(100% - 60px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       background: #fff;
     }
 
@@ -967,8 +906,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      font-size: 0.76rem;
+      gap: 10px;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 1.4px;
       text-transform: uppercase;
@@ -980,12 +919,12 @@
     }
 
     .iframe-loader.hidden { opacity: 0; }
-    .spinner { width: 32px; height: 32px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .spinner { width: 30px; height: 30px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     #bookingLoaderRecept {
-      width: 74px;
-      height: 74px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -998,12 +937,12 @@
     /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
       position: fixed;
-      bottom: max(14px, env(safe-area-inset-bottom));
+      bottom: max(16px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(150%);
-      width: calc(100% - 28px);
-      max-width: 440px;
-      background: rgba(14, 14, 14, 0.94);
+      width: calc(100% - 32px);
+      max-width: 400px;
+      background: rgba(14, 14, 14, 0.92);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.6);
       border-radius: 20px;
@@ -1074,7 +1013,7 @@
 
     .guide-sheet {
       width: 100%;
-      max-width: 400px;
+      max-width: 380px;
       background: #111;
       border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 24px;
@@ -1095,15 +1034,15 @@
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 { color: #fff; font-size: 1rem; text-transform: uppercase; margin-bottom: 8px; }
-    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
+    .guide-sheet h3 { color: #fff; font-size: 0.98rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.76rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
       background: rgba(255, 255, 255, 0.05);
       border-radius: 14px;
       padding: 14px;
       text-align: left;
-      font-size: 0.8rem;
+      font-size: 0.77rem;
       color: #f0f0f0;
       line-height: 1.75;
       margin-bottom: 16px;
@@ -1121,7 +1060,7 @@
       color: var(--gold);
       font-family: var(--brand-font);
       font-weight: 800;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -1135,27 +1074,22 @@
       color: #000;
       font-family: var(--brand-font);
       font-weight: 900;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       cursor: pointer;
     }
 
-    /* FULL-SCREEN AUTO-FIT BOOKING MODAL */
+    /* BOOKING MODAL */
     #booking {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
       background: #080808;
       z-index: 9999;
       display: none;
       flex-direction: column;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(100%);
       opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
 
     #booking.active {
@@ -1165,17 +1099,17 @@
     }
 
     .booking-header {
-      min-height: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 8px 14px;
+      padding: 0 14px;
       color: var(--gold);
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       flex-shrink: 0;
@@ -1184,8 +1118,7 @@
     .booking-header-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex: 1;
+      gap: 8px;
       min-width: 0;
     }
 
@@ -1196,16 +1129,16 @@
     }
 
     #bookingHeaderLogo {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--gold);
     }
 
     #bookingHeaderRecept {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -1219,22 +1152,21 @@
       color: var(--gold-light);
       border: 1px solid rgba(212, 175, 55, 0.5);
       border-radius: 10px;
-      padding: 8px 12px;
+      padding: 6px 10px;
       font-family: var(--brand-font);
-      font-size: clamp(0.74rem, 1.5vw, 0.84rem);
+      font-size: 0.71rem;
       font-weight: 700;
-      width: 100%;
-      max-width: 280px;
+      max-width: 205px;
       outline: none;
       cursor: pointer;
     }
 
     #closeBooking {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: none;
       color: #fff;
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       font-size: 1.2rem;
       cursor: pointer;
@@ -1247,7 +1179,7 @@
       position: relative;
       flex: 1;
       width: 100%;
-      overflow: hidden;
+      height: calc(100% - 60px);
       background: #fff;
     }
 
@@ -1313,38 +1245,36 @@
     </a>
   </div>
 
-  <!-- FULL-PAGE AUTO-FIT SHELL -->
-  <main id="app-shell">
-    <div class="page-container">
-      <!-- HERO HEADER -->
-      <header class="hero-header">
-        <div class="brand-logo-wrap">
-          <button type="button" class="hero-logo-btn" id="heroBrandBtn" title="Tap Logo to Book Selected Branch">
-            <img src="b2.jfif" alt="Selected Brand Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='kol.gif';">
-            <span class="hero-logo-pill">Tap Logo to Book</span>
-          </button>
-        </div>
-
-        <!-- FRAMED WORDING WITH ANIMATED BACK FLASHING -->
-        <div class="brand-title-wrap">
-          <span class="border-flare-top" aria-hidden="true"></span>
-          <div class="brand-title-box">
-            <span class="title-back-flash" aria-hidden="true"></span>
-            <span class="title-flash-sweep" aria-hidden="true"></span>
-            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
-          </div>
-          <span class="border-flare-bottom" aria-hidden="true"></span>
-        </div>
-
-        <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
-      </header>
-
-      <!-- BRANCH SELECTOR -->
-      <div class="selector-label">
-        <span>1. Choose Branch Location</span>
-        <span class="selector-hint">Tap branch to view details • Tap again or tap receptionist to book</span>
+  <!-- MAIN CARD -->
+  <div id="overlay">
+    <div class="card">
+      <!-- CLICKABLE ACTIVE BRAND LOGO -->
+      <div class="brand-logo-wrap">
+        <button type="button" class="hero-logo-btn" id="heroBrandBtn" title="Tap Logo to Book Selected Branch">
+          <img src="b2.jfif" alt="Selected Brand Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='kol.gif';">
+          <span class="hero-logo-pill">Tap Logo to Book</span>
+        </button>
       </div>
 
+      <!-- CRISP WHITE FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+      <div class="brand-title-wrap">
+        <span class="border-flare-top" aria-hidden="true"></span>
+        <div class="brand-title-box">
+          <span class="title-back-flash" aria-hidden="true"></span>
+          <span class="title-flash-sweep" aria-hidden="true"></span>
+          <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+        </div>
+        <span class="border-flare-bottom" aria-hidden="true"></span>
+      </div>
+
+      <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
+
+      <div class="selector-label">
+        <span>1. Choose Branch Brand</span>
+        <span class="selector-hint">Tap logo or receptionist</span>
+      </div>
+
+      <!-- 4 CLICKABLE BRANCH BRAND CARDS WITH INDIVIDUAL LOGOS & RECEPTIONIST BADGES -->
       <div class="branch-grid" id="branchGrid">
         <button type="button" class="branch-tab" data-branch="branch1" title="Select or Book Branch 1">
           <div class="branch-avatar-pair">
@@ -1391,73 +1321,60 @@
         </button>
       </div>
 
-      <!-- RESPONSIVE TWO-COLUMN WORKSPACE (AUTO-FITS MOBILE, TABLET & DESKTOP) -->
-      <div class="workspace-grid">
-        <!-- LEFT COLUMN: RECEPTIONIST WELCOME & BOOKING ACTION -->
-        <div class="workspace-col">
-          <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
-            <div class="recept-photo-wrap">
-              <img src="dasmares.jfif" alt="Branch Receptionist" class="recept-photo" id="receptionistPhoto">
-              <span class="recept-online-dot" title="Online & Ready to Assist"></span>
-            </div>
-            <div class="recept-content">
-              <div class="recept-badge-row">
-                <span class="recept-pill">👑 Front Desk • Tap to Book</span>
-              </div>
-              <div class="recept-greeting" id="receptionistGreeting">Welcome to King of Fadez Main!</div>
-              <div class="recept-msg" id="receptionistSubtext">Hello! Tap here to book your slot at Congressional Ave — The Standard of Dasmariñas.</div>
-            </div>
-            <span class="recept-arrow">›</span>
-          </button>
+      <!-- CLICKABLE & WELCOMING LADY RECEPTIONIST CARD -->
+      <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
+        <div class="recept-photo-wrap">
+          <img src="dasmares.jfif" alt="Branch Receptionist" class="recept-photo" id="receptionistPhoto">
+          <span class="recept-online-dot" title="Online & Ready to Assist"></span>
+        </div>
+        <div class="recept-content">
+          <div class="recept-badge-row">
+            <span class="recept-pill">👑 Front Desk • Tap to Book</span>
+          </div>
+          <div class="recept-greeting" id="receptionistGreeting">Welcome to King of Fadez Main!</div>
+          <div class="recept-msg" id="receptionistSubtext">Hi! Tap here to reserve your chair at Congressional Ave — walk-ins &amp; appointments welcome!</div>
+        </div>
+        <span class="recept-arrow">›</span>
+      </button>
 
-          <a href="#" class="book-btn" id="openBooking">
-            <img src="b2.jfif" alt="" class="book-btn-logo" id="bookBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
-            <span id="openBookingText">Book Branch 2 • Congressional</span>
-          </a>
+      <!-- DYNAMIC BRANCH INFO PANEL -->
+      <div class="branch-panel" id="branchPanel">
+        <div class="branch-header-row">
+          <div class="branch-header-brand">
+            <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" title="Tap to Book" onerror="this.onerror=null;this.src='kol.gif';">
+            <span class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</span>
+          </div>
+          <span class="branch-badge" id="branchBadge">Main Branch</span>
         </div>
 
-        <!-- RIGHT COLUMN: FULL EXPANDED BRANCH DETAILS & LINKS -->
-        <div class="workspace-col">
-          <section class="branch-panel" id="branchPanel" aria-label="Selected Branch Details">
-            <div class="branch-header-row">
-              <div class="branch-header-brand">
-                <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" title="Tap to Book" onerror="this.onerror=null;this.src='kol.gif';">
-                <h2 class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</h2>
-              </div>
-              <span class="branch-badge" id="branchBadge">Main Branch</span>
-            </div>
+        <div class="detail-row">
+          <strong>📍 Location</strong>
+          <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
+        </div>
 
-            <div class="detail-list">
-              <div class="detail-row">
-                <strong>📍 Full Location Address</strong>
-                <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
-              </div>
-
-              <div class="detail-row">
-                <strong>📞 Direct Phone &amp; Email</strong>
-                <div class="detail-contact-items">
-                  <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
-                  <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a>
-                </div>
-              </div>
-
-              <div class="detail-row">
-                <strong>🔗 Maps, Socials &amp; Official Info</strong>
-                <div class="socials" id="branchSocials" style="margin-top: 6px;"></div>
-              </div>
-            </div>
-          </section>
+        <div class="detail-row">
+          <strong>📞 Contact &amp; Email</strong>
+          <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
+          <span id="branchEmailWrap"> • <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a></span>
         </div>
       </div>
-    </div>
-  </main>
 
-  <!-- FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+      <!-- DYNAMIC BRANCH SOCIALS & MAP LINKS -->
+      <div class="socials" id="branchSocials"></div>
+
+      <!-- PRIMARY BOOKING CTA -->
+      <a href="#" class="book-btn" id="openBooking">
+        <img src="b2.jfif" alt="" class="book-btn-logo" id="bookBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
+        <span id="openBookingText">Book Branch 2 • Congressional</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
     <div class="websheet-header">
       <span>👑 King of Fadez PH • Official Details</span>
       <div class="websheet-actions">
-        <a href="https://kingoffadezph.com/?shem=aimgspe" target="_blank" rel="noopener" class="websheet-ext-btn" title="Open Full Screen in Browser">Open Tab ↗</a>
         <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
         <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
@@ -1507,7 +1424,7 @@
     </div>
   </div>
 
-  <!-- FULL-SCREEN AUTO-FIT BOOKING MODAL -->
+  <!-- BOOKING MODAL -->
   <div id="booking">
     <div class="booking-header">
       <div class="booking-header-left">
@@ -1671,11 +1588,13 @@
         tab.classList.toggle('active', tab.dataset.branch === branchKey);
       });
 
+      // Update individual branch brand logo
       setImageWithFallback(heroBrandLogo, data.logo, 'kol.gif');
       setImageWithFallback(panelMiniLogo, data.logo, 'kol.gif');
       setImageWithFallback(bookBtnLogo, data.logo, 'kol.gif');
       setImageWithFallback(bookingHeaderLogo, data.logo, 'kol.gif');
 
+      // Update individual branch receptionist portrait & welcome message
       setImageWithFallback(receptionistPhoto, data.receptionist, data.logo);
       setImageWithFallback(bookingHeaderRecept, data.receptionist, data.logo);
       setImageWithFallback(bookingLoaderRecept, data.receptionist, data.logo);
@@ -1694,6 +1613,7 @@
       openBookingText.textContent = `Book ${data.shortName}`;
       bookingBranchSelect.value = branchKey;
 
+      // Render branch-specific links + Official Details button
       const linksHtml = data.links.map(item =>
         `<a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a>`
       ).join('');
@@ -1701,6 +1621,7 @@
       document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     }
 
+    // Clicking a branch card selects it; tapping an already-active branch opens booking directly
     branchTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const targetBranch = tab.dataset.branch;
@@ -1712,23 +1633,19 @@
       });
     });
 
+    // Clicking the Receptionist Welcome Card, Hero Brand Logo, or Mini Panel Logo opens booking
     document.getElementById('receptionistCard').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
     document.getElementById('heroBrandBtn').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
     panelMiniLogo.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
 
     // =========================================================================
-    // BOOKING MODAL LOGIC (FULL-SCREEN AUTO-FIT)
+    // BOOKING MODAL LOGIC (PER-BRANCH APPS SCRIPT)
     // =========================================================================
     const booking = document.getElementById('booking');
     const bookingFrame = document.getElementById('bookingFrame');
     const bookingLoader = document.getElementById('bookingLoader');
     const bookingLoaderText = document.getElementById('bookingLoaderText');
     let loadedBookingBranch = null;
-
-    function syncBodyScrollLock() {
-      const anyModalOpen = booking.classList.contains('active') || webSheet.classList.contains('active');
-      document.body.classList.toggle('modal-open', anyModalOpen);
-    }
 
     function loadBookingFrame(branchKey) {
       const data = BRANCHES[branchKey];
@@ -1746,10 +1663,7 @@
       if (e) e.preventDefault();
       loadBookingFrame(branchKey);
       booking.style.display = 'flex';
-      requestAnimationFrame(() => {
-        booking.classList.add('active');
-        syncBodyScrollLock();
-      });
+      requestAnimationFrame(() => booking.classList.add('active'));
     }
 
     bookingFrame.addEventListener('load', () => {
@@ -1764,8 +1678,7 @@
 
     document.getElementById('closeBooking').addEventListener('click', () => {
       booking.classList.remove('active');
-      syncBodyScrollLock();
-      setTimeout(() => { booking.style.display = 'none'; }, 360);
+      setTimeout(() => { booking.style.display = 'none'; }, 400);
     });
 
     // =========================================================================
@@ -1814,8 +1727,8 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 265;
-          const mHeight = menu.offsetHeight || 320;
+          const mWidth = menu.offsetWidth || 260;
+          const mHeight = menu.offsetHeight || 315;
           const pad = 12;
 
           let left = bRect.right - mWidth;
@@ -1868,7 +1781,7 @@
     });
 
     // =========================================================================
-    // FULL-SCREEN AUTO-FIT DETAILS MODAL (kingoffadezph.com)
+    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
     // =========================================================================
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
     const webSheet = document.getElementById('webSheet');
@@ -1885,16 +1798,12 @@
         webSheetLoaded = true;
       }
       webSheet.style.display = 'flex';
-      requestAnimationFrame(() => {
-        webSheet.classList.add('active');
-        syncBodyScrollLock();
-      });
+      requestAnimationFrame(() => webSheet.classList.add('active'));
     }
 
     function closeWebSheet() {
       webSheet.classList.remove('active');
-      syncBodyScrollLock();
-      setTimeout(() => { webSheet.style.display = 'none'; }, 360);
+      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
     }
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
@@ -1905,6 +1814,7 @@
       webSheetFrame.src = DETAILS_URL;
     });
 
+    // Initialize default / saved branch on load
     renderBranch(currentBranchKey);
 
     // =========================================================================
@@ -1937,7 +1847,7 @@
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
-          orientation: "any",
+          orientation: "portrait",
           background_color: "#050505",
           theme_color: "#d4af37",
           icons: [
