@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <title>King of Fadez | Multi-Branch Booking App</title>
-  <meta name="description" content="King of Fadez • The Standard of Dasmariñas & Cavite — Choose your preferred branch and book your haircut & grooming appointment online.">
+  <title>King of Fadez PH | Multi-Branch Booking App</title>
+  <meta name="description" content="King of Fadez PH • The Standard of Dasmariñas & Cavite — Choose your preferred branch and book your haircut & grooming appointment online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="King of Fadez">
+  <meta name="apple-mobile-web-app-title" content="King of Fadez PH">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="King of Fadez">
+  <meta name="application-name" content="King of Fadez PH">
   <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
@@ -22,23 +22,26 @@
 
   <!-- Open Graph (Messenger, Viber, WhatsApp, Telegram, iMessage, Facebook) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="King of Fadez">
-  <meta property="og:title" content="King of Fadez | Book Your Appointment">
+  <meta property="og:site_name" content="King of Fadez PH">
+  <meta property="og:title" content="King of Fadez PH | Book Your Appointment">
   <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Book online at Dasmariñas (Don Placido, Congressional, Slick & Dapper) or Imus.">
   <meta property="og:image" content="kol.gif">
   <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="King of Fadez Logo">
+  <meta property="og:image:alt" content="King of Fadez PH Logo">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
+  <meta name="twitter:title" content="King of Fadez PH | Book Your Appointment">
   <meta name="twitter:description" content="The Standard of Dasmariñas & Cavite • Book your appointment at your nearest branch.">
   <meta name="twitter:image" content="kol.gif">
 
-  <!-- Performance Hints -->
+  <!-- Fonts & Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
@@ -46,9 +49,10 @@
     :root {
       --gold: #d4af37;
       --gold-light: #f3d573;
-      --glass: rgba(12, 12, 12, 0.85);
+      --glass: rgba(12, 12, 12, 0.86);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
       --online-green: #22c55e;
+      --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
     * {
@@ -61,7 +65,7 @@
     html, body {
       width: 100%;
       height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: var(--brand-font);
       background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
       color: #fff;
       overflow: hidden;
@@ -111,7 +115,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto 8px;
+      margin: 0 auto 10px;
     }
 
     .hero-logo-btn {
@@ -149,30 +153,180 @@
       margin-top: -10px;
       background: var(--gold-gradient);
       color: #000;
+      font-family: var(--brand-font);
       font-size: 0.55rem;
       font-weight: 900;
       letter-spacing: 0.9px;
       text-transform: uppercase;
-      padding: 3px 9px;
+      padding: 3px 10px;
       border-radius: 999px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     }
 
-    h1 {
-      color: var(--gold);
-      letter-spacing: 3px;
-      margin: 4px 0 3px;
-      font-size: 1.45rem;
-      text-transform: uppercase;
+    /* =========================================================
+       FRAMED "KING OF FADEZ PH" EMBLEM WITH FLASHING BACKLIGHT
+       ========================================================= */
+    .brand-title-wrap {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px auto 8px;
+      max-width: 100%;
+    }
+
+    .brand-title-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      background: #050505;
+      border: 2.5px solid #ffffff;
+      box-shadow:
+        0 0 18px rgba(212, 175, 55, 0.35),
+        inset 0 0 14px rgba(212, 175, 55, 0.28);
+      overflow: hidden;
+    }
+
+    /* Animated flashing glow directly behind the wording */
+    .title-back-flash {
+      position: absolute;
+      inset: -6px;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 68% 65% at 50% 50%,
+        rgba(255, 244, 190, 0.95) 0%,
+        rgba(212, 175, 55, 0.75) 36%,
+        rgba(212, 175, 55, 0.16) 68%,
+        transparent 85%
+      );
+      animation: backWordFlash 1.7s ease-in-out infinite;
+    }
+
+    /* Sweeping light flash passing behind the lettering */
+    .title-flash-sweep {
+      position: absolute;
+      top: -20%;
+      left: -60%;
+      width: 45%;
+      height: 140%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 236, 150, 0.45) 45%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 236, 150, 0.45) 55%,
+        transparent 100%
+      );
+      transform: skewX(-22deg);
+      animation: backSweepFlash 2.6s ease-in-out infinite;
+    }
+
+    /* Top & bottom border golden lens flares */
+    .border-flare-top,
+    .border-flare-bottom {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 5px;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        #ffffff 0%,
+        #ffe082 32%,
+        rgba(212, 175, 55, 0.55) 58%,
+        transparent 80%
+      );
+      filter: blur(0.6px);
+      animation: borderGlintFlash 1.7s ease-in-out infinite;
+    }
+
+    .border-flare-top {
+      top: -2px;
+    }
+
+    .border-flare-bottom {
+      bottom: -2px;
+    }
+
+    .brand-title-text {
+      position: relative;
+      z-index: 2;
+      font-family: var(--brand-font);
       font-weight: 900;
+      font-size: clamp(1.06rem, 4.3vw, 1.3rem);
+      letter-spacing: 1.8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.95),
+        0 0 10px rgba(255, 224, 130, 0.55);
+    }
+
+    @keyframes backWordFlash {
+      0%, 100% {
+        opacity: 0.22;
+        transform: scale(0.86);
+      }
+      45% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+      55% {
+        opacity: 0.45;
+        transform: scale(0.95);
+      }
+      70% {
+        opacity: 0.95;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes backSweepFlash {
+      0% {
+        left: -65%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.9;
+      }
+      65% {
+        left: 125%;
+        opacity: 0.9;
+      }
+      100% {
+        left: 125%;
+        opacity: 0;
+      }
+    }
+
+    @keyframes borderGlintFlash {
+      0%, 100% {
+        opacity: 0.35;
+        transform: translateX(-50%) scaleX(0.75);
+      }
+      45%, 70% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1.08);
+      }
     }
 
     .tagline {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
+      font-family: var(--brand-font);
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
       margin-bottom: 14px;
-      opacity: 0.9;
-      color: #e0e0e0;
+      color: #f0f0f0;
+      text-transform: uppercase;
     }
 
     /* BRANCH SELECTOR WITH LOGO + RECEPTIONIST BADGE */
@@ -180,19 +334,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.63rem;
+      font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.1px;
       color: var(--gold);
       text-transform: uppercase;
       margin-bottom: 8px;
     }
 
     .selector-hint {
-      font-size: 0.57rem;
+      font-size: 0.56rem;
       font-weight: 600;
       color: #aaa;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
       text-transform: none;
     }
 
@@ -279,15 +433,15 @@
     }
 
     .branch-tab-num {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 900;
-      letter-spacing: 0.9px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       color: var(--gold);
     }
 
     .branch-tab-name {
-      font-size: 0.73rem;
+      font-size: 0.71rem;
       font-weight: 700;
       color: #f5f5f5;
       white-space: nowrap;
@@ -376,9 +530,9 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       font-weight: 900;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
       color: #000;
       background: var(--gold-gradient);
@@ -387,7 +541,7 @@
     }
 
     .recept-greeting {
-      font-size: 0.84rem;
+      font-size: 0.81rem;
       font-weight: 800;
       color: var(--gold-light);
       margin-bottom: 2px;
@@ -395,9 +549,10 @@
     }
 
     .recept-msg {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #ececec;
       line-height: 1.38;
+      font-weight: 500;
     }
 
     .recept-arrow {
@@ -447,7 +602,7 @@
     }
 
     .branch-title {
-      font-size: 0.81rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--gold-light);
       white-space: nowrap;
@@ -456,10 +611,10 @@
     }
 
     .branch-badge {
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.9px;
+      letter-spacing: 0.8px;
       padding: 3px 8px;
       border-radius: 999px;
       background: rgba(212, 175, 55, 0.16);
@@ -469,7 +624,7 @@
     }
 
     .detail-row {
-      font-size: 0.77rem;
+      font-size: 0.74rem;
       line-height: 1.42;
       margin-bottom: 7px;
       color: #eaeaea;
@@ -482,8 +637,8 @@
     .detail-row strong {
       display: block;
       color: var(--gold);
-      font-size: 0.59rem;
-      letter-spacing: 1.4px;
+      font-size: 0.58rem;
+      letter-spacing: 1.3px;
       text-transform: uppercase;
       margin-bottom: 2px;
     }
@@ -512,8 +667,9 @@
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-family: var(--brand-font);
+      font-size: 0.73rem;
+      font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       display: flex;
@@ -538,9 +694,10 @@
       border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.84rem;
+      font-family: var(--brand-font);
+      font-size: 0.81rem;
       font-weight: 900;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
       text-decoration: none;
       box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
@@ -596,7 +753,7 @@
 
     #assistive-menu {
       position: fixed;
-      width: 255px;
+      width: 260px;
       background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -620,9 +777,9 @@
     }
 
     .assistive-section-title {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 800;
-      letter-spacing: 1.4px;
+      letter-spacing: 1.3px;
       text-transform: uppercase;
       color: var(--gold);
       padding: 2px 6px;
@@ -637,7 +794,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -705,8 +862,8 @@
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 1.2px;
+      font-size: 0.8rem;
+      letter-spacing: 1.1px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -750,9 +907,9 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       text-align: center;
       padding: 20px;
@@ -809,8 +966,8 @@
 
     .install-info { display: flex; align-items: center; gap: 10px; text-align: left; flex: 1; min-width: 0; }
     .install-icon { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--gold); object-fit: cover; flex-shrink: 0; }
-    .install-text strong { display: block; font-size: 0.82rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .install-text span { display: block; font-size: 0.68rem; color: #d0d0d0; margin-top: 2px; }
+    .install-text strong { display: block; font-size: 0.8rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .install-text span { display: block; font-size: 0.66rem; color: #d0d0d0; margin-top: 2px; }
     .install-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
     #install-btn {
@@ -819,7 +976,8 @@
       border: none;
       padding: 9px 14px;
       border-radius: 12px;
-      font-size: 0.72rem;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
@@ -868,7 +1026,7 @@
       background: rgba(212, 175, 55, 0.15);
       border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 20px;
@@ -876,15 +1034,15 @@
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
-    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
+    .guide-sheet h3 { color: #fff; font-size: 0.98rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.76rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
       background: rgba(255, 255, 255, 0.05);
       border-radius: 14px;
       padding: 14px;
       text-align: left;
-      font-size: 0.79rem;
+      font-size: 0.77rem;
       color: #f0f0f0;
       line-height: 1.75;
       margin-bottom: 16px;
@@ -900,8 +1058,9 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       background: transparent;
       color: var(--gold);
+      font-family: var(--brand-font);
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -913,8 +1072,9 @@
       border: none;
       background: var(--gold-gradient);
       color: #000;
+      font-family: var(--brand-font);
       font-weight: 900;
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -949,7 +1109,7 @@
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       flex-shrink: 0;
@@ -993,7 +1153,8 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       border-radius: 10px;
       padding: 6px 10px;
-      font-size: 0.74rem;
+      font-family: var(--brand-font);
+      font-size: 0.71rem;
       font-weight: 700;
       max-width: 205px;
       outline: none;
@@ -1095,7 +1256,17 @@
         </button>
       </div>
 
-      <h1>King of Fadez</h1>
+      <!-- CRISP WHITE FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+      <div class="brand-title-wrap">
+        <span class="border-flare-top" aria-hidden="true"></span>
+        <div class="brand-title-box">
+          <span class="title-back-flash" aria-hidden="true"></span>
+          <span class="title-flash-sweep" aria-hidden="true"></span>
+          <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+        </div>
+        <span class="border-flare-bottom" aria-hidden="true"></span>
+      </div>
+
       <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
 
       <div class="selector-label">
@@ -1150,7 +1321,7 @@
         </button>
       </div>
 
-      <!-- CLICKABLE & WELCOMING BRANCH RECEPTIONIST CARD -->
+      <!-- CLICKABLE & WELCOMING LADY RECEPTIONIST CARD -->
       <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
         <div class="recept-photo-wrap">
           <img src="dasmares.jfif" alt="Branch Receptionist" class="recept-photo" id="receptionistPhoto">
@@ -1202,7 +1373,7 @@
   <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
     <div class="websheet-header">
-      <span>👑 King of Fadez • Official Details</span>
+      <span>👑 King of Fadez PH • Official Details</span>
       <div class="websheet-actions">
         <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
         <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
@@ -1216,7 +1387,7 @@
       <iframe
         id="webSheetFrame"
         src="about:blank"
-        title="King of Fadez Details"
+        title="King of Fadez PH Details"
         loading="lazy"
         allow="geolocation; clipboard-read; clipboard-write"
         referrerpolicy="no-referrer-when-downgrade">
@@ -1243,7 +1414,7 @@
   <div id="device-guide">
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
-      <h3>Install King of Fadez App</h3>
+      <h3>Install King of Fadez PH App</h3>
       <p>Add our app to your device for instant 1-tap branch booking:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
@@ -1556,7 +1727,7 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 255;
+          const mWidth = menu.offsetWidth || 260;
           const mHeight = menu.offsetHeight || 315;
           const pad = 12;
 
@@ -1670,8 +1841,8 @@
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
         const manifestData = {
-          name: "King of Fadez | Booking App",
-          short_name: "King of Fadez",
+          name: "King of Fadez PH | Booking App",
+          short_name: "King of Fadez PH",
           description: "The Standard of Dasmariñas & Cavite — Book your haircut & grooming appointment.",
           start_url: window.location.href,
           scope: "./",
