@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
   <title>King of Fadez PH | Multi-Branch Booking App</title>
-  <meta name="description" content="King of Fadez PH • The Standard of Dasmariñas & Cavite — Choose your preferred branch and book your haircut & grooming appointment online.">
+  <meta name="description" content="Kingoffadezph.com — Choose your preferred branch and book your haircut & grooming appointment online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,7 +24,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
   <meta property="og:title" content="King of Fadez PH | Book Your Appointment">
-  <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Book online at S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, or KOF Imus.">
+  <meta property="og:description" content="Kingoffadezph.com • Book online at S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, or KOF Imus.">
   <meta property="og:image" content="kol.gif">
   <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
@@ -35,7 +35,7 @@
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="King of Fadez PH | Book Your Appointment">
-  <meta name="twitter:description" content="The Standard of Dasmariñas & Cavite • Book your appointment at your nearest branch.">
+  <meta name="twitter:description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
   <meta name="twitter:image" content="kol.gif">
 
   <!-- Fonts & Performance Hints -->
@@ -320,13 +320,33 @@
     }
 
     .tagline {
-      font-family: var(--brand-font);
-      font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: 1.8px;
       margin-bottom: 14px;
-      color: #f0f0f0;
-      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .tagline-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--brand-font);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      color: var(--gold-light);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.65);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .tagline-link:hover {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .tagline-link:active {
+      transform: scale(0.97);
     }
 
     /* BRANCH SELECTOR WITH LOGO + RECEPTIONIST BADGE */
@@ -1268,7 +1288,9 @@
         <span class="border-flare-bottom" aria-hidden="true"></span>
       </div>
 
-      <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
+      <div class="tagline">
+        <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">Kingoffadezph.com</a>
+      </div>
 
       <div class="selector-label">
         <span>1. Choose Branch Brand</span>
@@ -1487,7 +1509,7 @@
         title: "Branch 2 • KOF Dasma Area G",
         badge: "Main Branch",
         welcomeTitle: "Welcome to KOF Dasma Area G!",
-        welcomeMsg: "Hello! Tap here to book your slot at KOF Dasma Area G (Congressional Ave) — The Standard of Dasmariñas.",
+        welcomeMsg: "Hello! Tap here to book your slot at KOF Dasma Area G (Congressional Ave) — Kingoffadezph.com.",
         bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=main",
         address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
         phoneDisplay: "(0956) 718 8557",
@@ -1844,7 +1866,7 @@
         const manifestData = {
           name: "King of Fadez PH | Booking App",
           short_name: "King of Fadez PH",
-          description: "The Standard of Dasmariñas & Cavite — Book your haircut & grooming appointment.",
+          description: "Kingoffadezph.com — Book your haircut & grooming appointment.",
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
