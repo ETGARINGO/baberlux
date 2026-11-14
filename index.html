@@ -2,17 +2,17 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <title>King of Fadez | Booking App</title>
-  <meta name="description" content="King of Fadez • The Standard of Dasmariñas — Book your haircut & grooming appointment online.">
+  <title>King of Fadez PH | Multi-Branch Booking App</title>
+  <meta name="description" content="King of Fadez PH • The Standard of Dasmariñas & Cavite — Choose your preferred branch and book your haircut & grooming appointment online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="King of Fadez">
+  <meta name="apple-mobile-web-app-title" content="King of Fadez PH">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="King of Fadez">
+  <meta name="application-name" content="King of Fadez PH">
   <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
@@ -22,36 +22,38 @@
 
   <!-- Open Graph (Messenger, Viber, WhatsApp, Telegram, iMessage, Facebook) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="King of Fadez">
-  <meta property="og:title" content="King of Fadez | Book Your Appointment">
-  <meta property="og:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta property="og:site_name" content="King of Fadez PH">
+  <meta property="og:title" content="King of Fadez PH | Book Your Appointment">
+  <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Book online at Dasmariñas (Don Placido, Congressional, Slick & Dapper) or Imus.">
   <meta property="og:image" content="kol.gif">
   <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="King of Fadez Logo">
+  <meta property="og:image:alt" content="King of Fadez PH Logo">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
-  <meta name="twitter:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta name="twitter:title" content="King of Fadez PH | Book Your Appointment">
+  <meta name="twitter:description" content="The Standard of Dasmariñas & Cavite • Book your appointment at your nearest branch.">
   <meta name="twitter:image" content="kol.gif">
 
-  <!-- Schema.org Fallback -->
-  <meta itemprop="name" content="King of Fadez | Book Your Appointment">
-  <meta itemprop="description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
-  <meta itemprop="image" content="kol.gif">
-
-  <!-- Performance Hints -->
+  <!-- Fonts & Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
     :root {
       --gold: #d4af37;
-      --glass: rgba(12, 12, 12, 0.78);
+      --gold-light: #f3d573;
+      --glass: rgba(12, 12, 12, 0.88);
+      --panel-bg: rgba(18, 18, 18, 0.82);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --online-green: #22c55e;
+      --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
     * {
@@ -61,151 +63,703 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
+    html {
       width: 100%;
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
+      min-height: 100%;
+      background: #050505;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--brand-font);
+      background: radial-gradient(circle at 50% 10%, #1d190f 0%, #080808 55%, #030303 100%);
       color: #fff;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body.modal-open {
       overflow: hidden;
     }
 
-    /* LIGHTNING FAST AMBIENT GLOW (NO VIDEO LAG) */
+    /* AMBIENT GLOW */
     .bg-glow {
       position: fixed;
-      top: -20%;
+      top: -15%;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      width: min(900px, 140vw);
+      height: min(900px, 140vw);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
       z-index: 0;
       pointer-events: none;
     }
 
-    /* MAIN OVERLAY */
-    #overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    /* FULL-PAGE AUTO-FIT SHELL */
+    #app-shell {
+      position: relative;
       z-index: 2;
-      overflow-y: auto;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding:
+        max(14px, env(safe-area-inset-top))
+        clamp(12px, 3vw, 32px)
+        max(96px, calc(env(safe-area-inset-bottom) + 84px));
     }
 
-    /* GLASS CARD */
-    .card {
+    /* RESPONSIVE MAIN CONTAINER */
+    .page-container {
       width: 100%;
-      max-width: 380px;
-      padding: 30px 24px;
+      max-width: 1120px;
+      margin: 0 auto;
       background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: clamp(22px, 3vw, 32px);
       border: 1px solid rgba(212, 175, 55, 0.38);
+      padding: clamp(18px, 3vw, 32px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    /* TOP BRAND HERO SECTION */
+    .hero-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+      padding-bottom: clamp(14px, 2vw, 22px);
+      margin-bottom: clamp(14px, 2vw, 22px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
     }
 
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto 10px;
+      margin-bottom: 10px;
+    }
+
+    .hero-logo-btn {
+      position: relative;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .hero-logo-btn:hover {
+      transform: scale(1.04);
+    }
+
+    .hero-logo-btn:active {
+      transform: scale(0.96);
     }
 
     .brand-logo {
-      width: 90px;
-      height: 90px;
+      width: clamp(82px, 11vw, 102px);
+      height: clamp(82px, 11vw, 102px);
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 22px rgba(212, 175, 55, 0.5);
+      border: 2.5px solid var(--gold);
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 26px rgba(212, 175, 55, 0.5);
       display: block;
     }
 
-    h1 {
-      color: var(--gold);
-      letter-spacing: 4px;
-      margin: 8px 0 5px;
-      font-size: 1.7rem;
-      text-transform: uppercase;
+    .hero-logo-pill {
+      margin-top: -11px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-family: var(--brand-font);
+      font-size: clamp(0.56rem, 1.3vw, 0.64rem);
       font-weight: 900;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+    }
+
+    /* FRAMED "KING OF FADEZ PH" EMBLEM WITH ANIMATED BACK FLASHING */
+    .brand-title-wrap {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px auto 8px;
+      max-width: 100%;
+    }
+
+    .brand-title-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
+      background: #050505;
+      border: 2.5px solid #ffffff;
+      box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.35),
+        inset 0 0 14px rgba(212, 175, 55, 0.28);
+      overflow: hidden;
+    }
+
+    .title-back-flash {
+      position: absolute;
+      inset: -6px;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 68% 65% at 50% 50%,
+        rgba(255, 244, 190, 0.95) 0%,
+        rgba(212, 175, 55, 0.75) 36%,
+        rgba(212, 175, 55, 0.16) 68%,
+        transparent 85%
+      );
+      animation: backWordFlash 1.7s ease-in-out infinite;
+    }
+
+    .title-flash-sweep {
+      position: absolute;
+      top: -20%;
+      left: -60%;
+      width: 45%;
+      height: 140%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 236, 150, 0.45) 45%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 236, 150, 0.45) 55%,
+        transparent 100%
+      );
+      transform: skewX(-22deg);
+      animation: backSweepFlash 2.6s ease-in-out infinite;
+    }
+
+    .border-flare-top,
+    .border-flare-bottom {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 5px;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        #ffffff 0%,
+        #ffe082 32%,
+        rgba(212, 175, 55, 0.55) 58%,
+        transparent 80%
+      );
+      filter: blur(0.6px);
+      animation: borderGlintFlash 1.7s ease-in-out infinite;
+    }
+
+    .border-flare-top { top: -2px; }
+    .border-flare-bottom { bottom: -2px; }
+
+    .brand-title-text {
+      position: relative;
+      z-index: 2;
+      font-family: var(--brand-font);
+      font-weight: 900;
+      font-size: clamp(1.12rem, 3.6vw, 1.75rem);
+      letter-spacing: clamp(1.6px, 0.35vw, 3px);
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.95),
+        0 0 10px rgba(255, 224, 130, 0.55);
+    }
+
+    @keyframes backWordFlash {
+      0%, 100% { opacity: 0.22; transform: scale(0.86); }
+      45% { opacity: 1; transform: scale(1.08); }
+      55% { opacity: 0.45; transform: scale(0.95); }
+      70% { opacity: 0.95; transform: scale(1.05); }
+    }
+
+    @keyframes backSweepFlash {
+      0% { left: -65%; opacity: 0; }
+      20% { opacity: 0.9; }
+      65% { left: 125%; opacity: 0.9; }
+      100% { left: 125%; opacity: 0; }
+    }
+
+    @keyframes borderGlintFlash {
+      0%, 100% { opacity: 0.35; transform: translateX(-50%) scaleX(0.75); }
+      45%, 70% { opacity: 1; transform: translateX(-50%) scaleX(1.08); }
     }
 
     .tagline {
-      font-size: 0.72rem;
-      letter-spacing: 2.5px;
-      margin-bottom: 20px;
-      opacity: 0.9;
-      color: #e0e0e0;
+      font-size: clamp(0.65rem, 1.5vw, 0.78rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #f0f0f0;
+      text-transform: uppercase;
     }
 
-    .detail {
+    /* SECTION HEADER */
+    .selector-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.68rem, 1.5vw, 0.78rem);
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .selector-hint {
+      font-size: clamp(0.62rem, 1.3vw, 0.72rem);
+      font-weight: 600;
+      color: #bdbdbd;
+      letter-spacing: 0.3px;
+      text-transform: none;
+    }
+
+    /* AUTO-FIT BRANCH SELECTOR GRID */
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(8px, 1.5vw, 14px);
+      margin-bottom: clamp(14px, 2.2vw, 22px);
+    }
+
+    @media (min-width: 900px) {
+      .branch-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 360px) {
+      .branch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .branch-tab {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: clamp(10px, 1.5vw, 14px);
+      color: #fff;
       text-align: left;
-      font-size: 0.84rem;
-      margin-bottom: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .branch-tab:hover {
+      border-color: rgba(212, 175, 55, 0.65);
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .branch-tab:active {
+      transform: scale(0.98);
+    }
+
+    .branch-tab.active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+    }
+
+    .branch-avatar-pair {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .branch-tab-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      background: #000;
+      display: block;
+    }
+
+    .branch-tab.active .branch-tab-logo {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+    }
+
+    .branch-tab-recept {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid #111;
+      box-shadow: 0 0 0 1px var(--gold);
+      background: #1a1a1a;
+    }
+
+    .branch-tab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .branch-tab-num {
+      font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .branch-tab-name {
+      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-weight: 700;
+      color: #f8f8f8;
+      line-height: 1.25;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* AUTO-FIT RESPONSIVE WORKSPACE (1 COL MOBILE -> 2 COL TABLET/DESKTOP) */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(12px, 2vw, 20px);
+      align-items: stretch;
+    }
+
+    @media (min-width: 820px) {
+      .workspace-grid {
+        grid-template-columns: 1.05fr 1.15fr;
+      }
+    }
+
+    .workspace-col {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(12px, 1.8vw, 16px);
+    }
+
+    /* CLICKABLE & WELCOMING LADY RECEPTIONIST CARD */
+    .receptionist-card {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2vw, 16px);
+      padding: clamp(14px, 2.2vw, 20px);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(20, 20, 20, 0.94));
+      border: 1.5px solid rgba(212, 175, 55, 0.68);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .receptionist-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold-light);
+      box-shadow: 0 16px 34px rgba(212, 175, 55, 0.25);
+    }
+
+    .receptionist-card:active {
+      transform: scale(0.985);
+    }
+
+    .recept-photo-wrap {
+      position: relative;
+      width: clamp(68px, 9vw, 86px);
+      height: clamp(68px, 9vw, 86px);
+      flex-shrink: 0;
+    }
+
+    .recept-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2.5px solid var(--gold-light);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+      background: #141414;
+      display: block;
+    }
+
+    .recept-online-dot {
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--online-green);
+      border: 2.5px solid #0e0e0e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    .recept-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .recept-badge-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .recept-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold-gradient);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .recept-greeting {
+      font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+
+    .recept-msg {
+      font-size: clamp(0.75rem, 1.45vw, 0.86rem);
+      color: #f2f2f2;
       line-height: 1.45;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 11px 14px;
+      font-weight: 500;
+    }
+
+    .recept-arrow {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--gold);
+      flex-shrink: 0;
+      padding-left: 4px;
+    }
+
+    /* ACTIVE BRANCH DETAILS PANEL (FULL VISIBILITY, NO TRUNCATION) */
+    .branch-panel {
+      background: var(--panel-bg);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 20px;
+      padding: clamp(14px, 2.2vw, 20px);
+      text-align: left;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .branch-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .branch-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-mini-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .branch-title {
+      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    .branch-badge {
+      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .detail-row {
+      font-size: clamp(0.8rem, 1.5vw, 0.92rem);
+      line-height: 1.48;
+      color: #f3f3f3;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .detail strong {
+    .detail-row strong {
       display: block;
       color: var(--gold);
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      margin-bottom: 4px;
+      font-size: clamp(0.62rem, 1.15vw, 0.7rem);
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
     }
 
+    .detail-contact-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+    }
+
+    .detail-link {
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      word-break: break-word;
+    }
+
+    .detail-link:hover {
+      color: var(--gold-light);
+    }
+
+    /* DYNAMIC SOCIALS & MAP BUTTONS */
     .socials {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 18px 0;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 9px;
     }
 
     .link-btn {
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-family: var(--brand-font);
+      font-size: clamp(0.76rem, 1.4vw, 0.84rem);
+      font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
     }
 
     .link-btn:hover {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(212, 175, 55, 0.18);
       border-color: var(--gold);
+      transform: translateY(-1px);
     }
 
+    /* PRIMARY BOOKING CTA */
     .book-btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       width: 100%;
-      padding: 17px;
-      border-radius: 16px;
+      padding: clamp(15px, 2vw, 18px) 16px;
+      border-radius: 18px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.9rem;
+      font-family: var(--brand-font);
+      font-size: clamp(0.84rem, 1.6vw, 0.96rem);
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
       text-decoration: none;
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-      transition: transform 0.2s;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.42);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .book-btn:hover {
+      box-shadow: 0 10px 28px rgba(212, 175, 55, 0.58);
     }
 
     .book-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.985);
+    }
+
+    .book-btn-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #000;
+      background: #000;
+      flex-shrink: 0;
     }
 
     /* =========================================================
@@ -213,71 +767,79 @@
        ========================================================= */
     #assistive-bubble {
       position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 54px;
-      height: 54px;
-      background: rgba(14, 14, 14, 0.88);
+      bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px));
+      right: 18px;
+      width: 56px;
+      height: 56px;
+      background: rgba(14, 14, 14, 0.9);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 2px solid var(--gold);
       border-radius: 50%;
-      z-index: 10005; /* Highest layer so it is ALWAYS visible */
+      z-index: 10005;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(212, 175, 55, 0.35);
       user-select: none;
       touch-action: none;
       transition: transform 0.15s ease;
     }
 
     #assistive-bubble img {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       object-fit: cover;
+      object-position: top center;
       pointer-events: none;
     }
 
     #assistive-menu {
       position: fixed;
-      bottom: 156px;
-      right: 20px;
-      width: 220px;
-      background: rgba(12, 12, 12, 0.94);
+      width: min(275px, calc(100vw - 24px));
+      background: rgba(12, 12, 12, 0.97);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 20px;
-      padding: 12px;
-      z-index: 10006; /* Always above everything */
+      padding: 10px;
+      z-index: 10006;
       display: none;
       flex-direction: column;
       gap: 6px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.92);
       opacity: 0;
-      transform: scale(0.9) translateY(10px);
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+      transform: scale(0.92);
+      transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.2, 1, 0.3, 1);
     }
 
     #assistive-menu.active {
       display: flex;
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: scale(1);
+    }
+
+    .assistive-section-title {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 2px 6px;
     }
 
     .assistive-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
+      gap: 9px;
+      padding: 9px 10px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -285,23 +847,51 @@
     }
 
     .assistive-item:hover {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(212, 175, 55, 0.16);
       border-color: var(--gold);
     }
 
-    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    .assistive-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .assistive-branch-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gold);
+    }
+
+    .assistive-recept-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid var(--gold-light);
+      margin-left: -7px;
+      background: #111;
+    }
+
+    /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
     #webSheet {
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: #080808;
       z-index: 9995;
       display: none;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(100%);
       opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
     }
 
     #webSheet.active {
@@ -311,17 +901,18 @@
     }
 
     .websheet-header {
-      height: 60px;
+      min-height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      gap: 8px;
+      padding: 8px 14px;
       color: var(--gold);
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.9rem;
-      letter-spacing: 1.5px;
+      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
+      letter-spacing: 1px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -330,6 +921,20 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .websheet-ext-btn {
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold-light);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     .websheet-icon-btn {
@@ -349,13 +954,11 @@
       position: relative;
       flex: 1;
       width: 100%;
-      height: calc(100% - 60px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
       background: #fff;
     }
 
-    #webSheetLoader {
+    .iframe-loader {
       position: absolute;
       inset: 0;
       background: #0a0a0a;
@@ -364,31 +967,43 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-size: 0.72rem;
+      gap: 12px;
+      font-size: 0.76rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
+      text-align: center;
+      padding: 20px;
       z-index: 2;
       transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
-    #webSheetLoader.hidden { opacity: 0; }
-    .spinner { width: 30px; height: 30px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .iframe-loader.hidden { opacity: 0; }
+    .spinner { width: 32px; height: 32px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    #bookingLoaderRecept {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    }
 
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
 
     /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
       position: fixed;
-      bottom: max(16px, env(safe-area-inset-bottom));
+      bottom: max(14px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(150%);
-      width: calc(100% - 32px);
-      max-width: 400px;
-      background: rgba(14, 14, 14, 0.92);
+      width: calc(100% - 28px);
+      max-width: 440px;
+      background: rgba(14, 14, 14, 0.94);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.6);
       border-radius: 20px;
@@ -412,8 +1027,8 @@
 
     .install-info { display: flex; align-items: center; gap: 10px; text-align: left; flex: 1; min-width: 0; }
     .install-icon { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--gold); object-fit: cover; flex-shrink: 0; }
-    .install-text strong { display: block; font-size: 0.82rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .install-text span { display: block; font-size: 0.68rem; color: #d0d0d0; margin-top: 2px; }
+    .install-text strong { display: block; font-size: 0.8rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .install-text span { display: block; font-size: 0.66rem; color: #d0d0d0; margin-top: 2px; }
     .install-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
     #install-btn {
@@ -422,7 +1037,8 @@
       border: none;
       padding: 9px 14px;
       border-radius: 12px;
-      font-size: 0.72rem;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
@@ -458,7 +1074,7 @@
 
     .guide-sheet {
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
       background: #111;
       border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 24px;
@@ -471,7 +1087,7 @@
       background: rgba(212, 175, 55, 0.15);
       border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 20px;
@@ -479,7 +1095,7 @@
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet h3 { color: #fff; font-size: 1rem; text-transform: uppercase; margin-bottom: 8px; }
     .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
@@ -487,7 +1103,7 @@
       border-radius: 14px;
       padding: 14px;
       text-align: left;
-      font-size: 0.79rem;
+      font-size: 0.8rem;
       color: #f0f0f0;
       line-height: 1.75;
       margin-bottom: 16px;
@@ -503,8 +1119,9 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       background: transparent;
       color: var(--gold);
+      font-family: var(--brand-font);
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -516,23 +1133,29 @@
       border: none;
       background: var(--gold-gradient);
       color: #000;
+      font-family: var(--brand-font);
       font-weight: 900;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
       cursor: pointer;
     }
 
-    /* BOOKING MODAL */
+    /* FULL-SCREEN AUTO-FIT BOOKING MODAL */
     #booking {
       position: fixed;
       inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: #080808;
       z-index: 9999;
       display: none;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(100%);
       opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
     }
 
     #booking.active {
@@ -542,125 +1165,313 @@
     }
 
     .booking-header {
-      height: 60px;
+      min-height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      gap: 10px;
+      padding: 8px 14px;
       color: var(--gold);
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.9rem;
-      letter-spacing: 1.5px;
+      font-size: 0.82rem;
+      letter-spacing: 1px;
       text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .booking-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .booking-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #bookingHeaderLogo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+    }
+
+    #bookingHeaderRecept {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid var(--gold-light);
+      margin-left: -8px;
+      background: #141414;
+    }
+
+    #bookingBranchSelect {
+      background: #161616;
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-family: var(--brand-font);
+      font-size: clamp(0.74rem, 1.5vw, 0.84rem);
+      font-weight: 700;
+      width: 100%;
+      max-width: 280px;
+      outline: none;
+      cursor: pointer;
     }
 
     #closeBooking {
       background: rgba(255, 255, 255, 0.08);
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       color: #fff;
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       font-size: 1.2rem;
       cursor: pointer;
       display: grid;
       place-items: center;
+      flex-shrink: 0;
+    }
+
+    .booking-frame-wrap {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      background: #fff;
     }
 
     #booking iframe {
       width: 100%;
-      height: calc(100% - 60px);
+      height: 100%;
       border: none;
       background: #fff;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <!-- LIGHTNING FAST CSS BACKGROUND GLOW -->
+  <!-- AMBIENT GLOW -->
   <div class="bg-glow"></div>
 
-  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
-  <div id="assistive-bubble" title="AssistiveTouch Menu">
-    <img src="kol.gif" alt="Menu" id="logo-source">
+  <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
+  <img src="kol.gif" alt="" id="logo-source" style="display:none;">
+
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
+  <div id="assistive-bubble" title="Quick Branch Menu">
+    <img src="dasmares.jfif" alt="Receptionist Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='kol.gif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
   <div id="assistive-menu">
-    <a href="#" class="assistive-item" id="menuBook">
-      <span class="icon">📅</span>
-      <span>Book Appointment</span>
+    <div class="assistive-section-title">Quick Book Branch</div>
+    <a href="#" class="assistive-item" data-quick-branch="branch1">
+      <div class="assistive-avatars">
+        <img src="b1.jfif" alt="Branch 1" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b1.jfif';">
+      </div>
+      <span>Branch 1 • Don Placido</span>
     </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch2">
+      <div class="assistive-avatars">
+        <img src="b2.jfif" alt="Branch 2" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b2.jfif';">
+      </div>
+      <span>Branch 2 • Congressional</span>
+    </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch3">
+      <div class="assistive-avatars">
+        <img src="b3.jfif" alt="Branch 3" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b3.jfif';">
+      </div>
+      <span>Branch 3 • Slick &amp; Dapper</span>
+    </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch4">
+      <div class="assistive-avatars">
+        <img src="b4.jfif" alt="Branch 4" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+      </div>
+      <span>Branch 4 • Imus Highway</span>
+    </a>
+    <div class="assistive-section-title" style="margin-top: 2px;">More</div>
     <a href="#" class="assistive-item" id="menuDetails">
-      <span class="icon">📜</span>
-      <span>Shop Details</span>
+      <span>📜</span><span>Official Shop Details</span>
     </a>
     <a href="#" class="assistive-item" id="menuInstallApp">
-      <span class="icon">📥</span>
-      <span>Download App</span>
-    </a>
-    <a href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" class="assistive-item">
-      <span class="icon">🗺️</span>
-      <span>Google Maps</span>
-    </a>
-    <a href="https://www.tiktok.com/@kingoffadez.ph" target="_blank" class="assistive-item">
-      <span class="icon">📱</span>
-      <span>TikTok Page</span>
+      <span>📥</span><span>Download App</span>
     </a>
   </div>
 
-  <!-- MAIN CARD -->
-  <div id="overlay">
-    <div class="card">
-      <div class="brand-logo-wrap">
-        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
-      </div>
-      <h1>King of Fadez</h1>
-      <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
+  <!-- FULL-PAGE AUTO-FIT SHELL -->
+  <main id="app-shell">
+    <div class="page-container">
+      <!-- HERO HEADER -->
+      <header class="hero-header">
+        <div class="brand-logo-wrap">
+          <button type="button" class="hero-logo-btn" id="heroBrandBtn" title="Tap Logo to Book Selected Branch">
+            <img src="b2.jfif" alt="Selected Brand Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='kol.gif';">
+            <span class="hero-logo-pill">Tap Logo to Book</span>
+          </button>
+        </div>
 
-      <div class="detail">
-        <strong>📍 LOCATION</strong>
-        Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite
+        <!-- FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+        <div class="brand-title-wrap">
+          <span class="border-flare-top" aria-hidden="true"></span>
+          <div class="brand-title-box">
+            <span class="title-back-flash" aria-hidden="true"></span>
+            <span class="title-flash-sweep" aria-hidden="true"></span>
+            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+          </div>
+          <span class="border-flare-bottom" aria-hidden="true"></span>
+        </div>
+
+        <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
+      </header>
+
+      <!-- BRANCH SELECTOR -->
+      <div class="selector-label">
+        <span>1. Choose Branch Location</span>
+        <span class="selector-hint">Tap branch to view details • Tap again or tap receptionist to book</span>
       </div>
 
-      <div class="detail">
-        <strong>📧 CONTACT</strong>
-        Kingoffadezph@gmail.com
+      <div class="branch-grid" id="branchGrid">
+        <button type="button" class="branch-tab" data-branch="branch1" title="Select or Book Branch 1">
+          <div class="branch-avatar-pair">
+            <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b1.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 1</span>
+            <span class="branch-tab-name">Don Placido Ave</span>
+          </div>
+        </button>
+
+        <button type="button" class="branch-tab active" data-branch="branch2" title="Select or Book Branch 2">
+          <div class="branch-avatar-pair">
+            <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b2.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 2 • Main</span>
+            <span class="branch-tab-name">Congressional Ave</span>
+          </div>
+        </button>
+
+        <button type="button" class="branch-tab" data-branch="branch3" title="Select or Book Branch 3">
+          <div class="branch-avatar-pair">
+            <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b3.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 3</span>
+            <span class="branch-tab-name">Slick &amp; Dapper</span>
+          </div>
+        </button>
+
+        <button type="button" class="branch-tab" data-branch="branch4" title="Select or Book Branch 4">
+          <div class="branch-avatar-pair">
+            <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b4.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 4</span>
+            <span class="branch-tab-name">Imus Highway</span>
+          </div>
+        </button>
       </div>
 
-      <div class="socials">
-        <a class="link-btn" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" rel="noopener">🗺️ Maps</a>
-        <a class="link-btn" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank" rel="noopener">📱 TikTok</a>
-        <a class="link-btn" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank" rel="noopener">📘 FB Page</a>
-        <button type="button" class="link-btn" id="openWebBtn">🌐 Full Details</button>
-      </div>
+      <!-- RESPONSIVE TWO-COLUMN WORKSPACE (AUTO-FITS MOBILE, TABLET & DESKTOP) -->
+      <div class="workspace-grid">
+        <!-- LEFT COLUMN: RECEPTIONIST WELCOME & BOOKING ACTION -->
+        <div class="workspace-col">
+          <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
+            <div class="recept-photo-wrap">
+              <img src="dasmares.jfif" alt="Branch Receptionist" class="recept-photo" id="receptionistPhoto">
+              <span class="recept-online-dot" title="Online & Ready to Assist"></span>
+            </div>
+            <div class="recept-content">
+              <div class="recept-badge-row">
+                <span class="recept-pill">👑 Front Desk • Tap to Book</span>
+              </div>
+              <div class="recept-greeting" id="receptionistGreeting">Welcome to King of Fadez Main!</div>
+              <div class="recept-msg" id="receptionistSubtext">Hello! Tap here to book your slot at Congressional Ave — The Standard of Dasmariñas.</div>
+            </div>
+            <span class="recept-arrow">›</span>
+          </button>
 
-      <a href="#" class="book-btn" id="openBooking">Proceed to Booking</a>
+          <a href="#" class="book-btn" id="openBooking">
+            <img src="b2.jfif" alt="" class="book-btn-logo" id="bookBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
+            <span id="openBookingText">Book Branch 2 • Congressional</span>
+          </a>
+        </div>
+
+        <!-- RIGHT COLUMN: FULL EXPANDED BRANCH DETAILS & LINKS -->
+        <div class="workspace-col">
+          <section class="branch-panel" id="branchPanel" aria-label="Selected Branch Details">
+            <div class="branch-header-row">
+              <div class="branch-header-brand">
+                <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" title="Tap to Book" onerror="this.onerror=null;this.src='kol.gif';">
+                <h2 class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</h2>
+              </div>
+              <span class="branch-badge" id="branchBadge">Main Branch</span>
+            </div>
+
+            <div class="detail-list">
+              <div class="detail-row">
+                <strong>📍 Full Location Address</strong>
+                <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
+              </div>
+
+              <div class="detail-row">
+                <strong>📞 Direct Phone &amp; Email</strong>
+                <div class="detail-contact-items">
+                  <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
+                  <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="detail-row">
+                <strong>🔗 Maps, Socials &amp; Official Info</strong>
+                <div class="socials" id="branchSocials" style="margin-top: 6px;"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
 
-  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+  <!-- FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
     <div class="websheet-header">
-      <span>👑 King of Fadez • Official Details</span>
+      <span>👑 King of Fadez PH • Official Details</span>
       <div class="websheet-actions">
+        <a href="https://kingoffadezph.com/?shem=aimgspe" target="_blank" rel="noopener" class="websheet-ext-btn" title="Open Full Screen in Browser">Open Tab ↗</a>
         <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
         <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
     </div>
     <div class="websheet-scroll-container">
-      <div id="webSheetLoader">
+      <div id="webSheetLoader" class="iframe-loader">
         <div class="spinner"></div>
         <span>Loading Full Details...</span>
       </div>
       <iframe
         id="webSheetFrame"
         src="about:blank"
-        title="King of Fadez Details"
+        title="King of Fadez PH Details"
         loading="lazy"
-        scrolling="yes"
         allow="geolocation; clipboard-read; clipboard-write"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -686,8 +1497,8 @@
   <div id="device-guide">
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
-      <h3>Install King of Fadez App</h3>
-      <p>Add our app to your device for instant 1-tap booking:</p>
+      <h3>Install King of Fadez PH App</h3>
+      <p>Add our app to your device for instant 1-tap branch booking:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
         <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
@@ -696,37 +1507,269 @@
     </div>
   </div>
 
-  <!-- BOOKING MODAL -->
+  <!-- FULL-SCREEN AUTO-FIT BOOKING MODAL -->
   <div id="booking">
     <div class="booking-header">
-      <span>Secure Booking</span>
+      <div class="booking-header-left">
+        <div class="booking-avatars">
+          <img src="b2.jfif" alt="Branch Logo" id="bookingHeaderLogo" onerror="this.onerror=null;this.src='kol.gif';">
+          <img src="dasmares.jfif" alt="Branch Receptionist" id="bookingHeaderRecept" onerror="this.onerror=null;this.src='b2.jfif';">
+        </div>
+        <select id="bookingBranchSelect" aria-label="Switch Booking Branch">
+          <option value="branch1">Branch 1 • Don Placido</option>
+          <option value="branch2" selected>Branch 2 • Congressional</option>
+          <option value="branch3">Branch 3 • Slick &amp; Dapper</option>
+          <option value="branch4">Branch 4 • Imus Highway</option>
+        </select>
+      </div>
       <button id="closeBooking" aria-label="Close Booking">✕</button>
     </div>
-    <iframe
-      id="bookingFrame"
-      src="https://script.google.com/macros/s/AKfycbxuui-O2aZRHhkc5a-z9CIvKZ-g2MoqoZNFngyZHk5GIKyMdeU_JFKMtK8xGm_VmfCNUA/exec?branch=main"
-      allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+    <div class="booking-frame-wrap">
+      <div id="bookingLoader" class="iframe-loader">
+        <img src="dasmares.jfif" alt="Receptionist" id="bookingLoaderRecept">
+        <div class="spinner"></div>
+        <span id="bookingLoaderText">Welcome! Connecting to Front Desk...</span>
+      </div>
+      <iframe
+        id="bookingFrame"
+        src="about:blank"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
   </div>
 
   <script>
-    const booking = document.getElementById('booking');
+    // =========================================================================
+    // BRANCH DIRECTORY, INDIVIDUAL LOGOS, RECEPTIONISTS & BOOKING ENDPOINTS
+    // =========================================================================
+    const BRANCHES = {
+      branch1: {
+        logo: "b1.jfif",
+        receptionist: "S&Drec.jfif",
+        shortName: "Branch 1 • Don Placido",
+        title: "Branch 1 • Don Placido Campos Ave",
+        badge: "Dasmariñas",
+        welcomeTitle: "Welcome to Don Placido Branch!",
+        welcomeMsg: "Hi! Tap here to reserve your chair at Don Placido Campos Ave — fresh fades & premium grooming await.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=kofdasmabav0r",
+        address: "Brgy Zone 3, Don Placido Campos Avenue, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0915) 053 3669",
+        phoneHref: "tel:+639150533669",
+        email: "slickanddapperdasma@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/TvqHSluJBGUNsSRyK" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@slickanddapperdasma?_r=1&_t=ZP-9BOXRyXSMFa" }
+        ]
+      },
+      branch2: {
+        logo: "b2.jfif",
+        receptionist: "dasmares.jfif",
+        shortName: "Branch 2 • Congressional",
+        title: "Branch 2 • Congressional Ave",
+        badge: "Main Branch",
+        welcomeTitle: "Welcome to King of Fadez Main!",
+        welcomeMsg: "Hello! Tap here to book your slot at Congressional Ave — The Standard of Dasmariñas.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=main",
+        address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0956) 718 8557",
+        phoneHref: "tel:+639567188557",
+        email: "Kingoffadezph@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://maps.google.com/?q=King+of+Fadez+Dasmariñas" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@kingoffadez.ph" },
+          { label: "📘 FB Page", url: "https://www.facebook.com/share/r/1NQfs6Fcer/" }
+        ]
+      },
+      branch3: {
+        logo: "b3.jfif",
+        receptionist: "Molinorec.jfif",
+        shortName: "Branch 3 • Slick & Dapper",
+        title: "Branch 3 • Slick and Dapper Barbershop",
+        badge: "Dasmariñas",
+        welcomeTitle: "Welcome to Slick & Dapper!",
+        welcomeMsg: "Hi there! Tap here to schedule your cut at Slick & Dapper Barbershop Dasmariñas.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=branch3kofxe4",
+        address: "Slick and Dapper Barbershop Dasmariñas",
+        phoneDisplay: "(0956) 752 9543",
+        phoneHref: "tel:+639567529543",
+        email: "kingoffadezbacoorm3@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/ecSHCqP35ncacyUAP" }
+        ]
+      },
+      branch4: {
+        logo: "b4.jfif",
+        receptionist: "Imusrec.jfif",
+        shortName: "Branch 4 • Imus Highway",
+        title: "Branch 4 • Emilio Aguinaldo Hwy",
+        badge: "Imus, Cavite",
+        welcomeTitle: "Welcome to King of Fadez Imus!",
+        welcomeMsg: "Hello! Tap here to book your appointment at Emilio Aguinaldo Hwy, Tanzang Luma, Imus.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=branch4imu253",
+        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma, 1, Imus, Philippines, 4103",
+        phoneDisplay: "(0927) 994 3950",
+        phoneHref: "tel:+639279943950",
+        email: "kingoffadezphimus@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/bYHgooaQOYvwco2YV" },
+          { label: "📘 FB Page 1", url: "https://www.facebook.com/profile.php?id=61593972186081&mibextid=wwXIfr&mibextid=wwXIfr" },
+          { label: "📘 FB Page 2", url: "https://www.facebook.com/profile.php?id=61566638207034&mibextid=wwXIfr&mibextid=wwXIfr" }
+        ]
+      }
+    };
 
-    function openBookingModal(e) {
-      if (e) e.preventDefault();
-      booking.style.display = 'flex';
-      requestAnimationFrame(() => booking.classList.add('active'));
+    let currentBranchKey = localStorage.getItem('kof_selected_branch') || 'branch2';
+    if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
+
+    const branchTabs = document.querySelectorAll('.branch-tab');
+    const heroBrandLogo = document.getElementById('heroBrandLogo');
+    const panelMiniLogo = document.getElementById('panelMiniLogo');
+    const bookBtnLogo = document.getElementById('bookBtnLogo');
+    const bookingHeaderLogo = document.getElementById('bookingHeaderLogo');
+    const bookingHeaderRecept = document.getElementById('bookingHeaderRecept');
+    const bookingLoaderRecept = document.getElementById('bookingLoaderRecept');
+    const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
+
+    const receptionistPhoto = document.getElementById('receptionistPhoto');
+    const receptionistGreeting = document.getElementById('receptionistGreeting');
+    const receptionistSubtext = document.getElementById('receptionistSubtext');
+
+    const branchTitleEl = document.getElementById('branchTitle');
+    const branchBadgeEl = document.getElementById('branchBadge');
+    const branchAddressEl = document.getElementById('branchAddress');
+    const branchPhoneEl = document.getElementById('branchPhone');
+    const branchEmailEl = document.getElementById('branchEmail');
+    const branchSocialsEl = document.getElementById('branchSocials');
+    const openBookingBtn = document.getElementById('openBooking');
+    const openBookingText = document.getElementById('openBookingText');
+    const bookingBranchSelect = document.getElementById('bookingBranchSelect');
+
+    function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'kol.gif') {
+      imgEl.onerror = function() {
+        if (secondarySrc && this.getAttribute('src') !== secondarySrc) {
+          this.onerror = function() {
+            this.onerror = null;
+            this.src = 'kol.gif';
+          };
+          this.src = secondarySrc;
+        } else {
+          this.onerror = null;
+          this.src = 'kol.gif';
+        }
+      };
+      imgEl.src = primarySrc;
     }
 
-    document.getElementById('openBooking').addEventListener('click', openBookingModal);
+    function renderBranch(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      currentBranchKey = branchKey;
+      localStorage.setItem('kof_selected_branch', branchKey);
+
+      branchTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.branch === branchKey);
+      });
+
+      setImageWithFallback(heroBrandLogo, data.logo, 'kol.gif');
+      setImageWithFallback(panelMiniLogo, data.logo, 'kol.gif');
+      setImageWithFallback(bookBtnLogo, data.logo, 'kol.gif');
+      setImageWithFallback(bookingHeaderLogo, data.logo, 'kol.gif');
+
+      setImageWithFallback(receptionistPhoto, data.receptionist, data.logo);
+      setImageWithFallback(bookingHeaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(bookingLoaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
+
+      receptionistGreeting.textContent = data.welcomeTitle;
+      receptionistSubtext.textContent = data.welcomeMsg;
+
+      branchTitleEl.textContent = data.title;
+      branchBadgeEl.textContent = data.badge;
+      branchAddressEl.textContent = data.address;
+      branchPhoneEl.textContent = data.phoneDisplay;
+      branchPhoneEl.href = data.phoneHref;
+      branchEmailEl.textContent = data.email;
+      branchEmailEl.href = `mailto:${data.email}`;
+      openBookingText.textContent = `Book ${data.shortName}`;
+      bookingBranchSelect.value = branchKey;
+
+      const linksHtml = data.links.map(item =>
+        `<a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a>`
+      ).join('');
+      branchSocialsEl.innerHTML = `${linksHtml}<button type="button" class="link-btn" id="openWebBtn">🌐 Full Details</button>`;
+      document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
+    }
+
+    branchTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetBranch = tab.dataset.branch;
+        if (currentBranchKey === targetBranch) {
+          openBookingModal(null, targetBranch);
+        } else {
+          renderBranch(targetBranch);
+        }
+      });
+    });
+
+    document.getElementById('receptionistCard').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    document.getElementById('heroBrandBtn').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    panelMiniLogo.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+
+    // =========================================================================
+    // BOOKING MODAL LOGIC (FULL-SCREEN AUTO-FIT)
+    // =========================================================================
+    const booking = document.getElementById('booking');
+    const bookingFrame = document.getElementById('bookingFrame');
+    const bookingLoader = document.getElementById('bookingLoader');
+    const bookingLoaderText = document.getElementById('bookingLoaderText');
+    let loadedBookingBranch = null;
+
+    function syncBodyScrollLock() {
+      const anyModalOpen = booking.classList.contains('active') || webSheet.classList.contains('active');
+      document.body.classList.toggle('modal-open', anyModalOpen);
+    }
+
+    function loadBookingFrame(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      renderBranch(branchKey);
+      if (loadedBookingBranch !== branchKey) {
+        bookingLoaderText.textContent = `Welcome! Connecting to ${data.shortName} Front Desk...`;
+        bookingLoader.classList.remove('hidden');
+        bookingFrame.src = data.bookingUrl;
+        loadedBookingBranch = branchKey;
+      }
+    }
+
+    function openBookingModal(e, branchKey = currentBranchKey) {
+      if (e) e.preventDefault();
+      loadBookingFrame(branchKey);
+      booking.style.display = 'flex';
+      requestAnimationFrame(() => {
+        booking.classList.add('active');
+        syncBodyScrollLock();
+      });
+    }
+
+    bookingFrame.addEventListener('load', () => {
+      bookingLoader.classList.add('hidden');
+    });
+
+    bookingBranchSelect.addEventListener('change', (e) => {
+      loadBookingFrame(e.target.value);
+    });
+
+    openBookingBtn.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+
     document.getElementById('closeBooking').addEventListener('click', () => {
       booking.classList.remove('active');
-      setTimeout(() => { booking.style.display = 'none'; }, 400);
+      syncBodyScrollLock();
+      setTimeout(() => { booking.style.display = 'none'; }, 360);
     });
 
     // =========================================================================
-    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & MENU LOGIC
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & VIEWPORT-CLAMPED MENU LOGIC
     // =========================================================================
     const bubble = document.getElementById('assistive-bubble');
     const menu = document.getElementById('assistive-menu');
@@ -752,7 +1795,7 @@
       if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
       let newX = initialX + dx;
       let newY = initialY + dy;
-      
+
       newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
       newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
 
@@ -769,10 +1812,24 @@
         if (isOpen) {
           menu.classList.remove('active');
         } else {
-          const bRect = bubble.getBoundingClientRect();
-          menu.style.bottom = (window.innerHeight - bRect.top + 10) + 'px';
-          menu.style.right = (window.innerWidth - bRect.right) + 'px';
           menu.classList.add('active');
+          const bRect = bubble.getBoundingClientRect();
+          const mWidth = menu.offsetWidth || 265;
+          const mHeight = menu.offsetHeight || 320;
+          const pad = 12;
+
+          let left = bRect.right - mWidth;
+          left = Math.max(pad, Math.min(window.innerWidth - mWidth - pad, left));
+
+          let top = bRect.top - mHeight - 10;
+          if (top < pad) {
+            top = Math.min(window.innerHeight - mHeight - pad, bRect.bottom + 10);
+          }
+
+          menu.style.left = left + 'px';
+          menu.style.top = top + 'px';
+          menu.style.right = 'auto';
+          menu.style.bottom = 'auto';
         }
       }
     });
@@ -783,10 +1840,12 @@
       }
     });
 
-    document.getElementById('menuBook').addEventListener('click', (e) => {
-      e.preventDefault();
-      menu.classList.remove('active');
-      openBookingModal();
+    document.querySelectorAll('[data-quick-branch]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        menu.classList.remove('active');
+        openBookingModal(null, item.dataset.quickBranch);
+      });
     });
 
     document.getElementById('menuDetails').addEventListener('click', (e) => {
@@ -795,7 +1854,6 @@
       openWebSheet();
     });
 
-    // Assistive Menu "Download App" action
     document.getElementById('menuInstallApp').addEventListener('click', async (e) => {
       e.preventDefault();
       menu.classList.remove('active');
@@ -810,7 +1868,7 @@
     });
 
     // =========================================================================
-    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
+    // FULL-SCREEN AUTO-FIT DETAILS MODAL (kingoffadezph.com)
     // =========================================================================
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
     const webSheet = document.getElementById('webSheet');
@@ -827,22 +1885,27 @@
         webSheetLoaded = true;
       }
       webSheet.style.display = 'flex';
-      requestAnimationFrame(() => webSheet.classList.add('active'));
+      requestAnimationFrame(() => {
+        webSheet.classList.add('active');
+        syncBodyScrollLock();
+      });
     }
 
     function closeWebSheet() {
       webSheet.classList.remove('active');
-      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
+      syncBodyScrollLock();
+      setTimeout(() => { webSheet.style.display = 'none'; }, 360);
     }
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
 
-    document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
     document.getElementById('reloadWebSheet').addEventListener('click', () => {
       webSheetLoader.classList.remove('hidden');
       webSheetFrame.src = DETAILS_URL;
     });
+
+    renderBranch(currentBranchKey);
 
     // =========================================================================
     // PWA ENGINE (UNIVERSAL INSTALL)
@@ -868,13 +1931,13 @@
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
         const manifestData = {
-          name: "King of Fadez | Booking App",
-          short_name: "King of Fadez",
-          description: "The Standard of Dasmariñas — Book your haircut & grooming appointment.",
+          name: "King of Fadez PH | Booking App",
+          short_name: "King of Fadez PH",
+          description: "The Standard of Dasmariñas & Cavite — Book your haircut & grooming appointment.",
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
-          orientation: "portrait",
+          orientation: "any",
           background_color: "#050505",
           theme_color: "#d4af37",
           icons: [
@@ -889,11 +1952,6 @@
       else logoImg.addEventListener('load', buildManifest);
     }
     initUniversalManifest();
-
-    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => self.clients.claim());`;
-      navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' }))).catch(() => {});
-    }
 
     const ua = navigator.userAgent || '';
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
