@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="icon" type="image/png" href="SHOP_BRANDING.jpg">
-  <link rel="apple-touch-icon" href="SHOP_BRANDING.jpg">
-  <title>KOF | Booking App</title>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505">
+  <title>King of Fadez | Booking App</title>
+  <meta name="description" content="King of Fadez • The Standard of Dasmariñas — Book your haircut & grooming appointment online.">
+
+  <!-- Browser & App Icons -->
+  <link rel="icon" type="image/gif" href="kof.gif">
+  <link rel="apple-touch-icon" href="kof.gif">
+
+  <!-- Open Graph (Facebook Messenger, Viber, WhatsApp, Telegram, iMessage, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="King of Fadez">
+  <meta property="og:title" content="King of Fadez | Book Your Appointment">
+  <meta property="og:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta property="og:image" content="kof.gif">
+  <meta property="og:image:secure_url" content="kof.gif">
+  <meta property="og:image:type" content="image/gif">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez Logo">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
+  <meta name="twitter:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta name="twitter:image" content="kof.gif">
+
+  <!-- Schema.org Fallback (Google / Viber / Android Shares) -->
+  <meta itemprop="name" content="King of Fadez | Book Your Appointment">
+  <meta itemprop="description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
+  <meta itemprop="image" content="kof.gif">
+
   <!-- Performance Hints -->
   <link rel="preconnect" href="https://script.google.com">
   <link rel="dns-prefetch" href="https://script.google.com">
@@ -22,12 +49,13 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       width: 100%;
       height: 100%;
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       background: #050505;
       color: #fff;
       overflow: hidden;
@@ -60,7 +88,7 @@
     .card {
       width: 100%;
       max-width: 380px;
-      padding: 35px 25px;
+      padding: 32px 25px;
       background: var(--glass);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -70,16 +98,28 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
     }
 
-    .crown-icon {
-      font-size: 3.5rem;
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.6));
-      line-height: 1;
+    .brand-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 10px;
+    }
+
+    .brand-logo {
+      width: 96px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.5);
+      display: block;
     }
 
     h1 {
       color: var(--gold);
       letter-spacing: 4px;
-      margin: 12px 0 5px;
+      margin: 8px 0 5px;
       font-size: 1.75rem;
       text-transform: uppercase;
       font-weight: 900;
@@ -254,7 +294,9 @@
   <!-- MAIN CARD -->
   <div id="overlay">
     <div class="card">
-      <div class="crown-icon">👑</div>
+      <div class="brand-logo-wrap">
+        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
+      </div>
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
 
