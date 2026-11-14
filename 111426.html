@@ -7,7 +7,7 @@
   <title>King of Fadez | Booking App</title>
   <meta name="description" content="King of Fadez • The Standard of Dasmariñas — Book your haircut & grooming appointment online.">
 
-  <!-- Universal Web App / PWA Meta Tags (iOS, Android, Windows, macOS) -->
+  <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="King of Fadez">
@@ -26,31 +26,15 @@
   <meta property="og:title" content="King of Fadez | Book Your Appointment">
   <meta property="og:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
   <meta property="og:image" content="kof.gif">
-  <meta property="og:image:secure_url" content="kof.gif">
-  <meta property="og:image:type" content="image/gif">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="King of Fadez Logo">
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Book Your Appointment">
-  <meta name="twitter:description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
-  <meta name="twitter:image" content="kof.gif">
-
-  <!-- Schema.org Fallback -->
-  <meta itemprop="name" content="King of Fadez | Book Your Appointment">
-  <meta itemprop="description" content="The Standard of Dasmariñas • Blk 4, Lot 18 Congressional Ave, Brgy San Miguel II, Dasmariñas, Cavite">
-  <meta itemprop="image" content="kof.gif">
 
   <!-- Performance Hints -->
   <link rel="preconnect" href="https://script.google.com">
-  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
     :root {
       --gold: #d4af37;
-      --glass: rgba(10, 10, 10, 0.55);
+      --glass: rgba(12, 12, 12, 0.75);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
     }
 
@@ -65,20 +49,22 @@
       width: 100%;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #050505;
+      background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
       color: #fff;
       overflow: hidden;
     }
 
-    /* BACKGROUND VIDEO */
-    #bg-video {
+    /* LIGHTNING FAST AMBIENT GLOW (NO VIDEO LAG) */
+    .bg-glow {
       position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.55) contrast(1.1);
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
       z-index: 0;
+      pointer-events: none;
     }
 
     /* MAIN OVERLAY */
@@ -97,14 +83,14 @@
     .card {
       width: 100%;
       max-width: 380px;
-      padding: 32px 25px;
+      padding: 30px 24px;
       background: var(--glass);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 28px;
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      border: 1px solid rgba(212, 175, 55, 0.38);
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
     }
 
     .brand-logo-wrap {
@@ -115,8 +101,8 @@
     }
 
     .brand-logo {
-      width: 96px;
-      height: 96px;
+      width: 90px;
+      height: 90px;
       object-fit: cover;
       border-radius: 50%;
       border: 2px solid rgba(212, 175, 55, 0.65);
@@ -129,7 +115,7 @@
       color: var(--gold);
       letter-spacing: 4px;
       margin: 8px 0 5px;
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       text-transform: uppercase;
       font-weight: 900;
     }
@@ -137,18 +123,18 @@
     .tagline {
       font-size: 0.72rem;
       letter-spacing: 2.5px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       opacity: 0.9;
       color: #e0e0e0;
     }
 
     .detail {
       text-align: left;
-      font-size: 0.85rem;
-      margin-bottom: 16px;
+      font-size: 0.84rem;
+      margin-bottom: 14px;
       line-height: 1.45;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 11px 14px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
@@ -165,11 +151,11 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin: 22px 0;
+      margin: 18px 0;
     }
 
     .link-btn {
-      padding: 13px;
+      padding: 12px;
       border-radius: 12px;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -177,6 +163,7 @@
       font-size: 0.8rem;
       font-weight: 600;
       text-decoration: none;
+      cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
     }
 
@@ -188,7 +175,7 @@
     .book-btn {
       display: block;
       width: 100%;
-      padding: 18px;
+      padding: 17px;
       border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
@@ -198,64 +185,260 @@
       text-transform: uppercase;
       text-decoration: none;
       box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s;
     }
 
     .book-btn:active {
       transform: scale(0.98);
     }
 
-    #audio-hint {
-      margin-top: 16px;
-      font-size: 0.7rem;
-      color: var(--gold);
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      animation: pulse 2s infinite;
+    /* ========================================================
+       iOS ASSISTIVETOUCH FLOATING MENU (Draggable & Interactive)
+       ======================================================== */
+    #assistive-bubble {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      background: rgba(14, 14, 14, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      z-index: 9980;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.15s ease, opacity 0.2s ease;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
+    #assistive-bubble img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      pointer-events: none;
     }
 
-    /* FLOATING APP DOWNLOAD SUGGESTION (RESPONSIVE FOR MOBILE & PC) */
+    #assistive-menu {
+      position: fixed;
+      bottom: 156px;
+      right: 20px;
+      width: 220px;
+      background: rgba(12, 12, 12, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 20px;
+      padding: 12px;
+      z-index: 9981;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      transform: scale(0.9) translateY(10px);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    #assistive-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .assistive-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .assistive-item:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+    }
+
+    .assistive-item span.icon {
+      font-size: 1.1rem;
+    }
+
+    /* FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) */
+    #webSheetBackdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 9990;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #webSheetBackdrop.active {
+      display: block;
+      opacity: 1;
+    }
+
+    #webSheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      max-width: 680px;
+      height: 88vh;
+      max-height: 88dvh;
+      background: #0c0c0c;
+      border-top: 2px solid var(--gold);
+      border-radius: 26px 26px 0 0;
+      z-index: 9995;
+      display: none;
+      flex-direction: column;
+      transform: translate(-50%, 100%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.95);
+      overflow: hidden;
+    }
+
+    #webSheet.active {
+      display: flex;
+      transform: translate(-50%, 0);
+    }
+
+    .sheet-drag-bar {
+      width: 44px;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.55);
+      margin: 9px auto 2px;
+      flex-shrink: 0;
+    }
+
+    .sheet-header {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      background: #0e0e0e;
+      flex-shrink: 0;
+    }
+
+    .sheet-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .sheet-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sheet-icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .sheet-scroll-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #fff;
+    }
+
+    #webSheetLoader {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      color: var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 2;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    #webSheetLoader.hidden { opacity: 0; }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #webSheetFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
       position: fixed;
-      bottom: max(18px, env(safe-area-inset-bottom));
+      bottom: max(16px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(150%);
       width: calc(100% - 32px);
       max-width: 400px;
-      background: rgba(14, 14, 14, 0.9);
+      background: rgba(14, 14, 14, 0.92);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.6);
       border-radius: 20px;
-      padding: 12px 14px;
+      padding: 11px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       z-index: 50;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.22);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       pointer-events: none;
-    }
-
-    @media (min-width: 768px) {
-      #install-float {
-        left: auto;
-        right: 24px;
-        bottom: 24px;
-        transform: translateY(150%);
-        max-width: 370px;
-      }
-      #install-float.show {
-        transform: translateY(0) !important;
-      }
     }
 
     #install-float.show {
@@ -267,15 +450,15 @@
     .install-info {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       text-align: left;
       flex: 1;
       min-width: 0;
     }
 
     .install-icon {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
       border: 1px solid var(--gold);
       object-fit: cover;
@@ -284,9 +467,8 @@
 
     .install-text strong {
       display: block;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: var(--gold);
-      letter-spacing: 0.4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -294,7 +476,7 @@
 
     .install-text span {
       display: block;
-      font-size: 0.69rem;
+      font-size: 0.68rem;
       color: #d0d0d0;
       margin-top: 2px;
     }
@@ -310,23 +492,12 @@
       background: var(--gold-gradient);
       color: #000;
       border: none;
-      padding: 10px 14px;
+      padding: 9px 14px;
       border-radius: 12px;
       font-size: 0.72rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
-      transition: transform 0.15s;
-    }
-
-    #install-btn:hover {
-      filter: brightness(1.08);
-    }
-
-    #install-btn:active {
-      transform: scale(0.96);
     }
 
     #dismiss-install {
@@ -342,18 +513,12 @@
       place-items: center;
     }
 
-    #dismiss-install:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.16);
-    }
-
-    /* UNIVERSAL DEVICE INSTALL GUIDE MODAL */
+    /* DEVICE INSTALL GUIDE MODAL */
     #device-guide {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       z-index: 100;
       display: none;
       align-items: center;
@@ -361,9 +526,7 @@
       padding: 20px;
     }
 
-    #device-guide.active {
-      display: flex;
-    }
+    #device-guide.active { display: flex; }
 
     .guide-sheet {
       width: 100%;
@@ -373,7 +536,6 @@
       border-radius: 24px;
       padding: 24px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
     }
 
     .guide-badge {
@@ -383,48 +545,28 @@
       color: var(--gold);
       font-size: 0.65rem;
       font-weight: 800;
-      letter-spacing: 1px;
       padding: 4px 10px;
       border-radius: 20px;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 {
-      color: #fff;
-      font-size: 1.05rem;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .guide-sheet p {
-      font-size: 0.8rem;
-      color: #bbb;
-      line-height: 1.45;
-      margin-bottom: 14px;
-    }
+    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       padding: 14px;
       text-align: left;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: #f0f0f0;
       line-height: 1.75;
       margin-bottom: 16px;
     }
 
-    .guide-steps b {
-      color: var(--gold);
-    }
-
-    .guide-btns {
-      display: flex;
-      gap: 8px;
-    }
+    .guide-steps b { color: var(--gold); }
+    .guide-btns { display: flex; gap: 8px; }
 
     .guide-btn-secondary {
       flex: 1;
@@ -486,12 +628,6 @@
       text-transform: uppercase;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     #closeBooking {
       background: rgba(255, 255, 255, 0.08);
       border: none;
@@ -515,17 +651,39 @@
 </head>
 <body>
 
-  <!-- VIDEO BACKGROUND -->
-  <video id="bg-video" autoplay muted loop playsinline preload="metadata">
-    <source src="IMG_1039.MOV" type="video/mp4">
-    <source src="IMG_1039.MOV" type="video/quicktime">
-  </video>
+  <!-- LIGHTNING FAST CSS BACKGROUND GLOW -->
+  <div class="bg-glow"></div>
+
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
+  <div id="assistive-bubble" title="AssistiveTouch Menu">
+    <img src="kof.gif" alt="Menu" id="logo-source">
+  </div>
+
+  <!-- ASSISTIVETOUCH POPUP MENU -->
+  <div id="assistive-menu">
+    <a href="#" class="assistive-item" id="menuBook">
+      <span class="icon">📅</span>
+      <span>Book Appointment</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuDetails">
+      <span class="icon">📜</span>
+      <span>Shop Details</span>
+    </a>
+    <a href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" class="assistive-item">
+      <span class="icon">🗺️</span>
+      <span>Google Maps</span>
+    </a>
+    <a href="https://www.tiktok.com/@kingoffadez.ph" target="_blank" class="assistive-item">
+      <span class="icon">📱</span>
+      <span>TikTok Page</span>
+    </a>
+  </div>
 
   <!-- MAIN CARD -->
   <div id="overlay">
     <div class="card">
       <div class="brand-logo-wrap">
-        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo" id="logo-source">
+        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo">
       </div>
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
@@ -544,15 +702,45 @@
         <a class="link-btn" href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" rel="noopener">🗺️ Maps</a>
         <a class="link-btn" href="https://www.tiktok.com/@kingoffadez.ph" target="_blank" rel="noopener">📱 TikTok</a>
         <a class="link-btn" href="https://www.facebook.com/share/r/1NQfs6Fcer/" target="_blank" rel="noopener">📘 FB Page</a>
-        <a class="link-btn" href="http://Kingoffadezph.com/" target="_blank" rel="noopener">🌐 Web</a>
+        <button type="button" class="link-btn" id="openWebBtn">🌐 Full Details</button>
       </div>
 
       <a href="#" class="book-btn" id="openBooking">Proceed to Booking</a>
-      <div id="audio-hint">🔊 Tap anywhere to enable sound</div>
     </div>
   </div>
 
-  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT (IOS / ANDROID / PC) -->
+  <!-- FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) -->
+  <div id="webSheetBackdrop"></div>
+  <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
+    <div class="sheet-drag-bar"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">
+        <span>👑</span>
+        <span>King of Fadez • Official Details</span>
+      </div>
+      <div class="sheet-actions">
+        <button class="sheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button class="sheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="sheet-scroll-container">
+      <div id="webSheetLoader">
+        <div class="spinner"></div>
+        <span>Loading Details...</span>
+      </div>
+      <iframe
+        id="webSheetFrame"
+        src="about:blank"
+        title="King of Fadez Details"
+        loading="lazy"
+        scrolling="yes"
+        allow="geolocation; clipboard-read; clipboard-write"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
   <div id="install-float" role="region" aria-label="Install App">
     <div class="install-info">
       <img src="kof.gif" alt="App Icon" class="install-icon">
@@ -572,7 +760,7 @@
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
       <h3>Install King of Fadez App</h3>
-      <p id="guide-desc">Add our app to your device for instant 1-tap booking:</p>
+      <p>Add our app to your device for instant 1-tap booking:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
         <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
@@ -585,11 +773,8 @@
   <div id="booking">
     <div class="booking-header">
       <span>Secure Booking</span>
-      <div class="header-actions">
-        <button id="closeBooking" aria-label="Close Booking">✕</button>
-      </div>
+      <button id="closeBooking" aria-label="Close Booking">✕</button>
     </div>
-
     <iframe
       id="bookingFrame"
       src="https://script.google.com/macros/s/AKfycbxuui-O2aZRHhkc5a-z9CIvKZ-g2MoqoZNFngyZHk5GIKyMdeU_JFKMtK8xGm_VmfCNUA/exec?branch=main"
@@ -599,40 +784,145 @@
   </div>
 
   <script>
-    const video = document.getElementById('bg-video');
-    const hint = document.getElementById('audio-hint');
     const booking = document.getElementById('booking');
 
-    // Enable video audio on first user interaction
-    document.body.addEventListener('click', () => {
-      if (video.muted) {
-        video.muted = false;
-        video.play().catch(() => {});
-        hint.style.display = 'none';
-      }
-    }, { once: true });
-
-    // Open Booking Modal
-    document.getElementById('openBooking').addEventListener('click', (e) => {
-      e.preventDefault();
+    // Open & Close Booking Modal
+    function openBookingModal(e) {
+      if (e) e.preventDefault();
       booking.style.display = 'flex';
       requestAnimationFrame(() => booking.classList.add('active'));
-    });
+    }
 
-    // Close Booking Modal
+    document.getElementById('openBooking').addEventListener('click', openBookingModal);
     document.getElementById('closeBooking').addEventListener('click', () => {
       booking.classList.remove('active');
-      setTimeout(() => {
-        booking.style.display = 'none';
-      }, 400);
+      setTimeout(() => { booking.style.display = 'none'; }, 400);
     });
 
     // =========================================================================
-    // UNIVERSAL PWA ENGINE (ANDROID, IOS, WINDOWS & MAC PC)
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & MENU LOGIC
     // =========================================================================
+    const bubble = document.getElementById('assistive-bubble');
+    const menu = document.getElementById('assistive-menu');
+    let isDragging = false;
+    let hasMoved = false;
+    let startX, startY, initialX, initialY;
 
-    // 1. Convert kof.gif into valid 192x192 & 512x512 PNG icons in-memory
-    // (Required by Android & PC Chrome/Edge to allow 1-click native installation)
+    bubble.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = bubble.getBoundingClientRect();
+      initialX = rect.left;
+      initialY = rect.top;
+      bubble.setPointerCapture(e.pointerId);
+    });
+
+    bubble.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        hasMoved = true;
+      }
+      let newX = initialX + dx;
+      let newY = initialY + dy;
+      
+      // Clamp to screen bounds
+      newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
+      newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
+
+      bubble.style.left = newX + 'px';
+      bubble.style.top = newY + 'px';
+      bubble.style.right = 'auto';
+      bubble.style.bottom = 'auto';
+    });
+
+    bubble.addEventListener('pointerup', (e) => {
+      isDragging = false;
+      if (!hasMoved) {
+        // Toggle menu
+        const isOpen = menu.classList.contains('active');
+        if (isOpen) {
+          menu.classList.remove('active');
+        } else {
+          // Position menu near the bubble
+          const bRect = bubble.getBoundingClientRect();
+          menu.style.bottom = (window.innerHeight - bRect.top + 10) + 'px';
+          menu.style.right = (window.innerWidth - bRect.right) + 'px';
+          menu.classList.add('active');
+        }
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!bubble.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    // Assistive menu actions
+    document.getElementById('menuBook').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      openBookingModal();
+    });
+
+    document.getElementById('menuDetails').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      openWebSheet();
+    });
+
+    // =========================================================================
+    // FLOATING SCROLLABLE DETAILS SHEET (kingoffadezph.com)
+    // =========================================================================
+    const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
+    const webSheet = document.getElementById('webSheet');
+    const webSheetBackdrop = document.getElementById('webSheetBackdrop');
+    const webSheetFrame = document.getElementById('webSheetFrame');
+    const webSheetLoader = document.getElementById('webSheetLoader');
+    let webSheetLoaded = false;
+
+    function openWebSheet() {
+      menu.classList.remove('active');
+      if (!webSheetLoaded) {
+        webSheetLoader.classList.remove('hidden');
+        webSheetFrame.src = DETAILS_URL;
+        webSheetLoaded = true;
+      }
+      webSheetBackdrop.style.display = 'block';
+      webSheet.style.display = 'flex';
+      requestAnimationFrame(() => {
+        webSheetBackdrop.classList.add('active');
+        webSheet.classList.add('active');
+      });
+    }
+
+    function closeWebSheet() {
+      webSheetBackdrop.classList.remove('active');
+      webSheet.classList.remove('active');
+      setTimeout(() => {
+        webSheetBackdrop.style.display = 'none';
+        webSheet.style.display = 'none';
+      }, 360);
+    }
+
+    webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
+
+    document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
+    document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
+    webSheetBackdrop.addEventListener('click', closeWebSheet);
+    document.getElementById('reloadWebSheet').addEventListener('click', () => {
+      webSheetLoader.classList.remove('hidden');
+      webSheetFrame.src = DETAILS_URL;
+    });
+
+    // =========================================================================
+    // PWA ENGINE (UNIVERSAL INSTALL)
+    // =========================================================================
     function createPngIcon(imgEl, size) {
       try {
         const canvas = document.createElement('canvas');
@@ -671,25 +961,16 @@
         const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
         document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
       };
-
       if (logoImg.complete) buildManifest();
       else logoImg.addEventListener('load', buildManifest);
     }
-
     initUniversalManifest();
 
-    // 2. Register Lightweight Service Worker (Required for Android & Desktop Chrome PWA Install)
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      const swCode = `
-        self.addEventListener('install', (e) => self.skipWaiting());
-        self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
-        self.addEventListener('fetch', (e) => {});
-      `;
-      const swBlob = new Blob([swCode], { type: 'application/javascript' });
-      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+      const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => self.clients.claim());`;
+      navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' }))).catch(() => {});
     }
 
-    // 3. Detect Device Platform (iOS, Android, Windows/Mac PC, In-App Browsers)
     const ua = navigator.userAgent || '';
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -705,28 +986,16 @@
     const deviceGuide = document.getElementById('device-guide');
     const deviceBadge = document.getElementById('device-badge');
     const guideSteps = document.getElementById('guide-steps');
-    const closeGuide = document.getElementById('close-guide');
-    const copyLinkBtn = document.getElementById('copy-link-btn');
-
     let deferredPrompt = null;
 
-    // Personalize floating banner subtitle per platform
-    if (isIOS) {
-      installSubtext.textContent = 'Add to iPhone / iPad Home Screen';
-    } else if (isAndroid) {
-      installSubtext.textContent = 'Install Android App • Fast 1-Tap Booking';
-    } else if (isWindows || isMac) {
-      installSubtext.textContent = 'Install Desktop App on your PC / Mac';
-    }
+    if (isIOS) installSubtext.textContent = 'Add to iPhone / iPad Home Screen';
+    else if (isAndroid) installSubtext.textContent = 'Install Android App • Fast Booking';
+    else if (isWindows || isMac) installSubtext.textContent = 'Install Desktop App on PC / Mac';
 
-    // Show floating prompt automatically if not already running as an installed app
     if (!isStandalone && !sessionStorage.getItem('kof_install_dismissed')) {
-      setTimeout(() => {
-        installFloat.classList.add('show');
-      }, 1800);
+      setTimeout(() => installFloat.classList.add('show'), 1500);
     }
 
-    // Capture Native Install Prompt (Android Chrome/Edge/Samsung & Desktop Chrome/Edge)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -735,82 +1004,48 @@
       }
     });
 
-    // Build Device-Specific Instructions when native 1-click prompt isn't available
     function openPlatformGuide() {
       if (isInAppBrowser) {
         deviceBadge.textContent = 'In-App Browser Detected';
-        guideSteps.innerHTML = `
-          1. Tap the <b>•••</b> or <b>Share</b> icon at the top/bottom corner.<br>
-          2. Select <b>"Open in Browser"</b> (Safari or Chrome).<br>
-          3. Tap <b>Install</b> again to save the app to your device.
-        `;
+        guideSteps.innerHTML = `1. Tap <b>•••</b> or <b>Share</b>.<br>2. Select <b>"Open in Browser"</b>.<br>3. Tap <b>Install</b> again.`;
       } else if (isIOS) {
         deviceBadge.textContent = 'iOS • iPhone & iPad';
-        guideSteps.innerHTML = `
-          1. Tap the <b>Share</b> icon (⬆️) in Safari's toolbar.<br>
-          2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
-          3. Tap <b>Add</b> in the top-right corner.
-        `;
+        guideSteps.innerHTML = `1. Tap <b>Share</b> (⬆️) in Safari.<br>2. Tap <b>"Add to Home Screen"</b>.<br>3. Tap <b>Add</b>.`;
       } else if (isAndroid) {
         deviceBadge.textContent = 'Android Device';
-        guideSteps.innerHTML = `
-          1. Tap the <b>⋮ Menu</b> icon in the top-right of Chrome.<br>
-          2. Tap <b>"Install app"</b> or <b>"Add to Home screen"</b>.<br>
-          3. Confirm by tapping <b>Install</b>.
-        `;
-      } else if (isMac) {
-        deviceBadge.textContent = 'macOS Desktop';
-        guideSteps.innerHTML = `
-          1. In <b>Chrome/Edge</b>: Click the <b>Install icon (⊕)</b> in the right side of the address bar.<br>
-          2. In <b>Safari</b>: Click <b>File → Add to Dock</b> in the top menu bar.
-        `;
+        guideSteps.innerHTML = `1. Tap <b>⋮ Menu</b> in Chrome.<br>2. Tap <b>"Install app"</b>.<br>3. Confirm <b>Install</b>.`;
       } else {
-        deviceBadge.textContent = 'Windows / Desktop PC';
-        guideSteps.innerHTML = `
-          1. Look at the right side of your browser's address bar and click the <b>Install App icon (⊕)</b>.<br>
-          2. Or click the <b>⋮ / ••• Menu → Save and share → Install King of Fadez</b>.
-        `;
+        deviceBadge.textContent = 'Desktop PC / Mac';
+        guideSteps.innerHTML = `1. Click the <b>Install icon (⊕)</b> in the address bar.<br>2. Or use browser menu to install app.`;
       }
       deviceGuide.classList.add('active');
     }
 
-    // Handle Install Button Click
     installBtn.addEventListener('click', async () => {
       if (deferredPrompt) {
-        // Triggers native Android / Windows / Mac Chrome & Edge App Install Dialog
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          installFloat.classList.remove('show');
-        }
+        if (outcome === 'accepted') installFloat.classList.remove('show');
         deferredPrompt = null;
       } else {
-        // Opens tailored guide for iOS Safari, Mac Safari, Firefox, or Messenger/TikTok in-app browser
         openPlatformGuide();
       }
     });
 
-    // Copy Link helper (especially useful for Messenger/TikTok in-app browsers)
-    copyLinkBtn.addEventListener('click', () => {
+    document.getElementById('copy-link-btn').addEventListener('click', (e) => {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        copyLinkBtn.textContent = 'Copied!';
-        setTimeout(() => copyLinkBtn.textContent = 'Copy Link', 2000);
+        e.target.textContent = 'Copied!';
+        setTimeout(() => e.target.textContent = 'Copy Link', 2000);
       });
     });
 
-    // Dismiss & Close Handlers
     dismissBtn.addEventListener('click', () => {
       installFloat.classList.remove('show');
       sessionStorage.setItem('kof_install_dismissed', 'true');
     });
 
-    closeGuide.addEventListener('click', () => {
-      deviceGuide.classList.remove('active');
-    });
-
-    window.addEventListener('appinstalled', () => {
-      installFloat.classList.remove('show');
-    });
+    document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
+    window.addEventListener('appinstalled', () => installFloat.classList.remove('show'));
   </script>
 
 </body>
