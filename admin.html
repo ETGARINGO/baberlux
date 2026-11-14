@@ -1,252 +1,1282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>KOF | Booking Terminal</title>
-    
-    <style>
-        :root {
-            --bg-dark: #000000;
-            --gold-flat: #a67c00; 
-            --gold-text: #d4af37;
-            --glass: rgba(20, 20, 22, 0.7);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505">
+  <title>King of Fadez | Admin Control Setup</title>
+  <meta name="description" content="King of Fadez • Dasmariñas Branch Command Center & Admin Control Setup">
 
-        body, html { 
-            margin: 0; padding: 0; height: 100%; width: 100%; 
-            overflow: hidden; background-color: var(--bg-dark); 
-            position: fixed; font-family: 'Segoe UI', Roboto, sans-serif;
-            color: white;
-        }
+  <!-- Universal Web App / PWA Meta Tags (iOS, Android, Windows, macOS) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KOF Admin">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="KOF Admin">
+  <meta name="msapplication-TileColor" content="#050505">
+  <link rel="manifest" id="pwa-manifest">
 
-        #bg-video {
-            position: fixed; top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
-            z-index: -1; transform: translate(-50%, -50%);
-            object-fit: cover; filter: brightness(0.6);
-        }
+  <!-- Browser & App Icons -->
+  <link rel="icon" type="image/gif" href="kof.gif">
+  <link rel="apple-touch-icon" href="kof.gif">
 
-        /* --- PERMANENT FLOATING BUTTON --- */
-        #floating-proof-trigger {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--gold-flat);
-            color: #000;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 0.7rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
-        }
+  <!-- Open Graph (Facebook Messenger, Viber, WhatsApp, Telegram, iMessage, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="King of Fadez">
+  <meta property="og:title" content="King of Fadez | Dasmariñas Branch">
+  <meta property="og:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta property="og:image" content="kof.gif">
+  <meta property="og:image:secure_url" content="kof.gif">
+  <meta property="og:image:type" content="image/gif">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez Logo">
 
-        /* --- FOLDER OVERLAY --- */
-        #folder-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-        }
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch">
+  <meta name="twitter:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta name="twitter:image" content="kof.gif">
 
-        .folder-header {
-            padding: 15px 20px;
-            background: #111;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--gold-flat);
-        }
+  <!-- Schema.org Fallback (Google / Viber / Android Shares) -->
+  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch">
+  <meta itemprop="description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta itemprop="image" content="kof.gif">
 
-        .close-folder {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+  <!-- Instant link prefetching for lightning speed -->
+  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?page=admin&branch=main">
 
-        #folder-frame { width: 100%; height: 100%; border: none; }
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --glass: rgba(12, 12, 12, 0.82);
+      --gold-gradient: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #aa7c11 100%);
+      --green: #2ecc71;
+      --red: #e74c3c;
+    }
 
-        /* --- LOGIN & UI --- */
-        #auth-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(0, 0, 0, 0.3); z-index: 10;
-            transition: opacity 0.5s ease;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .login-box {
-            text-align: center; padding: 40px 30px; border-radius: 24px;
-            background: var(--glass); border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            max-width: 350px; width: 88%; 
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #050505;
+      color: #fff;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
 
-        .btn-main {
-            width: 100%; padding: 16px; border: none; border-radius: 10px;
-            background: var(--gold-flat); color: #000; font-weight: 800; 
-            text-transform: uppercase; cursor: pointer; margin-bottom: 15px;
-        }
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35) contrast(1.15);
+      z-index: 0;
+    }
 
-        .btn-option {
-            width: 100%; padding: 12px; border: 1px solid #333; border-radius: 10px;
-            background: rgba(255,255,255,0.02); color: var(--gold-text); 
-            font-weight: 700; text-transform: uppercase; cursor: pointer; 
-            font-size: 0.75rem; margin-bottom: 8px;
-        }
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.88) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
 
-        /* --- CONTACT INFO STYLING --- */
-        .contact-info {
-            margin-top: 20px;
-            font-size: 0.65rem;
-            color: #bbb;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
-        }
-        
-        .location-tag {
-            color: var(--gold-text);
-            font-size: 0.7rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    #overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 2;
+    }
 
-        #exit-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            z-index: 200; background: #fff; color: #000; border: none;
-            padding: 10px 20px; border-radius: 50px; font-weight: 800;
-            font-size: 0.7rem; display: none; cursor: pointer;
-        }
+    .card {
+      width: 100%;
+      max-width: 410px;
+      padding: 26px 20px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 26px;
+      border: 1px solid rgba(212, 175, 55, 0.38);
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+      will-change: transform, opacity;
+    }
 
-        #secure-frame {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; display: none; z-index: 100; background: white;
-        }
-    </style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+
+    .shake {
+      animation: shake 0.3s ease-in-out;
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    #liveClock {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 0.8px;
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2px auto 8px;
+    }
+
+    .brand-logo {
+      width: 86px;
+      height: 86px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+      display: block;
+    }
+
+    h1 {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+      margin: 4px 0 2px;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .tagline {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      color: #aaa;
+      font-weight: 600;
+    }
+
+    /* PIN LOCK SCREEN */
+    #lock-screen {
+      display: block;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .pin-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid rgba(212, 175, 55, 0.5);
+      background: transparent;
+      transition: all 0.1s ease;
+    }
+
+    .pin-dot.filled {
+      background: var(--gold);
+      border-color: var(--gold);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+    }
+
+    .pin-dot.error {
+      border-color: var(--red);
+      background: var(--red);
+    }
+
+    #pin-error {
+      color: var(--red);
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-height: 16px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    #pin-error.visible {
+      opacity: 1;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 270px;
+      margin: 0 auto 10px;
+    }
+
+    .key-btn {
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.1s;
+    }
+
+    .key-btn:active {
+      transform: scale(0.93);
+      background: rgba(212, 175, 55, 0.25);
+    }
+
+    .key-btn.action-key {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    /* ADMIN DASHBOARD */
+    #admin-panel {
+      display: none;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-size: 0.78rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .dot.closed {
+      background: var(--red);
+      box-shadow: 0 0 8px var(--red);
+    }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .ctrl-btn {
+      padding: 14px 8px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.1s;
+      text-decoration: none;
+    }
+
+    .ctrl-btn span.icon {
+      font-size: 1.35rem;
+    }
+
+    .ctrl-btn span.sub-label {
+      font-size: 0.58rem;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .ctrl-btn:active {
+      transform: scale(0.96);
+      border-color: var(--gold);
+    }
+
+    .primary-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-size: 0.84rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      text-decoration: none;
+    }
+
+    .secondary-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #bbb;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* FLOATING APP DOWNLOAD SUGGESTION (IOS / ANDROID / PC) */
+    #install-float {
+      position: fixed;
+      bottom: max(16px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      width: calc(100% - 32px);
+      max-width: 410px;
+      background: rgba(14, 14, 14, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      border-radius: 20px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 50;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.22);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (min-width: 768px) {
+      #install-float {
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+        transform: translateY(150%);
+        max-width: 375px;
+      }
+      #install-float.show {
+        transform: translateY(0) !important;
+      }
+    }
+
+    #install-float.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .install-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-align: left;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .install-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .install-text strong {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--gold);
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .install-text span {
+      display: block;
+      font-size: 0.68rem;
+      color: #d0d0d0;
+      margin-top: 2px;
+    }
+
+    .install-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    #install-btn {
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+      transition: transform 0.15s;
+    }
+
+    #install-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    #install-btn:active {
+      transform: scale(0.96);
+    }
+
+    #dismiss-install {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #aaa;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    #dismiss-install:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* UNIVERSAL DEVICE INSTALL GUIDE MODAL */
+    #device-guide {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.84);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #device-guide.active {
+      display: flex;
+    }
+
+    .guide-sheet {
+      width: 100%;
+      max-width: 380px;
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+    }
+
+    .guide-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .guide-sheet h3 {
+      color: #fff;
+      font-size: 1.02rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .guide-sheet p {
+      font-size: 0.78rem;
+      color: #bbb;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .guide-steps {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: left;
+      font-size: 0.79rem;
+      color: #f0f0f0;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .guide-steps b {
+      color: var(--gold);
+    }
+
+    .guide-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .guide-btn-secondary {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: transparent;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #close-guide {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 900;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* INSTANT ADMIN MODAL (KEEPS USER LOCKED ON CUSTOM DNS) */
+    #adminModal {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      will-change: transform, opacity;
+      transform: translate3d(0, 100%, 0);
+      transition: transform 0.22s cubic-bezier(0.1, 1, 0.2, 1);
+    }
+
+    #adminModal.active {
+      display: flex;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .modal-header {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      background: #0b0b0b;
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 54px);
+      background: #0a0a0a;
+    }
+
+    #frameLoader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: var(--gold);
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    #frameLoader.hidden {
+      opacity: 0;
+    }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #adminFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="IMG_1039.MOV" type="video/mp4">
-    </video>
+  <!-- VIDEO BACKGROUND -->
+  <video id="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="IMG_1039.MOV" type="video/mp4">
+    <source src="IMG_1039.MOV" type="video/quicktime">
+  </video>
+  <div class="vignette"></div>
 
-    <button id="floating-proof-trigger" onclick="toggleFolder(true)">
-        📁 <span>Proof of Booking</span>
-    </button>
+  <!-- MAIN OVERLAY -->
+  <div id="overlay">
+    <div class="card" id="mainCard">
+      <div class="top-meta">
+        <span class="admin-badge">🔐 Admin Control</span>
+        <span id="liveClock">--:--</span>
+      </div>
 
-    <button id="exit-btn" onclick="closeSystem()">✕ Exit Terminal</button>
+      <div class="brand-logo-wrap">
+        <img src="kof.gif" alt="King of Fadez Logo" class="brand-logo" id="logo-source">
+      </div>
+      <h1>King of Fadez</h1>
+      <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
 
-    <div id="auth-overlay">
-        <div class="login-box">
-            <div style="font-size: 2.5rem;">👑</div>
-            <h2 style="color:var(--gold-text); margin: 5px 0 0 0; letter-spacing: 3px;">KING OF FADEZ</h2>
-            <div class="location-tag">Dasmariñas, Cavite</div>
-            
-            <input type="password" id="accessKey" placeholder="ADMIN KEY" maxlength="8" autocomplete="off" 
-                style="width: 100%; padding: 15px; margin-bottom: 10px; background: #000; border: 1px solid #222; border-radius: 10px; color: #fff; text-align: center; letter-spacing: 5px;">
-            
-            <button class="btn-main" onclick="validateKey()">UNLOCK ADMIN</button>
-            
-            <div style="margin: 15px 0; height: 1px; background: rgba(255,255,255,0.1);"></div>
-            
-            <button class="btn-option" style="background: rgba(166, 124, 0, 0.1); border-color: var(--gold-flat);" onclick="toggleFolder(true)">📁 Proof of Booking</button>
-            <button class="btn-option" onclick="openViewBook()">📖 CLIENT BOOKING VIEW</button>
-            <button class="btn-option" onclick="openDTR()">⏱️ DTR PORTAL</button>
-            
-            <div class="contact-info">
-                <div>📧 Kingoffadezph@gmail.com</div>
-                <div>📍 Blk 4, Lot 18 Congressional Ave</div>
-            </div>
-
-            <div id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 10px; display: none;">ACCESS DENIED</div>
+      <!-- 1. PIN LOCK SCREEN -->
+      <div id="lock-screen">
+        <div class="pin-dots" id="pinDots">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
         </div>
+        <div id="pin-error">Invalid PIN</div>
+
+        <div class="keypad">
+          <button class="key-btn" data-num="1">1</button>
+          <button class="key-btn" data-num="2">2</button>
+          <button class="key-btn" data-num="3">3</button>
+          <button class="key-btn" data-num="4">4</button>
+          <button class="key-btn" data-num="5">5</button>
+          <button class="key-btn" data-num="6">6</button>
+          <button class="key-btn" data-num="7">7</button>
+          <button class="key-btn" data-num="8">8</button>
+          <button class="key-btn" data-num="9">9</button>
+          <button class="key-btn action-key" id="clearPinBtn">CLR</button>
+          <button class="key-btn" data-num="0">0</button>
+          <button class="key-btn action-key" id="delPinBtn">⌫</button>
+        </div>
+      </div>
+
+      <!-- 2. ADMIN CONTROL PANEL -->
+      <div id="admin-panel">
+        <div class="status-bar">
+          <div class="status-indicator">
+            <span class="dot" id="statusDot"></span>
+            <span id="statusText">SHOP OPEN</span>
+          </div>
+          <button class="toggle-btn" id="toggleStatusBtn">Switch</button>
+        </div>
+
+        <div class="control-grid">
+          <button class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
+            <span class="icon">📅</span>
+            <span>Bookings</span>
+            <span class="sub-label">Queue & List</span>
+          </button>
+          <button class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
+            <span class="icon">✂️</span>
+            <span>POS / Walk-In</span>
+            <span class="sub-label">Quick Ticket</span>
+          </button>
+          <button class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
+            <span class="icon">💈</span>
+            <span>Barbers</span>
+            <span class="sub-label">Shifts & Staff</span>
+          </button>
+          <button class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
+            <span class="icon">⚙️</span>
+            <span>Shop Setup</span>
+            <span class="sub-label">Rates & Promos</span>
+          </button>
+        </div>
+
+        <button class="primary-btn" id="openFullAdmin">Open Full Admin Console</button>
+
+        <div class="secondary-actions">
+          <button class="sub-btn" id="openClientView">👁️ Client Preview</button>
+          <button class="sub-btn" id="lockBtn">🔒 Lock</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT (IOS / ANDROID / PC) -->
+  <div id="install-float" role="region" aria-label="Install Admin App">
+    <div class="install-info">
+      <img src="kof.gif" alt="App Icon" class="install-icon">
+      <div class="install-text">
+        <strong>Install KOF Admin App</strong>
+        <span id="install-subtext">Add to iOS, Android, or PC</span>
+      </div>
+    </div>
+    <div class="install-actions">
+      <button id="install-btn">Install</button>
+      <button id="dismiss-install" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- UNIVERSAL DEVICE INSTALL INSTRUCTIONS MODAL -->
+  <div id="device-guide">
+    <div class="guide-sheet">
+      <div class="guide-badge" id="device-badge">Install Guide</div>
+      <h3>Install KOF Admin App</h3>
+      <p>Install the Command Center directly on your device for instant full-screen access:</p>
+      <div class="guide-steps" id="guide-steps"></div>
+      <div class="guide-btns">
+        <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
+        <button id="close-guide">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTANT PRE-LOADED ADMIN MODAL (NO-EXIT DNS LOCKED FRAME) -->
+  <div id="adminModal">
+    <div class="modal-header">
+      <span id="modalTitle">Admin Console</span>
+      <div class="header-actions">
+        <button class="icon-btn" id="reloadFrame" title="Reload">↻</button>
+        <button class="icon-btn" id="closeModal" aria-label="Close">✕</button>
+      </div>
     </div>
 
-    <iframe id="secure-frame" src=""></iframe>
-
-    <div id="folder-overlay">
-        <div class="folder-header">
-            <span style="color: var(--gold-text); font-weight: bold; font-size: 0.8rem;">KOF | PROOF REPOSITORY</span>
-            <button class="close-folder" onclick="toggleFolder(false)">CLOSE ✕</button>
-        </div>
-        <iframe id="folder-frame" src=""></iframe>
+    <div class="iframe-wrapper">
+      <div id="frameLoader">
+        <div class="spinner"></div>
+        <span>Loading App...</span>
+      </div>
+      <!-- Sandbox intentionally omits allow-top-navigation so sublinks inside GAS cannot exit your custom DNS -->
+      <iframe
+        id="adminFrame"
+        src="about:blank"
+        sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
+  </div>
 
-    <script>
-        const MASTER_KEY = "1234";
-        const MANAGER_KEY = "101";
+  <script>
+    const ADMIN_PIN = "2026";
+    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec";
+    const BRANCH = "main";
 
-        const URL_BOOKING  = "https://script.google.com/macros/s/AKfycbxjLrPyptwEo4qUhYOIYeptfoN0lLQo_oh_bBE3rjLXSjzunU2YnxaL-Yvmcy-BIEDeEg/exec?page=Admin";
-        const URL_MANAGER  = "https://script.google.com/macros/s/AKfycbwr4AVfHrczlTyt_NF0PjUGEz__LYm2rTgiBe8d7-8Y4G_PX4nM2ePgUb5JnV_dFEnS5Q/exec?page=admin";
-        const URL_DTR      = "https://script.google.com/macros/s/AKfycbxAI_eQHkm_O8X4KkynDq-WDYFpgxm7cDuxgn-jgqT3e7GUfe1vOqJlLmK-LoN6hBmy/exec";
-        const URL_VIEWBOOK = "https://kingoffadezbarbershop.web247.online/";
-        const URL_PROOF    = "https://drive.google.com/embeddedfolderview?id=15x5-v0ykpQjiEr7KAcXAg4qczx0iF3cm#grid";
+    const mainCard = document.getElementById('mainCard');
+    const lockScreen = document.getElementById('lock-screen');
+    const adminPanel = document.getElementById('admin-panel');
+    const pinDots = document.querySelectorAll('.pin-dot');
+    const pinError = document.getElementById('pin-error');
+    const adminModal = document.getElementById('adminModal');
+    const adminFrame = document.getElementById('adminFrame');
+    const frameLoader = document.getElementById('frameLoader');
+    const modalTitle = document.getElementById('modalTitle');
 
-        const overlay = document.getElementById('auth-overlay');
-        const frame   = document.getElementById('secure-frame');
-        const exitBtn = document.getElementById('exit-btn');
-        const folderOverlay = document.getElementById('folder-overlay');
-        const folderFrame = document.getElementById('folder-frame');
+    let enteredPin = "";
+    let currentSrc = "";
+    let pendingSublink = null;
 
-        function toggleFolder(show) {
-            if (show) {
-                folderFrame.src = URL_PROOF;
-                folderOverlay.style.display = 'flex';
-            } else {
-                folderOverlay.style.display = 'none';
-                folderFrame.src = '';
-            }
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+
+    // Check if URL has a sublink query/hash on load
+    function parseInitialSublink() {
+      const params = new URLSearchParams(window.location.search);
+      const pageParam = params.get('page');
+      const viewParam = params.get('view') || window.location.hash.replace('#', '');
+      if (pageParam || viewParam) {
+        pendingSublink = {
+          title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
+          page: pageParam || 'admin',
+          view: viewParam || 'admin'
+        };
+      }
+    }
+    parseInitialSublink();
+
+    // Instant unlock check
+    if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+      showAdminPanel();
+    }
+
+    function showAdminPanel() {
+      lockScreen.style.display = 'none';
+      adminPanel.style.display = 'block';
+      if (pendingSublink) {
+        const sub = pendingSublink;
+        pendingSublink = null;
+        launchRoute(sub.title, sub.page, sub.view);
+      }
+    }
+
+    function lockAdminPanel() {
+      sessionStorage.removeItem('kof_admin_unlocked');
+      enteredPin = "";
+      updatePinDots();
+      adminPanel.style.display = 'none';
+      lockScreen.style.display = 'block';
+    }
+
+    function updatePinDots(isError = false) {
+      pinDots.forEach((dot, index) => {
+        dot.classList.remove('filled', 'error');
+        if (isError) dot.classList.add('error');
+        else if (index < enteredPin.length) dot.classList.add('filled');
+      });
+    }
+
+    function handleDigitInput(digit) {
+      if (enteredPin.length >= ADMIN_PIN.length) return;
+      pinError.classList.remove('visible');
+      enteredPin += digit;
+      updatePinDots();
+
+      if (enteredPin.length === ADMIN_PIN.length) {
+        setTimeout(verifyPin, 80);
+      }
+    }
+
+    function verifyPin() {
+      if (enteredPin === ADMIN_PIN) {
+        sessionStorage.setItem('kof_admin_unlocked', 'true');
+        showAdminPanel();
+      } else {
+        updatePinDots(true);
+        pinError.classList.add('visible');
+        mainCard.classList.remove('shake');
+        void mainCard.offsetWidth;
+        mainCard.classList.add('shake');
+        setTimeout(() => { enteredPin = ""; updatePinDots(); }, 350);
+      }
+    }
+
+    document.querySelectorAll('.key-btn[data-num]').forEach(btn => {
+      btn.addEventListener('click', () => handleDigitInput(btn.dataset.num));
+    });
+    document.getElementById('clearPinBtn').addEventListener('click', () => { enteredPin = ""; updatePinDots(); });
+    document.getElementById('delPinBtn').addEventListener('click', () => { enteredPin = enteredPin.slice(0, -1); updatePinDots(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (lockScreen.style.display === 'none') return;
+      if (e.key >= '0' && e.key <= '9') handleDigitInput(e.key);
+      else if (e.key === 'Backspace') { enteredPin = enteredPin.slice(0, -1); updatePinDots(); }
+    });
+
+    document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
+
+    // Shop Status Toggle
+    let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+
+    function updateStatusUI() {
+      statusDot.classList.toggle('closed', !isShopOpen);
+      statusText.textContent = isShopOpen ? 'SHOP OPEN' : 'SHOP CLOSED';
+      statusText.style.color = isShopOpen ? '#2ecc71' : '#e74c3c';
+    }
+    updateStatusUI();
+
+    document.getElementById('toggleStatusBtn').addEventListener('click', () => {
+      isShopOpen = !isShopOpen;
+      localStorage.setItem('kof_shop_open', isShopOpen);
+      updateStatusUI();
+    });
+
+    // Open any URL directly inside the DNS-locked modal without leaving the domain
+    function openUrlInLockedDns(title, targetUrl) {
+      modalTitle.textContent = title || 'Admin Console';
+
+      if (currentSrc !== targetUrl) {
+        currentSrc = targetUrl;
+        frameLoader.classList.remove('hidden');
+        adminFrame.src = targetUrl;
+      }
+
+      if (!adminModal.classList.contains('active')) {
+        history.pushState({ kofModalOpen: true }, '', window.location.href);
+      }
+
+      adminModal.style.display = 'flex';
+      requestAnimationFrame(() => adminModal.classList.add('active'));
+    }
+
+    function closeLockedModal(fromPopState = false) {
+      if (!adminModal.classList.contains('active')) return;
+      adminModal.classList.remove('active');
+      setTimeout(() => {
+        if (!adminModal.classList.contains('active')) {
+          adminModal.style.display = 'none';
         }
+      }, 220);
 
-        function validateKey() {
-            const input = document.getElementById('accessKey').value;
-            if (input === MASTER_KEY) launchSystem(URL_BOOKING);
-            else if (input === MANAGER_KEY) launchSystem(URL_MANAGER);
-            else {
-                document.getElementById('error-msg').style.display = "block";
-                document.getElementById('accessKey').value = "";
-            }
+      if (!fromPopState && history.state && history.state.kofModalOpen) {
+        history.back();
+      }
+    }
+
+    // Lightning Fast Route Launcher (Stays 100% on current DNS)
+    function launchRoute(title, pageParam, viewParam) {
+      const url = new URL(BASE_SCRIPT_URL);
+      url.searchParams.set('page', pageParam);
+      url.searchParams.set('branch', BRANCH);
+      if (viewParam) url.searchParams.set('view', viewParam);
+      openUrlInLockedDns(title, url.toString());
+    }
+
+    adminFrame.addEventListener('load', () => {
+      frameLoader.classList.add('hidden');
+    });
+
+    // Global Link & Sublink Interceptor: Prevents any <a> or sublink from exiting the DNS
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+
+      const rawHref = link.getAttribute('href');
+      if (!rawHref || rawHref.startsWith('javascript:')) return;
+
+      e.preventDefault();
+
+      if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
+        const cleanView = rawHref.replace(/^[#?]+/, '');
+        const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
+        const page = subParams.get('page') || link.dataset.page || 'admin';
+        const view = subParams.get('view') || link.dataset.view || cleanView || 'admin';
+        launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+        return;
+      }
+
+      try {
+        const resolved = new URL(rawHref, window.location.href);
+        if (resolved.origin === window.location.origin) {
+          const page = resolved.searchParams.get('page') || link.dataset.page || 'admin';
+          const view = resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin';
+          launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+        } else {
+          openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
         }
+      } catch (_) {}
+    }, true);
 
-        function openDTR() { launchSystem(URL_DTR); }
-        function openViewBook() { launchSystem(URL_VIEWBOOK); }
+    // Keep Device / Messenger / Viber Back Button inside the DNS without exiting
+    history.replaceState({ kofBaseDns: true }, '', window.location.href);
+    window.addEventListener('popstate', () => {
+      if (adminModal.classList.contains('active')) {
+        closeLockedModal(true);
+      } else {
+        history.pushState({ kofBaseDns: true }, '', window.location.href);
+      }
+    });
 
-        function launchSystem(targetUrl) {
-            frame.src = targetUrl;
-            overlay.style.opacity = "0";
-            setTimeout(() => {
-                overlay.style.display = "none";
-                frame.style.display = "block";
-                exitBtn.style.display = "block";
-            }, 500);
+    document.querySelectorAll('.ctrl-btn').forEach(btn => {
+      btn.addEventListener('click', () => launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view));
+    });
+
+    document.getElementById('openFullAdmin').addEventListener('click', () => launchRoute('Full Admin Console', 'admin', 'admin'));
+    document.getElementById('openClientView').addEventListener('click', () => launchRoute('Client Booking Preview', 'client', 'client'));
+
+    document.getElementById('reloadFrame').addEventListener('click', () => {
+      frameLoader.classList.remove('hidden');
+      adminFrame.src = adminFrame.src;
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
+
+    // =========================================================================
+    // UNIVERSAL PWA ENGINE (ANDROID, IOS, WINDOWS & MAC PC)
+    // =========================================================================
+    function createPngIcon(imgEl, size) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(imgEl, 0, 0, size, size);
+        return canvas.toDataURL('image/png');
+      } catch (e) {
+        return new URL('kof.gif', window.location.href).href;
+      }
+    }
+
+    function initUniversalManifest() {
+      const logoImg = document.getElementById('logo-source');
+      const buildManifest = () => {
+        const icon192 = createPngIcon(logoImg, 192);
+        const icon512 = createPngIcon(logoImg, 512);
+        const manifestData = {
+          name: "King of Fadez | Admin Control",
+          short_name: "KOF Admin",
+          description: "King of Fadez • Dasmariñas Branch Command Center",
+          start_url: window.location.href,
+          scope: "./",
+          display: "standalone",
+          orientation: "portrait",
+          background_color: "#050505",
+          theme_color: "#d4af37",
+          icons: [
+            { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
+      };
+
+      if (logoImg.complete) buildManifest();
+      else logoImg.addEventListener('load', buildManifest);
+    }
+
+    initUniversalManifest();
+
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      const swCode = `
+        self.addEventListener('install', (e) => self.skipWaiting());
+        self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+        self.addEventListener('fetch', (e) => {});
+      `;
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+    }
+
+    const ua = navigator.userAgent || '';
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isMac = /Macintosh|MacIntel/i.test(ua) && !isIOS;
+    const isWindows = /Windows/i.test(ua);
+    const isInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview|Line|Viber/i.test(ua);
+
+    const installFloat = document.getElementById('install-float');
+    const installSubtext = document.getElementById('install-subtext');
+    const installBtn = document.getElementById('install-btn');
+    const dismissBtn = document.getElementById('dismiss-install');
+    const deviceGuide = document.getElementById('device-guide');
+    const deviceBadge = document.getElementById('device-badge');
+    const guideSteps = document.getElementById('guide-steps');
+    const closeGuide = document.getElementById('close-guide');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+
+    let deferredPrompt = null;
+
+    if (isIOS) {
+      installSubtext.textContent = 'Add Admin App to iPhone / iPad';
+    } else if (isAndroid) {
+      installSubtext.textContent = 'Install Android Admin App';
+    } else if (isWindows || isMac) {
+      installSubtext.textContent = 'Install Desktop App on PC / Mac';
+    }
+
+    if (!isStandalone && !sessionStorage.getItem('kof_admin_install_dismissed')) {
+      setTimeout(() => {
+        installFloat.classList.add('show');
+      }, 1500);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && !sessionStorage.getItem('kof_admin_install_dismissed')) {
+        installFloat.classList.add('show');
+      }
+    });
+
+    function openPlatformGuide() {
+      if (isInAppBrowser) {
+        deviceBadge.textContent = 'In-App Browser Detected';
+        guideSteps.innerHTML = `
+          1. Tap the <b>•••</b> or <b>Share</b> icon at the top/bottom corner.<br>
+          2. Select <b>"Open in Browser"</b> (Safari or Chrome).<br>
+          3. Tap <b>Install</b> again to save KOF Admin to your device.
+        `;
+      } else if (isIOS) {
+        deviceBadge.textContent = 'iOS • iPhone & iPad';
+        guideSteps.innerHTML = `
+          1. Tap the <b>Share</b> icon (⬆️) in Safari's toolbar.<br>
+          2. Scroll down and tap <b>"Add to Home Screen"</b>.<br>
+          3. Tap <b>Add</b> in the top-right corner.
+        `;
+      } else if (isAndroid) {
+        deviceBadge.textContent = 'Android Device';
+        guideSteps.innerHTML = `
+          1. Tap the <b>⋮ Menu</b> icon in the top-right of Chrome.<br>
+          2. Tap <b>"Install app"</b> or <b>"Add to Home screen"</b>.<br>
+          3. Confirm by tapping <b>Install</b>.
+        `;
+      } else if (isMac) {
+        deviceBadge.textContent = 'macOS Desktop';
+        guideSteps.innerHTML = `
+          1. In <b>Chrome/Edge</b>: Click the <b>Install icon (⊕)</b> in the right side of the address bar.<br>
+          2. In <b>Safari</b>: Click <b>File → Add to Dock</b> in the top menu bar.
+        `;
+      } else {
+        deviceBadge.textContent = 'Windows / Desktop PC';
+        guideSteps.innerHTML = `
+          1. Look at the right side of your browser's address bar and click the <b>Install App icon (⊕)</b>.<br>
+          2. Or click the <b>⋮ / ••• Menu → Save and share → Install KOF Admin</b>.
+        `;
+      }
+      deviceGuide.classList.add('active');
+    }
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installFloat.classList.remove('show');
         }
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
 
-        function closeSystem() {
-            frame.style.display = "none";
-            exitBtn.style.display = "none";
-            frame.src = "";
-            overlay.style.display = "flex";
-            setTimeout(() => { overlay.style.opacity = "1"; }, 10);
-        }
+    copyLinkBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        copyLinkBtn.textContent = 'Copied!';
+        setTimeout(() => copyLinkBtn.textContent = 'Copy Link', 2000);
+      });
+    });
 
-        document.getElementById("accessKey").addEventListener("keyup", e => {
-            if (e.key === "Enter") validateKey();
-        });
-    </script>
+    dismissBtn.addEventListener('click', () => {
+      installFloat.classList.remove('show');
+      sessionStorage.setItem('kof_admin_install_dismissed', 'true');
+    });
+
+    closeGuide.addEventListener('click', () => {
+      deviceGuide.classList.remove('active');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installFloat.classList.remove('show');
+    });
+  </script>
+
 </body>
 </html>
