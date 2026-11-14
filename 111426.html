@@ -46,7 +46,7 @@
     :root {
       --gold: #d4af37;
       --gold-light: #f3d573;
-      --glass: rgba(12, 12, 12, 0.82);
+      --glass: rgba(12, 12, 12, 0.84);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
     }
 
@@ -94,8 +94,8 @@
     .card {
       margin: auto;
       width: 100%;
-      max-width: 420px;
-      padding: 24px 20px;
+      max-width: 430px;
+      padding: 24px 18px;
       background: var(--glass);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -105,51 +105,94 @@
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
     }
 
+    /* CLICKABLE HERO BRAND LOGO */
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto 8px;
+      margin: 0 auto 10px;
+    }
+
+    .hero-logo-btn {
+      position: relative;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .hero-logo-btn:hover {
+      transform: scale(1.04);
+    }
+
+    .hero-logo-btn:active {
+      transform: scale(0.96);
     }
 
     .brand-logo {
-      width: 78px;
-      height: 78px;
+      width: 84px;
+      height: 84px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 22px rgba(212, 175, 55, 0.45);
+      border: 2px solid var(--gold);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
       display: block;
+    }
+
+    .hero-logo-pill {
+      margin-top: -10px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-size: 0.56rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     }
 
     h1 {
       color: var(--gold);
-      letter-spacing: 3.5px;
-      margin: 6px 0 4px;
-      font-size: 1.55rem;
+      letter-spacing: 3px;
+      margin: 4px 0 4px;
+      font-size: 1.5rem;
       text-transform: uppercase;
       font-weight: 900;
     }
 
     .tagline {
-      font-size: 0.68rem;
-      letter-spacing: 2.2px;
+      font-size: 0.67rem;
+      letter-spacing: 2px;
       margin-bottom: 16px;
       opacity: 0.9;
       color: #e0e0e0;
     }
 
-    /* BRANCH SELECTOR */
+    /* BRANCH SELECTOR WITH INDIVIDUAL CLICKABLE LOGOS */
     .selector-label {
-      display: block;
-      text-align: left;
-      font-size: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.64rem;
       font-weight: 800;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.3px;
       color: var(--gold);
       text-transform: uppercase;
       margin-bottom: 8px;
+    }
+
+    .selector-hint {
+      font-size: 0.58rem;
+      font-weight: 600;
+      color: #aaa;
+      letter-spacing: 0.5px;
+      text-transform: none;
     }
 
     .branch-grid {
@@ -161,39 +204,69 @@
 
     .branch-tab {
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 14px;
-      padding: 10px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 9px 10px;
       color: #fff;
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
-      flex-direction: column;
-      gap: 2px;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
     }
 
     .branch-tab:hover {
-      border-color: rgba(212, 175, 55, 0.55);
-      background: rgba(212, 175, 55, 0.08);
+      border-color: rgba(212, 175, 55, 0.6);
+      background: rgba(212, 175, 55, 0.09);
+      transform: translateY(-1px);
+    }
+
+    .branch-tab:active {
+      transform: scale(0.98);
     }
 
     .branch-tab.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(184, 134, 11, 0.12));
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.24), rgba(184, 134, 11, 0.12));
       border-color: var(--gold);
-      box-shadow: 0 0 14px rgba(212, 175, 55, 0.22);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+    }
+
+    .branch-tab-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(212, 175, 55, 0.65);
+      background: #000;
+      flex-shrink: 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .branch-tab.active .branch-tab-logo {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+    }
+
+    .branch-tab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
     }
 
     .branch-tab-num {
-      font-size: 0.64rem;
+      font-size: 0.61rem;
       font-weight: 900;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--gold);
     }
 
     .branch-tab-name {
-      font-size: 0.77rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: #f5f5f5;
       white-space: nowrap;
@@ -207,7 +280,7 @@
       border: 1px solid rgba(212, 175, 55, 0.22);
       border-radius: 16px;
       padding: 12px 14px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       text-align: left;
       transition: opacity 0.18s ease;
     }
@@ -222,17 +295,37 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    .branch-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .panel-mini-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
     .branch-title {
-      font-size: 0.86rem;
+      font-size: 0.83rem;
       font-weight: 800;
       color: var(--gold-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .branch-badge {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.9px;
       padding: 3px 8px;
       border-radius: 999px;
       background: rgba(212, 175, 55, 0.16);
@@ -242,7 +335,7 @@
     }
 
     .detail-row {
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       line-height: 1.45;
       margin-bottom: 8px;
       color: #eaeaea;
@@ -255,7 +348,7 @@
     .detail-row strong {
       display: block;
       color: var(--gold);
-      font-size: 0.62rem;
+      font-size: 0.61rem;
       letter-spacing: 1.4px;
       text-transform: uppercase;
       margin-bottom: 2px;
@@ -276,7 +369,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin: 12px 0 14px;
+      margin: 10px 0 14px;
     }
 
     .link-btn {
@@ -285,7 +378,7 @@
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      font-size: 0.77rem;
+      font-size: 0.76rem;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
@@ -302,13 +395,16 @@
     }
 
     .book-btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
       width: 100%;
-      padding: 16px 14px;
+      padding: 15px 14px;
       border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 900;
       letter-spacing: 0.8px;
       text-transform: uppercase;
@@ -319,6 +415,15 @@
 
     .book-btn:active {
       transform: scale(0.98);
+    }
+
+    .book-btn-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #000;
+      background: #000;
     }
 
     /* =========================================================
@@ -356,7 +461,7 @@
 
     #assistive-menu {
       position: fixed;
-      width: 235px;
+      width: 245px;
       background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -392,12 +497,12 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 9px 11px;
+      padding: 8px 10px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -407,6 +512,15 @@
     .assistive-item:hover {
       background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
+    }
+
+    .assistive-branch-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gold);
+      flex-shrink: 0;
     }
 
     /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
@@ -685,6 +799,15 @@
       min-width: 0;
     }
 
+    #bookingHeaderLogo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      flex-shrink: 0;
+    }
+
     #bookingBranchSelect {
       background: #161616;
       color: var(--gold-light);
@@ -734,25 +857,32 @@
   <!-- AMBIENT GLOW -->
   <div class="bg-glow"></div>
 
+  <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
+  <img src="kol.gif" alt="" id="logo-source" style="display:none;">
+
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
   <div id="assistive-bubble" title="Quick Branch Menu">
-    <img src="kol.gif" alt="Menu" id="logo-source">
+    <img src="kol.gif" alt="Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='kol.gif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
   <div id="assistive-menu">
     <div class="assistive-section-title">Quick Book Branch</div>
     <a href="#" class="assistive-item" data-quick-branch="branch1">
-      <span>📅</span><span>Branch 1 • Don Placido</span>
+      <img src="b1.jfif" alt="Branch 1" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <span>Branch 1 • Don Placido</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch2">
-      <span>📅</span><span>Branch 2 • Congressional</span>
+      <img src="b2.jfif" alt="Branch 2" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <span>Branch 2 • Congressional</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch3">
-      <span>📅</span><span>Branch 3 • Slick &amp; Dapper</span>
+      <img src="b3.jfif" alt="Branch 3" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <span>Branch 3 • Slick &amp; Dapper</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch4">
-      <span>📅</span><span>Branch 4 • Imus Highway</span>
+      <img src="b4.jfif" alt="Branch 4" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <span>Branch 4 • Imus Highway</span>
     </a>
     <div class="assistive-section-title" style="margin-top: 2px;">More</div>
     <a href="#" class="assistive-item" id="menuDetails">
@@ -766,36 +896,64 @@
   <!-- MAIN CARD -->
   <div id="overlay">
     <div class="card">
+      <!-- CLICKABLE ACTIVE BRAND LOGO -->
       <div class="brand-logo-wrap">
-        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
+        <button type="button" class="hero-logo-btn" id="heroBrandBtn" title="Tap Logo to Book Selected Branch">
+          <img src="b2.jfif" alt="Selected Brand Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='kol.gif';">
+          <span class="hero-logo-pill">Tap Logo to Book</span>
+        </button>
       </div>
+
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
 
-      <span class="selector-label">1. Select Your Preferred Branch</span>
+      <div class="selector-label">
+        <span>1. Choose Branch Brand</span>
+        <span class="selector-hint">Tap logo to select / book</span>
+      </div>
+
+      <!-- 4 CLICKABLE BRANCH BRAND CARDS WITH INDIVIDUAL LOGOS -->
       <div class="branch-grid" id="branchGrid">
-        <button type="button" class="branch-tab" data-branch="branch1">
-          <span class="branch-tab-num">Branch 1</span>
-          <span class="branch-tab-name">Don Placido Ave</span>
+        <button type="button" class="branch-tab" data-branch="branch1" title="Select or Book Branch 1">
+          <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 1</span>
+            <span class="branch-tab-name">Don Placido Ave</span>
+          </div>
         </button>
-        <button type="button" class="branch-tab active" data-branch="branch2">
-          <span class="branch-tab-num">Branch 2 • Main</span>
-          <span class="branch-tab-name">Congressional Ave</span>
+
+        <button type="button" class="branch-tab active" data-branch="branch2" title="Select or Book Branch 2">
+          <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 2 • Main</span>
+            <span class="branch-tab-name">Congressional Ave</span>
+          </div>
         </button>
-        <button type="button" class="branch-tab" data-branch="branch3">
-          <span class="branch-tab-num">Branch 3</span>
-          <span class="branch-tab-name">Slick &amp; Dapper</span>
+
+        <button type="button" class="branch-tab" data-branch="branch3" title="Select or Book Branch 3">
+          <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 3</span>
+            <span class="branch-tab-name">Slick &amp; Dapper</span>
+          </div>
         </button>
-        <button type="button" class="branch-tab" data-branch="branch4">
-          <span class="branch-tab-num">Branch 4</span>
-          <span class="branch-tab-name">Imus Highway</span>
+
+        <button type="button" class="branch-tab" data-branch="branch4" title="Select or Book Branch 4">
+          <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch 4</span>
+            <span class="branch-tab-name">Imus Highway</span>
+          </div>
         </button>
       </div>
 
       <!-- DYNAMIC BRANCH INFO PANEL -->
       <div class="branch-panel" id="branchPanel">
         <div class="branch-header-row">
-          <span class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</span>
+          <div class="branch-header-brand">
+            <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" title="Tap to Book" onerror="this.onerror=null;this.src='kol.gif';">
+            <span class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</span>
+          </div>
           <span class="branch-badge" id="branchBadge">Main Branch</span>
         </div>
 
@@ -815,7 +973,10 @@
       <div class="socials" id="branchSocials"></div>
 
       <!-- PRIMARY BOOKING CTA -->
-      <a href="#" class="book-btn" id="openBooking">Book Branch 2 • Congressional</a>
+      <a href="#" class="book-btn" id="openBooking">
+        <img src="b2.jfif" alt="" class="book-btn-logo" id="bookBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
+        <span id="openBookingText">Book Branch 2 • Congressional</span>
+      </a>
     </div>
   </div>
 
@@ -877,7 +1038,7 @@
   <div id="booking">
     <div class="booking-header">
       <div class="booking-header-left">
-        <span>Booking:</span>
+        <img src="b2.jfif" alt="Branch Logo" id="bookingHeaderLogo" onerror="this.onerror=null;this.src='kol.gif';">
         <select id="bookingBranchSelect" aria-label="Switch Booking Branch">
           <option value="branch1">Branch 1 • Don Placido</option>
           <option value="branch2" selected>Branch 2 • Congressional</option>
@@ -903,10 +1064,11 @@
 
   <script>
     // =========================================================================
-    // BRANCH DIRECTORY & BOOKING ENDPOINTS
+    // BRANCH DIRECTORY, INDIVIDUAL LOGOS & BOOKING ENDPOINTS
     // =========================================================================
     const BRANCHES = {
       branch1: {
+        logo: "b1.jfif",
         shortName: "Branch 1 • Don Placido",
         title: "Branch 1 • Don Placido Campos Ave",
         badge: "Dasmariñas",
@@ -921,6 +1083,7 @@
         ]
       },
       branch2: {
+        logo: "b2.jfif",
         shortName: "Branch 2 • Congressional",
         title: "Branch 2 • Congressional Ave",
         badge: "Main Branch",
@@ -936,6 +1099,7 @@
         ]
       },
       branch3: {
+        logo: "b3.jfif",
         shortName: "Branch 3 • Slick & Dapper",
         title: "Branch 3 • Slick and Dapper Barbershop",
         badge: "Dasmariñas",
@@ -949,6 +1113,7 @@
         ]
       },
       branch4: {
+        logo: "b4.jfif",
         shortName: "Branch 4 • Imus Highway",
         title: "Branch 4 • Emilio Aguinaldo Hwy",
         badge: "Imus, Cavite",
@@ -969,6 +1134,12 @@
     if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
 
     const branchTabs = document.querySelectorAll('.branch-tab');
+    const heroBrandLogo = document.getElementById('heroBrandLogo');
+    const panelMiniLogo = document.getElementById('panelMiniLogo');
+    const bookBtnLogo = document.getElementById('bookBtnLogo');
+    const bookingHeaderLogo = document.getElementById('bookingHeaderLogo');
+    const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
+
     const branchTitleEl = document.getElementById('branchTitle');
     const branchBadgeEl = document.getElementById('branchBadge');
     const branchAddressEl = document.getElementById('branchAddress');
@@ -976,7 +1147,16 @@
     const branchEmailEl = document.getElementById('branchEmail');
     const branchSocialsEl = document.getElementById('branchSocials');
     const openBookingBtn = document.getElementById('openBooking');
+    const openBookingText = document.getElementById('openBookingText');
     const bookingBranchSelect = document.getElementById('bookingBranchSelect');
+
+    function setLogoWithFallback(imgEl, src) {
+      imgEl.onerror = function() {
+        this.onerror = null;
+        this.src = 'kol.gif';
+      };
+      imgEl.src = src;
+    }
 
     function renderBranch(branchKey) {
       const data = BRANCHES[branchKey];
@@ -988,6 +1168,13 @@
         tab.classList.toggle('active', tab.dataset.branch === branchKey);
       });
 
+      // Update individual branch logo across hero, details header, CTA button, modal & floating bubble
+      setLogoWithFallback(heroBrandLogo, data.logo);
+      setLogoWithFallback(panelMiniLogo, data.logo);
+      setLogoWithFallback(bookBtnLogo, data.logo);
+      setLogoWithFallback(bookingHeaderLogo, data.logo);
+      setLogoWithFallback(assistiveBubbleImg, data.logo);
+
       branchTitleEl.textContent = data.title;
       branchBadgeEl.textContent = data.badge;
       branchAddressEl.textContent = data.address;
@@ -995,7 +1182,7 @@
       branchPhoneEl.href = data.phoneHref;
       branchEmailEl.textContent = data.email;
       branchEmailEl.href = `mailto:${data.email}`;
-      openBookingBtn.textContent = `Book ${data.shortName}`;
+      openBookingText.textContent = `Book ${data.shortName}`;
       bookingBranchSelect.value = branchKey;
 
       // Render branch-specific links + Official Details button
@@ -1006,9 +1193,21 @@
       document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     }
 
+    // Clicking a branch card/logo selects it; tapping an already-active branch opens booking directly
     branchTabs.forEach(tab => {
-      tab.addEventListener('click', () => renderBranch(tab.dataset.branch));
+      tab.addEventListener('click', () => {
+        const targetBranch = tab.dataset.branch;
+        if (currentBranchKey === targetBranch) {
+          openBookingModal(null, targetBranch);
+        } else {
+          renderBranch(targetBranch);
+        }
+      });
     });
+
+    // Clicking the main hero brand logo or mini panel logo opens booking for that branch
+    document.getElementById('heroBrandBtn').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    panelMiniLogo.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
 
     // =========================================================================
     // BOOKING MODAL LOGIC (PER-BRANCH APPS SCRIPT)
@@ -1099,8 +1298,8 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 235;
-          const mHeight = menu.offsetHeight || 290;
+          const mWidth = menu.offsetWidth || 245;
+          const mHeight = menu.offsetHeight || 310;
           const pad = 12;
 
           let left = bRect.right - mWidth;
