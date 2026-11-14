@@ -2,17 +2,17 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <title>King of Fadez | Admin Control Setup</title>
-  <meta name="description" content="King of Fadez • Dasmariñas Branch Command Center & Admin Control Setup">
+  <title>King of Fadez PH | Multi-Branch Admin Control Setup</title>
+  <meta name="description" content="King of Fadez PH • The Standard of Dasmariñas & Cavite — Multi-Branch Command Center & Admin Control Setup">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="KOF Admin">
+  <meta name="apple-mobile-web-app-title" content="KOF PH Admin">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="KOF Admin">
+  <meta name="application-name" content="KOF PH Admin">
   <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
@@ -22,39 +22,45 @@
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="King of Fadez">
-  <meta property="og:title" content="King of Fadez | Dasmariñas Branch Admin">
-  <meta property="og:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta property="og:site_name" content="King of Fadez PH">
+  <meta property="og:title" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta property="og:description" content="The Standard of Dasmariñas & Cavite • Official Multi-Branch Command Center & Admin Setup">
   <meta property="og:image" content="kol.gif">
   <meta property="og:image:secure_url" content="kol.gif">
   <meta property="og:image:type" content="image/gif">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="King of Fadez Logo">
+  <meta property="og:image:alt" content="King of Fadez PH Logo">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez | Dasmariñas Branch Admin">
-  <meta name="twitter:description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta name="twitter:title" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta name="twitter:description" content="The Standard of Dasmariñas & Cavite • Official Multi-Branch Command Center">
   <meta name="twitter:image" content="kol.gif">
 
   <!-- Schema.org Fallback -->
-  <meta itemprop="name" content="King of Fadez | Dasmariñas Branch Admin">
-  <meta itemprop="description" content="Official Command Center & Admin Control Setup • Dasmariñas Branch">
+  <meta itemprop="name" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta itemprop="description" content="The Standard of Dasmariñas & Cavite • Official Multi-Branch Command Center">
   <meta itemprop="image" content="kol.gif">
 
-  <!-- Instant link prefetching for lightning speed -->
+  <!-- Fonts & Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?page=admin&branch=main">
+  <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
     :root {
       --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --glass: rgba(12, 12, 12, 0.82);
-      --gold-gradient: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #aa7c11 100%);
-      --green: #2ecc71;
-      --red: #e74c3c;
+      --gold-light: #f3d573;
+      --glass: rgba(12, 12, 12, 0.86);
+      --panel-bg: rgba(18, 18, 18, 0.82);
+      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --green: #22c55e;
+      --red: #ef4444;
+      --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
     * {
@@ -64,14 +70,26 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
+    html {
       width: 100%;
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      min-height: 100%;
+      background: #050505;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--brand-font);
       background: #050505;
       color: #fff;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body.modal-open {
       overflow: hidden;
-      overscroll-behavior: none;
     }
 
     /* RETAINED MUTED BACKGROUND VIDEO */
@@ -81,40 +99,53 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.35) contrast(1.15);
+      filter: brightness(0.32) contrast(1.15);
       z-index: 0;
+      pointer-events: none;
     }
 
     .vignette {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.88) 100%);
+      background: radial-gradient(circle at center, rgba(10, 10, 10, 0.35) 15%, rgba(0, 0, 0, 0.92) 100%);
       z-index: 1;
       pointer-events: none;
     }
 
-    #overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    /* FULL-PAGE AUTO-FIT SHELL */
+    #app-shell {
+      position: relative;
       z-index: 2;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding:
+        max(14px, env(safe-area-inset-top))
+        clamp(12px, 3vw, 32px)
+        max(96px, calc(env(safe-area-inset-bottom) + 84px));
     }
 
-    .card {
+    /* RESPONSIVE MAIN CARD CONTAINER */
+    .page-container {
       width: 100%;
-      max-width: 410px;
-      padding: 26px 20px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 32px);
       background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 26px;
-      border: 1px solid rgba(212, 175, 55, 0.38);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: clamp(22px, 3vw, 32px);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
       will-change: transform, opacity;
+    }
+
+    .page-container.lock-mode {
+      max-width: 460px;
     }
 
     @keyframes shake {
@@ -127,97 +158,236 @@
       animation: shake 0.3s ease-in-out;
     }
 
+    /* TOP META BAR */
     .top-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
       margin-bottom: 12px;
     }
 
     .admin-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold);
-      font-size: 0.62rem;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.48);
+      color: var(--gold-light);
+      font-size: clamp(0.6rem, 1.2vw, 0.68rem);
       font-weight: 800;
-      letter-spacing: 1.5px;
-      padding: 4px 10px;
-      border-radius: 20px;
+      letter-spacing: 1.4px;
+      padding: 5px 12px;
+      border-radius: 999px;
       text-transform: uppercase;
     }
 
     #liveClock {
-      font-size: 0.68rem;
+      font-size: clamp(0.68rem, 1.3vw, 0.78rem);
       font-weight: 700;
-      color: #999;
+      color: #bdbdbd;
       letter-spacing: 0.8px;
+    }
+
+    /* HERO HEADER */
+    .hero-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: clamp(14px, 2vw, 20px);
     }
 
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2px auto 8px;
+      margin: 2px auto 10px;
     }
 
     .brand-logo {
-      width: 86px;
-      height: 86px;
+      width: clamp(82px, 10vw, 98px);
+      height: clamp(82px, 10vw, 98px);
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+      border: 2.5px solid var(--gold);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
       display: block;
     }
 
-    h1 {
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 3px;
-      margin: 4px 0 2px;
-      font-size: 1.45rem;
-      text-transform: uppercase;
+    /* FRAMED "KING OF FADEZ PH" EMBLEM WITH ANIMATED BACK FLASHING */
+    .brand-title-wrap {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px auto 8px;
+      max-width: 100%;
+    }
+
+    .brand-title-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
+      background: #050505;
+      border: 2.5px solid #ffffff;
+      box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.35),
+        inset 0 0 14px rgba(212, 175, 55, 0.28);
+      overflow: hidden;
+    }
+
+    .title-back-flash {
+      position: absolute;
+      inset: -6px;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 68% 65% at 50% 50%,
+        rgba(255, 244, 190, 0.95) 0%,
+        rgba(212, 175, 55, 0.75) 36%,
+        rgba(212, 175, 55, 0.16) 68%,
+        transparent 85%
+      );
+      animation: backWordFlash 1.7s ease-in-out infinite;
+    }
+
+    .title-flash-sweep {
+      position: absolute;
+      top: -20%;
+      left: -60%;
+      width: 45%;
+      height: 140%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 236, 150, 0.45) 45%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 236, 150, 0.45) 55%,
+        transparent 100%
+      );
+      transform: skewX(-22deg);
+      animation: backSweepFlash 2.6s ease-in-out infinite;
+    }
+
+    .border-flare-top,
+    .border-flare-bottom {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 5px;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        #ffffff 0%,
+        #ffe082 32%,
+        rgba(212, 175, 55, 0.55) 58%,
+        transparent 80%
+      );
+      filter: blur(0.6px);
+      animation: borderGlintFlash 1.7s ease-in-out infinite;
+    }
+
+    .border-flare-top { top: -2px; }
+    .border-flare-bottom { bottom: -2px; }
+
+    .brand-title-text {
+      position: relative;
+      z-index: 2;
+      font-family: var(--brand-font);
       font-weight: 900;
+      font-size: clamp(1.12rem, 3.6vw, 1.72rem);
+      letter-spacing: clamp(1.6px, 0.35vw, 3px);
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.95),
+        0 0 10px rgba(255, 224, 130, 0.55);
+    }
+
+    @keyframes backWordFlash {
+      0%, 100% { opacity: 0.22; transform: scale(0.86); }
+      45% { opacity: 1; transform: scale(1.08); }
+      55% { opacity: 0.45; transform: scale(0.95); }
+      70% { opacity: 0.95; transform: scale(1.05); }
+    }
+
+    @keyframes backSweepFlash {
+      0% { left: -65%; opacity: 0; }
+      20% { opacity: 0.9; }
+      65% { left: 125%; opacity: 0.9; }
+      100% { left: 125%; opacity: 0; }
+    }
+
+    @keyframes borderGlintFlash {
+      0%, 100% { opacity: 0.35; transform: translateX(-50%) scaleX(0.75); }
+      45%, 70% { opacity: 1; transform: translateX(-50%) scaleX(1.08); }
     }
 
     .tagline {
-      font-size: 0.65rem;
+      font-size: clamp(0.64rem, 1.4vw, 0.76rem);
+      font-weight: 700;
       letter-spacing: 2px;
-      margin-bottom: 16px;
-      color: #aaa;
-      font-weight: 600;
+      color: #f0f0f0;
+      text-transform: uppercase;
     }
 
-    /* PIN LOCK SCREEN */
+    .sub-tagline {
+      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* =========================================================
+       1. PIN LOCK SCREEN
+       ========================================================= */
     #lock-screen {
       display: block;
+      padding-top: 8px;
+      border-top: 1px solid rgba(212, 175, 55, 0.18);
+    }
+
+    .pin-prompt-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #ccc;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
 
     .pin-dots {
       display: flex;
       justify-content: center;
-      gap: 14px;
+      gap: 16px;
       margin-bottom: 12px;
     }
 
     .pin-dot {
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.5);
+      border: 2px solid rgba(212, 175, 55, 0.55);
       background: transparent;
-      transition: all 0.1s ease;
+      transition: all 0.12s ease;
     }
 
     .pin-dot.filled {
       background: var(--gold);
       border-color: var(--gold);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
     }
 
     .pin-dot.error {
@@ -227,10 +397,10 @@
 
     #pin-error {
       color: var(--red);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      min-height: 16px;
-      margin-bottom: 8px;
+      min-height: 18px;
+      margin-bottom: 10px;
       opacity: 0;
       transition: opacity 0.15s;
     }
@@ -242,158 +412,517 @@
     .keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 270px;
-      margin: 0 auto 10px;
+      gap: 10px;
+      max-width: 290px;
+      margin: 0 auto 6px;
     }
 
     .key-btn {
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-family: var(--brand-font);
+      font-size: 1.25rem;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.1s;
+      transition: background 0.1s, transform 0.1s;
+    }
+
+    .key-btn:hover {
+      border-color: rgba(212, 175, 55, 0.45);
+      background: rgba(212, 175, 55, 0.12);
     }
 
     .key-btn:active {
-      transform: scale(0.93);
-      background: rgba(212, 175, 55, 0.25);
+      transform: scale(0.94);
+      background: rgba(212, 175, 55, 0.28);
     }
 
     .key-btn.action-key {
-      font-size: 0.8rem;
-      color: #aaa;
+      font-size: 0.82rem;
+      color: #bdbdbd;
     }
 
-    /* ADMIN DASHBOARD */
+    /* =========================================================
+       2. MULTI-BRANCH ADMIN DASHBOARD (AUTO-FIT RESPONSIVE)
+       ========================================================= */
     #admin-panel {
       display: none;
+      text-align: left;
+      padding-top: clamp(12px, 2vw, 18px);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
     }
 
+    .selector-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .selector-hint {
+      font-size: clamp(0.62rem, 1.25vw, 0.72rem);
+      font-weight: 600;
+      color: #bdbdbd;
+      letter-spacing: 0.3px;
+      text-transform: none;
+    }
+
+    /* 4-BRANCH SELECTOR GRID */
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(8px, 1.5vw, 14px);
+      margin-bottom: clamp(14px, 2.2vw, 22px);
+    }
+
+    @media (min-width: 900px) {
+      .branch-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 360px) {
+      .branch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .branch-tab {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: clamp(10px, 1.5vw, 14px);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .branch-tab:hover {
+      border-color: rgba(212, 175, 55, 0.65);
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .branch-tab.active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+    }
+
+    .branch-avatar-pair {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .branch-tab-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      background: #000;
+      display: block;
+    }
+
+    .branch-tab.active .branch-tab-logo {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+    }
+
+    .branch-tab-recept {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid #111;
+      box-shadow: 0 0 0 1px var(--gold);
+      background: #1a1a1a;
+    }
+
+    .branch-tab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .branch-tab-num {
+      font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .branch-tab-name {
+      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-weight: 700;
+      color: #f8f8f8;
+      line-height: 1.25;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* TWO-COLUMN WORKSPACE: CONTROLS + BRANCH DETAILS */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(14px, 2vw, 22px);
+      align-items: stretch;
+    }
+
+    @media (min-width: 840px) {
+      .workspace-grid {
+        grid-template-columns: 1.05fr 1.15fr;
+      }
+    }
+
+    .workspace-col {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(12px, 1.6vw, 16px);
+    }
+
+    /* STATUS BAR */
     .status-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 10px 14px;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      font-size: 0.78rem;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      padding: 12px 15px;
+      border-radius: 16px;
+      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
     }
 
     .status-indicator {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
     .dot {
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 8px var(--green);
+      box-shadow: 0 0 9px var(--green);
+      flex-shrink: 0;
     }
 
     .dot.closed {
       background: var(--red);
-      box-shadow: 0 0 8px var(--red);
+      box-shadow: 0 0 9px var(--red);
     }
 
     .toggle-btn {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: #fff;
-      font-size: 0.68rem;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
       font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 9px;
       cursor: pointer;
     }
 
+    .toggle-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    /* ADMIN CONTROL GRID */
     .control-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 14px;
+      flex: 1;
     }
 
     .ctrl-btn {
-      padding: 14px 8px;
-      border-radius: 14px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(212, 175, 55, 0.22);
+      padding: clamp(14px, 2vw, 18px) 10px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(212, 175, 55, 0.25);
       color: #fff;
-      font-size: 0.76rem;
-      font-weight: 700;
+      font-family: var(--brand-font);
+      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
-      transition: transform 0.1s;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
       text-decoration: none;
     }
 
-    .ctrl-btn span.icon {
-      font-size: 1.35rem;
-    }
-
-    .ctrl-btn span.sub-label {
-      font-size: 0.58rem;
-      color: #888;
-      font-weight: 500;
+    .ctrl-btn:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.12);
+      transform: translateY(-2px);
     }
 
     .ctrl-btn:active {
-      transform: scale(0.96);
-      border-color: var(--gold);
+      transform: scale(0.97);
+    }
+
+    .ctrl-btn span.icon {
+      font-size: 1.45rem;
+    }
+
+    .ctrl-btn span.sub-label {
+      font-size: 0.64rem;
+      color: #a3a3a3;
+      font-weight: 600;
     }
 
     .primary-btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
       width: 100%;
-      padding: 15px;
-      border-radius: 14px;
+      padding: clamp(15px, 2vw, 18px);
+      border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.84rem;
+      font-family: var(--brand-font);
+      font-size: clamp(0.82rem, 1.5vw, 0.94rem);
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.38);
       text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .primary-btn:hover {
+      box-shadow: 0 10px 28px rgba(212, 175, 55, 0.55);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-mini-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #000;
+      background: #000;
     }
 
     .secondary-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
 
     .sub-btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #bbb;
-      font-size: 0.7rem;
-      font-weight: 600;
+      padding: 11px 8px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e5e5e5;
+      font-family: var(--brand-font);
+      font-size: clamp(0.68rem, 1.3vw, 0.76rem);
+      font-weight: 700;
       cursor: pointer;
+      text-align: center;
       text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .sub-btn:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.14);
+      color: var(--gold-light);
+    }
+
+    /* ACTIVE BRANCH DETAILS PANEL (FULL VISIBILITY) */
+    .branch-panel {
+      background: var(--panel-bg);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 20px;
+      padding: clamp(14px, 2.2vw, 20px);
+      text-align: left;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .branch-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .branch-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .panel-mini-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      background: #000;
+    }
+
+    .panel-mini-recept {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid var(--gold-light);
+      margin-left: -10px;
+      background: #141414;
+    }
+
+    .branch-title {
+      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    .branch-badge {
+      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .detail-row {
+      font-size: clamp(0.78rem, 1.45vw, 0.9rem);
+      line-height: 1.48;
+      color: #f3f3f3;
+      background: rgba(0, 0, 0, 0.38);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .detail-row strong {
+      display: block;
+      color: var(--gold);
+      font-size: clamp(0.6rem, 1.15vw, 0.68rem);
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .detail-contact-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+    }
+
+    .detail-link {
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      word-break: break-word;
+    }
+
+    .detail-link:hover {
+      color: var(--gold-light);
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .link-btn {
+      padding: 10px 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-family: var(--brand-font);
+      font-size: clamp(0.74rem, 1.35vw, 0.82rem);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .link-btn:hover {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--gold);
     }
 
     /* =========================================================
@@ -401,71 +930,79 @@
        ========================================================= */
     #assistive-bubble {
       position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 54px;
-      height: 54px;
-      background: rgba(14, 14, 14, 0.88);
+      bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px));
+      right: 18px;
+      width: 56px;
+      height: 56px;
+      background: rgba(14, 14, 14, 0.9);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 2px solid var(--gold);
       border-radius: 50%;
-      z-index: 10005; /* Highest layer so it is ALWAYS visible */
+      z-index: 10005;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(212, 175, 55, 0.35);
       user-select: none;
       touch-action: none;
       transition: transform 0.15s ease;
     }
 
     #assistive-bubble img {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       object-fit: cover;
+      object-position: top center;
       pointer-events: none;
     }
 
     #assistive-menu {
       position: fixed;
-      bottom: 156px;
-      right: 20px;
-      width: 220px;
-      background: rgba(12, 12, 12, 0.94);
+      width: min(250px, calc(100vw - 24px));
+      background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 20px;
-      padding: 12px;
-      z-index: 10006; /* Always above everything */
+      padding: 10px;
+      z-index: 10006;
       display: none;
       flex-direction: column;
       gap: 6px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.92);
       opacity: 0;
-      transform: scale(0.9) translateY(10px);
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+      transform: scale(0.92);
+      transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.2, 1, 0.3, 1);
     }
 
     #assistive-menu.active {
       display: flex;
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: scale(1);
+    }
+
+    .assistive-branch-tag {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 2px 6px;
     }
 
     .assistive-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 9px 11px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -473,23 +1010,26 @@
     }
 
     .assistive-item:hover {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(212, 175, 55, 0.16);
       border-color: var(--gold);
     }
 
-    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
     #webSheet {
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: #080808;
       z-index: 9990;
       display: none;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
       transform: translateY(100%);
       opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
     }
 
     #webSheet.active {
@@ -499,17 +1039,18 @@
     }
 
     .websheet-header {
-      height: 60px;
+      min-height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      gap: 8px;
+      padding: 8px 14px;
       color: var(--gold);
       border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0a0a0a;
       font-weight: 800;
-      font-size: 0.9rem;
-      letter-spacing: 1.5px;
+      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
+      letter-spacing: 1px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -518,6 +1059,20 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .websheet-ext-btn {
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold-light);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     .websheet-icon-btn {
@@ -537,9 +1092,7 @@
       position: relative;
       flex: 1;
       width: 100%;
-      height: calc(100% - 60px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
       background: #fff;
     }
 
@@ -553,7 +1106,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -565,15 +1118,15 @@
     #webSheetLoader.hidden { opacity: 0; }
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
 
-    /* FLOATING APP DOWNLOAD SUGGESTION */
+    /* FLOATING UNIVERSAL INSTALL APP PROMPT */
     #install-float {
       position: fixed;
-      bottom: max(16px, env(safe-area-inset-bottom));
+      bottom: max(14px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(150%);
-      width: calc(100% - 32px);
-      max-width: 410px;
-      background: rgba(14, 14, 14, 0.92);
+      width: calc(100% - 28px);
+      max-width: 430px;
+      background: rgba(14, 14, 14, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.6);
@@ -584,7 +1137,7 @@
       justify-content: space-between;
       gap: 10px;
       z-index: 9985;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.22);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       pointer-events: none;
@@ -616,7 +1169,7 @@
 
     .install-text strong {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--gold);
       white-space: nowrap;
       overflow: hidden;
@@ -625,7 +1178,7 @@
 
     .install-text span {
       display: block;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: #d0d0d0;
       margin-top: 2px;
     }
@@ -643,7 +1196,8 @@
       border: none;
       padding: 9px 14px;
       border-radius: 12px;
-      font-size: 0.72rem;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
@@ -666,7 +1220,7 @@
     #device-guide {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.84);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
       z-index: 10010;
       display: none;
@@ -679,7 +1233,7 @@
 
     .guide-sheet {
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
       background: #111;
       border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 24px;
@@ -692,7 +1246,7 @@
       background: rgba(212, 175, 55, 0.15);
       border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 20px;
@@ -700,7 +1254,7 @@
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet h3 { color: #fff; font-size: 1rem; text-transform: uppercase; margin-bottom: 8px; }
     .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
 
     .guide-steps {
@@ -708,7 +1262,7 @@
       border-radius: 14px;
       padding: 14px;
       text-align: left;
-      font-size: 0.79rem;
+      font-size: 0.8rem;
       color: #f0f0f0;
       line-height: 1.75;
       margin-bottom: 16px;
@@ -724,8 +1278,9 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       background: transparent;
       color: var(--gold);
+      font-family: var(--brand-font);
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -737,23 +1292,29 @@
       border: none;
       background: var(--gold-gradient);
       color: #000;
+      font-family: var(--brand-font);
       font-weight: 900;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
       cursor: pointer;
     }
 
-    /* INSTANT ADMIN MODAL (DNS LOCKED FULLVIEW) */
+    /* INSTANT FULL-SCREEN AUTO-FIT ADMIN MODAL */
     #adminModal {
       position: fixed;
       inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: #080808;
       z-index: 9999;
       display: none;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
       will-change: transform, opacity;
       transform: translate3d(0, 100%, 0);
-      transition: transform 0.22s cubic-bezier(0.1, 1, 0.2, 1);
+      transition: transform 0.24s cubic-bezier(0.1, 1, 0.2, 1);
     }
 
     #adminModal.active {
@@ -762,42 +1323,93 @@
     }
 
     .modal-header {
-      height: 54px;
+      min-height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      gap: 10px;
+      padding: 8px 14px;
       color: var(--gold);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
       background: #0b0b0b;
       font-weight: 800;
-      font-size: 0.82rem;
-      letter-spacing: 1.2px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
       text-transform: uppercase;
       flex-shrink: 0;
+    }
+
+    .modal-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    #modalBranchLogo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    #modalBranchSelect {
+      background: #161616;
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-family: var(--brand-font);
+      font-size: 0.72rem;
+      font-weight: 700;
+      max-width: 195px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #modalTitle {
+      font-size: 0.72rem;
+      color: #d4d4d4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 520px) {
+      #modalTitle {
+        display: none;
+      }
     }
 
     .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
     }
 
     .icon-btn {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       color: #fff;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
+      display: grid;
+      place-items: center;
     }
 
     .iframe-wrapper {
       position: relative;
+      flex: 1;
       width: 100%;
-      height: calc(100% - 54px);
+      overflow: hidden;
       background: #0a0a0a;
     }
 
@@ -811,7 +1423,7 @@
       background: #0a0a0a;
       color: var(--gold);
       gap: 10px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -824,8 +1436,8 @@
     #frameLoader.hidden { opacity: 0; }
 
     .spinner {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border: 3px solid rgba(212, 175, 55, 0.2);
       border-top-color: var(--gold);
       border-radius: 50%;
@@ -841,6 +1453,7 @@
       height: 100%;
       border: none;
       background: #fff;
+      display: block;
     }
   </style>
 </head>
@@ -853,13 +1466,17 @@
   </video>
   <div class="vignette"></div>
 
+  <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
+  <img src="kol.gif" alt="" id="logo-source" style="display:none;">
+
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
   <div id="assistive-bubble" title="Admin AssistiveTouch">
-    <img src="kol.gif" alt="Admin Menu" id="logo-source">
+    <img src="b2.jfif" alt="Admin Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='kol.gif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
   <div id="assistive-menu">
+    <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 2 • Congressional</div>
     <a href="#" class="assistive-item" id="menuBookings">
       <span class="icon">📅</span>
       <span>Live Bookings</span>
@@ -870,7 +1487,7 @@
     </a>
     <a href="#" class="assistive-item" id="menuBarbers">
       <span class="icon">💈</span>
-      <span>Barbers & Shifts</span>
+      <span>Barbers &amp; Shifts</span>
     </a>
     <a href="#" class="assistive-item" id="menuSettings">
       <span class="icon">⚙️</span>
@@ -878,7 +1495,7 @@
     </a>
     <a href="#" class="assistive-item" id="menuDetails">
       <span class="icon">📜</span>
-      <span>Shop Details</span>
+      <span>Official Details</span>
     </a>
     <a href="#" class="assistive-item" id="menuInstallApp">
       <span class="icon">📥</span>
@@ -890,22 +1507,38 @@
     </a>
   </div>
 
-  <!-- MAIN OVERLAY -->
-  <div id="overlay">
-    <div class="card" id="mainCard">
+  <!-- FULL-PAGE AUTO-FIT SHELL -->
+  <main id="app-shell">
+    <div class="page-container lock-mode" id="mainCard">
       <div class="top-meta">
         <span class="admin-badge">🔐 Admin Control</span>
         <span id="liveClock">--:--</span>
       </div>
 
-      <div class="brand-logo-wrap">
-        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
-      </div>
-      <h1>King of Fadez</h1>
-      <div class="tagline">DASMARIÑAS BRANCH • COMMAND CENTER</div>
+      <!-- HERO BRANDING -->
+      <header class="hero-header">
+        <div class="brand-logo-wrap">
+          <img src="b2.jfif" alt="King of Fadez PH Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='kol.gif';">
+        </div>
+
+        <!-- FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+        <div class="brand-title-wrap">
+          <span class="border-flare-top" aria-hidden="true"></span>
+          <div class="brand-title-box">
+            <span class="title-back-flash" aria-hidden="true"></span>
+            <span class="title-flash-sweep" aria-hidden="true"></span>
+            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+          </div>
+          <span class="border-flare-bottom" aria-hidden="true"></span>
+        </div>
+
+        <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
+        <div class="sub-tagline" id="activeBranchBanner">MULTI-BRANCH COMMAND CENTER</div>
+      </header>
 
       <!-- 1. PIN LOCK SCREEN -->
       <div id="lock-screen">
+        <div class="pin-prompt-label">Enter 4-Digit Admin PIN</div>
         <div class="pin-dots" id="pinDots">
           <div class="pin-dot"></div>
           <div class="pin-dot"></div>
@@ -915,72 +1548,169 @@
         <div id="pin-error">Invalid PIN</div>
 
         <div class="keypad">
-          <button class="key-btn" data-num="1">1</button>
-          <button class="key-btn" data-num="2">2</button>
-          <button class="key-btn" data-num="3">3</button>
-          <button class="key-btn" data-num="4">4</button>
-          <button class="key-btn" data-num="5">5</button>
-          <button class="key-btn" data-num="6">6</button>
-          <button class="key-btn" data-num="7">7</button>
-          <button class="key-btn" data-num="8">8</button>
-          <button class="key-btn" data-num="9">9</button>
-          <button class="key-btn action-key" id="clearPinBtn">CLR</button>
-          <button class="key-btn" data-num="0">0</button>
-          <button class="key-btn action-key" id="delPinBtn">⌫</button>
+          <button type="button" class="key-btn" data-num="1">1</button>
+          <button type="button" class="key-btn" data-num="2">2</button>
+          <button type="button" class="key-btn" data-num="3">3</button>
+          <button type="button" class="key-btn" data-num="4">4</button>
+          <button type="button" class="key-btn" data-num="5">5</button>
+          <button type="button" class="key-btn" data-num="6">6</button>
+          <button type="button" class="key-btn" data-num="7">7</button>
+          <button type="button" class="key-btn" data-num="8">8</button>
+          <button type="button" class="key-btn" data-num="9">9</button>
+          <button type="button" class="key-btn action-key" id="clearPinBtn">CLR</button>
+          <button type="button" class="key-btn" data-num="0">0</button>
+          <button type="button" class="key-btn action-key" id="delPinBtn">⌫</button>
         </div>
       </div>
 
-      <!-- 2. ADMIN CONTROL PANEL -->
+      <!-- 2. MULTI-BRANCH ADMIN CONTROL PANEL -->
       <div id="admin-panel">
-        <div class="status-bar">
-          <div class="status-indicator">
-            <span class="dot" id="statusDot"></span>
-            <span id="statusText">SHOP OPEN</span>
+        <div class="selector-label">
+          <span>Select Branch to Manage</span>
+          <span class="selector-hint">Switches live admin console &amp; branch details</span>
+        </div>
+
+        <div class="branch-grid" id="branchGrid">
+          <button type="button" class="branch-tab" data-branch="branch1">
+            <div class="branch-avatar-pair">
+              <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+              <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b1.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 1</span>
+              <span class="branch-tab-name">Don Placido Ave</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab active" data-branch="branch2">
+            <div class="branch-avatar-pair">
+              <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+              <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b2.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 2 • Main</span>
+              <span class="branch-tab-name">Congressional Ave</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab" data-branch="branch3">
+            <div class="branch-avatar-pair">
+              <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+              <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b3.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 3</span>
+              <span class="branch-tab-name">Slick &amp; Dapper</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab" data-branch="branch4">
+            <div class="branch-avatar-pair">
+              <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+              <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b4.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 4</span>
+              <span class="branch-tab-name">Imus Highway</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- TWO-COLUMN RESPONSIVE WORKSPACE -->
+        <div class="workspace-grid">
+          <!-- LEFT COLUMN: ADMIN OPERATIONS -->
+          <div class="workspace-col">
+            <div class="status-bar">
+              <div class="status-indicator">
+                <span class="dot" id="statusDot"></span>
+                <span id="statusText">SHOP OPEN</span>
+              </div>
+              <button type="button" class="toggle-btn" id="toggleStatusBtn">Switch Status</button>
+            </div>
+
+            <div class="control-grid">
+              <button type="button" class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
+                <span class="icon">📅</span>
+                <span>Bookings</span>
+                <span class="sub-label">Queue &amp; List</span>
+              </button>
+              <button type="button" class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
+                <span class="icon">✂️</span>
+                <span>POS / Walk-In</span>
+                <span class="sub-label">Quick Ticket</span>
+              </button>
+              <button type="button" class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
+                <span class="icon">💈</span>
+                <span>Barbers</span>
+                <span class="sub-label">Shifts &amp; Staff</span>
+              </button>
+              <button type="button" class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
+                <span class="icon">⚙️</span>
+                <span>Shop Setup</span>
+                <span class="sub-label">Rates &amp; Promos</span>
+              </button>
+            </div>
+
+            <button type="button" class="primary-btn" id="openFullAdmin">
+              <img src="b2.jfif" alt="" class="btn-mini-logo" id="openAdminBtnLogo" onerror="this.onerror=null;this.src='kol.gif';">
+              <span id="openFullAdminText">Open Branch 2 Admin Console</span>
+            </button>
+
+            <div class="secondary-actions">
+              <button type="button" class="sub-btn" id="openClientView">👁️ Client Preview</button>
+              <button type="button" class="sub-btn" id="openWebBtn">🌐 Official Details</button>
+              <button type="button" class="sub-btn" id="lockBtn">🔒 Lock PIN</button>
+            </div>
           </div>
-          <button class="toggle-btn" id="toggleStatusBtn">Switch</button>
-        </div>
 
-        <div class="control-grid">
-          <button class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
-            <span class="icon">📅</span>
-            <span>Bookings</span>
-            <span class="sub-label">Queue & List</span>
-          </button>
-          <button class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
-            <span class="icon">✂️</span>
-            <span>POS / Walk-In</span>
-            <span class="sub-label">Quick Ticket</span>
-          </button>
-          <button class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
-            <span class="icon">💈</span>
-            <span>Barbers</span>
-            <span class="sub-label">Shifts & Staff</span>
-          </button>
-          <button class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
-            <span class="icon">⚙️</span>
-            <span>Shop Setup</span>
-            <span class="sub-label">Rates & Promos</span>
-          </button>
-        </div>
+          <!-- RIGHT COLUMN: SELECTED BRANCH DETAILS -->
+          <div class="workspace-col">
+            <section class="branch-panel" aria-label="Selected Branch Details">
+              <div class="branch-header-row">
+                <div class="branch-header-brand">
+                  <div class="panel-avatars">
+                    <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" onerror="this.onerror=null;this.src='kol.gif';">
+                    <img src="dasmares.jfif" alt="Front Desk" class="panel-mini-recept" id="panelMiniRecept" onerror="this.onerror=null;this.src='b2.jfif';">
+                  </div>
+                  <h2 class="branch-title" id="branchTitle">Branch 2 • Congressional Ave</h2>
+                </div>
+                <span class="branch-badge" id="branchBadge">Main Branch</span>
+              </div>
 
-        <button class="primary-btn" id="openFullAdmin">Open Full Admin Console</button>
+              <div class="detail-list">
+                <div class="detail-row">
+                  <strong>📍 Full Location Address</strong>
+                  <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
+                </div>
 
-        <div class="secondary-actions">
-          <button class="sub-btn" id="openClientView">👁️ Preview</button>
-          <button class="sub-btn" id="openWebBtn">🌐 Details</button>
-          <button class="sub-btn" id="lockBtn">🔒 Lock</button>
+                <div class="detail-row">
+                  <strong>📞 Direct Phone &amp; Email</strong>
+                  <div class="detail-contact-items">
+                    <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
+                    <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a>
+                  </div>
+                </div>
+
+                <div class="detail-row">
+                  <strong>🔗 Branch Maps &amp; Social Channels</strong>
+                  <div class="socials" id="branchSocials"></div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+  <!-- FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
     <div class="websheet-header">
-      <span>👑 King of Fadez • Official Details</span>
+      <span>👑 King of Fadez PH • Official Details</span>
       <div class="websheet-actions">
-        <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
-        <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+        <a href="https://kingoffadezph.com/?shem=aimgspe" target="_blank" rel="noopener" class="websheet-ext-btn">Open Tab ↗</a>
+        <button type="button" class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button type="button" class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
     </div>
     <div class="websheet-scroll-container">
@@ -991,9 +1721,8 @@
       <iframe
         id="webSheetFrame"
         src="about:blank"
-        title="King of Fadez Details"
+        title="King of Fadez PH Details"
         loading="lazy"
-        scrolling="yes"
         allow="geolocation; clipboard-read; clipboard-write"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -1005,44 +1734,53 @@
     <div class="install-info">
       <img src="kol.gif" alt="App Icon" class="install-icon">
       <div class="install-text">
-        <strong>Install KOF Admin App</strong>
+        <strong>Install KOF PH Admin App</strong>
         <span id="install-subtext">Add to iOS, Android, or PC</span>
       </div>
     </div>
     <div class="install-actions">
-      <button id="install-btn">Install</button>
-      <button id="dismiss-install" aria-label="Dismiss">✕</button>
+      <button type="button" id="install-btn">Install</button>
+      <button type="button" id="dismiss-install" aria-label="Dismiss">✕</button>
     </div>
   </div>
 
-  <!-- UNIVERSAL DEVICE INSTALL INSTRUCTIONS MODAL -->
+  <!-- UNIVERSAL DEVICE INSTALL GUIDE MODAL -->
   <div id="device-guide">
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
-      <h3>Install KOF Admin App</h3>
-      <p>Install the Command Center directly on your device for instant full-screen access:</p>
+      <h3>Install KOF PH Admin App</h3>
+      <p>Install the Multi-Branch Command Center directly on your device for instant full-screen access:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
-        <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
-        <button id="close-guide">Got It</button>
+        <button type="button" class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
+        <button type="button" id="close-guide">Got It</button>
       </div>
     </div>
   </div>
 
-  <!-- INSTANT ADMIN MODAL (DNS LOCKED FULLVIEW) -->
+  <!-- INSTANT FULL-SCREEN AUTO-FIT ADMIN MODAL -->
   <div id="adminModal">
     <div class="modal-header">
-      <span id="modalTitle">Admin Console</span>
+      <div class="modal-left">
+        <img src="b2.jfif" alt="Branch Logo" id="modalBranchLogo" onerror="this.onerror=null;this.src='kol.gif';">
+        <select id="modalBranchSelect" aria-label="Switch Admin Branch">
+          <option value="branch1">Branch 1 • Don Placido</option>
+          <option value="branch2" selected>Branch 2 • Congressional</option>
+          <option value="branch3">Branch 3 • Slick &amp; Dapper</option>
+          <option value="branch4">Branch 4 • Imus Highway</option>
+        </select>
+        <span id="modalTitle">Admin Console</span>
+      </div>
       <div class="header-actions">
-        <button class="icon-btn" id="reloadFrame" title="Reload">↻</button>
-        <button class="icon-btn" id="closeModal" aria-label="Close">✕</button>
+        <button type="button" class="icon-btn" id="reloadFrame" title="Reload">↻</button>
+        <button type="button" class="icon-btn" id="closeModal" aria-label="Close">✕</button>
       </div>
     </div>
 
     <div class="iframe-wrapper">
       <div id="frameLoader">
         <div class="spinner"></div>
-        <span>Loading App...</span>
+        <span id="frameLoaderText">Loading Branch Console...</span>
       </div>
       <iframe
         id="adminFrame"
@@ -1058,7 +1796,80 @@
     const ADMIN_PIN = "2026";
     const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec";
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
-    const BRANCH = "main";
+
+    // =========================================================================
+    // MULTI-BRANCH DIRECTORY & ENDPOINT PARAMETERS
+    // =========================================================================
+    const BRANCHES = {
+      branch1: {
+        branchParam: "kofdasmabav0r",
+        logo: "b1.jfif",
+        receptionist: "S&Drec.jfif",
+        shortName: "Branch 1 • Don Placido",
+        title: "Branch 1 • Don Placido Campos Ave",
+        badge: "Dasmariñas",
+        address: "Brgy Zone 3, Don Placido Campos Avenue, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0915) 053 3669",
+        phoneHref: "tel:+639150533669",
+        email: "slickanddapperdasma@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/TvqHSluJBGUNsSRyK" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@slickanddapperdasma?_r=1&_t=ZP-9BOXRyXSMFa" }
+        ]
+      },
+      branch2: {
+        branchParam: "main",
+        logo: "b2.jfif",
+        receptionist: "dasmares.jfif",
+        shortName: "Branch 2 • Congressional",
+        title: "Branch 2 • Congressional Ave",
+        badge: "Main Branch",
+        address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0956) 718 8557",
+        phoneHref: "tel:+639567188557",
+        email: "Kingoffadezph@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://maps.google.com/?q=King+of+Fadez+Dasmariñas" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@kingoffadez.ph" },
+          { label: "📘 FB Page", url: "https://www.facebook.com/share/r/1NQfs6Fcer/" }
+        ]
+      },
+      branch3: {
+        branchParam: "branch3kofxe4",
+        logo: "b3.jfif",
+        receptionist: "Molinorec.jfif",
+        shortName: "Branch 3 • Slick & Dapper",
+        title: "Branch 3 • Slick and Dapper Barbershop",
+        badge: "Dasmariñas",
+        address: "Slick and Dapper Barbershop Dasmariñas",
+        phoneDisplay: "(0956) 752 9543",
+        phoneHref: "tel:+639567529543",
+        email: "kingoffadezbacoorm3@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/ecSHCqP35ncacyUAP" }
+        ]
+      },
+      branch4: {
+        branchParam: "branch4imu253",
+        logo: "b4.jfif",
+        receptionist: "Imusrec.jfif",
+        shortName: "Branch 4 • Imus Highway",
+        title: "Branch 4 • Emilio Aguinaldo Hwy",
+        badge: "Imus, Cavite",
+        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma, 1, Imus, Philippines, 4103",
+        phoneDisplay: "(0927) 994 3950",
+        phoneHref: "tel:+639279943950",
+        email: "kingoffadezphimus@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/bYHgooaQOYvwco2YV" },
+          { label: "📘 FB Page 1", url: "https://www.facebook.com/profile.php?id=61593972186081&mibextid=wwXIfr&mibextid=wwXIfr" },
+          { label: "📘 FB Page 2", url: "https://www.facebook.com/profile.php?id=61566638207034&mibextid=wwXIfr&mibextid=wwXIfr" }
+        ]
+      }
+    };
+
+    let currentBranchKey = localStorage.getItem('kof_admin_branch') || 'branch2';
+    if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
 
     const mainCard = document.getElementById('mainCard');
     const lockScreen = document.getElementById('lock-screen');
@@ -1068,11 +1879,107 @@
     const adminModal = document.getElementById('adminModal');
     const adminFrame = document.getElementById('adminFrame');
     const frameLoader = document.getElementById('frameLoader');
+    const frameLoaderText = document.getElementById('frameLoaderText');
     const modalTitle = document.getElementById('modalTitle');
+    const modalBranchLogo = document.getElementById('modalBranchLogo');
+    const modalBranchSelect = document.getElementById('modalBranchSelect');
+
+    const branchTabs = document.querySelectorAll('.branch-tab');
+    const heroBrandLogo = document.getElementById('heroBrandLogo');
+    const openAdminBtnLogo = document.getElementById('openAdminBtnLogo');
+    const openFullAdminText = document.getElementById('openFullAdminText');
+    const panelMiniLogo = document.getElementById('panelMiniLogo');
+    const panelMiniRecept = document.getElementById('panelMiniRecept');
+    const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
+    const assistiveBranchLabel = document.getElementById('assistiveBranchLabel');
+    const activeBranchBanner = document.getElementById('activeBranchBanner');
+
+    const branchTitleEl = document.getElementById('branchTitle');
+    const branchBadgeEl = document.getElementById('branchBadge');
+    const branchAddressEl = document.getElementById('branchAddress');
+    const branchPhoneEl = document.getElementById('branchPhone');
+    const branchEmailEl = document.getElementById('branchEmail');
+    const branchSocialsEl = document.getElementById('branchSocials');
+
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
 
     let enteredPin = "";
     let currentSrc = "";
+    let activeRouteState = { title: 'Full Admin Console', page: 'admin', view: 'admin' };
     let pendingSublink = null;
+
+    function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'kol.gif') {
+      imgEl.onerror = function() {
+        if (secondarySrc && this.getAttribute('src') !== secondarySrc) {
+          this.onerror = function() {
+            this.onerror = null;
+            this.src = 'kol.gif';
+          };
+          this.src = secondarySrc;
+        } else {
+          this.onerror = null;
+          this.src = 'kol.gif';
+        }
+      };
+      imgEl.src = primarySrc;
+    }
+
+    function updateStatusUI() {
+      const isShopOpen = localStorage.getItem(`kof_shop_open_${currentBranchKey}`) !== 'false';
+      const data = BRANCHES[currentBranchKey];
+      statusDot.classList.toggle('closed', !isShopOpen);
+      statusText.textContent = `${data.shortName.toUpperCase()} • ${isShopOpen ? 'OPEN' : 'CLOSED'}`;
+      statusText.style.color = isShopOpen ? '#22c55e' : '#ef4444';
+    }
+
+    function renderBranch(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      currentBranchKey = branchKey;
+      localStorage.setItem('kof_admin_branch', branchKey);
+
+      branchTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.branch === branchKey);
+      });
+
+      setImageWithFallback(heroBrandLogo, data.logo, 'kol.gif');
+      setImageWithFallback(openAdminBtnLogo, data.logo, 'kol.gif');
+      setImageWithFallback(panelMiniLogo, data.logo, 'kol.gif');
+      setImageWithFallback(panelMiniRecept, data.receptionist, data.logo);
+      setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
+      setImageWithFallback(modalBranchLogo, data.logo, 'kol.gif');
+
+      activeBranchBanner.textContent = `COMMAND CENTER • ${data.shortName.toUpperCase()}`;
+      assistiveBranchLabel.textContent = data.shortName;
+      openFullAdminText.textContent = `Open ${data.shortName} Console`;
+      modalBranchSelect.value = branchKey;
+
+      branchTitleEl.textContent = data.title;
+      branchBadgeEl.textContent = data.badge;
+      branchAddressEl.textContent = data.address;
+      branchPhoneEl.textContent = data.phoneDisplay;
+      branchPhoneEl.href = data.phoneHref;
+      branchEmailEl.textContent = data.email;
+      branchEmailEl.href = `mailto:${data.email}`;
+
+      branchSocialsEl.innerHTML = data.links.map(item =>
+        `<a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a>`
+      ).join('');
+
+      updateStatusUI();
+    }
+
+    branchTabs.forEach(tab => {
+      tab.addEventListener('click', () => renderBranch(tab.dataset.branch));
+    });
+
+    document.getElementById('toggleStatusBtn').addEventListener('click', () => {
+      const key = `kof_shop_open_${currentBranchKey}`;
+      const current = localStorage.getItem(key) !== 'false';
+      localStorage.setItem(key, (!current).toString());
+      updateStatusUI();
+    });
 
     function updateClock() {
       const now = new Date();
@@ -1085,6 +1992,11 @@
       const params = new URLSearchParams(window.location.search);
       const pageParam = params.get('page');
       const viewParam = params.get('view') || window.location.hash.replace('#', '');
+      const branchParam = params.get('branch');
+      if (branchParam) {
+        const matched = Object.keys(BRANCHES).find(k => BRANCHES[k].branchParam === branchParam || k === branchParam);
+        if (matched) currentBranchKey = matched;
+      }
       if (pageParam || viewParam) {
         pendingSublink = {
           title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
@@ -1094,6 +2006,7 @@
       }
     }
     parseInitialSublink();
+    renderBranch(currentBranchKey);
 
     if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
       showAdminPanel();
@@ -1102,6 +2015,7 @@
     function showAdminPanel() {
       lockScreen.style.display = 'none';
       adminPanel.style.display = 'block';
+      mainCard.classList.remove('lock-mode');
       if (pendingSublink) {
         const sub = pendingSublink;
         pendingSublink = null;
@@ -1115,6 +2029,7 @@
       updatePinDots();
       adminPanel.style.display = 'none';
       lockScreen.style.display = 'block';
+      mainCard.classList.add('lock-mode');
     }
 
     function updatePinDots(isError = false) {
@@ -1164,25 +2079,8 @@
 
     document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
 
-    let isShopOpen = localStorage.getItem('kof_shop_open') !== 'false';
-    const statusDot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-
-    function updateStatusUI() {
-      statusDot.classList.toggle('closed', !isShopOpen);
-      statusText.textContent = isShopOpen ? 'SHOP OPEN' : 'SHOP CLOSED';
-      statusText.style.color = isShopOpen ? '#2ecc71' : '#e74c3c';
-    }
-    updateStatusUI();
-
-    document.getElementById('toggleStatusBtn').addEventListener('click', () => {
-      isShopOpen = !isShopOpen;
-      localStorage.setItem('kof_shop_open', isShopOpen);
-      updateStatusUI();
-    });
-
     // =========================================================================
-    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & FULLVIEW LAUNCHER
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & VIEWPORT-CLAMPED MENU
     // =========================================================================
     const bubble = document.getElementById('assistive-bubble');
     const menu = document.getElementById('assistive-menu');
@@ -1208,7 +2106,7 @@
       if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
       let newX = initialX + dx;
       let newY = initialY + dy;
-      
+
       newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
       newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
 
@@ -1225,10 +2123,24 @@
         if (isOpen) {
           menu.classList.remove('active');
         } else {
-          const bRect = bubble.getBoundingClientRect();
-          menu.style.bottom = (window.innerHeight - bRect.top + 10) + 'px';
-          menu.style.right = (window.innerWidth - bRect.right) + 'px';
           menu.classList.add('active');
+          const bRect = bubble.getBoundingClientRect();
+          const mWidth = menu.offsetWidth || 250;
+          const mHeight = menu.offsetHeight || 320;
+          const pad = 12;
+
+          let left = bRect.right - mWidth;
+          left = Math.max(pad, Math.min(window.innerWidth - mWidth - pad, left));
+
+          let top = bRect.top - mHeight - 10;
+          if (top < pad) {
+            top = Math.min(window.innerHeight - mHeight - pad, bRect.bottom + 10);
+          }
+
+          menu.style.left = left + 'px';
+          menu.style.top = top + 'px';
+          menu.style.right = 'auto';
+          menu.style.bottom = 'auto';
         }
       }
     });
@@ -1239,57 +2151,49 @@
       }
     });
 
-    // Request browser full screen on open if supported
     function triggerFullScreen() {
       try {
         if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
           document.documentElement.requestFullscreen().catch(() => {});
         }
-      } catch(e) {}
+      } catch (e) {}
+    }
+
+    function requireUnlockAndLaunch(title, page, view) {
+      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        triggerFullScreen();
+        launchRoute(title, page, view);
+      } else {
+        pinError.textContent = "Enter Admin PIN (2026) first";
+        pinError.classList.add('visible');
+        mainCard.classList.remove('shake');
+        void mainCard.offsetWidth;
+        mainCard.classList.add('shake');
+      }
     }
 
     document.getElementById('menuBookings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-        triggerFullScreen();
-        launchRoute('Live Appointments', 'admin', 'admin');
-      } else {
-        alert('Please enter Admin PIN first.');
-      }
+      requireUnlockAndLaunch('Live Appointments', 'admin', 'admin');
     });
 
     document.getElementById('menuWalkin').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-        triggerFullScreen();
-        launchRoute('Walk-In / POS Entry', 'admin', 'walkin');
-      } else {
-        alert('Please enter Admin PIN first.');
-      }
+      requireUnlockAndLaunch('Walk-In / POS Entry', 'admin', 'walkin');
     });
 
     document.getElementById('menuBarbers').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-        triggerFullScreen();
-        launchRoute('Barber Roster & Shifts', 'admin', 'barbers');
-      } else {
-        alert('Please enter Admin PIN first.');
-      }
+      requireUnlockAndLaunch('Barber Roster & Shifts', 'admin', 'barbers');
     });
 
     document.getElementById('menuSettings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-        triggerFullScreen();
-        launchRoute('Services & Pricing Setup', 'admin', 'settings');
-      } else {
-        alert('Please enter Admin PIN first.');
-      }
+      requireUnlockAndLaunch('Services & Pricing Setup', 'admin', 'settings');
     });
 
     document.getElementById('menuDetails').addEventListener('click', (e) => {
@@ -1320,12 +2224,17 @@
     });
 
     // =========================================================================
-    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
+    // FULL-SCREEN AUTO-FIT OVERLAY DETAILS MODAL (kingoffadezph.com)
     // =========================================================================
     const webSheet = document.getElementById('webSheet');
     const webSheetFrame = document.getElementById('webSheetFrame');
     const webSheetLoader = document.getElementById('webSheetLoader');
     let webSheetLoaded = false;
+
+    function syncBodyScrollLock() {
+      const anyModalOpen = adminModal.classList.contains('active') || webSheet.classList.contains('active');
+      document.body.classList.toggle('modal-open', anyModalOpen);
+    }
 
     function openWebSheet(e) {
       if (e) e.preventDefault();
@@ -1336,12 +2245,16 @@
         webSheetLoaded = true;
       }
       webSheet.style.display = 'flex';
-      requestAnimationFrame(() => webSheet.classList.add('active'));
+      requestAnimationFrame(() => {
+        webSheet.classList.add('active');
+        syncBodyScrollLock();
+      });
     }
 
     function closeWebSheet() {
       webSheet.classList.remove('active');
-      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
+      syncBodyScrollLock();
+      setTimeout(() => { webSheet.style.display = 'none'; }, 360);
     }
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
@@ -1354,10 +2267,13 @@
     });
 
     // =========================================================================
-    // DNS-LOCKED FULLVIEW ADMIN CONSOLE MODAL
+    // DNS-LOCKED FULLVIEW MULTI-BRANCH ADMIN CONSOLE MODAL
     // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
+      const data = BRANCHES[currentBranchKey];
       modalTitle.textContent = title || 'Admin Console';
+      frameLoaderText.textContent = `Loading ${data.shortName} • ${title || 'Console'}...`;
+
       if (currentSrc !== targetUrl) {
         currentSrc = targetUrl;
         frameLoader.classList.remove('hidden');
@@ -1367,15 +2283,19 @@
         history.pushState({ kofModalOpen: true }, '', window.location.href);
       }
       adminModal.style.display = 'flex';
-      requestAnimationFrame(() => adminModal.classList.add('active'));
+      requestAnimationFrame(() => {
+        adminModal.classList.add('active');
+        syncBodyScrollLock();
+      });
     }
 
     function closeLockedModal(fromPopState = false) {
       if (!adminModal.classList.contains('active')) return;
       adminModal.classList.remove('active');
+      syncBodyScrollLock();
       setTimeout(() => {
         if (!adminModal.classList.contains('active')) adminModal.style.display = 'none';
-      }, 220);
+      }, 240);
 
       if (!fromPopState && history.state && history.state.kofModalOpen) {
         history.back();
@@ -1383,20 +2303,30 @@
     }
 
     function launchRoute(title, pageParam, viewParam) {
+      activeRouteState = { title, page: pageParam, view: viewParam };
+      const data = BRANCHES[currentBranchKey];
       const url = new URL(BASE_SCRIPT_URL);
       url.searchParams.set('page', pageParam);
-      url.searchParams.set('branch', BRANCH);
+      url.searchParams.set('branch', data.branchParam);
       if (viewParam) url.searchParams.set('view', viewParam);
       openUrlInLockedDns(title, url.toString());
     }
 
+    modalBranchSelect.addEventListener('change', (e) => {
+      renderBranch(e.target.value);
+      launchRoute(activeRouteState.title, activeRouteState.page, activeRouteState.view);
+    });
+
     adminFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
 
+    // Intercept internal hash/route links while allowing tel:, mailto:, and external _blank links
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href]');
       if (!link) return;
       const rawHref = link.getAttribute('href');
-      if (!rawHref || rawHref.startsWith('javascript:')) return;
+      if (!rawHref || rawHref === '#' || rawHref.startsWith('javascript:')) return;
+      if (rawHref.startsWith('tel:') || rawHref.startsWith('mailto:') || link.target === '_blank') return;
+
       e.preventDefault();
 
       if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
@@ -1438,11 +2368,21 @@
     });
 
     document.querySelectorAll('.ctrl-btn').forEach(btn => {
-      btn.addEventListener('click', () => { triggerFullScreen(); launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view); });
+      btn.addEventListener('click', () => {
+        triggerFullScreen();
+        launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view);
+      });
     });
 
-    document.getElementById('openFullAdmin').addEventListener('click', () => { triggerFullScreen(); launchRoute('Full Admin Console', 'admin', 'admin'); });
-    document.getElementById('openClientView').addEventListener('click', () => { triggerFullScreen(); launchRoute('Client Booking Preview', 'client', 'client'); });
+    document.getElementById('openFullAdmin').addEventListener('click', () => {
+      triggerFullScreen();
+      launchRoute('Full Admin Console', 'admin', 'admin');
+    });
+
+    document.getElementById('openClientView').addEventListener('click', () => {
+      triggerFullScreen();
+      launchRoute('Client Booking Preview', 'client', 'client');
+    });
 
     document.getElementById('reloadFrame').addEventListener('click', () => {
       frameLoader.classList.remove('hidden');
@@ -1470,18 +2410,18 @@
     }
 
     function initUniversalManifest() {
-      const logoImg = document.querySelector('.brand-logo');
+      const logoImg = document.getElementById('logo-source');
       const buildManifest = () => {
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
         const manifestData = {
-          name: "King of Fadez | Admin Control",
-          short_name: "KOF Admin",
-          description: "King of Fadez • Dasmariñas Branch Command Center",
+          name: "King of Fadez PH | Admin Control",
+          short_name: "KOF PH Admin",
+          description: "King of Fadez PH • The Standard of Dasmariñas & Cavite Command Center",
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
-          orientation: "portrait",
+          orientation: "any",
           background_color: "#050505",
           theme_color: "#d4af37",
           icons: [
