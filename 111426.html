@@ -68,22 +68,28 @@
       width: 100%;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
+      background: #050505;
       color: #fff;
       overflow: hidden;
       overscroll-behavior: none;
     }
 
-    /* LIGHTNING FAST AMBIENT GLOW (NO VIDEO LAG) */
-    .bg-glow {
+    /* RETAINED MUTED BACKGROUND VIDEO */
+    #bg-video {
       position: fixed;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35) contrast(1.15);
       z-index: 0;
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.88) 100%);
+      z-index: 1;
       pointer-events: none;
     }
 
@@ -737,7 +743,7 @@
       cursor: pointer;
     }
 
-    /* INSTANT ADMIN MODAL (DNS LOCKED) */
+    /* INSTANT ADMIN MODAL (DNS LOCKED FULLVIEW) */
     #adminModal {
       position: fixed;
       inset: 0;
@@ -840,8 +846,12 @@
 </head>
 <body>
 
-  <!-- LIGHTNING FAST CSS BACKGROUND GLOW -->
-  <div class="bg-glow"></div>
+  <!-- RETAINED MUTED BACKGROUND VIDEO -->
+  <video id="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="IMG_1039.MOV" type="video/mp4">
+    <source src="IMG_1039.MOV" type="video/quicktime">
+  </video>
+  <div class="vignette"></div>
 
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
   <div id="assistive-bubble" title="Admin AssistiveTouch">
@@ -1019,7 +1029,7 @@
     </div>
   </div>
 
-  <!-- INSTANT ADMIN MODAL (DNS LOCKED) -->
+  <!-- INSTANT ADMIN MODAL (DNS LOCKED FULLVIEW) -->
   <div id="adminModal">
     <div class="modal-header">
       <span id="modalTitle">Admin Console</span>
@@ -1172,7 +1182,7 @@
     });
 
     // =========================================================================
-    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & MENU LOGIC
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & FULLVIEW LAUNCHER
     // =========================================================================
     const bubble = document.getElementById('assistive-bubble');
     const menu = document.getElementById('assistive-menu');
@@ -1229,10 +1239,20 @@
       }
     });
 
+    // Request browser full screen on open if supported
+    function triggerFullScreen() {
+      try {
+        if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } catch(e) {}
+    }
+
     document.getElementById('menuBookings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
       if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        triggerFullScreen();
         launchRoute('Live Appointments', 'admin', 'admin');
       } else {
         alert('Please enter Admin PIN first.');
@@ -1243,6 +1263,7 @@
       e.preventDefault();
       menu.classList.remove('active');
       if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        triggerFullScreen();
         launchRoute('Walk-In / POS Entry', 'admin', 'walkin');
       } else {
         alert('Please enter Admin PIN first.');
@@ -1253,6 +1274,7 @@
       e.preventDefault();
       menu.classList.remove('active');
       if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        triggerFullScreen();
         launchRoute('Barber Roster & Shifts', 'admin', 'barbers');
       } else {
         alert('Please enter Admin PIN first.');
@@ -1263,6 +1285,7 @@
       e.preventDefault();
       menu.classList.remove('active');
       if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+        triggerFullScreen();
         launchRoute('Services & Pricing Setup', 'admin', 'settings');
       } else {
         alert('Please enter Admin PIN first.');
@@ -1272,6 +1295,7 @@
     document.getElementById('menuDetails').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
+      triggerFullScreen();
       openWebSheet(e);
     });
 
@@ -1291,6 +1315,7 @@
     document.getElementById('menuClient').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
+      triggerFullScreen();
       launchRoute('Client Booking Preview', 'client', 'client');
     });
 
@@ -1321,7 +1346,7 @@
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
 
-    document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
+    document.getElementById('openWebBtn').addEventListener('click', (e) => { triggerFullScreen(); openWebSheet(e); });
     document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
     document.getElementById('reloadWebSheet').addEventListener('click', () => {
       webSheetLoader.classList.remove('hidden');
@@ -1329,7 +1354,7 @@
     });
 
     // =========================================================================
-    // DNS-LOCKED ADMIN CONSOLE MODAL
+    // DNS-LOCKED FULLVIEW ADMIN CONSOLE MODAL
     // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
       modalTitle.textContent = title || 'Admin Console';
@@ -1377,6 +1402,7 @@
       if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
         const cleanView = rawHref.replace(/^[#?]+/, '');
         const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
+        triggerFullScreen();
         launchRoute(
           link.dataset.title || link.textContent.trim(),
           subParams.get('page') || link.dataset.page || 'admin',
@@ -1387,6 +1413,7 @@
 
       try {
         const resolved = new URL(rawHref, window.location.href);
+        triggerFullScreen();
         if (resolved.origin === window.location.origin) {
           launchRoute(
             link.dataset.title || link.textContent.trim(),
@@ -1411,11 +1438,11 @@
     });
 
     document.querySelectorAll('.ctrl-btn').forEach(btn => {
-      btn.addEventListener('click', () => launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view));
+      btn.addEventListener('click', () => { triggerFullScreen(); launchRoute(btn.dataset.title, btn.dataset.page, btn.dataset.view); });
     });
 
-    document.getElementById('openFullAdmin').addEventListener('click', () => launchRoute('Full Admin Console', 'admin', 'admin'));
-    document.getElementById('openClientView').addEventListener('click', () => launchRoute('Client Booking Preview', 'client', 'client'));
+    document.getElementById('openFullAdmin').addEventListener('click', () => { triggerFullScreen(); launchRoute('Full Admin Console', 'admin', 'admin'); });
+    document.getElementById('openClientView').addEventListener('click', () => { triggerFullScreen(); launchRoute('Client Booking Preview', 'client', 'client'); });
 
     document.getElementById('reloadFrame').addEventListener('click', () => {
       frameLoader.classList.remove('hidden');
