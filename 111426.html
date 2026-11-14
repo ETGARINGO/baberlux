@@ -46,8 +46,9 @@
     :root {
       --gold: #d4af37;
       --gold-light: #f3d573;
-      --glass: rgba(12, 12, 12, 0.84);
+      --glass: rgba(12, 12, 12, 0.85);
       --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --online-green: #22c55e;
     }
 
     * {
@@ -84,7 +85,7 @@
       position: fixed;
       inset: 0;
       display: flex;
-      padding: 18px 16px 96px;
+      padding: 16px 14px 96px;
       z-index: 2;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -94,8 +95,8 @@
     .card {
       margin: auto;
       width: 100%;
-      max-width: 430px;
-      padding: 24px 18px;
+      max-width: 435px;
+      padding: 22px 18px;
       background: var(--glass);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -110,7 +111,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto 10px;
+      margin: 0 auto 8px;
     }
 
     .hero-logo-btn {
@@ -134,8 +135,8 @@
     }
 
     .brand-logo {
-      width: 84px;
-      height: 84px;
+      width: 78px;
+      height: 78px;
       object-fit: cover;
       border-radius: 50%;
       border: 2px solid var(--gold);
@@ -148,9 +149,9 @@
       margin-top: -10px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.56rem;
+      font-size: 0.55rem;
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 0.9px;
       text-transform: uppercase;
       padding: 3px 9px;
       border-radius: 999px;
@@ -160,38 +161,38 @@
     h1 {
       color: var(--gold);
       letter-spacing: 3px;
-      margin: 4px 0 4px;
-      font-size: 1.5rem;
+      margin: 4px 0 3px;
+      font-size: 1.45rem;
       text-transform: uppercase;
       font-weight: 900;
     }
 
     .tagline {
-      font-size: 0.67rem;
+      font-size: 0.65rem;
       letter-spacing: 2px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       opacity: 0.9;
       color: #e0e0e0;
     }
 
-    /* BRANCH SELECTOR WITH INDIVIDUAL CLICKABLE LOGOS */
+    /* BRANCH SELECTOR WITH LOGO + RECEPTIONIST BADGE */
     .selector-label {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.64rem;
+      font-size: 0.63rem;
       font-weight: 800;
-      letter-spacing: 1.3px;
+      letter-spacing: 1.2px;
       color: var(--gold);
       text-transform: uppercase;
       margin-bottom: 8px;
     }
 
     .selector-hint {
-      font-size: 0.58rem;
+      font-size: 0.57rem;
       font-weight: 600;
       color: #aaa;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       text-transform: none;
     }
 
@@ -199,7 +200,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .branch-tab {
@@ -213,7 +214,7 @@
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       min-width: 0;
     }
 
@@ -233,20 +234,40 @@
       box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
     }
 
+    .branch-avatar-pair {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
     .branch-tab-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid rgba(212, 175, 55, 0.65);
       background: #000;
-      flex-shrink: 0;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block;
     }
 
     .branch-tab.active .branch-tab-logo {
       border-color: var(--gold-light);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .branch-tab-recept {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid #111;
+      box-shadow: 0 0 0 1px var(--gold);
+      background: #1a1a1a;
     }
 
     .branch-tab-info {
@@ -258,15 +279,15 @@
     }
 
     .branch-tab-num {
-      font-size: 0.61rem;
+      font-size: 0.6rem;
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 0.9px;
       text-transform: uppercase;
       color: var(--gold);
     }
 
     .branch-tab-name {
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 700;
       color: #f5f5f5;
       white-space: nowrap;
@@ -274,13 +295,126 @@
       text-overflow: ellipsis;
     }
 
+    /* CLICKABLE & WELCOMING LADY RECEPTIONIST CARD */
+    .receptionist-card {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      margin-bottom: 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(20, 20, 20, 0.92));
+      border: 1.5px solid rgba(212, 175, 55, 0.62);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .receptionist-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold-light);
+      box-shadow: 0 14px 30px rgba(212, 175, 55, 0.22);
+    }
+
+    .receptionist-card:active {
+      transform: scale(0.985);
+    }
+
+    .recept-photo-wrap {
+      position: relative;
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+    }
+
+    .recept-photo {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid var(--gold-light);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.45);
+      background: #141414;
+      display: block;
+    }
+
+    .recept-online-dot {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--online-green);
+      border: 2px solid #0e0e0e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    .recept-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .recept-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .recept-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold-gradient);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .recept-greeting {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+
+    .recept-msg {
+      font-size: 0.72rem;
+      color: #ececec;
+      line-height: 1.38;
+    }
+
+    .recept-arrow {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--gold);
+      flex-shrink: 0;
+      padding-left: 2px;
+    }
+
     /* ACTIVE BRANCH DETAILS */
     .branch-panel {
       background: rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(212, 175, 55, 0.22);
       border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
       text-align: left;
       transition: opacity 0.18s ease;
     }
@@ -290,8 +424,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
+      padding-bottom: 7px;
+      margin-bottom: 7px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -303,8 +437,8 @@
     }
 
     .panel-mini-logo {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid var(--gold);
@@ -313,7 +447,7 @@
     }
 
     .branch-title {
-      font-size: 0.83rem;
+      font-size: 0.81rem;
       font-weight: 800;
       color: var(--gold-light);
       white-space: nowrap;
@@ -322,7 +456,7 @@
     }
 
     .branch-badge {
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.9px;
@@ -335,9 +469,9 @@
     }
 
     .detail-row {
-      font-size: 0.79rem;
-      line-height: 1.45;
-      margin-bottom: 8px;
+      font-size: 0.77rem;
+      line-height: 1.42;
+      margin-bottom: 7px;
       color: #eaeaea;
     }
 
@@ -348,7 +482,7 @@
     .detail-row strong {
       display: block;
       color: var(--gold);
-      font-size: 0.61rem;
+      font-size: 0.59rem;
       letter-spacing: 1.4px;
       text-transform: uppercase;
       margin-bottom: 2px;
@@ -369,16 +503,16 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin: 10px 0 14px;
+      margin: 10px 0 12px;
     }
 
     .link-btn {
-      padding: 11px 10px;
+      padding: 10px;
       border-radius: 12px;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
@@ -400,11 +534,11 @@
       justify-content: center;
       gap: 9px;
       width: 100%;
-      padding: 15px 14px;
+      padding: 14px;
       border-radius: 16px;
       background: var(--gold-gradient);
       color: #000;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 900;
       letter-spacing: 0.8px;
       text-transform: uppercase;
@@ -452,16 +586,17 @@
     }
 
     #assistive-bubble img {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       object-fit: cover;
+      object-position: top center;
       pointer-events: none;
     }
 
     #assistive-menu {
       position: fixed;
-      width: 245px;
+      width: 255px;
       background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -514,13 +649,29 @@
       border-color: var(--gold);
     }
 
+    .assistive-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
     .assistive-branch-logo {
       width: 24px;
       height: 24px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid var(--gold);
-      flex-shrink: 0;
+    }
+
+    .assistive-recept-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid var(--gold-light);
+      margin-left: -7px;
+      background: #111;
     }
 
     /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
@@ -603,6 +754,8 @@
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
+      text-align: center;
+      padding: 20px;
       z-index: 2;
       transition: opacity 0.2s ease;
       pointer-events: none;
@@ -611,6 +764,16 @@
     .iframe-loader.hidden { opacity: 0; }
     .spinner { width: 30px; height: 30px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    #bookingLoaderRecept {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    }
 
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
 
@@ -799,13 +962,29 @@
       min-width: 0;
     }
 
+    .booking-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
     #bookingHeaderLogo {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--gold);
-      flex-shrink: 0;
+    }
+
+    #bookingHeaderRecept {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid var(--gold-light);
+      margin-left: -8px;
+      background: #141414;
     }
 
     #bookingBranchSelect {
@@ -814,9 +993,9 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       border-radius: 10px;
       padding: 6px 10px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      max-width: 215px;
+      max-width: 205px;
       outline: none;
       cursor: pointer;
     }
@@ -862,26 +1041,38 @@
 
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
   <div id="assistive-bubble" title="Quick Branch Menu">
-    <img src="kol.gif" alt="Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='kol.gif';">
+    <img src="dasmares.jfif" alt="Receptionist Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='kol.gif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
   <div id="assistive-menu">
     <div class="assistive-section-title">Quick Book Branch</div>
     <a href="#" class="assistive-item" data-quick-branch="branch1">
-      <img src="b1.jfif" alt="Branch 1" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <div class="assistive-avatars">
+        <img src="b1.jfif" alt="Branch 1" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b1.jfif';">
+      </div>
       <span>Branch 1 • Don Placido</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch2">
-      <img src="b2.jfif" alt="Branch 2" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <div class="assistive-avatars">
+        <img src="b2.jfif" alt="Branch 2" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b2.jfif';">
+      </div>
       <span>Branch 2 • Congressional</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch3">
-      <img src="b3.jfif" alt="Branch 3" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <div class="assistive-avatars">
+        <img src="b3.jfif" alt="Branch 3" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b3.jfif';">
+      </div>
       <span>Branch 3 • Slick &amp; Dapper</span>
     </a>
     <a href="#" class="assistive-item" data-quick-branch="branch4">
-      <img src="b4.jfif" alt="Branch 4" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+      <div class="assistive-avatars">
+        <img src="b4.jfif" alt="Branch 4" class="assistive-branch-logo" onerror="this.onerror=null;this.src='kol.gif';">
+        <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+      </div>
       <span>Branch 4 • Imus Highway</span>
     </a>
     <div class="assistive-section-title" style="margin-top: 2px;">More</div>
@@ -909,13 +1100,16 @@
 
       <div class="selector-label">
         <span>1. Choose Branch Brand</span>
-        <span class="selector-hint">Tap logo to select / book</span>
+        <span class="selector-hint">Tap logo or receptionist</span>
       </div>
 
-      <!-- 4 CLICKABLE BRANCH BRAND CARDS WITH INDIVIDUAL LOGOS -->
+      <!-- 4 CLICKABLE BRANCH BRAND CARDS WITH INDIVIDUAL LOGOS & RECEPTIONIST BADGES -->
       <div class="branch-grid" id="branchGrid">
         <button type="button" class="branch-tab" data-branch="branch1" title="Select or Book Branch 1">
-          <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-avatar-pair">
+            <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b1.jfif';">
+          </div>
           <div class="branch-tab-info">
             <span class="branch-tab-num">Branch 1</span>
             <span class="branch-tab-name">Don Placido Ave</span>
@@ -923,7 +1117,10 @@
         </button>
 
         <button type="button" class="branch-tab active" data-branch="branch2" title="Select or Book Branch 2">
-          <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-avatar-pair">
+            <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b2.jfif';">
+          </div>
           <div class="branch-tab-info">
             <span class="branch-tab-num">Branch 2 • Main</span>
             <span class="branch-tab-name">Congressional Ave</span>
@@ -931,7 +1128,10 @@
         </button>
 
         <button type="button" class="branch-tab" data-branch="branch3" title="Select or Book Branch 3">
-          <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-avatar-pair">
+            <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b3.jfif';">
+          </div>
           <div class="branch-tab-info">
             <span class="branch-tab-num">Branch 3</span>
             <span class="branch-tab-name">Slick &amp; Dapper</span>
@@ -939,13 +1139,32 @@
         </button>
 
         <button type="button" class="branch-tab" data-branch="branch4" title="Select or Book Branch 4">
-          <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+          <div class="branch-avatar-pair">
+            <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='kol.gif';">
+            <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b4.jfif';">
+          </div>
           <div class="branch-tab-info">
             <span class="branch-tab-num">Branch 4</span>
             <span class="branch-tab-name">Imus Highway</span>
           </div>
         </button>
       </div>
+
+      <!-- CLICKABLE & WELCOMING BRANCH RECEPTIONIST CARD -->
+      <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
+        <div class="recept-photo-wrap">
+          <img src="dasmares.jfif" alt="Branch Receptionist" class="recept-photo" id="receptionistPhoto">
+          <span class="recept-online-dot" title="Online & Ready to Assist"></span>
+        </div>
+        <div class="recept-content">
+          <div class="recept-badge-row">
+            <span class="recept-pill">👑 Front Desk • Tap to Book</span>
+          </div>
+          <div class="recept-greeting" id="receptionistGreeting">Welcome to King of Fadez Main!</div>
+          <div class="recept-msg" id="receptionistSubtext">Hi! Tap here to reserve your chair at Congressional Ave — walk-ins &amp; appointments welcome!</div>
+        </div>
+        <span class="recept-arrow">›</span>
+      </button>
 
       <!-- DYNAMIC BRANCH INFO PANEL -->
       <div class="branch-panel" id="branchPanel">
@@ -1038,7 +1257,10 @@
   <div id="booking">
     <div class="booking-header">
       <div class="booking-header-left">
-        <img src="b2.jfif" alt="Branch Logo" id="bookingHeaderLogo" onerror="this.onerror=null;this.src='kol.gif';">
+        <div class="booking-avatars">
+          <img src="b2.jfif" alt="Branch Logo" id="bookingHeaderLogo" onerror="this.onerror=null;this.src='kol.gif';">
+          <img src="dasmares.jfif" alt="Branch Receptionist" id="bookingHeaderRecept" onerror="this.onerror=null;this.src='b2.jfif';">
+        </div>
         <select id="bookingBranchSelect" aria-label="Switch Booking Branch">
           <option value="branch1">Branch 1 • Don Placido</option>
           <option value="branch2" selected>Branch 2 • Congressional</option>
@@ -1050,8 +1272,9 @@
     </div>
     <div class="booking-frame-wrap">
       <div id="bookingLoader" class="iframe-loader">
+        <img src="dasmares.jfif" alt="Receptionist" id="bookingLoaderRecept">
         <div class="spinner"></div>
-        <span id="bookingLoaderText">Loading Branch Booking...</span>
+        <span id="bookingLoaderText">Welcome! Connecting to Front Desk...</span>
       </div>
       <iframe
         id="bookingFrame"
@@ -1064,14 +1287,17 @@
 
   <script>
     // =========================================================================
-    // BRANCH DIRECTORY, INDIVIDUAL LOGOS & BOOKING ENDPOINTS
+    // BRANCH DIRECTORY, INDIVIDUAL LOGOS, RECEPTIONISTS & BOOKING ENDPOINTS
     // =========================================================================
     const BRANCHES = {
       branch1: {
         logo: "b1.jfif",
+        receptionist: "S&Drec.jfif",
         shortName: "Branch 1 • Don Placido",
         title: "Branch 1 • Don Placido Campos Ave",
         badge: "Dasmariñas",
+        welcomeTitle: "Welcome to Don Placido Branch!",
+        welcomeMsg: "Hi! Tap here to reserve your chair at Don Placido Campos Ave — fresh fades & premium grooming await.",
         bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=kofdasmabav0r",
         address: "Brgy Zone 3, Don Placido Campos Avenue, Dasmariñas, Cavite, Philippines",
         phoneDisplay: "(0915) 053 3669",
@@ -1084,9 +1310,12 @@
       },
       branch2: {
         logo: "b2.jfif",
+        receptionist: "dasmares.jfif",
         shortName: "Branch 2 • Congressional",
         title: "Branch 2 • Congressional Ave",
         badge: "Main Branch",
+        welcomeTitle: "Welcome to King of Fadez Main!",
+        welcomeMsg: "Hello! Tap here to book your slot at Congressional Ave — The Standard of Dasmariñas.",
         bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=main",
         address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
         phoneDisplay: "(0956) 718 8557",
@@ -1100,9 +1329,12 @@
       },
       branch3: {
         logo: "b3.jfif",
+        receptionist: "Molinorec.jfif",
         shortName: "Branch 3 • Slick & Dapper",
         title: "Branch 3 • Slick and Dapper Barbershop",
         badge: "Dasmariñas",
+        welcomeTitle: "Welcome to Slick & Dapper!",
+        welcomeMsg: "Hi there! Tap here to schedule your cut at Slick & Dapper Barbershop Dasmariñas.",
         bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=branch3kofxe4",
         address: "Slick and Dapper Barbershop Dasmariñas",
         phoneDisplay: "(0956) 752 9543",
@@ -1114,9 +1346,12 @@
       },
       branch4: {
         logo: "b4.jfif",
+        receptionist: "Imusrec.jfif",
         shortName: "Branch 4 • Imus Highway",
         title: "Branch 4 • Emilio Aguinaldo Hwy",
         badge: "Imus, Cavite",
+        welcomeTitle: "Welcome to King of Fadez Imus!",
+        welcomeMsg: "Hello! Tap here to book your appointment at Emilio Aguinaldo Hwy, Tanzang Luma, Imus.",
         bookingUrl: "https://script.google.com/macros/s/AKfycbzWbnA97ETjRJXmtHk9S5mS1l3QvOm1areeedqnrzd7l8dACd-zn2wFFIV9m-yah_x2RA/exec?branch=branch4imu253",
         address: "7535 Emilio Aguinaldo Highway, Tanzang Luma, 1, Imus, Philippines, 4103",
         phoneDisplay: "(0927) 994 3950",
@@ -1138,7 +1373,13 @@
     const panelMiniLogo = document.getElementById('panelMiniLogo');
     const bookBtnLogo = document.getElementById('bookBtnLogo');
     const bookingHeaderLogo = document.getElementById('bookingHeaderLogo');
+    const bookingHeaderRecept = document.getElementById('bookingHeaderRecept');
+    const bookingLoaderRecept = document.getElementById('bookingLoaderRecept');
     const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
+
+    const receptionistPhoto = document.getElementById('receptionistPhoto');
+    const receptionistGreeting = document.getElementById('receptionistGreeting');
+    const receptionistSubtext = document.getElementById('receptionistSubtext');
 
     const branchTitleEl = document.getElementById('branchTitle');
     const branchBadgeEl = document.getElementById('branchBadge');
@@ -1150,12 +1391,20 @@
     const openBookingText = document.getElementById('openBookingText');
     const bookingBranchSelect = document.getElementById('bookingBranchSelect');
 
-    function setLogoWithFallback(imgEl, src) {
+    function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'kol.gif') {
       imgEl.onerror = function() {
-        this.onerror = null;
-        this.src = 'kol.gif';
+        if (secondarySrc && this.getAttribute('src') !== secondarySrc) {
+          this.onerror = function() {
+            this.onerror = null;
+            this.src = 'kol.gif';
+          };
+          this.src = secondarySrc;
+        } else {
+          this.onerror = null;
+          this.src = 'kol.gif';
+        }
       };
-      imgEl.src = src;
+      imgEl.src = primarySrc;
     }
 
     function renderBranch(branchKey) {
@@ -1168,12 +1417,20 @@
         tab.classList.toggle('active', tab.dataset.branch === branchKey);
       });
 
-      // Update individual branch logo across hero, details header, CTA button, modal & floating bubble
-      setLogoWithFallback(heroBrandLogo, data.logo);
-      setLogoWithFallback(panelMiniLogo, data.logo);
-      setLogoWithFallback(bookBtnLogo, data.logo);
-      setLogoWithFallback(bookingHeaderLogo, data.logo);
-      setLogoWithFallback(assistiveBubbleImg, data.logo);
+      // Update individual branch brand logo
+      setImageWithFallback(heroBrandLogo, data.logo, 'kol.gif');
+      setImageWithFallback(panelMiniLogo, data.logo, 'kol.gif');
+      setImageWithFallback(bookBtnLogo, data.logo, 'kol.gif');
+      setImageWithFallback(bookingHeaderLogo, data.logo, 'kol.gif');
+
+      // Update individual branch receptionist portrait & welcome message
+      setImageWithFallback(receptionistPhoto, data.receptionist, data.logo);
+      setImageWithFallback(bookingHeaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(bookingLoaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
+
+      receptionistGreeting.textContent = data.welcomeTitle;
+      receptionistSubtext.textContent = data.welcomeMsg;
 
       branchTitleEl.textContent = data.title;
       branchBadgeEl.textContent = data.badge;
@@ -1193,7 +1450,7 @@
       document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     }
 
-    // Clicking a branch card/logo selects it; tapping an already-active branch opens booking directly
+    // Clicking a branch card selects it; tapping an already-active branch opens booking directly
     branchTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const targetBranch = tab.dataset.branch;
@@ -1205,7 +1462,8 @@
       });
     });
 
-    // Clicking the main hero brand logo or mini panel logo opens booking for that branch
+    // Clicking the Receptionist Welcome Card, Hero Brand Logo, or Mini Panel Logo opens booking
+    document.getElementById('receptionistCard').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
     document.getElementById('heroBrandBtn').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
     panelMiniLogo.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
 
@@ -1223,7 +1481,7 @@
       if (!data) return;
       renderBranch(branchKey);
       if (loadedBookingBranch !== branchKey) {
-        bookingLoaderText.textContent = `Loading ${data.shortName}...`;
+        bookingLoaderText.textContent = `Welcome! Connecting to ${data.shortName} Front Desk...`;
         bookingLoader.classList.remove('hidden');
         bookingFrame.src = data.bookingUrl;
         loadedBookingBranch = branchKey;
@@ -1298,8 +1556,8 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 245;
-          const mHeight = menu.offsetHeight || 310;
+          const mWidth = menu.offsetWidth || 255;
+          const mHeight = menu.offsetHeight || 315;
           const pad = 12;
 
           let left = bRect.right - mWidth;
