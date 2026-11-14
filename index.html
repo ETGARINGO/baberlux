@@ -208,7 +208,9 @@
       transform: scale(0.98);
     }
 
-    /* iOS ASSISTIVETOUCH FLOATING MENU BUBBLE */
+    /* =========================================================
+       iOS ASSISTIVETOUCH FLOATING MENU (ALWAYS VISIBLE ON TOP)
+       ========================================================= */
     #assistive-bubble {
       position: fixed;
       bottom: 90px;
@@ -220,7 +222,7 @@
       -webkit-backdrop-filter: blur(14px);
       border: 2px solid var(--gold);
       border-radius: 50%;
-      z-index: 9980;
+      z-index: 10005; /* Highest layer so it is ALWAYS visible */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -250,7 +252,7 @@
       border: 1px solid rgba(212, 175, 55, 0.5);
       border-radius: 20px;
       padding: 12px;
-      z-index: 9981;
+      z-index: 10006; /* Always above everything */
       display: none;
       flex-direction: column;
       gap: 6px;
@@ -287,92 +289,67 @@
       border-color: var(--gold);
     }
 
-    /* FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) */
-    #webSheetBackdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(6px);
-      z-index: 9990;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    #webSheetBackdrop.active { display: block; opacity: 1; }
-
+    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
     #webSheet {
       position: fixed;
-      left: 50%;
-      bottom: 0;
+      inset: 0;
       width: 100%;
-      max-width: 680px;
-      height: 88vh;
-      max-height: 88dvh;
-      background: #0c0c0c;
-      border-top: 2px solid var(--gold);
-      border-radius: 26px 26px 0 0;
+      height: 100%;
+      background: #080808;
       z-index: 9995;
       display: none;
       flex-direction: column;
-      transform: translate(-50%, 100%);
-      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.95);
-      overflow: hidden;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
 
-    #webSheet.active { display: flex; transform: translate(-50%, 0); }
-
-    .sheet-drag-bar {
-      width: 44px;
-      height: 4px;
-      border-radius: 4px;
-      background: rgba(212, 175, 55, 0.55);
-      margin: 9px auto 2px;
-      flex-shrink: 0;
+    #webSheet.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
     }
 
-    .sheet-header {
-      height: 48px;
+    .websheet-header {
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-      background: #0e0e0e;
+      padding: 0 18px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       flex-shrink: 0;
     }
 
-    .sheet-title {
+    .websheet-actions {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
     }
 
-    .sheet-actions { display: flex; align-items: center; gap: 8px; }
-
-    .sheet-icon-btn {
+    .websheet-icon-btn {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      font-size: 0.95rem;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1rem;
       cursor: pointer;
       display: grid;
       place-items: center;
     }
 
-    .sheet-scroll-container {
+    .websheet-scroll-container {
       position: relative;
       flex: 1;
       width: 100%;
+      height: calc(100% - 60px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background: #fff;
@@ -398,7 +375,7 @@
     }
 
     #webSheetLoader.hidden { opacity: 0; }
-    .spinner { width: 28px; height: 28px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .spinner { width: 30px; height: 30px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
@@ -420,7 +397,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      z-index: 50;
+      z-index: 9985;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
@@ -468,9 +445,9 @@
     #device-guide {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 10010;
       display: none;
       align-items: center;
       justify-content: center;
@@ -605,7 +582,7 @@
   <!-- LIGHTNING FAST CSS BACKGROUND GLOW -->
   <div class="bg-glow"></div>
 
-  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
   <div id="assistive-bubble" title="AssistiveTouch Menu">
     <img src="kol.gif" alt="Menu" id="logo-source">
   </div>
@@ -619,6 +596,10 @@
     <a href="#" class="assistive-item" id="menuDetails">
       <span class="icon">📜</span>
       <span>Shop Details</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuInstallApp">
+      <span class="icon">📥</span>
+      <span>Download App</span>
     </a>
     <a href="https://maps.google.com/?q=King+of+Fadez+Dasmariñas" target="_blank" class="assistive-item">
       <span class="icon">🗺️</span>
@@ -660,24 +641,19 @@
     </div>
   </div>
 
-  <!-- FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) -->
-  <div id="webSheetBackdrop"></div>
+  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
-    <div class="sheet-drag-bar"></div>
-    <div class="sheet-header">
-      <div class="sheet-title">
-        <span>👑</span>
-        <span>King of Fadez • Official Details</span>
-      </div>
-      <div class="sheet-actions">
-        <button class="sheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
-        <button class="sheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+    <div class="websheet-header">
+      <span>👑 King of Fadez • Official Details</span>
+      <div class="websheet-actions">
+        <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
     </div>
-    <div class="sheet-scroll-container">
+    <div class="websheet-scroll-container">
       <div id="webSheetLoader">
         <div class="spinner"></div>
-        <span>Loading Details...</span>
+        <span>Loading Full Details...</span>
       </div>
       <iframe
         id="webSheetFrame"
@@ -819,45 +795,50 @@
       openWebSheet();
     });
 
+    // Assistive Menu "Download App" action
+    document.getElementById('menuInstallApp').addEventListener('click', async (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
     // =========================================================================
-    // FLOATING SCROLLABLE DETAILS SHEET (kingoffadezph.com)
+    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
     // =========================================================================
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
     const webSheet = document.getElementById('webSheet');
-    const webSheetBackdrop = document.getElementById('webSheetBackdrop');
     const webSheetFrame = document.getElementById('webSheetFrame');
     const webSheetLoader = document.getElementById('webSheetLoader');
     let webSheetLoaded = false;
 
-    function openWebSheet() {
+    function openWebSheet(e) {
+      if (e) e.preventDefault();
       menu.classList.remove('active');
       if (!webSheetLoaded) {
         webSheetLoader.classList.remove('hidden');
         webSheetFrame.src = DETAILS_URL;
         webSheetLoaded = true;
       }
-      webSheetBackdrop.style.display = 'block';
       webSheet.style.display = 'flex';
-      requestAnimationFrame(() => {
-        webSheetBackdrop.classList.add('active');
-        webSheet.classList.add('active');
-      });
+      requestAnimationFrame(() => webSheet.classList.add('active'));
     }
 
     function closeWebSheet() {
-      webSheetBackdrop.classList.remove('active');
       webSheet.classList.remove('active');
-      setTimeout(() => {
-        webSheetBackdrop.style.display = 'none';
-        webSheet.style.display = 'none';
-      }, 360);
+      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
     }
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
 
     document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
-    webSheetBackdrop.addEventListener('click', closeWebSheet);
     document.getElementById('reloadWebSheet').addEventListener('click', () => {
       webSheetLoader.classList.remove('hidden');
       webSheetFrame.src = DETAILS_URL;
