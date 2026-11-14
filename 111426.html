@@ -287,92 +287,67 @@
       border-color: var(--gold);
     }
 
-    /* FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) */
-    #webSheetBackdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(6px);
-      z-index: 9990;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    #webSheetBackdrop.active { display: block; opacity: 1; }
-
+    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
     #webSheet {
       position: fixed;
-      left: 50%;
-      bottom: 0;
+      inset: 0;
       width: 100%;
-      max-width: 680px;
-      height: 88vh;
-      max-height: 88dvh;
-      background: #0c0c0c;
-      border-top: 2px solid var(--gold);
-      border-radius: 26px 26px 0 0;
+      height: 100%;
+      background: #080808;
       z-index: 9995;
       display: none;
       flex-direction: column;
-      transform: translate(-50%, 100%);
-      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.95);
-      overflow: hidden;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
 
-    #webSheet.active { display: flex; transform: translate(-50%, 0); }
-
-    .sheet-drag-bar {
-      width: 44px;
-      height: 4px;
-      border-radius: 4px;
-      background: rgba(212, 175, 55, 0.55);
-      margin: 9px auto 2px;
-      flex-shrink: 0;
+    #webSheet.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
     }
 
-    .sheet-header {
-      height: 48px;
+    .websheet-header {
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-      background: #0e0e0e;
+      padding: 0 18px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       flex-shrink: 0;
     }
 
-    .sheet-title {
+    .websheet-actions {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
     }
 
-    .sheet-actions { display: flex; align-items: center; gap: 8px; }
-
-    .sheet-icon-btn {
+    .websheet-icon-btn {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      font-size: 0.95rem;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1rem;
       cursor: pointer;
       display: grid;
       place-items: center;
     }
 
-    .sheet-scroll-container {
+    .websheet-scroll-container {
       position: relative;
       flex: 1;
       width: 100%;
+      height: calc(100% - 60px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background: #fff;
@@ -398,7 +373,7 @@
     }
 
     #webSheetLoader.hidden { opacity: 0; }
-    .spinner { width: 28px; height: 28px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .spinner { width: 30px; height: 30px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.65s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
@@ -634,37 +609,7 @@
   <div id="overlay">
     <div class="card">
       <div class="brand-logo-wrap">
-        <svg viewBox="0 0 340 100" width="100%" height="100%" style="max-width: 320px; display: block; filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));">
-          <!-- Background Glass Panel -->
-          <rect x="2" y="2" width="336" height="96" rx="16" fill="rgba(10, 10, 10, 0.85)" stroke="#d4af37" stroke-width="2" />
-          
-          <!-- Gold Inner Accent Lines -->
-          <line x1="16" y1="16" x2="324" y2="16" stroke="rgba(212, 175, 55, 0.25)" stroke-width="1" />
-          <line x1="16" y1="84" x2="324" y2="84" stroke="rgba(212, 175, 55, 0.25)" stroke-width="1" />
-      
-          <!-- Crown Icon -->
-          <g transform="translate(24, 32) scale(0.9)">
-            <path d="M4 20 L8 8 L14 15 L20 4 L26 15 L32 8 L36 20 Z" fill="url(#goldGrad)" />
-            <circle cx="8" cy="7" r="2" fill="#d4af37" />
-            <circle cx="20" cy="3" r="2.5" fill="#d4af37" />
-            <circle cx="32" cy="7" r="2" fill="#d4af37" />
-          </g>
-      
-          <!-- Typography: King of Fadez -->
-          <text x="75" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="url(#goldGrad)" letter-spacing="3">KING OF FADEZ</text>
-          
-          <!-- Subtitle: The Standard of Dasmariñas -->
-          <text x="77" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="#c0c0c0" letter-spacing="3.5">THE STANDARD OF DASMARIÑAS</text>
-      
-          <!-- Gradient Definition -->
-          <defs>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f3e5ab" />
-              <stop offset="50%" stop-color="#d4af37" />
-              <stop offset="100%" stop-color="#aa7c11" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <img src="kol.gif" alt="King of Fadez Logo" class="brand-logo">
       </div>
       <h1>King of Fadez</h1>
       <div class="tagline">THE STANDARD OF DASMARIÑAS</div>
@@ -690,24 +635,19 @@
     </div>
   </div>
 
-  <!-- FLOATING SCROLLABLE WEBSITE SHEET (kingoffadezph.com) -->
-  <div id="webSheetBackdrop"></div>
+  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
   <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
-    <div class="sheet-drag-bar"></div>
-    <div class="sheet-header">
-      <div class="sheet-title">
-        <span>👑</span>
-        <span>King of Fadez • Official Details</span>
-      </div>
-      <div class="sheet-actions">
-        <button class="sheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
-        <button class="sheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+    <div class="websheet-header">
+      <span>👑 King of Fadez • Official Details</span>
+      <div class="websheet-actions">
+        <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
     </div>
-    <div class="sheet-scroll-container">
+    <div class="websheet-scroll-container">
       <div id="webSheetLoader">
         <div class="spinner"></div>
-        <span>Loading Details...</span>
+        <span>Loading Full Details...</span>
       </div>
       <iframe
         id="webSheetFrame"
@@ -850,44 +790,35 @@
     });
 
     // =========================================================================
-    // FLOATING SCROLLABLE DETAILS SHEET (kingoffadezph.com)
+    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
     // =========================================================================
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
     const webSheet = document.getElementById('webSheet');
-    const webSheetBackdrop = document.getElementById('webSheetBackdrop');
     const webSheetFrame = document.getElementById('webSheetFrame');
     const webSheetLoader = document.getElementById('webSheetLoader');
     let webSheetLoaded = false;
 
-    function openWebSheet() {
+    function openWebSheet(e) {
+      if (e) e.preventDefault();
       menu.classList.remove('active');
       if (!webSheetLoaded) {
         webSheetLoader.classList.remove('hidden');
         webSheetFrame.src = DETAILS_URL;
         webSheetLoaded = true;
       }
-      webSheetBackdrop.style.display = 'block';
       webSheet.style.display = 'flex';
-      requestAnimationFrame(() => {
-        webSheetBackdrop.classList.add('active');
-        webSheet.classList.add('active');
-      });
+      requestAnimationFrame(() => webSheet.classList.add('active'));
     }
 
     function closeWebSheet() {
-      webSheetBackdrop.classList.remove('active');
       webSheet.classList.remove('active');
-      setTimeout(() => {
-        webSheetBackdrop.style.display = 'none';
-        webSheet.style.display = 'none';
-      }, 360);
+      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
     }
 
     webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
 
     document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
     document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
-    webSheetBackdrop.addEventListener('click', closeWebSheet);
     document.getElementById('reloadWebSheet').addEventListener('click', () => {
       webSheetLoader.classList.remove('hidden');
       webSheetFrame.src = DETAILS_URL;
