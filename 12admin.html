@@ -61,6 +61,7 @@
       background: #050505;
       color: #fff;
       overflow: hidden;
+      overscroll-behavior: none;
     }
 
     #bg-video {
@@ -329,6 +330,7 @@
       align-items: center;
       gap: 5px;
       transition: transform 0.1s;
+      text-decoration: none;
     }
 
     .ctrl-btn span.icon {
@@ -360,6 +362,7 @@
       border: none;
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      text-decoration: none;
     }
 
     .secondary-actions {
@@ -379,9 +382,10 @@
       font-size: 0.7rem;
       font-weight: 600;
       cursor: pointer;
+      text-decoration: none;
     }
 
-    /* INSTANT ADMIN MODAL */
+    /* INSTANT ADMIN MODAL (KEEPS USER LOCKED ON CUSTOM DNS) */
     #adminModal {
       position: fixed;
       inset: 0;
@@ -576,7 +580,7 @@
     </div>
   </div>
 
-  <!-- INSTANT PRE-LOADED ADMIN MODAL -->
+  <!-- INSTANT PRE-LOADED ADMIN MODAL (NO-EXIT DNS LOCKED FRAME) -->
   <div id="adminModal">
     <div class="modal-header">
       <span id="modalTitle">Admin Console</span>
@@ -591,10 +595,13 @@
         <div class="spinner"></div>
         <span>Loading App...</span>
       </div>
+      <!-- Sandbox intentionally omits allow-top-navigation so sublinks inside GAS cannot exit your custom DNS -->
       <iframe
         id="adminFrame"
         src="about:blank"
-        allow="camera; microphone; clipboard-read; clipboard-write; geolocation">
+        sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+        referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
   </div>
@@ -616,6 +623,7 @@
 
     let enteredPin = "";
     let currentSrc = "";
+    let pendingSublink = null;
 
     // Live Clock
     function updateClock() {
@@ -625,6 +633,21 @@
     updateClock();
     setInterval(updateClock, 15000);
 
+    // Check if URL has a sublink query/hash on load (e.g. ?page=admin&view=walkin or #walkin)
+    function parseInitialSublink() {
+      const params = new URLSearchParams(window.location.search);
+      const pageParam = params.get('page');
+      const viewParam = params.get('view') || window.location.hash.replace('#', '');
+      if (pageParam || viewParam) {
+        pendingSublink = {
+          title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
+          page: pageParam || 'admin',
+          view: viewParam || 'admin'
+        };
+      }
+    }
+    parseInitialSublink();
+
     // Instant unlock check
     if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
       showAdminPanel();
@@ -633,6 +656,11 @@
     function showAdminPanel() {
       lockScreen.style.display = 'none';
       adminPanel.style.display = 'block';
+      if (pendingSublink) {
+        const sub = pendingSublink;
+        pendingSublink = null;
+        launchRoute(sub.title, sub.page, sub.view);
+      }
     }
 
     function lockAdminPanel() {
@@ -708,16 +736,9 @@
       updateStatusUI();
     });
 
-    // Lightning Fast Route Launcher
-    function launchRoute(title, pageParam, viewParam) {
-      modalTitle.textContent = title;
-
-      const url = new URL(BASE_SCRIPT_URL);
-      url.searchParams.set('page', pageParam);
-      url.searchParams.set('branch', BRANCH);
-      if (viewParam) url.searchParams.set('view', viewParam);
-
-      const targetUrl = url.toString();
+    // Open any URL directly inside the DNS-locked modal without leaving the domain
+    function openUrlInLockedDns(title, targetUrl) {
+      modalTitle.textContent = title || 'Admin Console';
 
       if (currentSrc !== targetUrl) {
         currentSrc = targetUrl;
@@ -725,12 +746,84 @@
         adminFrame.src = targetUrl;
       }
 
+      if (!adminModal.classList.contains('active')) {
+        history.pushState({ kofModalOpen: true }, '', window.location.href);
+      }
+
       adminModal.style.display = 'flex';
       requestAnimationFrame(() => adminModal.classList.add('active'));
     }
 
+    function closeLockedModal(fromPopState = false) {
+      if (!adminModal.classList.contains('active')) return;
+      adminModal.classList.remove('active');
+      setTimeout(() => {
+        if (!adminModal.classList.contains('active')) {
+          adminModal.style.display = 'none';
+        }
+      }, 220);
+
+      if (!fromPopState && history.state && history.state.kofModalOpen) {
+        history.back();
+      }
+    }
+
+    // Lightning Fast Route Launcher (Stays 100% on current DNS)
+    function launchRoute(title, pageParam, viewParam) {
+      const url = new URL(BASE_SCRIPT_URL);
+      url.searchParams.set('page', pageParam);
+      url.searchParams.set('branch', BRANCH);
+      if (viewParam) url.searchParams.set('view', viewParam);
+      openUrlInLockedDns(title, url.toString());
+    }
+
     adminFrame.addEventListener('load', () => {
       frameLoader.classList.add('hidden');
+    });
+
+    // Global Link & Sublink Interceptor: Prevents any <a> or sublink from exiting the DNS
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+
+      const rawHref = link.getAttribute('href');
+      if (!rawHref || rawHref.startsWith('javascript:')) return;
+
+      e.preventDefault();
+
+      // Hash or query sublink (e.g., ?page=admin&view=barbers or #walkin)
+      if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
+        const cleanView = rawHref.replace(/^[#?]+/, '');
+        const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
+        const page = subParams.get('page') || link.dataset.page || 'admin';
+        const view = subParams.get('view') || link.dataset.view || cleanView || 'admin';
+        launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+        return;
+      }
+
+      // Any sublink or external URL opens inside the in-app frame so the browser stays on the DNS
+      try {
+        const resolved = new URL(rawHref, window.location.href);
+        if (resolved.origin === window.location.origin) {
+          const page = resolved.searchParams.get('page') || link.dataset.page || 'admin';
+          const view = resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin';
+          launchRoute(link.dataset.title || link.textContent.trim(), page, view);
+        } else {
+          openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
+        }
+      } catch (_) {
+        // Fallback stay on current DNS
+      }
+    }, true);
+
+    // Keep Device / Messenger / Viber Back Button inside the DNS without exiting
+    history.replaceState({ kofBaseDns: true }, '', window.location.href);
+    window.addEventListener('popstate', () => {
+      if (adminModal.classList.contains('active')) {
+        closeLockedModal(true);
+      } else {
+        history.pushState({ kofBaseDns: true }, '', window.location.href);
+      }
     });
 
     document.querySelectorAll('.ctrl-btn').forEach(btn => {
@@ -745,9 +838,7 @@
       adminFrame.src = adminFrame.src;
     });
 
-    document.getElementById('closeModal').addEventListener('click', () => {
-      adminModal.classList.remove('active');
-    });
+    document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
   </script>
 
 </body>
