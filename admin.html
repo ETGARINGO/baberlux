@@ -336,11 +336,31 @@
     }
 
     .tagline {
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    .tagline-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--brand-font);
       font-size: clamp(0.64rem, 1.4vw, 0.76rem);
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 2px;
       color: #f0f0f0;
       text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.65);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .tagline-link:hover {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold-light);
+      transform: translateY(-1px);
     }
 
     .sub-tagline {
@@ -349,7 +369,7 @@
       letter-spacing: 1.6px;
       color: var(--gold);
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     /* =========================================================
@@ -1534,7 +1554,10 @@
           <span class="border-flare-bottom" aria-hidden="true"></span>
         </div>
 
-        <div class="tagline">THE STANDARD OF DASMARIÑAS &amp; CAVITE</div>
+        <!-- CLICKABLE TAGLINE LINK -->
+        <div class="tagline">
+          <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">THE STANDARD OF DASMARIÑAS &amp; CAVITE ↗</a>
+        </div>
         <div class="sub-tagline" id="activeBranchBanner">MULTI-BRANCH DASH</div>
       </header>
 
