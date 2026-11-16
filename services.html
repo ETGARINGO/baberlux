@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Price List</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 12px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 15px 5px;
+    }
+
+    .header h2 {
+      font-size: 22px;
+      color: #222;
+    }
+
+    .sheet-container {
+      width: 100%;
+      height: 85vh;
+      min-height: 500px;
+      overflow: hidden;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 5px;
+      }
+
+      .header {
+        padding: 12px 5px;
+      }
+
+      .header h2 {
+        font-size: 18px;
+      }
+
+      .sheet-container {
+        height: 88vh;
+        min-height: 450px;
+        border-radius: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h2>Price List</h2>
+    </div>
+
+    <div class="sheet-container">
+
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/e/YOUR_PUBLISHED_SHEET_ID/pubhtml?gid=0&widget=true&headers=false"
+        loading="lazy"
+        title="Price List Spreadsheet">
+      </iframe>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
