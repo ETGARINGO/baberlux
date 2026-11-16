@@ -1,117 +1,524 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no">
+
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>Price List</title>
 
-  <!-- Website Logo / Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/gif" href="kol.gif">
 
   <style>
+    /* =========================================================
+       GLOBAL RESET
+    ========================================================= */
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html,
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f6fa;
       width: 100%;
-      min-height: 100vh;
+      height: 100%;
+      overflow: hidden;
     }
 
-    /* Main Container */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 12px;
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          #1e293b 0%,
+          #0f172a 45%,
+          #020617 100%
+        );
+
+      color: #fff;
     }
 
-    /* Header */
-    .header {
-      text-align: center;
-      padding: 15px 5px;
+    button {
+      font-family: inherit;
+    }
+
+    /* =========================================================
+       APP
+    ========================================================= */
+
+    .app {
+      width: 100%;
+      height: 100dvh;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      position: relative;
+    }
+
+    /* =========================================================
+       TOP BAR
+    ========================================================= */
+
+    .topbar {
+      height: 72px;
+      min-height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 22px;
+
+      background: rgba(2, 6, 23, 0.88);
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      position: relative;
+      z-index: 20;
+    }
+
+    /* Left side */
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      min-width: 0;
+    }
+
+    .logo-wrapper {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 11px;
+
+      background: rgba(255, 255, 255, 0.08);
+
+      border: 1px solid rgba(255, 255, 255, 0.12);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      flex-shrink: 0;
     }
 
     .logo {
-      width: 70px;
-      height: 70px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 10px;
-    }
-
-    .header h2 {
-      font-size: 22px;
-      color: #222;
-      font-weight: bold;
-    }
-
-    .header p {
-      font-size: 13px;
-      color: #777;
-      margin-top: 5px;
-    }
-
-    /* Google Sheet Frame */
-    .sheet-container {
-      width: 100%;
-      height: 85vh;
-      min-height: 500px;
-      overflow: hidden;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-
-    iframe {
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: contain;
       display: block;
     }
 
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 15px 5px;
-      font-size: 12px;
-      color: #888;
+    .brand-text {
+      min-width: 0;
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 600px) {
+    .brand-title {
+      color: #ffffff;
 
-      .container {
-        padding: 5px;
+      font-size: 16px;
+      font-weight: 700;
+
+      line-height: 1.2;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-subtitle {
+      margin-top: 3px;
+
+      color: rgba(255, 255, 255, 0.52);
+
+      font-size: 11px;
+      font-weight: 500;
+
+      white-space: nowrap;
+    }
+
+    /* Right side */
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 7px 11px;
+
+      border-radius: 999px;
+
+      background: rgba(34, 197, 94, 0.09);
+
+      border: 1px solid rgba(34, 197, 94, 0.18);
+
+      color: rgba(255, 255, 255, 0.65);
+
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #22c55e;
+
+      box-shadow:
+        0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .icon-button {
+      width: 38px;
+      height: 38px;
+
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      background: rgba(255, 255, 255, 0.06);
+
+      color: rgba(255, 255, 255, 0.78);
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .icon-button:hover {
+      background: rgba(255, 255, 255, 0.11);
+
+      border-color: rgba(255, 255, 255, 0.16);
+
+      transform: translateY(-1px);
+    }
+
+    .icon-button:active {
+      transform: scale(0.96);
+    }
+
+    .icon-button svg {
+      width: 17px;
+      height: 17px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 1.8;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* =========================================================
+       MAIN AREA
+    ========================================================= */
+
+    .main {
+      flex: 1;
+
+      min-height: 0;
+
+      padding: 14px;
+
+      display: flex;
+
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       SHEET CARD
+    ========================================================= */
+
+    .sheet-card {
+      width: 100%;
+      height: 100%;
+
+      min-height: 0;
+
+      position: relative;
+
+      overflow: hidden;
+
+      background: #ffffff;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+
+      animation: cardIn 0.45s ease-out;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
       }
 
-      .header {
-        padding: 12px 5px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      .logo {
-        width: 60px;
+    /* =========================================================
+       IFRAME
+    ========================================================= */
+
+    .sheet-frame {
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+
+      display: block;
+
+      background: #fff;
+    }
+
+    /* =========================================================
+       LOADING SCREEN
+    ========================================================= */
+
+    .loader {
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 10;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex-direction: column;
+
+      background: #ffffff;
+
+      transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+
+      border-radius: 50%;
+
+      border: 3px solid #e5e7eb;
+
+      border-top-color: #334155;
+
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      margin-top: 12px;
+
+      color: #64748b;
+
+      font-size: 12px;
+
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       BOTTOM BAR
+    ========================================================= */
+
+    .bottom-bar {
+      height: 38px;
+      min-height: 38px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 15px;
+
+      color: rgba(255, 255, 255, 0.38);
+
+      font-size: 10px;
+
+      font-weight: 500;
+
+      letter-spacing: 0.2px;
+    }
+
+    /* =========================================================
+       FULLSCREEN MODE
+    ========================================================= */
+
+    .fullscreen-mode .topbar,
+    .fullscreen-mode .bottom-bar {
+      display: none;
+    }
+
+    .fullscreen-mode .main {
+      padding: 0;
+    }
+
+    .fullscreen-mode .sheet-card {
+      border-radius: 0;
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .topbar {
         height: 60px;
+        min-height: 60px;
+
+        padding: 0 13px;
       }
 
-      .header h2 {
-        font-size: 19px;
+      .logo-wrapper {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 9px;
       }
 
-      .sheet-container {
-        height: 88vh;
-        min-height: 450px;
-        border-radius: 5px;
+      .brand {
+        gap: 10px;
       }
 
-      .footer {
-        font-size: 11px;
+      .brand-title {
+        font-size: 14px;
+      }
+
+      .brand-subtitle {
+        font-size: 9px;
+      }
+
+      .status {
+        display: none;
+      }
+
+      .icon-button {
+        width: 34px;
+        height: 34px;
+
+        border-radius: 9px;
+      }
+
+      .main {
+        padding: 7px;
+      }
+
+      .sheet-card {
+        border-radius: 9px;
+      }
+
+      .bottom-bar {
+        height: 30px;
+        min-height: 30px;
+
+        font-size: 9px;
+      }
+    }
+
+    /* =========================================================
+       VERY SMALL PHONES
+    ========================================================= */
+
+    @media (max-width: 400px) {
+
+      .brand-subtitle {
+        display: none;
+      }
+
+      .brand-title {
+        font-size: 13px;
+      }
+
+      .main {
+        padding: 4px;
+      }
+
+      .sheet-card {
+        border-radius: 6px;
+      }
+    }
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -119,39 +526,246 @@
 
 <body>
 
-  <div class="container">
+  <div class="app" id="app">
 
-    <!-- Header / Logo -->
-    <div class="header">
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
 
-      <img
-        src="kol.gif"
-        alt="KOL Logo"
-        class="logo">
+    <header class="topbar">
 
-      <h2>Price List</h2>
+      <!-- BRAND -->
+      <div class="brand">
 
-      <p>Our Services and Pricing</p>
+        <div class="logo-wrapper">
+          <img
+            src="kol.gif"
+            alt="KOL"
+            class="logo">
+        </div>
 
-    </div>
+        <div class="brand-text">
 
-    <!-- Google Spreadsheet -->
-    <div class="sheet-container">
+          <div class="brand-title">
+            Price List
+          </div>
 
-      <iframe
-        src="https://docs.google.com/spreadsheets/d/1ydNyxwbr8HSSwodhGxC1_bQIgviP37ymzWFf2zWylUg/edit?usp=sharing"
-        loading="lazy"
-        title="Price List Spreadsheet">
-      </iframe>
+          <div class="brand-subtitle">
+            Services &amp; Pricing
+          </div>
 
-    </div>
+        </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      &copy; 2026 Price List. All Rights Reserved.
-    </div>
+      </div>
+
+
+      <!-- ACTIONS -->
+      <div class="actions">
+
+        <div class="status">
+          <span class="status-dot"></span>
+          Live
+        </div>
+
+
+        <!-- Fullscreen -->
+        <button
+          type="button"
+          class="icon-button"
+          id="fullscreenButton"
+          aria-label="Toggle fullscreen"
+          title="Fullscreen">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M8 3H3v5"></path>
+            <path d="M16 3h5v5"></path>
+            <path d="M8 21H3v-5"></path>
+            <path d="M21 16v5h-5"></path>
+          </svg>
+
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+      <section class="sheet-card">
+
+        <!-- Loading Overlay -->
+        <div
+          class="loader"
+          id="loader">
+
+          <div class="spinner"></div>
+
+          <div class="loading-text">
+            Loading price list...
+          </div>
+
+        </div>
+
+
+        <!-- Google Sheet -->
+        <iframe
+          id="priceSheet"
+          class="sheet-frame"
+          src="https://docs.google.com/spreadsheets/d/1ydNyxwbr8HSSwodhGxC1_bQIgviP37ymzWFf2zWylUg/edit?usp=sharing"
+          title="Price List"
+          loading="eager"
+          allowfullscreen>
+        </iframe>
+
+      </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="bottom-bar">
+      © 2026 Price List · All Rights Reserved
+    </footer>
 
   </div>
 
+
+  <script>
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const app = document.getElementById("app");
+    const iframe = document.getElementById("priceSheet");
+    const loader = document.getElementById("loader");
+    const fullscreenButton =
+      document.getElementById("fullscreenButton");
+
+
+    /* =========================================================
+       HIDE LOADER AFTER SHEET LOAD
+    ========================================================= */
+
+    iframe.addEventListener("load", function () {
+
+      setTimeout(function () {
+
+        loader.classList.add("hidden");
+
+      }, 350);
+
+    });
+
+
+    /* =========================================================
+       FULLSCREEN
+    ========================================================= */
+
+    fullscreenButton.addEventListener("click", async function () {
+
+      try {
+
+        if (!document.fullscreenElement) {
+
+          await app.requestFullscreen();
+
+        } else {
+
+          await document.exitFullscreen();
+
+        }
+
+      } catch (error) {
+
+        console.log("Fullscreen is not available.");
+
+      }
+
+    });
+
+
+    /* =========================================================
+       UPDATE FULLSCREEN STATE
+    ========================================================= */
+
+    document.addEventListener(
+      "fullscreenchange",
+      function () {
+
+        if (document.fullscreenElement) {
+
+          app.classList.add("fullscreen-mode");
+
+        } else {
+
+          app.classList.remove("fullscreen-mode");
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       KEYBOARD SHORTCUT
+       F = FULLSCREEN
+       ESC = EXIT FULLSCREEN
+    ========================================================= */
+
+    document.addEventListener("keydown", function (event) {
+
+      if (
+        event.key.toLowerCase() === "f" &&
+        event.target.tagName !== "INPUT" &&
+        event.target.tagName !== "TEXTAREA"
+      ) {
+
+        fullscreenButton.click();
+
+      }
+
+    });
+
+
+    /* =========================================================
+       PREVENT CONTEXT MENU
+       Optional: remove this section if you want right-click.
+    ========================================================= */
+
+    /*
+    document.addEventListener("contextmenu", function (event) {
+      event.preventDefault();
+    });
+    */
+
+
+    /* =========================================================
+       KEEP APP HEIGHT CORRECT ON MOBILE
+    ========================================================= */
+
+    function updateAppHeight() {
+
+      app.style.height = window.innerHeight + "px";
+
+    }
+
+    updateAppHeight();
+
+    window.addEventListener(
+      "resize",
+      updateAppHeight
+    );
+
+  </script>
+
 </body>
 </html>
+```
