@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050505" id="metaTheme">
-<title>King of Fadez PH | Multi-Branch Booking App</title>
-<meta name="description" content="Kingoffadezph.com — Choose your branch and book your haircut &amp; grooming appointment online.">
+<title>King of Fadez PH | Multi-Branch Admin Control</title>
+<meta name="description" content="Kingoffadezph.com — Multi-branch admin control for King of Fadez PH.">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="King of Fadez PH">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="KOF PH Admin">
 <link rel="manifest" id="pwaManifest">
 <link rel="icon" type="image/jpeg" href="b4.jfif"><link rel="apple-touch-icon" href="b4.jfif">
-<meta property="og:type" content="website"><meta property="og:site_name" content="King of Fadez PH"><meta property="og:title" content="King of Fadez PH | Multi-Branch Booking App"><meta property="og:description" content="Choose your branch and book your haircut &amp; grooming appointment online."><meta property="og:image" content="b4.jfif"><meta property="og:image:alt" content="King of Fadez PH Logo">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="King of Fadez PH | Multi-Branch Booking App"><meta name="twitter:image" content="b4.jfif">
+<meta property="og:type" content="website"><meta property="og:site_name" content="King of Fadez PH"><meta property="og:title" content="King of Fadez PH | Multi-Branch Admin Control"><meta property="og:description" content="Multi-branch admin control for King of Fadez PH."><meta property="og:image" content="b4.jfif"><meta property="og:image:alt" content="King of Fadez PH Logo">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="King of Fadez PH | Multi-Branch Admin Control"><meta name="twitter:image" content="b4.jfif">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://script.google.com">
@@ -146,35 +146,44 @@ button,select{font-family:var(--font)}
 </style>
 </head>
 <body>
-<div id="overlay"><div class="card">
-<div class="bar"><div class="pill"><span class="dot" id="liveDot"></span><span id="liveText">OPEN</span></div>
+<div id="overlay"><div class="card lock" id="mainCard">
+<div class="bar"><div class="pill">🔐 Admin Control • <span id="clock">--:--</span></div>
 <div class="themes" role="group" aria-label="Theme"><button type="button" class="tdot active" data-t="gold" title="gold"></button><button type="button" class="tdot" data-t="midnight" title="midnight"></button><button type="button" class="tdot" data-t="emerald" title="emerald"></button><button type="button" class="tdot" data-t="crimson" title="crimson"></button><button type="button" class="tdot" data-t="violet" title="violet"></button><button type="button" class="tdot" data-t="light" title="light"></button></div></div>
 <img src="b2.jfif" alt="Logo" class="logo" id="heroLogo">
 <div class="emblem"><div class="emblem-box"><span class="flash"></span><span class="sweep"></span><h1>KING OF FADEZ PH</h1></div></div>
 <div><a class="tag" href="https://kingoffadezph.com" target="_blank" rel="noopener">Kingoffadezph.com ↗</a></div>
-<div class="label"><span>1. Choose Branch</span><small>Tap a branch, tap again to book</small></div>
-<div class="grid2" id="tabs"><button type="button" class="tab" data-b="branch1"><div class="pair"><img class="l" src="b1.jfif" alt=""><img class="r" src="S&amp;Drec.jfif" alt=""></div><div><span class="n">Branch 1</span><span class="m">S&amp;D DASMA BAYAN</span></div></button><button type="button" class="tab" data-b="branch2"><div class="pair"><img class="l" src="b2.jfif" alt=""><img class="r" src="dasmares.jfif" alt=""></div><div><span class="n">Branch 2 • Main</span><span class="m">KOF-DASMARIÑAS, Cavite</span></div></button><button type="button" class="tab" data-b="branch3"><div class="pair"><img class="l" src="b3.jfif" alt=""><img class="r" src="Molinorec.jfif" alt=""></div><div><span class="n">Branch 3</span><span class="m">KOF MOLINO 3, BACOOR</span></div></button><button type="button" class="tab" data-b="branch4"><div class="pair"><img class="l" src="b4.jfif" alt=""><img class="r" src="Imusrec.jfif" alt=""></div><div><span class="n">Branch 4</span><span class="m">IMUS CAVITE</span></div></button></div>
-<button type="button" class="panel" id="recCard" style="width:100%;display:flex;align-items:center;gap:12px;cursor:pointer;color:var(--tx);border-width:1.5px;border-color:rgba(var(--rgb),.62)"><img id="recPhoto" alt="Front desk" style="width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--acl);flex-shrink:0"><div style="flex:1;min-width:0"><span class="badge">👑 Front Desk • Tap to Book</span><div style="font-size:.81rem;font-weight:800;color:var(--acl);margin:4px 0 2px" id="recTitle"></div><div style="font-size:.7rem;color:var(--tx2);line-height:1.38" id="recMsg"></div></div><span style="font-size:1.25rem;color:var(--ac)">›</span></button>
-<div class="panel"><div class="ph"><span class="t" id="pTitle"></span><span class="badge" id="pBadge"></span></div>
-<div class="row"><div style="display:flex;justify-content:space-between;align-items:center"><strong>📍 Location</strong><button type="button" class="mini" id="copyAddr">📋 Copy</button></div><span id="pAddr"></span></div>
-<div class="row"><strong>📞 Contact &amp; Email</strong><a id="pPhone"></a> • <a id="pEmail"></a></div></div>
-<div class="links" id="links"></div>
-<a href="#" class="cta" id="bookBtn"><img id="bookLogo" alt=""><span id="bookText"></span></a>
-</div></div>
-<div class="modal" id="svcModal"><div class="box"><h3>💈 Signature Services</h3><div class="svc"><div><strong>Signature Fade / Precision Cut</strong><span>45 mins • Consultation, wash, razor lineup &amp; styling</span></div><button class="badge book-svc" style="cursor:pointer">Book Cut</button></div><div class="svc"><div><strong>King's Cut + Beard Sculpt</strong><span>60 mins • Full fade, hot towel shave &amp; beard detailing</span></div><button class="badge book-svc" style="cursor:pointer">Book Combo</button></div><div class="svc"><div><strong>VIP Royal Grooming Package</strong><span>75 mins • Haircut, beard spa, facial steamer &amp; scalp massage</span></div><button class="badge book-svc" style="cursor:pointer">Book VIP</button></div><div class="svc"><div><strong>Hair Color / Texture Perm</strong><span>90+ mins • Ash gray, highlights, down perm or wavy perm</span></div><button class="badge book-svc" style="cursor:pointer">Book Style</button></div><button class="cta" id="svcBook" style="margin-top:12px"><span id="svcBookText"></span></button><button class="ib" id="svcClose" style="margin:12px auto 0;width:auto;padding:0 18px;font-size:.72rem">Close</button></div></div>
-<div class="sheet" id="booking"><div class="sh"><div class="left"><img id="bkLogo" alt=""><img id="bkRec" alt=""><select id="bkSelect" aria-label="Branch"><option value="branch1">Branch 1 • S&amp;D DASMA BAYAN</option><option value="branch2">Branch 2 • KOF-DASMARIÑAS, Cavite</option><option value="branch3">Branch 3 • KOF MOLINO 3, BACOOR</option><option value="branch4">Branch 4 • IMUS CAVITE</option></select></div><button class="ib" id="closeBooking" aria-label="Close">✕</button></div>
-<div class="fw"><div class="loader" id="bkLoader"><img id="bkLoadImg" alt=""><div class="spin"></div><span id="bkLoadText"></span></div><iframe id="bkFrame" src="about:blank" title="Booking" allow="clipboard-read; clipboard-write; geolocation"></iframe></div></div>
+<div id="lockScreen"><div class="label" style="justify-content:center">Enter 4-Digit Admin PIN</div><div class="pins" id="pins"><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div><div id="pinErr">Invalid PIN</div>
+<div class="keys"><button type="button" class="key" data-n="1">1</button><button type="button" class="key" data-n="2">2</button><button type="button" class="key" data-n="3">3</button><button type="button" class="key" data-n="4">4</button><button type="button" class="key" data-n="5">5</button><button type="button" class="key" data-n="6">6</button><button type="button" class="key" data-n="7">7</button><button type="button" class="key" data-n="8">8</button><button type="button" class="key" data-n="9">9</button><button type="button" class="key a" id="clr">CLR</button><button type="button" class="key" data-n="0">0</button><button type="button" class="key a" id="del">⌫</button></div></div>
+<div id="adminPanel" style="display:none">
+<div class="label"><span>Select Branch to Manage</span><small>Switches console &amp; details</small></div>
+<div class="grid2 grid4" id="tabs"><button type="button" class="tab" data-b="branch1"><div class="pair"><img class="l" src="b1.jfif" alt=""><img class="r" src="S&amp;Drec.jfif" alt=""></div><div><span class="n">Branch 1</span><span class="m">S&amp;D DASMA BAYAN</span></div></button><button type="button" class="tab" data-b="branch2"><div class="pair"><img class="l" src="b2.jfif" alt=""><img class="r" src="dasmares.jfif" alt=""></div><div><span class="n">Branch 2 • Main</span><span class="m">KOF-DASMARIÑAS, Cavite</span></div></button><button type="button" class="tab" data-b="branch3"><div class="pair"><img class="l" src="b3.jfif" alt=""><img class="r" src="Molinorec.jfif" alt=""></div><div><span class="n">Branch 3</span><span class="m">KOF MOLINO 3, BACOOR</span></div></button><button type="button" class="tab" data-b="branch4"><div class="pair"><img class="l" src="b4.jfif" alt=""><img class="r" src="Imusrec.jfif" alt=""></div><div><span class="n">Branch 4</span><span class="m">IMUS CAVITE</span></div></button></div>
+<div class="ws"><div class="col">
+<div class="status"><span style="display:flex;align-items:center;gap:9px"><span class="dot" id="stDot"></span><span id="stText"></span></span><button type="button" class="mini" id="stToggle" style="padding:6px 12px">Switch Status</button></div>
+<div class="ctrls">
+<button type="button" class="ctrl" data-r="Live Appointments|admin|admin"><i>📅</i>Bookings<small>Queue &amp; List</small></button>
+<button type="button" class="ctrl" data-r="Walk-In / POS Entry|admin|walkin"><i>✂️</i>POS / Walk-In<small>Quick Ticket</small></button>
+<button type="button" class="ctrl" data-r="Barber Roster &amp; Shifts|admin|barbers"><i>💈</i>Barbers<small>Shifts &amp; Staff</small></button>
+<button type="button" class="ctrl" data-r="Services &amp; Pricing Setup|admin|settings"><i>⚙️</i>Shop Setup<small>Rates &amp; Promos</small></button></div>
+<button type="button" class="cta" data-r="Full Admin Console|admin|admin"><img id="ctaLogo" alt=""><span id="ctaText"></span></button>
+<div class="subs"><button type="button" class="sub" data-r="Client Booking Preview|client|client">👁️ Client Preview</button><button type="button" class="sub" id="bWeb">🌐 Details</button><button type="button" class="sub" id="lockBtn">🔒 Lock</button></div></div>
+<div class="col"><div class="panel" style="margin:0"><div class="ph"><span class="t" id="pTitle"></span><span class="badge" id="pBadge"></span></div>
+<div class="row"><strong>📍 Full Location Address</strong><span id="pAddr"></span></div>
+<div class="row"><strong>📞 Direct Phone &amp; Email</strong><a id="pPhone"></a> • <a id="pEmail"></a></div>
+<div class="row"><strong>🔗 Maps &amp; Social Channels</strong><div class="links" id="links" style="margin:6px 0 0"></div></div></div></div></div>
+</div></div></div>
+<div class="sheet" id="adminModal"><div class="sh"><div class="left"><img id="mLogo" alt=""><select id="mSelect" aria-label="Branch"><option value="branch1">Branch 1 • S&amp;D DASMA BAYAN</option><option value="branch2">Branch 2 • KOF-DASMARIÑAS, Cavite</option><option value="branch3">Branch 3 • KOF MOLINO 3, BACOOR</option><option value="branch4">Branch 4 • IMUS CAVITE</option></select><span id="mTitle" style="font-size:.7rem;color:var(--txm)"></span></div><div style="display:flex;gap:8px"><button class="ib" id="reloadFrame">↻</button><button class="ib" id="closeModal" aria-label="Close">✕</button></div></div>
+<div class="fw"><div class="loader" id="frLoader"><div class="spin"></div><span id="frText"></span></div><iframe id="adminFrame" src="about:blank" title="Console" sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups" allow="clipboard-read; clipboard-write; geolocation"></iframe></div></div>
 
 <div class="toast" id="toast" role="status"></div>
 <img src="b4.jfif" alt="" id="logoSrc" style="display:none">
 <div id="bubble" title="Quick menu"><img src="dasmares.jfif" alt="Menu" id="bubbleImg"></div>
-<div id="menu"><div class="mt">Quick Book Branch</div><a href="#" class="mi" data-q="branch1"><div class="av"><img src="b1.jfif" alt=""><img src="S&amp;Drec.jfif" alt=""></div><span>Branch 1 • S&amp;D DASMA BAYAN</span></a><a href="#" class="mi" data-q="branch2"><div class="av"><img src="b2.jfif" alt=""><img src="dasmares.jfif" alt=""></div><span>Branch 2 • KOF-DASMARIÑAS</span></a><a href="#" class="mi" data-q="branch3"><div class="av"><img src="b3.jfif" alt=""><img src="Molinorec.jfif" alt=""></div><span>Branch 3 • KOF MOLINO 3</span></a><a href="#" class="mi" data-q="branch4"><div class="av"><img src="b4.jfif" alt=""><img src="Imusrec.jfif" alt=""></div><span>Branch 4 • IMUS CAVITE</span></a><div class="mt">Quick Tools</div><a href="#" class="mi" id="mSvc"><span>💈</span><span>Services &amp; Grooming Menu</span></a><a href="#" class="mi" id="mTheme"><span>🎨</span><span id="menuThemeLabel">Theme</span></a><a href="#" class="mi" id="mDet"><span>📜</span><span>Official Shop Details</span></a><a href="#" class="mi" id="mShare"><span>📤</span><span>Share Booking Link</span></a><a href="#" class="mi" id="menuInstall"><span>📥</span><span>Download App</span></a></div>
+<div id="menu"><div class="mt" id="menuBranch"></div><a href="#" class="mi" data-r="Live Appointments|admin|admin"><span>📅</span><span>Live Bookings</span></a><a href="#" class="mi" data-r="Walk-In / POS Entry|admin|walkin"><span>✂️</span><span>POS / Walk-In</span></a><a href="#" class="mi" data-r="Barber Roster &amp; Shifts|admin|barbers"><span>💈</span><span>Barbers &amp; Shifts</span></a><a href="#" class="mi" data-r="Services &amp; Pricing Setup|admin|settings"><span>⚙️</span><span>Shop Setup</span></a><a href="#" class="mi" data-r="Client Booking Preview|client|client"><span>👁️</span><span>Client Preview</span></a><a href="#" class="mi" id="mTheme"><span>🎨</span><span id="menuThemeLabel">Theme</span></a><a href="#" class="mi" id="mDet"><span>📜</span><span>Official Details</span></a><a href="#" class="mi" id="menuInstall"><span>📥</span><span>Download App</span></a></div>
 <div class="sheet" id="webSheet" style="z-index:9995"><div class="sh"><span>👑 Official Details</span><div style="display:flex;gap:8px"><button class="ib" id="reloadWeb">↻</button><button class="ib" id="closeWeb" aria-label="Close">✕</button></div></div>
 <div class="fw"><div class="loader" id="webLoader"><div class="spin"></div><span>Loading Full Details...</span></div><iframe id="webFrame" src="about:blank" title="Details" loading="lazy"></iframe></div></div>
-<div id="install"><div class="i"><img src="b4.jfif" alt=""><div><strong>Download KOF App</strong><span id="installSub"></span></div></div><div style="display:flex;gap:6px"><button id="installBtn">Install</button><button id="dismiss" aria-label="Dismiss">✕</button></div></div>
-<div class="modal" id="guide" style="z-index:10010"><div class="box"><div class="badge" id="guideBadge" style="display:inline-block;margin-bottom:10px">Install</div><h3>Install KOF App</h3><p>Add the app to your device for instant access:</p><div class="steps" id="guideSteps"></div><div class="btns"><button class="b2" id="copyLink">Copy Link</button><button class="b1" id="closeGuide">Got It</button></div></div></div>
+<div id="install"><div class="i"><img src="b4.jfif" alt=""><div><strong>Download KOF PH Admin</strong><span id="installSub"></span></div></div><div style="display:flex;gap:6px"><button id="installBtn">Install</button><button id="dismiss" aria-label="Dismiss">✕</button></div></div>
+<div class="modal" id="guide" style="z-index:10010"><div class="box"><div class="badge" id="guideBadge" style="display:inline-block;margin-bottom:10px">Install</div><h3>Install KOF PH Admin</h3><p>Add the app to your device for instant access:</p><div class="steps" id="guideSteps"></div><div class="btns"><button class="b2" id="copyLink">Copy Link</button><button class="b1" id="closeGuide">Got It</button></div></div></div>
 <script>
-const APP_NAME="KOF App";
+const APP_NAME="KOF PH Admin";const PIN="2026";
 const BASE="https://script.google.com/macros/s/AKfycbyPK4huIqccGRJXrbnV3AN5jhMB0oCswsd7G-Fwqu4d5y-X-x8P3MsUx326JSq0u96HjA/exec";
 const DETAILS_URL="https://kingoffadezph.com/?shem=aimgspe";
 const THEMES={gold:["Royal Gold","#050505"],midnight:["Midnight Blue","#040814"],emerald:["Emerald","#030d09"],crimson:["Crimson","#0e0406"],violet:["Royal Violet","#090412"],light:["Clean Light","#f2f4f8"]};
@@ -222,40 +231,52 @@ $("closeGuide").onclick=()=>$("guide").classList.remove("active");
 $("copyLink").onclick=e=>{navigator.clipboard.writeText(location.href).then(()=>{e.target.textContent="Copied!";setTimeout(()=>e.target.textContent="Copy Link",2000)}).catch(()=>{})};
 addEventListener("appinstalled",()=>$("install").classList.remove("show"));
 
-applyTheme(new URLSearchParams(location.search).get("theme")||theme);
-function live(){try{const h=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Manila"})).getHours(),o=h>=9&&h<21;$("liveDot").classList.toggle("closed",!o);$("liveText").textContent=o?"OPEN NOW • Closes 9PM":"CLOSED • Opens 9AM"}catch(e){}}
-live();setInterval(live,60000);
-const qp=new URLSearchParams(location.search);
-let cur=qp.get("branch")||ls.get("kof_selected_branch")||"branch2";if(!BRANCHES[cur])cur="branch2";
-let loaded=null;
-function render(k){const d=BRANCHES[k];cur=k;ls.set("kof_selected_branch",k);
+applyTheme(theme);
+function clock(){$("clock").textContent=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}clock();setInterval(clock,15000);
+let cur=ls.get("kof_admin_branch")||"branch2";
+const sp=new URLSearchParams(location.search),bp=sp.get("branch");
+if(bp){const m=KEYS.find(k=>k===bp||BRANCHES[k].param===bp);if(m)cur=m}
+if(!BRANCHES[cur])cur="branch2";
+let route={title:"Full Admin Console",page:"admin",view:"admin"},pending=null;
+if(sp.get("page")||sp.get("view"))pending={title:(sp.get("view")||"Admin Console").toUpperCase(),page:sp.get("page")||"admin",view:sp.get("view")||"admin"};
+function status(){const open=ls.get("kof_shop_open_"+cur)!=="false";$("stDot").classList.toggle("closed",!open);$("stText").textContent=BRANCHES[cur].name.toUpperCase()+" • "+(open?"OPEN":"CLOSED");$("stText").style.color=open?"var(--green)":"var(--red)"}
+function render(k){const d=BRANCHES[k];cur=k;ls.set("kof_admin_branch",k);
 document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.b===k));
-[["heroLogo",d.logo],["bookLogo",d.logo],["bkLogo",d.logo]].forEach(([i,s])=>img($(i),s));
-[["recPhoto"],["bkRec"],["bkLoadImg"],["bubbleImg"]].forEach(([i])=>img($(i),d.rec,d.logo));
-$("recTitle").textContent="Welcome to "+d.name+"!";$("recMsg").textContent=d.welcome;
+img($("heroLogo"),d.logo);img($("ctaLogo"),d.logo);img($("mLogo"),d.logo);img($("bubbleImg"),d.rec,d.logo);
+$("menuBranch").textContent=label(d);$("ctaText").textContent="Open "+d.name+" Console";$("mSelect").value=k;
 $("pTitle").textContent=label(d);$("pBadge").textContent=d.badge;$("pAddr").textContent=d.address;
 $("pPhone").textContent=d.phone;$("pPhone").href=d.tel;$("pEmail").textContent=d.email;$("pEmail").href="mailto:"+d.email;
-$("bookText").textContent="Book "+label(d);$("svcBookText").textContent="Book at "+label(d);$("bkSelect").value=k;
-$("links").innerHTML=d.links.map(l=>`<a class="lb" href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join("")+'<button type="button" class="lb" id="bSvc">💈 Services</button><button type="button" class="lb" id="bWeb">🌐 Full Details</button><button type="button" class="lb" id="bShare">📤 Share Branch</button>';
-$("bSvc").onclick=()=>$("svcModal").classList.add("active");$("bWeb").onclick=openWeb;$("bShare").onclick=share}
-function share(){const d=BRANCHES[cur],u=location.origin+location.pathname+"?branch="+cur;if(navigator.share)navigator.share({title:"King of Fadez PH — "+label(d),text:"Book your haircut at "+label(d),url:u}).catch(()=>{});else navigator.clipboard.writeText(u).then(()=>toast("🔗 Booking link copied!")).catch(()=>{})}
-function openBooking(e,k){if(e&&e.preventDefault)e.preventDefault();k=k||cur;render(k);
-if(loaded!==k){$("bkLoadText").textContent="Connecting to "+BRANCHES[k].name+" Front Desk...";$("bkLoader").classList.remove("hidden");$("bkFrame").src=BASE+"?branch="+BRANCHES[k].param;loaded=k}
-$("booking").style.display="flex";requestAnimationFrame(()=>$("booking").classList.add("active"))}
-function closeBooking(){$("booking").classList.remove("active");setTimeout(()=>{if(!$("booking").classList.contains("active"))$("booking").style.display="none"},360)}
-$("bkFrame").onload=()=>$("bkLoader").classList.add("hidden");
-$("bkSelect").onchange=e=>openBooking(null,e.target.value);
-$("closeBooking").onclick=closeBooking;
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>t.dataset.b===cur?openBooking(null,cur):render(t.dataset.b));
-["recCard","heroLogo","bookBtn"].forEach(i=>$(i).onclick=e=>openBooking(e,cur));
-$("copyAddr").onclick=()=>navigator.clipboard.writeText(BRANCHES[cur].address).then(()=>toast("📍 Address copied!")).catch(()=>{});
-document.querySelectorAll("[data-q]").forEach(a=>a.onclick=e=>{e.preventDefault();menu.classList.remove("active");openBooking(null,a.dataset.q)});
-$("mSvc").onclick=e=>{e.preventDefault();menu.classList.remove("active");$("svcModal").classList.add("active")};
+$("links").innerHTML=d.links.map(l=>`<a class="lb" href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join("");status()}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>render(t.dataset.b));
+$("stToggle").onclick=()=>{const k="kof_shop_open_"+cur;ls.set(k,String(ls.get(k)==="false"));status()};
+// PIN
+const card=$("mainCard"),dots=document.querySelectorAll(".pd");let pin="";
+function dotsUI(err){dots.forEach((d,i)=>{d.className="pd"+(err?" e":i<pin.length?" f":"")})}
+function showAdmin(){$("lockScreen").style.display="none";$("adminPanel").style.display="block";card.classList.remove("lock");card.classList.add("wide");if(pending){const p=pending;pending=null;launch(p.title,p.page,p.view)}}
+function lock(){ss.del("kof_admin_unlocked");pin="";dotsUI();$("adminPanel").style.display="none";$("lockScreen").style.display="block";card.classList.add("lock");card.classList.remove("wide")}
+function shake(){card.classList.remove("shake");void card.offsetWidth;card.classList.add("shake")}
+function digit(n){if(pin.length>=PIN.length)return;$("pinErr").classList.remove("v");pin+=n;dotsUI();if(pin.length===PIN.length)setTimeout(()=>{if(pin===PIN){ss.set("kof_admin_unlocked","1");showAdmin()}else{dotsUI(true);$("pinErr").textContent="Invalid PIN";$("pinErr").classList.add("v");shake();setTimeout(()=>{pin="";dotsUI()},350)}},80)}
+document.querySelectorAll(".key[data-n]").forEach(b=>b.onclick=()=>digit(b.dataset.n));
+$("clr").onclick=()=>{pin="";dotsUI()};$("del").onclick=()=>{pin=pin.slice(0,-1);dotsUI()};
+addEventListener("keydown",e=>{if($("lockScreen").style.display==="none")return;if(/^[0-9]$/.test(e.key))digit(e.key);else if(e.key==="Backspace"){pin=pin.slice(0,-1);dotsUI()}});
+$("lockBtn").onclick=lock;
+// Console modal
+const modal=$("adminModal");let curSrc="";
+function launch(title,page,view){route={title,page,view};const d=BRANCHES[cur];const u=new URL(BASE);u.searchParams.set("page",page);u.searchParams.set("branch",d.param);if(view)u.searchParams.set("view",view);
+$("mTitle").textContent=title;$("frText").textContent="Loading "+d.name+" • "+title+"...";
+if(curSrc!==u.toString()){curSrc=u.toString();$("frLoader").classList.remove("hidden");$("adminFrame").src=curSrc}
+if(!modal.classList.contains("active"))history.pushState({kof:1},"",location.href);
+modal.style.display="flex";requestAnimationFrame(()=>modal.classList.add("active"))}
+function closeModal(pop){if(!modal.classList.contains("active"))return;modal.classList.remove("active");setTimeout(()=>{if(!modal.classList.contains("active"))modal.style.display="none"},360);if(!pop&&history.state&&history.state.kof)history.back()}
+function go(el){const[t,p,v]=el.dataset.r.split("|");if(ss.get("kof_admin_unlocked")==="1")launch(t.replace("&amp;","&"),p,v);else{$("pinErr").textContent="Enter Admin PIN first";$("pinErr").classList.add("v");shake()}}
+document.querySelectorAll("[data-r]").forEach(el=>el.onclick=e=>{e.preventDefault();menu.classList.remove("active");go(el)});
+$("mSelect").onchange=e=>{render(e.target.value);launch(route.title,route.page,route.view)};
+$("adminFrame").onload=()=>$("frLoader").classList.add("hidden");
+$("reloadFrame").onclick=()=>{$("frLoader").classList.remove("hidden");$("adminFrame").src=$("adminFrame").src};
+$("closeModal").onclick=()=>closeModal(false);
+addEventListener("popstate",()=>{if($("webSheet").classList.contains("active"))closeWeb();else if(modal.classList.contains("active"))closeModal(true)});
+$("bWeb").onclick=openWeb;$("mDet").onclick=openWeb;
 $("mTheme").onclick=e=>{e.preventDefault();cycleTheme()};
-$("mDet").onclick=openWeb;$("mShare").onclick=e=>{e.preventDefault();menu.classList.remove("active");share()};
-$("svcClose").onclick=()=>$("svcModal").classList.remove("active");
-$("svcModal").onclick=e=>{if(e.target.id==="svcModal")e.target.classList.remove("active")};
-document.querySelectorAll(".book-svc,#svcBook").forEach(b=>b.onclick=()=>{$("svcModal").classList.remove("active");openBooking(null,cur)});
-addEventListener("keydown",e=>{if(e.key==="Escape"){menu.classList.remove("active");$("svcModal").classList.remove("active");closeWeb();closeBooking()}});
-render(cur);
+addEventListener("keydown",e=>{if(e.key==="Escape"){menu.classList.remove("active");closeWeb();closeModal(false)}});
+render(cur);if(ss.get("kof_admin_unlocked")==="1")showAdmin();
 </script></body></html>
