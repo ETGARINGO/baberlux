@@ -1,7 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport"
         content="width=device-width,
                  initial-scale=1.0,
@@ -9,17 +13,16 @@
                  user-scalable=no">
 
   <meta name="theme-color" content="#0f172a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>Price List</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/gif" href="kol.gif">
 
+
   <style>
+
     /* =========================================================
-       GLOBAL RESET
+       RESET
     ========================================================= */
 
     * {
@@ -28,12 +31,17 @@
       padding: 0;
     }
 
+
     html,
     body {
       width: 100%;
       height: 100%;
+
       overflow: hidden;
+
+      background: #020617;
     }
+
 
     body {
       font-family:
@@ -44,27 +52,19 @@
         Roboto,
         Arial,
         sans-serif;
-
-      background:
-        radial-gradient(
-          circle at top left,
-          #1e293b 0%,
-          #0f172a 45%,
-          #020617 100%
-        );
-
-      color: #fff;
     }
+
 
     button {
       font-family: inherit;
     }
 
+
     /* =========================================================
-       APP
+       MAIN APPLICATION
     ========================================================= */
 
-    .app {
+    #app {
       width: 100%;
       height: 100dvh;
 
@@ -73,53 +73,58 @@
 
       overflow: hidden;
 
-      position: relative;
+      background:
+        radial-gradient(
+          circle at top left,
+          #1e293b 0%,
+          #0f172a 45%,
+          #020617 100%
+        );
     }
 
+
     /* =========================================================
-       TOP BAR
+       HEADER
     ========================================================= */
 
     .topbar {
-      height: 72px;
-      min-height: 72px;
+      height: 64px;
+      min-height: 64px;
+
+      padding: 0 18px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      padding: 0 22px;
+      background: rgba(2, 6, 23, 0.95);
 
-      background: rgba(2, 6, 23, 0.88);
-
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
 
       position: relative;
-      z-index: 20;
+
+      z-index: 100;
+
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
 
-    /* Left side */
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 13px;
+
+      gap: 11px;
 
       min-width: 0;
     }
 
-    .logo-wrapper {
-      width: 42px;
-      height: 42px;
 
-      border-radius: 11px;
+    .logo-box {
+      width: 40px;
+      height: 40px;
 
-      background: rgba(255, 255, 255, 0.08);
-
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
 
       display: flex;
       align-items: center;
@@ -127,72 +132,79 @@
 
       overflow: hidden;
 
-      flex-shrink: 0;
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.08);
+
+      border: 1px solid rgba(255,255,255,.1);
     }
+
 
     .logo {
       width: 100%;
       height: 100%;
+
       object-fit: contain;
-      display: block;
     }
 
-    .brand-text {
-      min-width: 0;
-    }
 
-    .brand-title {
-      color: #ffffff;
+    .title {
+      color: white;
 
-      font-size: 16px;
+      font-size: 15px;
+
       font-weight: 700;
 
       line-height: 1.2;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    .brand-subtitle {
+
+    .subtitle {
       margin-top: 3px;
 
-      color: rgba(255, 255, 255, 0.52);
+      color: rgba(255,255,255,.45);
 
-      font-size: 11px;
+      font-size: 10px;
+
       font-weight: 500;
-
-      white-space: nowrap;
     }
 
-    /* Right side */
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
 
     .actions {
       display: flex;
       align-items: center;
+
       gap: 8px;
     }
 
-    .status {
+
+    .edit-status {
       display: flex;
       align-items: center;
+
       gap: 7px;
 
-      padding: 7px 11px;
+      padding: 7px 10px;
 
       border-radius: 999px;
 
-      background: rgba(34, 197, 94, 0.09);
+      background: rgba(34,197,94,.08);
 
-      border: 1px solid rgba(34, 197, 94, 0.18);
+      border: 1px solid rgba(34,197,94,.15);
 
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255,255,255,.65);
 
       font-size: 10px;
+
       font-weight: 600;
     }
 
-    .status-dot {
+
+    .green-dot {
       width: 6px;
       height: 6px;
 
@@ -201,20 +213,21 @@
       background: #22c55e;
 
       box-shadow:
-        0 0 10px rgba(34, 197, 94, 0.8);
+        0 0 10px rgba(34,197,94,.9);
     }
 
-    .icon-button {
+
+    .button {
       width: 38px;
       height: 38px;
 
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255,255,255,.1);
 
-      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9px;
 
-      color: rgba(255, 255, 255, 0.78);
+      background: rgba(255,255,255,.06);
 
-      border-radius: 10px;
+      color: white;
 
       cursor: pointer;
 
@@ -222,25 +235,18 @@
       align-items: center;
       justify-content: center;
 
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
+      transition: .2s ease;
     }
 
-    .icon-button:hover {
-      background: rgba(255, 255, 255, 0.11);
 
-      border-color: rgba(255, 255, 255, 0.16);
+    .button:hover {
+      background: rgba(255,255,255,.12);
 
       transform: translateY(-1px);
     }
 
-    .icon-button:active {
-      transform: scale(0.96);
-    }
 
-    .icon-button svg {
+    .button svg {
       width: 17px;
       height: 17px;
 
@@ -251,177 +257,173 @@
       stroke-width: 1.8;
 
       stroke-linecap: round;
+
       stroke-linejoin: round;
     }
 
+
     /* =========================================================
-       MAIN AREA
+       CONTENT
     ========================================================= */
 
-    .main {
+    .content {
       flex: 1;
 
       min-height: 0;
 
-      padding: 14px;
-
-      display: flex;
+      padding: 10px;
 
       overflow: hidden;
+
+      display: flex;
     }
 
+
     /* =========================================================
-       SHEET CARD
+       GOOGLE SHEET
     ========================================================= */
 
-    .sheet-card {
+    .sheet {
       width: 100%;
       height: 100%;
 
       min-height: 0;
 
-      position: relative;
+      background: white;
+
+      border-radius: 10px;
 
       overflow: hidden;
 
-      background: #ffffff;
-
-      border-radius: 14px;
+      position: relative;
 
       box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.30),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
-
-      animation: cardIn 0.45s ease-out;
+        0 15px 50px rgba(0,0,0,.3);
     }
 
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* =========================================================
-       IFRAME
-    ========================================================= */
-
-    .sheet-frame {
+    iframe {
       width: 100%;
       height: 100%;
 
-      border: 0;
-
       display: block;
 
-      background: #fff;
+      border: 0;
+
+      background: white;
     }
 
+
     /* =========================================================
-       LOADING SCREEN
+       LOADING
     ========================================================= */
 
-    .loader {
+    .loading {
       position: absolute;
 
       inset: 0;
 
-      z-index: 10;
+      z-index: 20;
 
       display: flex;
 
-      align-items: center;
-      justify-content: center;
-
       flex-direction: column;
 
-      background: #ffffff;
+      align-items: center;
+
+      justify-content: center;
+
+      background: white;
 
       transition:
-        opacity 0.4s ease,
-        visibility 0.4s ease;
+        opacity .35s ease,
+        visibility .35s ease;
     }
 
-    .loader.hidden {
+
+    .loading.hide {
       opacity: 0;
+
       visibility: hidden;
+
       pointer-events: none;
     }
 
-    .spinner {
-      width: 34px;
-      height: 34px;
 
-      border-radius: 50%;
+    .spinner {
+      width: 32px;
+      height: 32px;
 
       border: 3px solid #e5e7eb;
 
       border-top-color: #334155;
 
-      animation: spin 0.8s linear infinite;
+      border-radius: 50%;
+
+      animation: spin .8s linear infinite;
     }
 
+
     @keyframes spin {
+
       to {
         transform: rotate(360deg);
       }
+
     }
+
 
     .loading-text {
       margin-top: 12px;
 
       color: #64748b;
 
-      font-size: 12px;
+      font-size: 11px;
 
       font-weight: 500;
     }
 
+
     /* =========================================================
-       BOTTOM BAR
+       FOOTER
     ========================================================= */
 
-    .bottom-bar {
-      height: 38px;
-      min-height: 38px;
+    .footer {
+      height: 30px;
+      min-height: 30px;
 
       display: flex;
 
       align-items: center;
       justify-content: center;
 
-      padding: 0 15px;
+      color: rgba(255,255,255,.3);
 
-      color: rgba(255, 255, 255, 0.38);
-
-      font-size: 10px;
-
-      font-weight: 500;
-
-      letter-spacing: 0.2px;
+      font-size: 9px;
     }
 
+
     /* =========================================================
-       FULLSCREEN MODE
+       TRUE FULLSCREEN MODE
     ========================================================= */
 
-    .fullscreen-mode .topbar,
-    .fullscreen-mode .bottom-bar {
+    .fullscreen .topbar,
+    .fullscreen .footer {
       display: none;
     }
 
-    .fullscreen-mode .main {
+
+    .fullscreen .content {
       padding: 0;
     }
 
-    .fullscreen-mode .sheet-card {
+
+    .fullscreen .sheet {
       border-radius: 0;
+
+      box-shadow: none;
     }
+
 
     /* =========================================================
        MOBILE
@@ -430,296 +432,372 @@
     @media (max-width: 700px) {
 
       .topbar {
-        height: 60px;
-        min-height: 60px;
+        height: 56px;
+        min-height: 56px;
 
-        padding: 0 13px;
+        padding: 0 10px;
       }
 
-      .logo-wrapper {
-        width: 36px;
-        height: 36px;
 
-        border-radius: 9px;
+      .logo-box {
+        width: 35px;
+        height: 35px;
+
+        border-radius: 8px;
       }
+
 
       .brand {
-        gap: 10px;
+        gap: 9px;
       }
 
-      .brand-title {
-        font-size: 14px;
+
+      .title {
+        font-size: 13px;
       }
 
-      .brand-subtitle {
+
+      .subtitle {
         font-size: 9px;
       }
 
-      .status {
+
+      .edit-status {
         display: none;
       }
 
-      .icon-button {
+
+      .button {
         width: 34px;
         height: 34px;
-
-        border-radius: 9px;
       }
 
-      .main {
-        padding: 7px;
+
+      .content {
+        padding: 5px;
       }
 
-      .sheet-card {
-        border-radius: 9px;
+
+      .sheet {
+        border-radius: 6px;
       }
 
-      .bottom-bar {
-        height: 30px;
-        min-height: 30px;
 
-        font-size: 9px;
+      .footer {
+        display: none;
       }
+
     }
 
+
     /* =========================================================
-       VERY SMALL PHONES
+       SMALL MOBILE
     ========================================================= */
 
     @media (max-width: 400px) {
 
-      .brand-subtitle {
+      .subtitle {
         display: none;
       }
 
-      .brand-title {
-        font-size: 13px;
+
+      .content {
+        padding: 2px;
       }
 
-      .main {
-        padding: 4px;
+
+      .sheet {
+        border-radius: 3px;
       }
 
-      .sheet-card {
-        border-radius: 6px;
-      }
     }
 
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
   </style>
+
 </head>
+
 
 <body>
 
-  <div class="app" id="app">
 
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
+<div id="app">
 
-    <header class="topbar">
 
-      <!-- BRAND -->
-      <div class="brand">
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
 
-        <div class="logo-wrapper">
-          <img
-            src="kol.gif"
-            alt="KOL"
-            class="logo">
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="logo-box">
+
+        <img
+          src="kol.gif"
+          alt="KOL"
+          class="logo">
+
+      </div>
+
+
+      <div>
+
+        <div class="title">
+          Price List
         </div>
 
-        <div class="brand-text">
+        <div class="subtitle">
+          Editable Services &amp; Pricing
+        </div>
 
-          <div class="brand-title">
-            Price List
-          </div>
+      </div>
 
-          <div class="brand-subtitle">
-            Services &amp; Pricing
-          </div>
+    </div>
 
+
+    <div class="actions">
+
+
+      <div class="edit-status">
+
+        <span class="green-dot"></span>
+
+        Editable
+
+      </div>
+
+
+      <!-- FULLSCREEN BUTTON -->
+
+      <button
+        class="button"
+        id="fullscreenButton"
+        title="Fullscreen">
+
+        <svg viewBox="0 0 24 24">
+
+          <path d="M8 3H3v5"></path>
+
+          <path d="M16 3h5v5"></path>
+
+          <path d="M8 21H3v-5"></path>
+
+          <path d="M21 16v5h-5"></path>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =======================================================
+       CONTENT
+  ======================================================== -->
+
+  <main class="content">
+
+
+    <section class="sheet">
+
+
+      <!-- LOADING SCREEN -->
+
+      <div
+        class="loading"
+        id="loading">
+
+        <div class="spinner"></div>
+
+        <div class="loading-text">
+          Opening editable price list...
         </div>
 
       </div>
 
 
-      <!-- ACTIONS -->
-      <div class="actions">
 
-        <div class="status">
-          <span class="status-dot"></span>
-          Live
-        </div>
+      <!-- ===================================================
+           GOOGLE SHEET
 
+           IMPORTANT:
+           Keep /edit so authorized users can edit.
+      ==================================================== -->
 
-        <!-- Fullscreen -->
-        <button
-          type="button"
-          class="icon-button"
-          id="fullscreenButton"
-          aria-label="Toggle fullscreen"
-          title="Fullscreen">
-
-          <svg viewBox="0 0 24 24">
-            <path d="M8 3H3v5"></path>
-            <path d="M16 3h5v5"></path>
-            <path d="M8 21H3v-5"></path>
-            <path d="M21 16v5h-5"></path>
-          </svg>
-
-        </button>
-
-      </div>
-
-    </header>
+      <iframe
+        id="googleSheet"
+        src="https://docs.google.com/spreadsheets/d/1ydNyxwbr8HSSwodhGxC1_bQIgviP37ymzWFf2zWylUg/edit"
+        title="Editable Price List"
+        allow="fullscreen"
+        loading="eager">
+      </iframe>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
+    </section>
 
-    <main class="main">
-
-      <section class="sheet-card">
-
-        <!-- Loading Overlay -->
-        <div
-          class="loader"
-          id="loader">
-
-          <div class="spinner"></div>
-
-          <div class="loading-text">
-            Loading price list...
-          </div>
-
-        </div>
+  </main>
 
 
-        <!-- Google Sheet -->
-        <iframe
-          id="priceSheet"
-          class="sheet-frame"
-          src="https://docs.google.com/spreadsheets/d/1ydNyxwbr8HSSwodhGxC1_bQIgviP37ymzWFf2zWylUg/edit?usp=sharing"
-          title="Price List"
-          loading="eager"
-          allowfullscreen>
-        </iframe>
 
-      </section>
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
 
-    </main>
+  <footer class="footer">
+
+    Editable Price List · 2026
+
+  </footer>
 
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer class="bottom-bar">
-      © 2026 Price List · All Rights Reserved
-    </footer>
-
-  </div>
+</div>
 
 
-  <script>
-    /* =========================================================
-       ELEMENTS
-    ========================================================= */
 
-    const app = document.getElementById("app");
-    const iframe = document.getElementById("priceSheet");
-    const loader = document.getElementById("loader");
-    const fullscreenButton =
-      document.getElementById("fullscreenButton");
+<script>
+
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
+
+  const app =
+    document.getElementById("app");
+
+  const iframe =
+    document.getElementById("googleSheet");
+
+  const loading =
+    document.getElementById("loading");
+
+  const fullscreenButton =
+    document.getElementById("fullscreenButton");
 
 
-    /* =========================================================
-       HIDE LOADER AFTER SHEET LOAD
-    ========================================================= */
+  /* =========================================================
+     HIDE LOADING SCREEN
+  ========================================================= */
 
-    iframe.addEventListener("load", function () {
+  iframe.addEventListener(
+    "load",
+    function () {
 
       setTimeout(function () {
 
-        loader.classList.add("hidden");
+        loading.classList.add("hide");
 
-      }, 350);
+      }, 400);
 
-    });
+    }
+  );
 
 
-    /* =========================================================
-       FULLSCREEN
-    ========================================================= */
+  /* =========================================================
+     ENTER FULLSCREEN
+  ========================================================= */
 
-    fullscreenButton.addEventListener("click", async function () {
+  async function enterFullscreen() {
 
-      try {
+    try {
 
-        if (!document.fullscreenElement) {
+      if (!document.fullscreenElement) {
 
-          await app.requestFullscreen();
-
-        } else {
-
-          await document.exitFullscreen();
-
-        }
-
-      } catch (error) {
-
-        console.log("Fullscreen is not available.");
+        await app.requestFullscreen();
 
       }
 
-    });
+    } catch (error) {
+
+      console.log(
+        "Fullscreen request was blocked by the browser."
+      );
+
+    }
+
+  }
 
 
-    /* =========================================================
-       UPDATE FULLSCREEN STATE
-    ========================================================= */
+  /* =========================================================
+     EXIT FULLSCREEN
+  ========================================================= */
 
-    document.addEventListener(
-      "fullscreenchange",
-      function () {
+  async function exitFullscreen() {
 
-        if (document.fullscreenElement) {
+    try {
 
-          app.classList.add("fullscreen-mode");
+      if (document.fullscreenElement) {
 
-        } else {
-
-          app.classList.remove("fullscreen-mode");
-
-        }
+        await document.exitFullscreen();
 
       }
-    );
+
+    } catch (error) {
+
+      console.log(
+        "Unable to exit fullscreen."
+      );
+
+    }
+
+  }
 
 
-    /* =========================================================
-       KEYBOARD SHORTCUT
-       F = FULLSCREEN
-       ESC = EXIT FULLSCREEN
-    ========================================================= */
+  /* =========================================================
+     BUTTON
+  ========================================================= */
 
-    document.addEventListener("keydown", function (event) {
+  fullscreenButton.addEventListener(
+    "click",
+    function () {
+
+      if (document.fullscreenElement) {
+
+        exitFullscreen();
+
+      } else {
+
+        enterFullscreen();
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     FULLSCREEN STATE
+  ========================================================= */
+
+  document.addEventListener(
+    "fullscreenchange",
+    function () {
+
+      if (document.fullscreenElement) {
+
+        app.classList.add("fullscreen");
+
+      } else {
+
+        app.classList.remove("fullscreen");
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     KEYBOARD SHORTCUT
+     F = FULLSCREEN
+     ESC = EXIT
+  ========================================================= */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
 
       if (
         event.key.toLowerCase() === "f" &&
@@ -727,44 +805,70 @@
         event.target.tagName !== "TEXTAREA"
       ) {
 
-        fullscreenButton.click();
+        if (document.fullscreenElement) {
+
+          exitFullscreen();
+
+        } else {
+
+          enterFullscreen();
+
+        }
 
       }
 
-    });
+    }
+  );
 
 
-    /* =========================================================
-       PREVENT CONTEXT MENU
-       Optional: remove this section if you want right-click.
-    ========================================================= */
+  /* =========================================================
+     AUTO FULLSCREEN
 
-    /*
-    document.addEventListener("contextmenu", function (event) {
-      event.preventDefault();
-    });
-    */
+     Browsers normally block fullscreen when a page loads
+     because fullscreen requires user interaction.
 
+     We therefore attempt it automatically. If the browser
+     blocks it, the fullscreen button remains available.
+  ========================================================= */
 
-    /* =========================================================
-       KEEP APP HEIGHT CORRECT ON MOBILE
-    ========================================================= */
+  window.addEventListener(
+    "load",
+    function () {
 
-    function updateAppHeight() {
+      setTimeout(function () {
 
-      app.style.height = window.innerHeight + "px";
+        enterFullscreen();
+
+      }, 300);
 
     }
+  );
 
-    updateAppHeight();
 
-    window.addEventListener(
-      "resize",
-      updateAppHeight
-    );
+  /* =========================================================
+     MOBILE HEIGHT FIX
+  ========================================================= */
 
-  </script>
+  function updateHeight() {
+
+    app.style.height =
+      window.innerHeight + "px";
+
+  }
+
+
+  updateHeight();
+
+
+  window.addEventListener(
+    "resize",
+    updateHeight
+  );
+
+</script>
+
 
 </body>
+
 </html>
 ```
