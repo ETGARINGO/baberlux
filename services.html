@@ -11,11 +11,11 @@
                  maximum-scale=1.0,
                  user-scalable=no">
 
-  <meta name="theme-color" content="#0f172a">
-
-  <title>Price List</title>
+  <meta name="theme-color" content="#020617">
 
   <link rel="icon" type="image/gif" href="kol.gif">
+
+  <title>Editable Price List</title>
 
 
   <style>
@@ -37,8 +37,6 @@
       height: 100%;
 
       overflow: hidden;
-
-      background: #020617;
     }
 
 
@@ -51,26 +49,6 @@
         Roboto,
         Arial,
         sans-serif;
-    }
-
-
-    button {
-      font-family: inherit;
-    }
-
-
-    /* =========================================================
-       MAIN APPLICATION
-    ========================================================= */
-
-    #app {
-      width: 100%;
-      height: 100dvh;
-
-      display: flex;
-      flex-direction: column;
-
-      overflow: hidden;
 
       background:
         radial-gradient(
@@ -79,33 +57,63 @@
           #0f172a 45%,
           #020617 100%
         );
+
+      color: #fff;
+    }
+
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+
+    button {
+      cursor: pointer;
     }
 
 
     /* =========================================================
-       HEADER
+       APPLICATION
+    ========================================================= */
+
+    .app {
+      width: 100%;
+      height: 100dvh;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+    }
+
+
+    /* =========================================================
+       TOP BAR
     ========================================================= */
 
     .topbar {
-      height: 64px;
-      min-height: 64px;
-
-      padding: 0 18px;
+      height: 68px;
+      min-height: 68px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      background: rgba(2, 6, 23, 0.95);
+      padding: 0 18px;
 
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        rgba(2, 6, 23, 0.94);
 
-      position: relative;
+      border-bottom:
+        1px solid rgba(255,255,255,.08);
 
-      z-index: 100;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      z-index: 50;
     }
 
 
@@ -113,15 +121,15 @@
       display: flex;
       align-items: center;
 
-      gap: 11px;
+      gap: 12px;
 
       min-width: 0;
     }
 
 
     .logo-box {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
 
       flex-shrink: 0;
 
@@ -131,11 +139,13 @@
 
       overflow: hidden;
 
-      border-radius: 10px;
+      border-radius: 11px;
 
-      background: rgba(255,255,255,.08);
+      background:
+        rgba(255,255,255,.08);
 
-      border: 1px solid rgba(255,255,255,.1);
+      border:
+        1px solid rgba(255,255,255,.12);
     }
 
 
@@ -147,41 +157,49 @@
     }
 
 
-    .title {
-      color: white;
-
-      font-size: 15px;
-
-      font-weight: 700;
-
-      line-height: 1.2;
+    .brand-text {
+      min-width: 0;
     }
 
 
-    .subtitle {
+    .brand-title {
+      color: #fff;
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+
+    .brand-subtitle {
       margin-top: 3px;
 
-      color: rgba(255,255,255,.45);
+      color:
+        rgba(255,255,255,.45);
 
       font-size: 10px;
 
-      font-weight: 500;
+      white-space: nowrap;
     }
 
 
     /* =========================================================
-       BUTTONS
+       ACTIONS
     ========================================================= */
 
     .actions {
       display: flex;
       align-items: center;
 
-      gap: 8px;
+      gap: 7px;
+
+      flex-shrink: 0;
     }
 
 
-    .edit-status {
+    .status {
       display: flex;
       align-items: center;
 
@@ -191,19 +209,22 @@
 
       border-radius: 999px;
 
-      background: rgba(34,197,94,.08);
+      color:
+        rgba(255,255,255,.68);
 
-      border: 1px solid rgba(34,197,94,.15);
+      background:
+        rgba(34,197,94,.08);
 
-      color: rgba(255,255,255,.65);
+      border:
+        1px solid rgba(34,197,94,.15);
 
       font-size: 10px;
 
-      font-weight: 600;
+      font-weight: 700;
     }
 
 
-    .green-dot {
+    .status-dot {
       width: 6px;
       height: 6px;
 
@@ -216,36 +237,40 @@
     }
 
 
-    .button {
+    .icon-button {
       width: 38px;
       height: 38px;
-
-      border: 1px solid rgba(255,255,255,.1);
-
-      border-radius: 9px;
-
-      background: rgba(255,255,255,.06);
-
-      color: white;
-
-      cursor: pointer;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      transition: .2s ease;
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      border-radius: 9px;
+
+      background:
+        rgba(255,255,255,.06);
+
+      color: rgba(255,255,255,.85);
+
+      transition: .18s ease;
     }
 
 
-    .button:hover {
-      background: rgba(255,255,255,.12);
+    .icon-button:hover {
+      background:
+        rgba(255,255,255,.12);
+
+      border-color:
+        rgba(255,255,255,.16);
 
       transform: translateY(-1px);
     }
 
 
-    .button svg {
+    .icon-button svg {
       width: 17px;
       height: 17px;
 
@@ -256,130 +281,542 @@
       stroke-width: 1.8;
 
       stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+
+    /* =========================================================
+       MAIN
+    ========================================================= */
+
+    .main {
+      flex: 1;
+
+      min-height: 0;
+
+      padding: 12px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 10px;
+
+      overflow: hidden;
+    }
+
+
+    /* =========================================================
+       TOOLBAR
+    ========================================================= */
+
+    .toolbar {
+      min-height: 54px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 8px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.055);
+
+      border:
+        1px solid rgba(255,255,255,.08);
+
+      flex-shrink: 0;
+    }
+
+
+    .search-box {
+      flex: 1;
+
+      min-width: 150px;
+
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 11px;
+
+      gap: 8px;
+
+      border-radius: 8px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      border:
+        1px solid rgba(255,255,255,.08);
+    }
+
+
+    .search-box svg {
+      width: 15px;
+      height: 15px;
+
+      flex-shrink: 0;
+
+      fill: none;
+
+      stroke:
+        rgba(255,255,255,.5);
+
+      stroke-width: 2;
+    }
+
+
+    .search-box input {
+      width: 100%;
+
+      border: 0;
+
+      outline: 0;
+
+      background: transparent;
+
+      color: white;
+
+      font-size: 12px;
+    }
+
+
+    .search-box input::placeholder {
+      color:
+        rgba(255,255,255,.35);
+    }
+
+
+    .filter {
+      height: 36px;
+
+      padding: 0 10px;
+
+      border-radius: 8px;
+
+      border:
+        1px solid rgba(255,255,255,.08);
+
+      background:
+        rgba(255,255,255,.07);
+
+      color:
+        rgba(255,255,255,.75);
+
+      outline: none;
+
+      font-size: 11px;
+
+      max-width: 150px;
+    }
+
+
+    .filter option {
+      color: #111827;
+
+      background: white;
+    }
+
+
+    .action-button {
+      height: 36px;
+
+      padding: 0 13px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 6px;
+
+      border-radius: 8px;
+
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      background:
+        rgba(255,255,255,.07);
+
+      color:
+        rgba(255,255,255,.8);
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      transition: .18s ease;
+    }
+
+
+    .action-button:hover {
+      background:
+        rgba(255,255,255,.13);
+    }
+
+
+    .action-button.primary {
+      color: white;
+
+      background:
+        #2563eb;
+
+      border-color:
+        #2563eb;
+    }
+
+
+    .action-button.primary:hover {
+      background:
+        #1d4ed8;
+    }
+
+
+    .action-button.danger {
+      color:
+        #fca5a5;
+
+      background:
+        rgba(239,68,68,.08);
+
+      border-color:
+        rgba(239,68,68,.15);
+    }
+
+
+    .action-button svg {
+      width: 14px;
+      height: 14px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 2;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+
+    /* =========================================================
+       TABLE CARD
+    ========================================================= */
+
+    .table-card {
+      flex: 1;
+
+      min-height: 0;
+
+      background: #fff;
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.3);
+    }
+
+
+    /* =========================================================
+       TABLE HEADER
+    ========================================================= */
+
+    .table-header {
+      min-height: 44px;
+
+      display: grid;
+
+      grid-template-columns:
+        1.1fr
+        .65fr
+        .65fr
+        .8fr
+        2fr
+        1.1fr
+        72px;
+
+      background:
+        #0f172a;
+
+      color:
+        #cbd5e1;
+
+      border-bottom:
+        1px solid #e2e8f0;
+
+      flex-shrink: 0;
+    }
+
+
+    .header-cell {
+      display: flex;
+      align-items: center;
+
+      padding: 0 12px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: .05em;
+
+      border-right:
+        1px solid rgba(255,255,255,.06);
+    }
+
+
+    /* =========================================================
+       TABLE BODY
+    ========================================================= */
+
+    .table-body {
+      flex: 1;
+
+      min-height: 0;
+
+      overflow: auto;
+
+      color: #0f172a;
+    }
+
+
+    .row {
+      display: grid;
+
+      grid-template-columns:
+        1.1fr
+        .65fr
+        .65fr
+        .8fr
+        2fr
+        1.1fr
+        72px;
+
+      min-height: 56px;
+
+      border-bottom:
+        1px solid #e5e7eb;
+
+      transition:
+        background .15s ease;
+    }
+
+
+    .row:hover {
+      background:
+        #f8fafc;
+    }
+
+
+    .cell {
+      min-width: 0;
+
+      display: flex;
+      align-items: center;
+
+      padding: 8px 10px;
+
+      border-right:
+        1px solid #eef2f7;
+
+      font-size: 12px;
+
+      position: relative;
+    }
+
+
+    .cell.editable {
+      cursor: text;
+    }
+
+
+    .cell.editable:hover {
+      background:
+        #f1f5f9;
+    }
+
+
+    .cell-text {
+      width: 100%;
+
+      line-height: 1.4;
+
+      word-break: break-word;
+
+      white-space: pre-wrap;
+
+      color: #334155;
+    }
+
+
+    .cell-title {
+      font-weight: 800;
+
+      color: #0f172a;
+    }
+
+
+    .cell-price {
+      font-weight: 800;
+
+      color: #2563eb;
+
+      white-space: nowrap;
+    }
+
+
+    .empty {
+      color:
+        #94a3b8;
+
+      font-style: italic;
+    }
+
+
+    /* =========================================================
+       EDIT INPUTS
+    ========================================================= */
+
+    .edit-input {
+      width: 100%;
+
+      min-width: 0;
+
+      border:
+        1px solid #2563eb;
+
+      border-radius: 5px;
+
+      padding: 6px 7px;
+
+      outline: none;
+
+      background: white;
+
+      color: #0f172a;
+
+      font-size: 12px;
+
+      box-shadow:
+        0 0 0 2px rgba(37,99,235,.1);
+    }
+
+
+    textarea.edit-input {
+      min-height: 42px;
+
+      resize: vertical;
+    }
+
+
+    /* =========================================================
+       ROW ACTIONS
+    ========================================================= */
+
+    .row-actions {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 5px;
+
+      padding: 5px;
+    }
+
+
+    .row-button {
+      width: 28px;
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 6px;
+
+      border:
+        1px solid #e2e8f0;
+
+      background: white;
+
+      color: #64748b;
+    }
+
+
+    .row-button:hover {
+      background: #f1f5f9;
+
+      color: #0f172a;
+    }
+
+
+    .row-button.delete:hover {
+      color: #dc2626;
+
+      background: #fef2f2;
+
+      border-color: #fecaca;
+    }
+
+
+    .row-button svg {
+      width: 13px;
+      height: 13px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 2;
+
+      stroke-linecap: round;
 
       stroke-linejoin: round;
     }
 
 
     /* =========================================================
-       CONTENT
+       EMPTY STATE
     ========================================================= */
 
-    .content {
-      flex: 1;
-
-      min-height: 0;
-
-      padding: 10px;
-
-      overflow: hidden;
-
-      display: flex;
-    }
-
-
-    /* =========================================================
-       GOOGLE SHEET
-    ========================================================= */
-
-    .sheet {
-      width: 100%;
-      height: 100%;
-
-      min-height: 0;
-
-      background: white;
-
-      border-radius: 10px;
-
-      overflow: hidden;
-
-      position: relative;
-
-      box-shadow:
-        0 15px 50px rgba(0,0,0,.3);
-    }
-
-
-    iframe {
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      border: 0;
-
-      background: white;
-    }
-
-
-    /* =========================================================
-       LOADING
-    ========================================================= */
-
-    .loading {
-      position: absolute;
-
-      inset: 0;
-
-      z-index: 20;
+    .empty-state {
+      min-height: 220px;
 
       display: flex;
 
       flex-direction: column;
 
       align-items: center;
-
       justify-content: center;
-
-      background: white;
-
-      transition:
-        opacity .35s ease,
-        visibility .35s ease;
-    }
-
-
-    .loading.hide {
-      opacity: 0;
-
-      visibility: hidden;
-
-      pointer-events: none;
-    }
-
-
-    .spinner {
-      width: 32px;
-      height: 32px;
-
-      border: 3px solid #e5e7eb;
-
-      border-top-color: #334155;
-
-      border-radius: 50%;
-
-      animation: spin .8s linear infinite;
-    }
-
-
-    @keyframes spin {
-
-      to {
-        transform: rotate(360deg);
-      }
-
-    }
-
-
-    .loading-text {
-      margin-top: 12px;
 
       color: #64748b;
 
-      font-size: 11px;
+      gap: 8px;
+    }
 
-      font-weight: 500;
+
+    .empty-state strong {
+      color: #334155;
+
+      font-size: 14px;
+    }
+
+
+    .empty-state span {
+      font-size: 11px;
     }
 
 
@@ -392,18 +829,18 @@
       min-height: 30px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
-      color: rgba(255,255,255,.3);
+      color:
+        rgba(255,255,255,.3);
 
       font-size: 9px;
     }
 
 
     /* =========================================================
-       TRUE FULLSCREEN MODE
+       FULLSCREEN
     ========================================================= */
 
     .fullscreen .topbar,
@@ -412,12 +849,25 @@
     }
 
 
-    .fullscreen .content {
+    .fullscreen .main {
       padding: 0;
+
+      gap: 0;
     }
 
 
-    .fullscreen .sheet {
+    .fullscreen .toolbar {
+      border-radius: 0;
+
+      border-left: 0;
+      border-right: 0;
+
+      background:
+        #0f172a;
+    }
+
+
+    .fullscreen .table-card {
       border-radius: 0;
 
       box-shadow: none;
@@ -425,60 +875,135 @@
 
 
     /* =========================================================
+       TOAST
+    ========================================================= */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 24px;
+
+      transform:
+        translate(-50%, 20px);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 999;
+
+      padding: 10px 15px;
+
+      border-radius: 8px;
+
+      background:
+        rgba(15,23,42,.96);
+
+      color: white;
+
+      border:
+        1px solid rgba(255,255,255,.1);
+
+      box-shadow:
+        0 10px 35px rgba(0,0,0,.25);
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      transition: .25s ease;
+    }
+
+
+    .toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+
+    /* =========================================================
        MOBILE
     ========================================================= */
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
 
       .topbar {
-        height: 56px;
-        min-height: 56px;
+        height: 58px;
+        min-height: 58px;
 
         padding: 0 10px;
       }
 
 
       .logo-box {
-        width: 35px;
-        height: 35px;
-
-        border-radius: 8px;
+        width: 36px;
+        height: 36px;
       }
 
 
-      .brand {
-        gap: 9px;
+      .brand-title {
+        font-size: 14px;
       }
 
 
-      .title {
-        font-size: 13px;
-      }
-
-
-      .subtitle {
+      .brand-subtitle {
         font-size: 9px;
       }
 
 
-      .edit-status {
+      .status {
         display: none;
       }
 
 
-      .button {
-        width: 34px;
-        height: 34px;
-      }
-
-
-      .content {
+      .main {
         padding: 5px;
+
+        gap: 5px;
       }
 
 
-      .sheet {
-        border-radius: 6px;
+      .toolbar {
+        overflow-x: auto;
+
+        min-height: 48px;
+
+        padding: 6px;
+      }
+
+
+      .search-box {
+        min-width: 150px;
+      }
+
+
+      .action-button {
+        padding: 0 10px;
+      }
+
+
+      .table-card {
+        border-radius: 7px;
+      }
+
+
+      /*
+       * Horizontal scrolling is intentional on small screens
+       * because all columns remain editable.
+       */
+
+      .table-header,
+      .row {
+        min-width: 1050px;
+      }
+
+
+      .table-body {
+        overflow: auto;
       }
 
 
@@ -490,23 +1015,23 @@
 
 
     /* =========================================================
-       SMALL MOBILE
+       VERY SMALL PHONES
     ========================================================= */
 
-    @media (max-width: 400px) {
+    @media (max-width: 450px) {
 
-      .subtitle {
+      .brand-subtitle {
         display: none;
       }
 
 
-      .content {
+      .main {
         padding: 2px;
       }
 
 
-      .sheet {
-        border-radius: 3px;
+      .toolbar {
+        border-radius: 5px;
       }
 
     }
@@ -519,7 +1044,7 @@
 <body>
 
 
-<div id="app">
+<div class="app" id="app">
 
 
   <!-- =======================================================
@@ -534,19 +1059,19 @@
 
         <img
           src="kol.gif"
-          alt="KOL"
-          class="logo">
+          class="logo"
+          alt="KOL Logo">
 
       </div>
 
 
-      <div>
+      <div class="brand-text">
 
-        <div class="title">
+        <div class="brand-title">
           Price List
         </div>
 
-        <div class="subtitle">
+        <div class="brand-subtitle">
           Editable Services &amp; Pricing
         </div>
 
@@ -557,20 +1082,19 @@
 
     <div class="actions">
 
+      <div class="status">
 
-      <div class="edit-status">
+        <span class="status-dot"></span>
 
-        <span class="green-dot"></span>
-
-        Editable
+        Saved Locally
 
       </div>
 
 
-      <!-- FULLSCREEN BUTTON -->
+      <!-- Fullscreen -->
 
       <button
-        class="button"
+        class="icon-button"
         id="fullscreenButton"
         title="Fullscreen">
 
@@ -595,60 +1119,191 @@
 
 
   <!-- =======================================================
-       CONTENT
+       MAIN
   ======================================================== -->
 
-  <main class="content">
+  <main class="main">
 
 
-    <section class="sheet">
+    <!-- TOOLBAR -->
+
+    <div class="toolbar">
 
 
-      <!-- LOADING SCREEN -->
+      <!-- SEARCH -->
 
-      <div
-        class="loading"
-        id="loading">
+      <div class="search-box">
 
-        <div class="spinner"></div>
+        <svg viewBox="0 0 24 24">
 
-        <div class="loading-text">
-          Opening editable price list...
+          <circle cx="11" cy="11" r="7"></circle>
+
+          <path d="m20 20-4-4"></path>
+
+        </svg>
+
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search price list...">
+
+      </div>
+
+
+
+      <!-- CATEGORY -->
+
+      <select
+        id="categoryFilter"
+        class="filter">
+
+        <option value="">
+          All Categories
+        </option>
+
+      </select>
+
+
+
+      <!-- ADD -->
+
+      <button
+        class="action-button primary"
+        id="addButton">
+
+        <svg viewBox="0 0 24 24">
+
+          <path d="M12 5v14"></path>
+
+          <path d="M5 12h14"></path>
+
+        </svg>
+
+        Add Row
+
+      </button>
+
+
+
+      <!-- SAVE -->
+
+      <button
+        class="action-button"
+        id="saveButton">
+
+        <svg viewBox="0 0 24 24">
+
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+
+          <path d="M17 21v-8H7v8"></path>
+
+          <path d="M7 3v5h8"></path>
+
+        </svg>
+
+        Save
+
+      </button>
+
+
+
+      <!-- EXPORT -->
+
+      <button
+        class="action-button"
+        id="exportButton">
+
+        Export
+
+      </button>
+
+
+
+      <!-- IMPORT -->
+
+      <button
+        class="action-button"
+        id="importButton">
+
+        Import
+
+      </button>
+
+
+      <input
+        type="file"
+        id="importFile"
+        accept=".json"
+        hidden>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TABLE
+    ====================================================== -->
+
+    <section class="table-card">
+
+
+      <!-- HEADER -->
+
+      <div class="table-header">
+
+        <div class="header-cell">
+          Name
+        </div>
+
+        <div class="header-cell">
+          Price
+        </div>
+
+        <div class="header-cell">
+          Duration
+        </div>
+
+        <div class="header-cell">
+          Category
+        </div>
+
+        <div class="header-cell">
+          Description
+        </div>
+
+        <div class="header-cell">
+          Title
+        </div>
+
+        <div class="header-cell">
+          Actions
         </div>
 
       </div>
 
 
 
-      <!-- ===================================================
-           GOOGLE SHEET
+      <!-- BODY -->
 
-           IMPORTANT:
-           Keep /edit so authorized users can edit.
-      ==================================================== -->
-
-      <iframe
-        id="googleSheet"
-        src="https://docs.google.com/spreadsheets/d/1ydNyxwbr8HSSwodhGxC1_bQIgviP37ymzWFf2zWylUg/edit"
-        title="Editable Price List"
-        allow="fullscreen"
-        loading="eager">
-      </iframe>
+      <div
+        class="table-body"
+        id="tableBody">
+      </div>
 
 
     </section>
+
 
   </main>
 
 
 
-  <!-- =======================================================
-       FOOTER
-  ======================================================== -->
+  <!-- FOOTER -->
 
   <footer class="footer">
 
-    Editable Price List · 2026
+    Double-click any cell to edit · Changes are saved in your browser
 
   </footer>
 
@@ -656,46 +1311,1104 @@
 </div>
 
 
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
 
 <script>
+
+  /* =========================================================
+     DATA
+  ========================================================= */
+
+  const STORAGE_KEY =
+    "custom_price_list_v1";
+
+
+  let data = loadData();
+
+
+  /* =========================================================
+     DEFAULT DATA
+  ========================================================= */
+
+  function defaultData() {
+
+    return [
+
+      {
+        name: "Service Name",
+        price: "₱0.00",
+        duration: "30 min",
+        category: "General",
+        description: "Service description",
+        title: "Service Title"
+      },
+
+      {
+        name: "Example Service",
+        price: "₱100.00",
+        duration: "1 hour",
+        category: "General",
+        description: "Edit this row with your own service information.",
+        title: "Example"
+      }
+
+    ];
+
+  }
+
+
+  /* =========================================================
+     LOAD
+  ========================================================= */
+
+  function loadData() {
+
+    try {
+
+      const saved =
+        localStorage.getItem(STORAGE_KEY);
+
+      if (saved) {
+
+        const parsed =
+          JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+
+          return parsed;
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+
+    return defaultData();
+
+  }
+
+
+  /* =========================================================
+     SAVE
+  ========================================================= */
+
+  function saveData() {
+
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+      showToast("Price list saved");
+
+    } catch (error) {
+
+      showToast("Unable to save data");
+
+      console.error(error);
+
+    }
+
+  }
+
 
   /* =========================================================
      ELEMENTS
   ========================================================= */
 
-  const app =
-    document.getElementById("app");
+  const tableBody =
+    document.getElementById("tableBody");
 
-  const iframe =
-    document.getElementById("googleSheet");
+  const searchInput =
+    document.getElementById("searchInput");
 
-  const loading =
-    document.getElementById("loading");
+  const categoryFilter =
+    document.getElementById("categoryFilter");
+
+  const addButton =
+    document.getElementById("addButton");
+
+  const saveButton =
+    document.getElementById("saveButton");
+
+  const exportButton =
+    document.getElementById("exportButton");
+
+  const importButton =
+    document.getElementById("importButton");
+
+  const importFile =
+    document.getElementById("importFile");
 
   const fullscreenButton =
     document.getElementById("fullscreenButton");
 
+  const app =
+    document.getElementById("app");
+
+  const toast =
+    document.getElementById("toast");
+
 
   /* =========================================================
-     HIDE LOADING SCREEN
+     ESCAPE HTML
   ========================================================= */
 
-  iframe.addEventListener(
-    "load",
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================================================
+     SHOW TOAST
+  ========================================================= */
+
+  let toastTimer;
+
+
+  function showToast(message) {
+
+    clearTimeout(toastTimer);
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    toastTimer =
+      setTimeout(function () {
+
+        toast.classList.remove("show");
+
+      }, 1800);
+
+  }
+
+
+  /* =========================================================
+     RENDER CATEGORIES
+  ========================================================= */
+
+  function renderCategories() {
+
+    const current =
+      categoryFilter.value;
+
+
+    const categories =
+      [...new Set(
+
+        data
+          .map(item => item.category)
+          .filter(Boolean)
+
+      )].sort();
+
+
+    categoryFilter.innerHTML = `
+
+      <option value="">
+        All Categories
+      </option>
+
+      ${categories.map(category => `
+
+        <option value="${escapeHTML(category)}">
+          ${escapeHTML(category)}
+        </option>
+
+      `).join("")}
+
+    `;
+
+
+    categoryFilter.value =
+      categories.includes(current)
+        ? current
+        : "";
+
+  }
+
+
+  /* =========================================================
+     FILTER DATA
+  ========================================================= */
+
+  function getFilteredData() {
+
+    const search =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const category =
+      categoryFilter.value;
+
+
+    return data
+      .map((item, index) => ({
+        ...item,
+        originalIndex: index
+      }))
+      .filter(item => {
+
+        const searchable = [
+
+          item.name,
+          item.price,
+          item.duration,
+          item.category,
+          item.description,
+          item.title
+
+        ]
+          .join(" ")
+          .toLowerCase();
+
+
+        const matchesSearch =
+          !search ||
+          searchable.includes(search);
+
+
+        const matchesCategory =
+          !category ||
+          item.category === category;
+
+
+        return (
+          matchesSearch &&
+          matchesCategory
+        );
+
+      });
+
+  }
+
+
+  /* =========================================================
+     RENDER TABLE
+  ========================================================= */
+
+  function render() {
+
+    renderCategories();
+
+
+    const items =
+      getFilteredData();
+
+
+    if (!items.length) {
+
+      tableBody.innerHTML = `
+
+        <div class="empty-state">
+
+          <strong>
+            No price-list items found
+          </strong>
+
+          <span>
+            Add a row or change your search.
+          </span>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    tableBody.innerHTML = items.map(item => {
+
+      const i =
+        item.originalIndex;
+
+
+      return `
+
+        <div
+          class="row"
+          data-index="${i}">
+
+
+          <div
+            class="cell editable"
+            data-field="name"
+            data-index="${i}">
+
+            <div class="cell-text cell-title">
+              ${escapeHTML(item.name) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div
+            class="cell editable"
+            data-field="price"
+            data-index="${i}">
+
+            <div class="cell-text cell-price">
+              ${escapeHTML(item.price) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div
+            class="cell editable"
+            data-field="duration"
+            data-index="${i}">
+
+            <div class="cell-text">
+              ${escapeHTML(item.duration) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div
+            class="cell editable"
+            data-field="category"
+            data-index="${i}">
+
+            <div class="cell-text">
+              ${escapeHTML(item.category) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div
+            class="cell editable"
+            data-field="description"
+            data-index="${i}">
+
+            <div class="cell-text">
+              ${escapeHTML(item.description) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div
+            class="cell editable"
+            data-field="title"
+            data-index="${i}">
+
+            <div class="cell-text">
+              ${escapeHTML(item.title) || '<span class="empty">Empty</span>'}
+            </div>
+
+          </div>
+
+
+          <div class="cell row-actions">
+
+            <button
+              class="row-button edit-row"
+              data-index="${i}"
+              title="Edit row">
+
+              <svg viewBox="0 0 24 24">
+
+                <path d="M12 20h9"></path>
+
+                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"></path>
+
+              </svg>
+
+            </button>
+
+
+            <button
+              class="row-button delete delete-row"
+              data-index="${i}"
+              title="Delete row">
+
+              <svg viewBox="0 0 24 24">
+
+                <path d="M3 6h18"></path>
+
+                <path d="M8 6V4h8v2"></path>
+
+                <path d="M19 6l-1 14H6L5 6"></path>
+
+                <path d="M10 11v5"></path>
+
+                <path d="M14 11v5"></path>
+
+              </svg>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+
+    attachEvents();
+
+  }
+
+
+  /* =========================================================
+     ATTACH EVENTS
+  ========================================================= */
+
+  function attachEvents() {
+
+    document
+      .querySelectorAll(".editable")
+      .forEach(cell => {
+
+        cell.addEventListener(
+          "dblclick",
+          function () {
+
+            editCell(cell);
+
+          }
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(".edit-row")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            const index =
+              Number(this.dataset.index);
+
+            editRow(index);
+
+          }
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(".delete-row")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            const index =
+              Number(this.dataset.index);
+
+            deleteRow(index);
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =========================================================
+     EDIT SINGLE CELL
+  ========================================================= */
+
+  function editCell(cell) {
+
+    if (cell.querySelector("input, textarea")) {
+
+      return;
+
+    }
+
+
+    const index =
+      Number(cell.dataset.index);
+
+
+    const field =
+      cell.dataset.field;
+
+
+    const currentValue =
+      data[index][field] || "";
+
+
+    const multiline =
+      field === "description";
+
+
+    const input =
+      document.createElement(
+        multiline
+          ? "textarea"
+          : "input"
+      );
+
+
+    input.className =
+      "edit-input";
+
+
+    input.value =
+      currentValue;
+
+
+    if (field === "price") {
+
+      input.placeholder =
+        "₱0.00";
+
+    }
+
+
+    if (field === "duration") {
+
+      input.placeholder =
+        "30 min";
+
+    }
+
+
+    if (field === "category") {
+
+      input.placeholder =
+        "Category";
+
+    }
+
+
+    if (field === "title") {
+
+      input.placeholder =
+        "Title";
+
+    }
+
+
+    cell.innerHTML = "";
+
+    cell.appendChild(input);
+
+
+    input.focus();
+
+
+    input.select();
+
+
+    function finish() {
+
+      data[index][field] =
+        input.value.trim();
+
+      saveDataSilently();
+
+      render();
+
+    }
+
+
+    input.addEventListener(
+      "blur",
+      finish,
+      { once: true }
+    );
+
+
+    input.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (
+          event.key === "Enter" &&
+          !multiline
+        ) {
+
+          event.preventDefault();
+
+          input.blur();
+
+        }
+
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          input.value =
+            currentValue;
+
+          input.blur();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     EDIT WHOLE ROW
+  ========================================================= */
+
+  function editRow(index) {
+
+    const item =
+      data[index];
+
+
+    const name =
+      prompt(
+        "Name:",
+        item.name
+      );
+
+
+    if (name === null) {
+
+      return;
+
+    }
+
+
+    const price =
+      prompt(
+        "Price:",
+        item.price
+      );
+
+
+    if (price === null) {
+
+      return;
+
+    }
+
+
+    const duration =
+      prompt(
+        "Duration:",
+        item.duration
+      );
+
+
+    if (duration === null) {
+
+      return;
+
+    }
+
+
+    const category =
+      prompt(
+        "Category:",
+        item.category
+      );
+
+
+    if (category === null) {
+
+      return;
+
+    }
+
+
+    const description =
+      prompt(
+        "Description:",
+        item.description
+      );
+
+
+    if (description === null) {
+
+      return;
+
+    }
+
+
+    const title =
+      prompt(
+        "Title:",
+        item.title
+      );
+
+
+    if (title === null) {
+
+      return;
+
+    }
+
+
+    data[index] = {
+
+      name,
+      price,
+      duration,
+      category,
+      description,
+      title
+
+    };
+
+
+    saveData();
+
+    render();
+
+  }
+
+
+  /* =========================================================
+     DELETE ROW
+  ========================================================= */
+
+  function deleteRow(index) {
+
+    const item =
+      data[index];
+
+
+    const confirmed =
+      confirm(
+        `Delete "${item.name || "this item"}"?`
+      );
+
+
+    if (!confirmed) {
+
+      return;
+
+    }
+
+
+    data.splice(index, 1);
+
+
+    saveData();
+
+    render();
+
+  }
+
+
+  /* =========================================================
+     ADD ROW
+  ========================================================= */
+
+  addButton.addEventListener(
+    "click",
     function () {
+
+      data.push({
+
+        name: "New Service",
+
+        price: "₱0.00",
+
+        duration: "30 min",
+
+        category: "General",
+
+        description:
+          "Enter service description",
+
+        title:
+          "New Service"
+
+      });
+
+
+      saveData();
+
+      render();
+
+
+      /*
+       * Scroll to bottom so the newly created
+       * row is immediately visible.
+       */
 
       setTimeout(function () {
 
-        loading.classList.add("hide");
+        tableBody.scrollTop =
+          tableBody.scrollHeight;
 
-      }, 400);
+      }, 50);
+
+
+      showToast(
+        "New row added"
+      );
 
     }
   );
 
 
   /* =========================================================
-     ENTER FULLSCREEN
+     SAVE BUTTON
+  ========================================================= */
+
+  saveButton.addEventListener(
+    "click",
+    function () {
+
+      saveData();
+
+    }
+  );
+
+
+  /* =========================================================
+     SILENT SAVE
+  ========================================================= */
+
+  function saveDataSilently() {
+
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  }
+
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  searchInput.addEventListener(
+    "input",
+    render
+  );
+
+
+  /* =========================================================
+     CATEGORY FILTER
+  ========================================================= */
+
+  categoryFilter.addEventListener(
+    "change",
+    render
+  );
+
+
+  /* =========================================================
+     EXPORT JSON
+  ========================================================= */
+
+  exportButton.addEventListener(
+    "click",
+    function () {
+
+      const json =
+        JSON.stringify(
+          data,
+          null,
+          2
+        );
+
+
+      const blob =
+        new Blob(
+          [json],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(blob);
+
+
+      const link =
+        document.createElement("a");
+
+
+      link.href =
+        url;
+
+
+      link.download =
+        "price-list.json";
+
+
+      document.body.appendChild(link);
+
+
+      link.click();
+
+
+      link.remove();
+
+
+      URL.revokeObjectURL(url);
+
+
+      showToast(
+        "Price list exported"
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     IMPORT
+  ========================================================= */
+
+  importButton.addEventListener(
+    "click",
+    function () {
+
+      importFile.click();
+
+    }
+  );
+
+
+  importFile.addEventListener(
+    "change",
+    function (event) {
+
+      const file =
+        event.target.files[0];
+
+
+      if (!file) {
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function (e) {
+
+          try {
+
+            const imported =
+              JSON.parse(
+                e.target.result
+              );
+
+
+            if (!Array.isArray(imported)) {
+
+              throw new Error(
+                "Invalid format"
+              );
+
+            }
+
+
+            data =
+              imported.map(item => ({
+
+                name:
+                  item.name || "",
+
+                price:
+                  item.price || "",
+
+                duration:
+                  item.duration || "",
+
+                category:
+                  item.category || "",
+
+                description:
+                  item.description || "",
+
+                title:
+                  item.title || ""
+
+              }));
+
+
+            saveData();
+
+            render();
+
+
+            showToast(
+              "Price list imported"
+            );
+
+          } catch (error) {
+
+            alert(
+              "Invalid price-list JSON file."
+            );
+
+          }
+
+        };
+
+
+      reader.readAsText(file);
+
+
+      event.target.value =
+        "";
+
+    }
+  );
+
+
+  /* =========================================================
+     FULLSCREEN
   ========================================================= */
 
   async function enterFullscreen() {
@@ -711,17 +2424,13 @@
     } catch (error) {
 
       console.log(
-        "Fullscreen request was blocked by the browser."
+        "Fullscreen unavailable"
       );
 
     }
 
   }
 
-
-  /* =========================================================
-     EXIT FULLSCREEN
-  ========================================================= */
 
   async function exitFullscreen() {
 
@@ -736,17 +2445,13 @@
     } catch (error) {
 
       console.log(
-        "Unable to exit fullscreen."
+        "Unable to exit fullscreen"
       );
 
     }
 
   }
 
-
-  /* =========================================================
-     BUTTON
-  ========================================================= */
 
   fullscreenButton.addEventListener(
     "click",
@@ -776,11 +2481,15 @@
 
       if (document.fullscreenElement) {
 
-        app.classList.add("fullscreen");
+        app.classList.add(
+          "fullscreen"
+        );
 
       } else {
 
-        app.classList.remove("fullscreen");
+        app.classList.remove(
+          "fullscreen"
+        );
 
       }
 
@@ -801,10 +2510,13 @@
       if (
         event.key.toLowerCase() === "f" &&
         event.target.tagName !== "INPUT" &&
-        event.target.tagName !== "TEXTAREA"
+        event.target.tagName !== "TEXTAREA" &&
+        event.target.tagName !== "SELECT"
       ) {
 
-        if (document.fullscreenElement) {
+        if (
+          document.fullscreenElement
+        ) {
 
           exitFullscreen();
 
@@ -821,48 +2533,11 @@
 
 
   /* =========================================================
-     AUTO FULLSCREEN
-
-     Browsers normally block fullscreen when a page loads
-     because fullscreen requires user interaction.
-
-     We therefore attempt it automatically. If the browser
-     blocks it, the fullscreen button remains available.
+     INITIAL RENDER
   ========================================================= */
 
-  window.addEventListener(
-    "load",
-    function () {
+  render();
 
-      setTimeout(function () {
-
-        enterFullscreen();
-
-      }, 300);
-
-    }
-  );
-
-
-  /* =========================================================
-     MOBILE HEIGHT FIX
-  ========================================================= */
-
-  function updateHeight() {
-
-    app.style.height =
-      window.innerHeight + "px";
-
-  }
-
-
-  updateHeight();
-
-
-  window.addEventListener(
-    "resize",
-    updateHeight
-  );
 
 </script>
 
