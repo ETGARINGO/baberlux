@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
-  <title>King of Fadez PH | Multi-Branch Admin Control Setup</title>
+  <title>King of Fadez PH | Multi-Branch control Control Setup</title>
   <meta name="description" content="Kingoffadezph.com — Choose your preferred branch and book your haircut & grooming appointment online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="KOF PH Admin">
+  <meta name="apple-mobile-web-app-title" content="KOF PH control">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="KOF PH Admin">
+  <meta name="application-name" content="KOF PH control">
   <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
@@ -24,7 +24,7 @@
   <!-- Open Graph Meta Tags (Messenger, Viber, WhatsApp, Telegram, Facebook) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
-  <meta property="og:title" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta property="og:title" content="King of Fadez PH | Multi-Branch control Control">
   <meta property="og:description" content="Kingoffadezph.com • Book online at S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, or KOF Imus.">
   <meta property="og:image" content="b4.jfif">
   <meta property="og:image:secure_url" content="b4.jfif">
@@ -35,13 +35,13 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta name="twitter:title" content="King of Fadez PH | Multi-Branch control Control">
   <meta name="twitter:description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
   <meta name="twitter:image" content="b4.jfif">
   <meta name="twitter:image:alt" content="King of Fadez PH Logo">
 
   <!-- Schema.org Fallback -->
-  <meta itemprop="name" content="King of Fadez PH | Multi-Branch Admin Control">
+  <meta itemprop="name" content="King of Fadez PH | Multi-Branch control Control">
   <meta itemprop="description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
   <meta itemprop="image" content="b4.jfif">
 
@@ -169,7 +169,7 @@
       margin-bottom: 12px;
     }
 
-    .admin-badge {
+    .control-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -471,9 +471,9 @@
     }
 
     /* =========================================================
-       2. MULTI-BRANCH ADMIN DASHBOARD (AUTO-FIT RESPONSIVE)
+       2. MULTI-BRANCH control DASHBOARD (AUTO-FIT RESPONSIVE)
        ========================================================= */
-    #admin-panel {
+    #control-panel {
       display: none;
       text-align: left;
       padding-top: clamp(12px, 2vw, 18px);
@@ -682,7 +682,7 @@
       color: var(--gold-light);
     }
 
-    /* ADMIN CONTROL GRID */
+    /* control CONTROL GRID */
     .control-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1321,8 +1321,8 @@
       cursor: pointer;
     }
 
-    /* INSTANT FULL-SCREEN AUTO-FIT ADMIN MODAL */
-    #adminModal {
+    /* INSTANT FULL-SCREEN AUTO-FIT control MODAL */
+    #controlModal {
       position: fixed;
       inset: 0;
       width: 100vw;
@@ -1339,7 +1339,7 @@
       transition: transform 0.24s cubic-bezier(0.1, 1, 0.2, 1);
     }
 
-    #adminModal.active {
+    #controlModal.active {
       display: flex;
       transform: translate3d(0, 0, 0);
     }
@@ -1470,7 +1470,7 @@
       to { transform: rotate(360deg); }
     }
 
-    #adminFrame {
+    #controlFrame {
       width: 100%;
       height: 100%;
       border: none;
@@ -1492,8 +1492,8 @@
   <img src="b4.jfif" alt="" id="logo-source" style="display:none;">
 
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (ALWAYS VISIBLE) -->
-  <div id="assistive-bubble" title="Admin AssistiveTouch">
-    <img src="b2.jfif" alt="Admin Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
+  <div id="assistive-bubble" title="control AssistiveTouch">
+    <img src="b2.jfif" alt="control Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU -->
@@ -1533,7 +1533,7 @@
   <main id="app-shell">
     <div class="page-container lock-mode" id="mainCard">
       <div class="top-meta">
-        <span class="admin-badge">🔐 Admin Control</span>
+        <span class="control-badge">🔐 control Control</span>
         <span id="liveClock">--:--</span>
       </div>
 
@@ -1563,7 +1563,7 @@
 
       <!-- 1. PIN LOCK SCREEN -->
       <div id="lock-screen">
-        <div class="pin-prompt-label">Enter 4-Digit Admin PIN</div>
+        <div class="pin-prompt-label">Enter 4-Digit control PIN</div>
         <div class="pin-dots" id="pinDots">
           <div class="pin-dot"></div>
           <div class="pin-dot"></div>
@@ -1588,11 +1588,11 @@
         </div>
       </div>
 
-      <!-- 2. MULTI-BRANCH ADMIN CONTROL PANEL -->
-      <div id="admin-panel">
+      <!-- 2. MULTI-BRANCH control CONTROL PANEL -->
+      <div id="control-panel">
         <div class="selector-label">
           <span>Select Branch to Manage</span>
-          <span class="selector-hint">Switches live admin console &amp; branch details</span>
+          <span class="selector-hint">Switches live control console &amp; branch details</span>
         </div>
 
         <div class="branch-grid" id="branchGrid">
@@ -1643,7 +1643,7 @@
 
         <!-- TWO-COLUMN RESPONSIVE WORKSPACE -->
         <div class="workspace-grid">
-          <!-- LEFT COLUMN: ADMIN OPERATIONS -->
+          <!-- LEFT COLUMN: control OPERATIONS -->
           <div class="workspace-col">
             <div class="status-bar">
               <div class="status-indicator">
@@ -1654,31 +1654,31 @@
             </div>
 
             <div class="control-grid">
-              <button type="button" class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
+              <button type="button" class="ctrl-btn" data-title="Live Appointments" data-page="control" data-view="control">
                 <span class="icon">📅</span>
                 <span>Bookings</span>
                 <span class="sub-label">Queue &amp; List</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
+              <button type="button" class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="control" data-view="walkin">
                 <span class="icon">✂️</span>
                 <span>POS / Walk-In</span>
                 <span class="sub-label">Quick Ticket</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
+              <button type="button" class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="control" data-view="barbers">
                 <span class="icon">💈</span>
                 <span>Barbers</span>
                 <span class="sub-label">Shifts &amp; Staff</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
+              <button type="button" class="ctrl-btn" data-title="Services & Pricing Setup" data-page="control" data-view="settings">
                 <span class="icon">⚙️</span>
                 <span>Shop Setup</span>
                 <span class="sub-label">Rates &amp; Promos</span>
               </button>
             </div>
 
-            <button type="button" class="primary-btn" id="openFullAdmin">
-              <img src="b2.jfif" alt="" class="btn-mini-logo" id="openAdminBtnLogo" onerror="this.onerror=null;this.src='b4.jfif';">
-              <span id="openFullAdminText">Open Branch 2 • KOF Dasma Area G Console</span>
+            <button type="button" class="primary-btn" id="openFullcontrol">
+              <img src="b2.jfif" alt="" class="btn-mini-logo" id="opencontrolBtnLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+              <span id="openFullcontrolText">Open Branch 2 • KOF Dasma Area G Console</span>
             </button>
 
             <div class="secondary-actions">
@@ -1755,11 +1755,11 @@
   </div>
 
   <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
-  <div id="install-float" role="region" aria-label="Install Admin App">
+  <div id="install-float" role="region" aria-label="Install control App">
     <div class="install-info">
       <img src="b4.jfif" alt="App Icon" class="install-icon">
       <div class="install-text">
-        <strong>Install KOF PH Admin App</strong>
+        <strong>Install KOF PH control App</strong>
         <span id="install-subtext">Add to iOS, Android, or PC</span>
       </div>
     </div>
@@ -1773,7 +1773,7 @@
   <div id="device-guide">
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
-      <h3>Install KOF PH Admin App</h3>
+      <h3>Install KOF PH control App</h3>
       <p>Install the Multi-Branch Dash directly on your device for instant full-screen access:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
@@ -1783,18 +1783,18 @@
     </div>
   </div>
 
-  <!-- INSTANT FULL-SCREEN AUTO-FIT ADMIN MODAL -->
-  <div id="adminModal">
+  <!-- INSTANT FULL-SCREEN AUTO-FIT control MODAL -->
+  <div id="controlModal">
     <div class="modal-header">
       <div class="modal-left">
         <img src="b2.jfif" alt="Branch Logo" id="modalBranchLogo" onerror="this.onerror=null;this.src='b4.jfif';">
-        <select id="modalBranchSelect" aria-label="Switch Admin Branch">
+        <select id="modalBranchSelect" aria-label="Switch control Branch">
           <option value="branch1">Branch 1 • S&amp;D Dasma Bayan</option>
           <option value="branch2" selected>Branch 2 • KOF Dasma Area G</option>
           <option value="branch3">Branch 3 • KOF Molino 3, Bacoor</option>
           <option value="branch4">Branch 4 • KOF Imus</option>
         </select>
-        <span id="modalTitle">Admin Console</span>
+        <span id="modalTitle">control Console</span>
       </div>
       <div class="header-actions">
         <button type="button" class="icon-btn" id="reloadFrame" title="Reload">↻</button>
@@ -1808,7 +1808,7 @@
         <span id="frameLoaderText">Loading Branch Console...</span>
       </div>
       <iframe
-        id="adminFrame"
+        id="controlFrame"
         src="about:blank"
         sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups"
         allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
@@ -1818,7 +1818,7 @@
   </div>
 
   <script>
-    const ADMIN_PIN = "2026";
+    const control_PIN = "2026";
     const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzySqQigBuTMOmJZlM2Q0Ww8tABUnQTd_LB1_pMoW7ODlhOdB7d3hXlGzmjqk0b-2WSng/exec";
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
 
@@ -1893,16 +1893,16 @@
       }
     };
 
-    let currentBranchKey = localStorage.getItem('kof_admin_branch') || 'branch2';
+    let currentBranchKey = localStorage.getItem('kof_control_branch') || 'branch2';
     if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
 
     const mainCard = document.getElementById('mainCard');
     const lockScreen = document.getElementById('lock-screen');
-    const adminPanel = document.getElementById('admin-panel');
+    const controlPanel = document.getElementById('control-panel');
     const pinDots = document.querySelectorAll('.pin-dot');
     const pinError = document.getElementById('pin-error');
-    const adminModal = document.getElementById('adminModal');
-    const adminFrame = document.getElementById('adminFrame');
+    const controlModal = document.getElementById('controlModal');
+    const controlFrame = document.getElementById('controlFrame');
     const frameLoader = document.getElementById('frameLoader');
     const frameLoaderText = document.getElementById('frameLoaderText');
     const modalTitle = document.getElementById('modalTitle');
@@ -1911,8 +1911,8 @@
 
     const branchTabs = document.querySelectorAll('.branch-tab');
     const heroBrandLogo = document.getElementById('heroBrandLogo');
-    const openAdminBtnLogo = document.getElementById('openAdminBtnLogo');
-    const openFullAdminText = document.getElementById('openFullAdminText');
+    const opencontrolBtnLogo = document.getElementById('opencontrolBtnLogo');
+    const openFullcontrolText = document.getElementById('openFullcontrolText');
     const panelMiniLogo = document.getElementById('panelMiniLogo');
     const panelMiniRecept = document.getElementById('panelMiniRecept');
     const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
@@ -1931,7 +1931,7 @@
 
     let enteredPin = "";
     let currentSrc = "";
-    let activeRouteState = { title: 'Full Admin Console', page: 'admin', view: 'admin' };
+    let activeRouteState = { title: 'Full control Console', page: 'control', view: 'control' };
     let pendingSublink = null;
 
     function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'b4.jfif') {
@@ -1962,14 +1962,14 @@
       const data = BRANCHES[branchKey];
       if (!data) return;
       currentBranchKey = branchKey;
-      localStorage.setItem('kof_admin_branch', branchKey);
+      localStorage.setItem('kof_control_branch', branchKey);
 
       branchTabs.forEach(tab => {
         tab.classList.toggle('active', tab.dataset.branch === branchKey);
       });
 
       setImageWithFallback(heroBrandLogo, data.logo, 'b4.jfif');
-      setImageWithFallback(openAdminBtnLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(opencontrolBtnLogo, data.logo, 'b4.jfif');
       setImageWithFallback(panelMiniLogo, data.logo, 'b4.jfif');
       setImageWithFallback(panelMiniRecept, data.receptionist, data.logo);
       setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
@@ -1977,7 +1977,7 @@
 
       activeBranchBanner.textContent = `DASH • ${data.shortName.toUpperCase()}`;
       assistiveBranchLabel.textContent = data.shortName;
-      openFullAdminText.textContent = `Open ${data.shortName} Console`;
+      openFullcontrolText.textContent = `Open ${data.shortName} Console`;
       modalBranchSelect.value = branchKey;
 
       branchTitleEl.textContent = data.title;
@@ -2024,22 +2024,22 @@
       }
       if (pageParam || viewParam) {
         pendingSublink = {
-          title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
-          page: pageParam || 'admin',
-          view: viewParam || 'admin'
+          title: viewParam ? viewParam.toUpperCase() : 'control Console',
+          page: pageParam || 'control',
+          view: viewParam || 'control'
         };
       }
     }
     parseInitialSublink();
     renderBranch(currentBranchKey);
 
-    if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
-      showAdminPanel();
+    if (sessionStorage.getItem('kof_control_unlocked') === 'true') {
+      showcontrolPanel();
     }
 
-    function showAdminPanel() {
+    function showcontrolPanel() {
       lockScreen.style.display = 'none';
-      adminPanel.style.display = 'block';
+      controlPanel.style.display = 'block';
       mainCard.classList.remove('lock-mode');
       if (pendingSublink) {
         const sub = pendingSublink;
@@ -2048,11 +2048,11 @@
       }
     }
 
-    function lockAdminPanel() {
-      sessionStorage.removeItem('kof_admin_unlocked');
+    function lockcontrolPanel() {
+      sessionStorage.removeItem('kof_control_unlocked');
       enteredPin = "";
       updatePinDots();
-      adminPanel.style.display = 'none';
+      controlPanel.style.display = 'none';
       lockScreen.style.display = 'block';
       mainCard.classList.add('lock-mode');
     }
@@ -2066,20 +2066,20 @@
     }
 
     function handleDigitInput(digit) {
-      if (enteredPin.length >= ADMIN_PIN.length) return;
+      if (enteredPin.length >= control_PIN.length) return;
       pinError.classList.remove('visible');
       enteredPin += digit;
       updatePinDots();
 
-      if (enteredPin.length === ADMIN_PIN.length) {
+      if (enteredPin.length === control_PIN.length) {
         setTimeout(verifyPin, 80);
       }
     }
 
     function verifyPin() {
-      if (enteredPin === ADMIN_PIN) {
-        sessionStorage.setItem('kof_admin_unlocked', 'true');
-        showAdminPanel();
+      if (enteredPin === control_PIN) {
+        sessionStorage.setItem('kof_control_unlocked', 'true');
+        showcontrolPanel();
       } else {
         updatePinDots(true);
         pinError.classList.add('visible');
@@ -2102,7 +2102,7 @@
       else if (e.key === 'Backspace') { enteredPin = enteredPin.slice(0, -1); updatePinDots(); }
     });
 
-    document.getElementById('lockBtn').addEventListener('click', lockAdminPanel);
+    document.getElementById('lockBtn').addEventListener('click', lockcontrolPanel);
 
     // =========================================================================
     // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & VIEWPORT-CLAMPED MENU
@@ -2185,11 +2185,11 @@
     }
 
     function requireUnlockAndLaunch(title, page, view) {
-      if (sessionStorage.getItem('kof_admin_unlocked') === 'true') {
+      if (sessionStorage.getItem('kof_control_unlocked') === 'true') {
         triggerFullScreen();
         launchRoute(title, page, view);
       } else {
-        pinError.textContent = "Enter Admin PIN (2026) first";
+        pinError.textContent = "Enter control PIN (2026) first";
         pinError.classList.add('visible');
         mainCard.classList.remove('shake');
         void mainCard.offsetWidth;
@@ -2200,25 +2200,25 @@
     document.getElementById('menuBookings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Live Appointments', 'admin', 'admin');
+      requireUnlockAndLaunch('Live Appointments', 'control', 'control');
     });
 
     document.getElementById('menuWalkin').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Walk-In / POS Entry', 'admin', 'walkin');
+      requireUnlockAndLaunch('Walk-In / POS Entry', 'control', 'walkin');
     });
 
     document.getElementById('menuBarbers').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Barber Roster & Shifts', 'admin', 'barbers');
+      requireUnlockAndLaunch('Barber Roster & Shifts', 'control', 'barbers');
     });
 
     document.getElementById('menuSettings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Services & Pricing Setup', 'admin', 'settings');
+      requireUnlockAndLaunch('Services & Pricing Setup', 'control', 'settings');
     });
 
     document.getElementById('menuDetails').addEventListener('click', (e) => {
@@ -2257,7 +2257,7 @@
     let webSheetLoaded = false;
 
     function syncBodyScrollLock() {
-      const anyModalOpen = adminModal.classList.contains('active') || webSheet.classList.contains('active');
+      const anyModalOpen = controlModal.classList.contains('active') || webSheet.classList.contains('active');
       document.body.classList.toggle('modal-open', anyModalOpen);
     }
 
@@ -2292,34 +2292,34 @@
     });
 
     // =========================================================================
-    // DNS-LOCKED FULLVIEW MULTI-BRANCH ADMIN CONSOLE MODAL
+    // DNS-LOCKED FULLVIEW MULTI-BRANCH control CONSOLE MODAL
     // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
       const data = BRANCHES[currentBranchKey];
-      modalTitle.textContent = title || 'Admin Console';
+      modalTitle.textContent = title || 'control Console';
       frameLoaderText.textContent = `Loading ${data.shortName} • ${title || 'Console'}...`;
 
       if (currentSrc !== targetUrl) {
         currentSrc = targetUrl;
         frameLoader.classList.remove('hidden');
-        adminFrame.src = targetUrl;
+        controlFrame.src = targetUrl;
       }
-      if (!adminModal.classList.contains('active')) {
+      if (!controlModal.classList.contains('active')) {
         history.pushState({ kofModalOpen: true }, '', window.location.href);
       }
-      adminModal.style.display = 'flex';
+      controlModal.style.display = 'flex';
       requestAnimationFrame(() => {
-        adminModal.classList.add('active');
+        controlModal.classList.add('active');
         syncBodyScrollLock();
       });
     }
 
     function closeLockedModal(fromPopState = false) {
-      if (!adminModal.classList.contains('active')) return;
-      adminModal.classList.remove('active');
+      if (!controlModal.classList.contains('active')) return;
+      controlModal.classList.remove('active');
       syncBodyScrollLock();
       setTimeout(() => {
-        if (!adminModal.classList.contains('active')) adminModal.style.display = 'none';
+        if (!controlModal.classList.contains('active')) controlModal.style.display = 'none';
       }, 240);
 
       if (!fromPopState && history.state && history.state.kofModalOpen) {
@@ -2342,7 +2342,7 @@
       launchRoute(activeRouteState.title, activeRouteState.page, activeRouteState.view);
     });
 
-    adminFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
+    controlFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
 
     // Intercept internal hash/route links while allowing tel:, mailto:, and external _blank links
     document.addEventListener('click', (e) => {
@@ -2360,8 +2360,8 @@
         triggerFullScreen();
         launchRoute(
           link.dataset.title || link.textContent.trim(),
-          subParams.get('page') || link.dataset.page || 'admin',
-          subParams.get('view') || link.dataset.view || cleanView || 'admin'
+          subParams.get('page') || link.dataset.page || 'control',
+          subParams.get('view') || link.dataset.view || cleanView || 'control'
         );
         return;
       }
@@ -2372,8 +2372,8 @@
         if (resolved.origin === window.location.origin) {
           launchRoute(
             link.dataset.title || link.textContent.trim(),
-            resolved.searchParams.get('page') || link.dataset.page || 'admin',
-            resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin'
+            resolved.searchParams.get('page') || link.dataset.page || 'control',
+            resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'control'
           );
         } else {
           openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
@@ -2385,7 +2385,7 @@
     window.addEventListener('popstate', () => {
       if (webSheet.classList.contains('active')) {
         closeWebSheet();
-      } else if (adminModal.classList.contains('active')) {
+      } else if (controlModal.classList.contains('active')) {
         closeLockedModal(true);
       } else {
         history.pushState({ kofBaseDns: true }, '', window.location.href);
@@ -2399,9 +2399,9 @@
       });
     });
 
-    document.getElementById('openFullAdmin').addEventListener('click', () => {
+    document.getElementById('openFullcontrol').addEventListener('click', () => {
       triggerFullScreen();
-      launchRoute('Full Admin Console', 'admin', 'admin');
+      launchRoute('Full control Console', 'control', 'control');
     });
 
     document.getElementById('openClientView').addEventListener('click', () => {
@@ -2411,7 +2411,7 @@
 
     document.getElementById('reloadFrame').addEventListener('click', () => {
       frameLoader.classList.remove('hidden');
-      adminFrame.src = adminFrame.src;
+      controlFrame.src = controlFrame.src;
     });
 
     document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
@@ -2440,8 +2440,8 @@
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
         const manifestData = {
-          name: "King of Fadez PH | Admin Control",
-          short_name: "KOF PH Admin",
+          name: "King of Fadez PH | control Control",
+          short_name: "KOF PH control",
           description: "Kingoffadezph.com — Book your haircut & grooming appointment.",
           start_url: window.location.href,
           scope: "./",
@@ -2482,17 +2482,17 @@
     const guideSteps = document.getElementById('guide-steps');
     let deferredPrompt = null;
 
-    if (isIOS) installSubtext.textContent = 'Add Admin App to iPhone / iPad';
-    else if (isAndroid) installSubtext.textContent = 'Install Android Admin App';
+    if (isIOS) installSubtext.textContent = 'Add control App to iPhone / iPad';
+    else if (isAndroid) installSubtext.textContent = 'Install Android control App';
 
-    if (!isStandalone && !sessionStorage.getItem('kof_admin_install_dismissed')) {
+    if (!isStandalone && !sessionStorage.getItem('kof_control_install_dismissed')) {
       setTimeout(() => installFloat.classList.add('show'), 1500);
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if (!isStandalone && !sessionStorage.getItem('kof_admin_install_dismissed')) {
+      if (!isStandalone && !sessionStorage.getItem('kof_control_install_dismissed')) {
         installFloat.classList.add('show');
       }
     });
@@ -2531,7 +2531,7 @@
 
     dismissBtn.addEventListener('click', () => {
       installFloat.classList.remove('show');
-      sessionStorage.setItem('kof_admin_install_dismissed', 'true');
+      sessionStorage.setItem('kof_control_install_dismissed', 'true');
     });
 
     document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
