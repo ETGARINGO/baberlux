@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#050505">
   <title>King of Fadez PH | Multi-Branch Admin Control Setup</title>
-  <meta name="description" content="Kingoffadezph.com — Choose your preferred branch and book your haircut & grooming appointment online.">
+  <meta name="description" content="Kingoffadezph.com — Choose your preferred branch and manage appointments, POS, barbers, and payroll online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,7 +25,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
   <meta property="og:title" content="King of Fadez PH | Multi-Branch Admin Control">
-  <meta property="og:description" content="Kingoffadezph.com • Book online at S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, or KOF Imus.">
+  <meta property="og:description" content="Kingoffadezph.com • Manage S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, and KOF Imus.">
   <meta property="og:image" content="b4.jfif">
   <meta property="og:image:secure_url" content="b4.jfif">
   <meta property="og:image:type" content="image/jpeg">
@@ -36,13 +36,13 @@
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="King of Fadez PH | Multi-Branch Admin Control">
-  <meta name="twitter:description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
+  <meta name="twitter:description" content="Kingoffadezph.com • Multi-branch admin console and payroll portal.">
   <meta name="twitter:image" content="b4.jfif">
   <meta name="twitter:image:alt" content="King of Fadez PH Logo">
 
   <!-- Schema.org Fallback -->
   <meta itemprop="name" content="King of Fadez PH | Multi-Branch Admin Control">
-  <meta itemprop="description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
+  <meta itemprop="description" content="Kingoffadezph.com • Multi-branch admin console and payroll portal.">
   <meta itemprop="image" content="b4.jfif">
 
   <!-- Fonts & Performance Hints -->
@@ -682,30 +682,30 @@
       color: var(--gold-light);
     }
 
-    /* ADMIN CONTROL GRID */
+    /* ADMIN CONTROL GRID (5 MODULES: BOOKINGS, POS, BARBERS, PAYSLIP, SHOP SETUP) */
     .control-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       flex: 1;
     }
 
     .ctrl-btn {
-      padding: clamp(14px, 2vw, 18px) 10px;
+      padding: clamp(13px, 1.8vw, 16px) 10px;
       border-radius: 16px;
       background: rgba(0, 0, 0, 0.58);
       border: 1px solid rgba(212, 175, 55, 0.25);
       color: #fff;
       font-family: var(--brand-font);
-      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-size: clamp(0.75rem, 1.35vw, 0.84rem);
       font-weight: 800;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+      gap: 5px;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
       text-decoration: none;
     }
 
@@ -717,6 +717,43 @@
 
     .ctrl-btn:active {
       transform: scale(0.97);
+    }
+
+    .ctrl-btn.payslip-card {
+      grid-column: span 2;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      padding: clamp(14px, 1.8vw, 16px) 16px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(18, 18, 18, 0.88));
+      border-color: rgba(212, 175, 55, 0.52);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+
+    .ctrl-btn.payslip-card:hover {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(28, 24, 12, 0.92));
+      border-color: var(--gold-light);
+      box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
+    }
+
+    .ctrl-btn.payslip-card .payslip-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 2px;
+    }
+
+    .ctrl-btn.payslip-card .payslip-badge {
+      margin-left: auto;
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold-gradient);
+      padding: 4px 9px;
+      border-radius: 999px;
     }
 
     .ctrl-btn span.icon {
@@ -983,7 +1020,7 @@
 
     #assistive-menu {
       position: fixed;
-      width: min(250px, calc(100vw - 24px));
+      width: min(255px, calc(100vw - 24px));
       background: rgba(12, 12, 12, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -1034,6 +1071,12 @@
     .assistive-item:hover {
       background: rgba(212, 175, 55, 0.16);
       border-color: var(--gold);
+    }
+
+    .assistive-item.highlight {
+      border-color: rgba(212, 175, 55, 0.42);
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-light);
     }
 
     /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
@@ -1511,6 +1554,10 @@
       <span class="icon">💈</span>
       <span>Barbers &amp; Shifts</span>
     </a>
+    <a href="#" class="assistive-item highlight" id="menuPayslip">
+      <span class="icon">💸</span>
+      <span>Payslip &amp; Payroll</span>
+    </a>
     <a href="#" class="assistive-item" id="menuSettings">
       <span class="icon">⚙️</span>
       <span>Shop Setup</span>
@@ -1592,7 +1639,7 @@
       <div id="admin-panel">
         <div class="selector-label">
           <span>Select Branch to Manage</span>
-          <span class="selector-hint">Switches live admin console &amp; branch details</span>
+          <span class="selector-hint">Switches live admin console, payslip &amp; branch details</span>
         </div>
 
         <div class="branch-grid" id="branchGrid">
@@ -1673,6 +1720,14 @@
                 <span class="icon">⚙️</span>
                 <span>Shop Setup</span>
                 <span class="sub-label">Rates &amp; Promos</span>
+              </button>
+              <button type="button" class="ctrl-btn payslip-card" data-title="Branch Payslip & Payroll" data-page="payslip" data-view="">
+                <span class="icon">💸</span>
+                <div class="payslip-text">
+                  <span>Payslip &amp; Commissions</span>
+                  <span class="sub-label">Barber Payouts, Deductions &amp; Vouchers</span>
+                </div>
+                <span class="payslip-badge">Payroll</span>
               </button>
             </div>
 
@@ -1823,11 +1878,12 @@
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
 
     // =========================================================================
-    // MULTI-BRANCH DIRECTORY & ENDPOINT PARAMETERS (SYNCED WITH UPDATED TABS)
+    // MULTI-BRANCH DIRECTORY & ENDPOINT PARAMETERS (ADMIN, CLIENT & PAYSLIP)
     // =========================================================================
     const BRANCHES = {
       branch1: {
         branchParam: "kofdasmabav0r",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=kofdasmabav0r`,
         logo: "b1.jfif",
         receptionist: "S&Drec.jfif",
         shortName: "Branch 1 • S&D Dasma Bayan",
@@ -1844,6 +1900,7 @@
       },
       branch2: {
         branchParam: "main",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=main`,
         logo: "b2.jfif",
         receptionist: "dasmares.jfif",
         shortName: "Branch 2 • KOF Dasma Area G",
@@ -1861,6 +1918,7 @@
       },
       branch3: {
         branchParam: "branch3kofxe4",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=branch3kofxe4`,
         logo: "b3.jfif",
         receptionist: "Molinorec.jfif",
         shortName: "Branch 3 • KOF Molino 3, Bacoor",
@@ -1876,6 +1934,7 @@
       },
       branch4: {
         branchParam: "branch4imu253",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=branch4imu253`,
         logo: "b4.jfif",
         receptionist: "Imusrec.jfif",
         shortName: "Branch 4 • KOF Imus",
@@ -2023,10 +2082,15 @@
         if (matched) currentBranchKey = matched;
       }
       if (pageParam || viewParam) {
+        const resolvedPage = pageParam || 'admin';
+        const resolvedView = resolvedPage === 'payslip' ? '' : (viewParam || 'admin');
+        const resolvedTitle = resolvedPage === 'payslip'
+          ? 'Branch Payslip & Payroll'
+          : (viewParam ? viewParam.toUpperCase() : 'Admin Console');
         pendingSublink = {
-          title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
-          page: pageParam || 'admin',
-          view: viewParam || 'admin'
+          title: resolvedTitle,
+          page: resolvedPage,
+          view: resolvedView
         };
       }
     }
@@ -2150,8 +2214,8 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 250;
-          const mHeight = menu.offsetHeight || 320;
+          const mWidth = menu.offsetWidth || 255;
+          const mHeight = menu.offsetHeight || 360;
           const pad = 12;
 
           let left = bRect.right - mWidth;
@@ -2213,6 +2277,12 @@
       e.preventDefault();
       menu.classList.remove('active');
       requireUnlockAndLaunch('Barber Roster & Shifts', 'admin', 'barbers');
+    });
+
+    document.getElementById('menuPayslip').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      requireUnlockAndLaunch('Branch Payslip & Payroll', 'payslip', '');
     });
 
     document.getElementById('menuSettings').addEventListener('click', (e) => {
@@ -2292,7 +2362,7 @@
     });
 
     // =========================================================================
-    // DNS-LOCKED FULLVIEW MULTI-BRANCH ADMIN CONSOLE MODAL
+    // DNS-LOCKED FULLVIEW MULTI-BRANCH ADMIN & PAYSLIP CONSOLE MODAL
     // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
       const data = BRANCHES[currentBranchKey];
@@ -2330,6 +2400,10 @@
     function launchRoute(title, pageParam, viewParam) {
       activeRouteState = { title, page: pageParam, view: viewParam };
       const data = BRANCHES[currentBranchKey];
+      if (pageParam === 'payslip' && !viewParam) {
+        openUrlInLockedDns(title || 'Branch Payslip & Payroll', data.payslipUrl);
+        return;
+      }
       const url = new URL(BASE_SCRIPT_URL);
       url.searchParams.set('page', pageParam);
       url.searchParams.set('branch', data.branchParam);
@@ -2357,11 +2431,15 @@
       if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
         const cleanView = rawHref.replace(/^[#?]+/, '');
         const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
+        const targetPage = subParams.get('page') || link.dataset.page || 'admin';
+        const targetView = targetPage === 'payslip'
+          ? (subParams.get('view') || link.dataset.view || '')
+          : (subParams.get('view') || link.dataset.view || cleanView || 'admin');
         triggerFullScreen();
         launchRoute(
           link.dataset.title || link.textContent.trim(),
-          subParams.get('page') || link.dataset.page || 'admin',
-          subParams.get('view') || link.dataset.view || cleanView || 'admin'
+          targetPage,
+          targetView
         );
         return;
       }
@@ -2370,10 +2448,14 @@
         const resolved = new URL(rawHref, window.location.href);
         triggerFullScreen();
         if (resolved.origin === window.location.origin) {
+          const targetPage = resolved.searchParams.get('page') || link.dataset.page || 'admin';
+          const targetView = targetPage === 'payslip'
+            ? (resolved.searchParams.get('view') || link.dataset.view || '')
+            : (resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin');
           launchRoute(
             link.dataset.title || link.textContent.trim(),
-            resolved.searchParams.get('page') || link.dataset.page || 'admin',
-            resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin'
+            targetPage,
+            targetView
           );
         } else {
           openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
@@ -2442,7 +2524,7 @@
         const manifestData = {
           name: "King of Fadez PH | Admin Control",
           short_name: "KOF PH Admin",
-          description: "Kingoffadezph.com — Book your haircut & grooming appointment.",
+          description: "Kingoffadezph.com — Multi-branch admin console and payroll portal.",
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
