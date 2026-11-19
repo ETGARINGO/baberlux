@@ -1,424 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>CYBER-SYS // DNS, Cloud Subscriptions &amp; Maintenance Guard</title>
-    <!-- Load Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status — DNS &amp; Maintenance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --cyber-bg: #030712;
-            --cyber-panel: rgba(10, 17, 34, 0.84);
-            --cyber-cyan: #00f0ff;
-            --cyber-emerald: #10b981;
-            --cyber-rose: #ff2a5f;
-            --cyber-amber: #f59e0b;
-            --cyber-violet: #8b5cf6;
-        }
-
         body {
-            font-family: "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background-color: var(--cyber-bg);
-            color: #e2e8f0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #475569;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
-
-        .font-cyber-mono {
-            font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        }
-
-        /* Cyber Tactical Grid + Radial Glow Backdrop */
-        .cyber-backdrop {
-            background-color: #030712;
-            background-image:
-                radial-gradient(circle at 12% 14%, rgba(0, 240, 255, 0.14) 0%, transparent 45%),
-                radial-gradient(circle at 88% 85%, rgba(255, 42, 95, 0.14) 0%, transparent 48%),
-                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 55%),
-                linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
-        }
-
-        /* Subtle HUD Scanline Overlay */
-        .cyber-scanlines::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 40;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0px,
-                transparent 3px,
-                rgba(0, 240, 255, 0.018) 4px
-            );
-        }
-
-        /* Tactical Corner Brackets */
-        .hud-frame {
-            position: relative;
-            background: var(--cyber-panel);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            box-shadow:
-                0 0 0 1px rgba(0, 240, 255, 0.22),
-                0 25px 70px -15px rgba(0, 0, 0, 0.85),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        }
-
-        .hud-corner {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            border-color: var(--cyber-cyan);
-            pointer-events: none;
-            z-index: 10;
-        }
-        .hud-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; border-top-left-radius: 0.75rem; }
-        .hud-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; border-top-right-radius: 0.75rem; }
-        .hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; border-bottom-left-radius: 0.75rem; }
-        .hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; border-bottom-right-radius: 0.75rem; }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 42, 95, 0.8); }
-            50% { opacity: 0.35; box-shadow: 0 0 2px rgba(255, 42, 95, 0.2); }
-        }
-
-        .cyber-blink {
-            animation: pulseGlow 1.8s ease-in-out infinite;
-        }
-
-        /* Draggable Floating AssistiveTouch Overlay Icon */
-        #cyber-overlay-fab {
+        #overlay-fab {
             touch-action: none;
             user-select: none;
-            -webkit-user-select: none;
-            box-shadow:
-                0 0 0 1px rgba(0, 240, 255, 0.45),
-                0 0 24px rgba(0, 240, 255, 0.28),
-                0 14px 32px rgba(0, 0, 0, 0.75);
-        }
-
-        #cyber-overlay-fab:active {
-            transform: scale(0.96);
-        }
-
-        /* Adaptive Touch & Pointer Ergonomics */
-        @media (pointer: coarse) {
-            .adaptive-btn {
-                min-height: 46px;
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
         }
     </style>
 </head>
-<body class="cyber-backdrop cyber-scanlines min-h-screen flex flex-col justify-between selection:bg-cyan-400 selection:text-slate-950">
+<body class="bg-white text-slate-600 min-h-screen flex flex-col justify-between">
 
-    <!-- Top Cyber Telemetry & Adaptive Device Bar -->
-    <header class="w-full bg-slate-950/85 backdrop-blur-xl border-b border-cyan-500/20 px-3 sm:px-6 py-2.5 sticky top-0 z-30">
-        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
-            <div class="flex items-center gap-2.5 min-w-0">
-                <span class="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,240,255,0.25)]">
-                    <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h4A1.5 1.5 0 0 1 8 2.5v4A1.5 1.5 0 0 1 6.5 8h-4A1.5 1.5 0 0 1 1 6.5v-4zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v4A1.5 1.5 0 0 1 13.5 8h-3A1.5 1.5 0 0 1 9 6.5v-4zm-8 8A1.5 1.5 0 0 1 2.5 9h4A1.5 1.5 0 0 1 8 10.5v3A1.5 1.5 0 0 1 6.5 15h-4A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
-                    </svg>
-                </span>
-                <div class="truncate">
-                    <span class="font-cyber-mono font-bold tracking-wider text-cyan-300 uppercase">SYS.GUARD // CYBER-CORE</span>
-                    <span class="hidden md:inline text-slate-600 mx-2">|</span>
-                    <span class="hidden md:inline text-slate-400">Adaptive Multi-Device Provisioning &amp; DNS Node</span>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2">
-                <!-- Live Adaptive Device Profile Pill -->
-                <span id="device-profile-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyan-950/70 border border-cyan-500/30 text-cyan-200 font-cyber-mono text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                    <span id="device-profile-text">ADAPTIVE: DETECTING...</span>
-                </span>
-
-                <!-- Restore Overlay Button (shown if minimized) -->
-                <button type="button" id="restore-overlay-btn" class="hidden inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 font-cyber-mono text-[11px] cursor-pointer">
-                    <span>+ Overlay Icon</span>
-                </button>
-
-                <!-- DNS Visibility Pill -->
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-950/80 border border-rose-500/40 text-rose-200 font-cyber-mono text-[11px] font-bold">
-                    <span class="w-2 h-2 rounded-full bg-rose-500 cyber-blink"></span>
-                    DNS PUBLIC: OFF
-                </span>
-            </div>
+    <!-- Top Bar -->
+    <header class="border-b border-slate-100 bg-white/90 px-4 py-3 text-xs text-slate-400">
+        <div class="max-w-2xl mx-auto flex items-center justify-between gap-2">
+            <span class="font-medium text-slate-500">System Status</span>
+            <span class="text-slate-400">DNS Public Visibility: Off</span>
         </div>
     </header>
 
-    <!-- Main Adaptive Cyber HUD Container -->
-    <main class="flex-grow flex items-center justify-center p-3 sm:p-6 lg:p-10">
-        <section id="setup-window" role="dialog" aria-labelledby="setup-title" aria-describedby="setup-summary" class="hud-frame w-full max-w-5xl rounded-xl overflow-hidden">
-            <!-- Corner HUD Brackets -->
-            <span class="hud-corner hud-tl"></span>
-            <span class="hud-corner hud-tr"></span>
-            <span class="hud-corner hud-bl"></span>
-            <span class="hud-corner hud-br"></span>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4 py-10">
+        <section class="w-full max-w-2xl bg-white border border-slate-200/80 rounded-xl p-6 sm:p-8 space-y-6">
 
-            <!-- Cyber Window Title Bar -->
-            <div class="bg-slate-950/90 border-b border-cyan-500/20 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 select-none">
-                <div class="flex items-center gap-2.5">
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
-                    </div>
-                    <span class="font-cyber-mono text-xs font-semibold tracking-wider text-slate-200 uppercase">
-                        TERMINAL // DNS &amp; CLOUD UPGRADE PROTOCOL
-                    </span>
+            <div class="space-y-2">
+                <p class="text-xs uppercase tracking-wider text-slate-400">DNS Not Publicly Visible</p>
+                <h1 class="text-xl sm:text-2xl font-semibold text-slate-700">
+                    Site &amp; DNS Currently Offline to Public
+                </h1>
+                <p class="text-sm text-slate-500 leading-relaxed">
+                    Public DNS is off due to cloud server dynamic subscriptions, a massive upgrade, and services under maintenance to deliver the best service we can. Contact the developer, update payment, and stabilize the system to go live.
+                </p>
+            </div>
+
+            <!-- Short Status List -->
+            <div class="divide-y divide-slate-100 border-t border-b border-slate-100 text-sm">
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <span class="text-slate-600">Public DNS</span>
+                    <span class="text-xs text-slate-400">Not Visible</span>
                 </div>
-
-                <div class="flex items-center gap-3 font-cyber-mono text-[11px] text-slate-400">
-                    <span id="viewport-telemetry" class="hidden sm:inline text-cyan-300/90">VIEWPORT: --×--</span>
-                    <span id="live-timestamp" class="text-slate-400">SYNCING...</span>
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <span class="text-slate-600">Cloud Server Dynamic Subscriptions</span>
+                    <span class="text-xs text-slate-400">In Progress</span>
+                </div>
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <span class="text-slate-600">Massive Upgrade &amp; Maintenance</span>
+                    <span class="text-xs text-slate-400">Active</span>
+                </div>
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <span class="text-slate-600">Payment &amp; System Stabilization</span>
+                    <span class="text-xs text-slate-400">Required</span>
                 </div>
             </div>
 
-            <!-- Adaptive 3-Stage Cyber Pipeline Stepper -->
-            <div class="bg-slate-900/75 border-b border-white/10 px-4 sm:px-8 py-3.5">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-cyber-mono">
-                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300">
-                        <span class="w-5 h-5 rounded bg-cyan-500 text-slate-950 font-bold flex items-center justify-center text-[11px] shrink-0">01</span>
-                        <span class="truncate font-semibold">CORE BUILD: VERIFIED</span>
-                    </div>
-                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-rose-950/50 border border-rose-500/40 text-rose-200 shadow-[0_0_20px_rgba(244,63,94,0.12)]">
-                        <span class="w-5 h-5 rounded bg-rose-500 text-white font-bold flex items-center justify-center text-[11px] shrink-0">02</span>
-                        <span class="truncate font-bold">CLOUD, UPGRADE &amp; DNS</span>
-                    </div>
-                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-200">
-                        <span class="w-5 h-5 rounded bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-[11px] shrink-0">03</span>
-                        <span class="truncate font-semibold">MAINTENANCE &amp; GO-LIVE</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Window Body -->
-            <div class="p-4 sm:p-7 lg:p-8 space-y-6">
-
-                <!-- Primary Cyber Alert Callout -->
-                <div class="rounded-xl bg-gradient-to-br from-slate-900/95 via-slate-900/85 to-rose-950/30 border border-rose-500/35 p-5 sm:p-6 shadow-lg">
-                    <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-rose-500/15 border border-rose-400/40 text-rose-400 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(244,63,94,0.2)]">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex flex-wrap items-center gap-2 mb-2">
-                                <span class="px-2.5 py-0.5 rounded font-cyber-mono text-[11px] font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-400/40">
-                                    DNS PUBLIC VISIBILITY: OFF / NOT VISIBLE
-                                </span>
-                                <span class="px-2.5 py-0.5 rounded font-cyber-mono text-[11px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">
-                                    ADAPTIVE MULTI-DEVICE READY
-                                </span>
-                            </div>
-                            <h1 id="setup-title" class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-2.5">
-                                System DNS &amp; Site Are Currently NOT Publicly Visible
-                            </h1>
-                            <p id="setup-summary" class="text-sm sm:text-base text-slate-300 leading-relaxed">
-                                External DNS routing and public visibility are currently <strong class="text-rose-300 font-semibold">restricted and offline to the public</strong> while we execute <strong class="text-cyan-300 font-semibold">Cloud Server Dynamic Subscriptions</strong>, a <strong class="text-violet-300 font-semibold">Massive Infrastructure Upgrade</strong>, and <strong class="text-amber-300 font-semibold">other services under maintenance</strong> to deliver the best service we can. To unlock DNS propagation and restore full public access, please contact the system developer, update your payment, and request stabilization of this dynamic system.
-                            </p>
-                        </div>
-                    </div>
+            <!-- Developer Contact -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 text-sm">
+                <div class="text-slate-500 space-y-0.5">
+                    <div>Email: <span id="dev-email" class="text-slate-600">apponline247@gmail.com</span></div>
+                    <div>Facebook: <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="text-slate-500 underline hover:text-slate-700">facebook.com/on.line.151642</a></div>
                 </div>
 
-                <!-- Adaptive 2-Column / 1-Column Cyber Matrix for Status & Actions -->
-                <div class="rounded-xl bg-slate-950/75 border border-cyan-500/25 overflow-hidden">
-                    <div class="px-4 sm:px-5 py-3 bg-slate-900/90 border-b border-cyan-500/20 flex flex-wrap items-center justify-between gap-2">
-                        <h2 class="font-cyber-mono text-xs font-bold uppercase tracking-wider text-cyan-300">
-                            // SYSTEM TELEMETRY, UPGRADE SCOPE &amp; ACTIVATION CHECKLIST
-                        </h2>
-                        <span class="font-cyber-mono text-[11px] text-rose-400">ERR_DNS_PUBLIC_RESTRICTED</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
-                        <!-- Left Column: Infrastructure & Maintenance Status -->
-                        <div class="divide-y divide-white/10">
-                            <!-- Item 1: Public DNS -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-rose-500/20 border border-rose-400/40 text-rose-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">✕</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Public DNS Records &amp; Routing</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">External DNS resolution is locked until cloud subscriptions, upgrades, and billing authorization complete.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-400/30 shrink-0">
-                                    OFFLINE
-                                </span>
-                            </div>
-
-                            <!-- Item 2: Cloud Server Dynamic Subscriptions -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 flex items-center justify-center shrink-0 text-xs font-bold">☁</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Cloud Server Dynamic Subscriptions</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">Auto-scaling compute nodes and dynamic resource subscriptions are being calibrated for peak uptime.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30 shrink-0">
-                                    DYNAMIC
-                                </span>
-                            </div>
-
-                            <!-- Item 3: Massive Upgrade -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-violet-500/20 border border-violet-400/40 text-violet-300 flex items-center justify-center shrink-0 text-xs font-bold">▲</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Massive Infrastructure Upgrade</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">Core engine, security hardening, and high-speed response upgrades to deliver the best service possible.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-violet-500/20 text-violet-300 border border-violet-400/30 shrink-0">
-                                    UPGRADING
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Right Column: Maintenance & Required Client Steps -->
-                        <div class="divide-y divide-white/10">
-                            <!-- Item 4: Other Services Under Maintenance -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0 text-xs font-bold">🛠</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Other Services Under Maintenance</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">Connected APIs, background sync workers, and auxiliary modules are undergoing scheduled optimization.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 shrink-0">
-                                    MAINT
-                                </span>
-                            </div>
-
-                            <!-- Item 5: Update Payment -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">01</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Update Payment &amp; Subscription Billing</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">Settle or update account billing to authorize active cloud subscriptions, upgrades, and DNS activation.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 shrink-0">
-                                    REQUIRED
-                                </span>
-                            </div>
-
-                            <!-- Item 6: Stabilize Dynamic System -->
-                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
-                                <div class="flex items-start gap-3">
-                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-sky-500/20 border border-sky-400/40 text-sky-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">02</span>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Stabilize System &amp; Publish Public DNS</p>
-                                        <p class="text-xs text-slate-400 mt-0.5">Coordinate with the developer to complete stabilization checks and flip public visibility online.</p>
-                                    </div>
-                                </div>
-                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-400/30 shrink-0">
-                                    PENDING DEV
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Developer Support & Direct Uplink Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Developer Email Uplink -->
-                    <div class="rounded-xl bg-slate-900/90 border border-cyan-500/25 p-4 sm:p-5 flex flex-col justify-between gap-3.5 hover:border-cyan-400/50 transition">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-10 h-10 rounded-lg bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                                </svg>
-                            </div>
-                            <div class="min-w-0">
-                                <p class="font-cyber-mono text-[10px] font-bold uppercase tracking-wider text-cyan-400">Developer Email Uplink</p>
-                                <p id="dev-contact-text" class="text-sm font-cyber-mono font-semibold text-white truncate">apponline247@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                            <button type="button" id="copy-contact-btn" class="adaptive-btn flex-1 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-xs font-cyber-mono font-semibold text-slate-200 border border-slate-600 transition flex items-center justify-center gap-1.5 cursor-pointer">
-                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-                                </svg>
-                                <span id="copy-btn-label">Copy Email</span>
-                            </button>
-                            <a href="mailto:apponline247@gmail.com?subject=DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Upgrade%20Activation&body=Hello%20System%20Developer%2C%0A%0AOur%20system%20DNS%20is%20currently%20showing%20NOT%20PUBLICLY%20VISIBLE%20amid%20Cloud%20Server%20Dynamic%20Subscriptions%2C%20Massive%20Upgrade%2C%20and%20maintenance.%20Please%20assist%20us%20with%20updating%20payment%20and%20stabilizing%20the%20dynamic%20system%20to%20restore%20public%20access." class="adaptive-btn px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-cyber-mono font-bold text-slate-950 transition flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                                Email Now
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Developer Facebook Direct Channel -->
-                    <div class="rounded-xl bg-slate-900/90 border border-blue-500/30 p-4 sm:p-5 flex flex-col justify-between gap-3.5 hover:border-blue-400/60 transition">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-10 h-10 rounded-lg bg-blue-500/15 border border-blue-400/30 text-blue-400 flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                </svg>
-                            </div>
-                            <div class="min-w-0">
-                                <p class="font-cyber-mono text-[10px] font-bold uppercase tracking-wider text-blue-400">Direct Messenger Channel</p>
-                                <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-blue-300 hover:text-blue-200 hover:underline truncate block">
-                                    facebook.com/on.line.151642
-                                </a>
-                            </div>
-                        </div>
-                        <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="adaptive-btn w-full px-3 py-2 rounded-lg bg-[#1877F2] hover:bg-[#1a84ff] text-xs font-cyber-mono font-bold text-white transition flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(24,119,242,0.35)]">
-                            <span>Message Developer on Facebook</span>
-                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Interactive Cyber Diagnostic Console (Toggled on demand) -->
-                <div id="dns-diagnostic-panel" class="hidden rounded-xl bg-black/90 text-slate-200 p-4 sm:p-5 border border-cyan-500/40 font-cyber-mono text-xs space-y-1.5 shadow-inner">
-                    <div class="flex items-center justify-between text-cyan-400 border-b border-cyan-500/20 pb-2 mb-2">
-                        <span>// CYBER_DIAGNOSTIC_CONSOLE — LIVE TELEMETRY</span>
-                        <button type="button" id="close-diag-btn" class="text-slate-400 hover:text-rose-400 cursor-pointer">[CLOSE ×]</button>
-                    </div>
-                    <p><span class="text-cyan-400">&gt;</span> DNS Propagation State: <span class="text-rose-400 font-bold">UNPROPAGATED / RESTRICTED</span></p>
-                    <p><span class="text-cyan-400">&gt;</span> Public External Endpoint: <span class="text-rose-400 font-bold">NOT VISIBLE (OFFLINE)</span></p>
-                    <p><span class="text-cyan-400">&gt;</span> Cloud Server Dynamic Subscriptions: <span class="text-cyan-300">ACTIVE SCALING &amp; SUBSCRIPTION SYNC</span></p>
-                    <p><span class="text-cyan-400">&gt;</span> Massive Upgrade &amp; Maintenance: <span class="text-amber-300">EXECUTING FOR MAXIMUM SERVICE QUALITY</span></p>
-                    <p><span class="text-cyan-400">&gt;</span> Visitor Device Adaptation: <span id="diag-device-details" class="text-emerald-300">RESPONSIVE HUD LOCKED</span></p>
-                    <p><span class="text-cyan-400">&gt;</span> Assigned Developer Uplink: <span class="text-emerald-300">apponline247@gmail.com</span></p>
-                </div>
-
-            </div>
-
-            <!-- Cyber HUD Bottom Action Bar -->
-            <div class="bg-slate-950/90 border-t border-cyan-500/20 px-4 sm:px-8 py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <button type="button" id="run-diag-btn" class="adaptive-btn px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-cyan-300 font-cyber-mono font-semibold text-xs border border-cyan-500/35 transition flex items-center justify-center gap-2 cursor-pointer">
-                    <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                    <span>Verify System &amp; DNS</span>
-                </button>
-
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                    <button type="button" id="acknowledge-btn" class="adaptive-btn px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 font-cyber-mono font-semibold text-xs border border-slate-700 transition cursor-pointer">
-                        <span id="ack-btn-text">Acknowledge Notice</span>
+                <div class="flex items-center gap-2">
+                    <button type="button" id="copy-btn" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs text-slate-600 hover:bg-slate-50 cursor-pointer">
+                        Copy Email
                     </button>
-
-                    <a href="mailto:apponline247@gmail.com?subject=Restore%20Public%20DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Upgrade&body=Hello%2C%0A%0APlease%20help%20update%20our%20payment%2C%20finalize%20cloud%20server%20dynamic%20subscriptions%20and%20upgrade%2Fmaintenance%20checks%2C%20stabilize%20the%20dynamic%20system%2C%20and%20enable%20public%20DNS%20visibility." class="adaptive-btn px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-cyber-mono font-bold text-xs shadow-[0_0_20px_rgba(0,240,255,0.35)] transition flex items-center justify-center gap-2">
-                        <span>Contact System Developer</span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
+                    <a href="mailto:apponline247@gmail.com?subject=DNS%20Visibility%2C%20Payment%20%26%20System%20Stabilization" class="px-4 py-2 rounded-lg border border-slate-300 bg-slate-50 text-xs font-medium text-slate-700 hover:bg-slate-100">
+                        Contact Developer
                     </a>
                 </div>
             </div>
@@ -426,348 +82,111 @@
         </section>
     </main>
 
-    <!-- Floating Draggable Cyber Overlay Icon (AssistiveTouch Style) -->
-    <div id="cyber-overlay-wrapper" class="fixed z-50" style="right: 20px; bottom: 24px;">
-        <!-- Quick Action Popover Menu -->
-        <div id="cyber-overlay-menu" class="hidden mb-3 w-60 rounded-xl bg-slate-950/95 backdrop-blur-xl border border-cyan-400/40 shadow-[0_18px_45px_rgba(0,0,0,0.85)] p-2.5 font-cyber-mono text-xs space-y-1.5">
-            <div class="flex items-center justify-between px-2 py-1 border-b border-cyan-500/20 text-[10px] text-cyan-300">
-                <span>// CYBER.OVERLAY // QUICK CMD</span>
-                <button type="button" id="overlay-close-menu" class="text-slate-400 hover:text-rose-400 cursor-pointer">[×]</button>
-            </div>
-
-            <button type="button" id="overlay-diag-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-cyan-200 border border-cyan-500/20 flex items-center justify-between transition cursor-pointer">
-                <span>Toggle Console</span>
-                <span class="text-[10px] text-cyan-400">DIAG</span>
-            </button>
-
-            <button type="button" id="overlay-copy-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
-                <span id="overlay-copy-label">Copy Dev Email</span>
-                <span class="text-[10px] text-emerald-400">MAIL</span>
-            </button>
-
-            <button type="button" id="overlay-ack-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
-                <span id="overlay-ack-label">Acknowledge</span>
-                <span class="text-[10px] text-amber-300">ACK</span>
-            </button>
-
-            <button type="button" id="overlay-top-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
-                <span>Scroll to Top</span>
-                <span class="text-[10px] text-sky-300">TOP</span>
-            </button>
-
-            <div class="pt-1 border-t border-white/10 flex items-center justify-between px-1">
-                <span class="text-[10px] text-slate-500">Drag icon to move</span>
-                <button type="button" id="overlay-hide-btn" class="text-[10px] text-rose-400 hover:text-rose-300 cursor-pointer">Hide Icon</button>
-            </div>
+    <!-- Draggable Overlay Icon -->
+    <div id="overlay-wrap" class="fixed z-50" style="right: 18px; bottom: 18px;">
+        <div id="overlay-menu" class="hidden mb-2 w-44 rounded-lg bg-white border border-slate-200 shadow-sm p-1.5 text-xs text-slate-600 space-y-1">
+            <button type="button" id="ov-copy" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-slate-50 cursor-pointer">Copy Email</button>
+            <button type="button" id="ov-top" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-slate-50 cursor-pointer">Scroll Top</button>
+            <button type="button" id="ov-hide" class="w-full text-left px-2.5 py-1.5 rounded text-slate-400 hover:bg-slate-50 cursor-pointer">Hide Icon</button>
         </div>
-
-        <!-- Draggable Working Overlay Icon Button -->
         <div class="flex justify-end">
-            <button type="button" id="cyber-overlay-fab" aria-label="Open Cyber Overlay Controls" title="Drag to move • Tap for Cyber Controls" class="w-14 h-14 rounded-2xl bg-slate-950/90 hover:bg-slate-900 border border-cyan-400/60 text-cyan-300 flex flex-col items-center justify-center gap-0.5 transition-shadow cursor-grab active:cursor-grabbing">
-                <span class="relative flex items-center justify-center">
-                    <span class="w-5 h-5 rounded-full border border-cyan-400/70 flex items-center justify-center">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
-                    </span>
-                    <span class="w-2 h-2 rounded-full bg-rose-500 cyber-blink absolute -top-0.5 -right-1"></span>
-                </span>
-                <span class="font-cyber-mono text-[9px] font-bold tracking-wider uppercase text-cyan-200">HUD</span>
+            <button type="button" id="overlay-fab" aria-label="Overlay Icon" class="w-11 h-11 rounded-full bg-white border border-slate-200 shadow-sm text-slate-500 hover:text-slate-700 flex items-center justify-center text-xs cursor-grab active:cursor-grabbing">
+                •••
             </button>
         </div>
     </div>
 
-    <!-- Bottom Cyber Status Footer -->
-    <footer class="py-3.5 px-4 text-center font-cyber-mono text-[11px] text-slate-400 border-t border-cyan-500/15 bg-slate-950/90">
-        CYBER-SYS PROVISIONING GUARD &bull; CLOUD SUBSCRIPTIONS, MASSIVE UPGRADE &amp; MAINTENANCE &bull; CODE: <span class="text-rose-400">DNS_PUBLIC_OFF_0x00</span>
+    <!-- Footer -->
+    <footer class="border-t border-slate-100 py-3 px-4 text-center text-xs text-slate-400">
+        DNS Public Visibility: Off
     </footer>
 
-    <!-- Adaptive Device, Draggable Overlay & Interactive Telemetry Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Live System Verification Timestamp
-            const timestampEl = document.getElementById('live-timestamp');
-            if (timestampEl) {
-                const now = new Date();
-                const formatted = now.toLocaleString(undefined, {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                timestampEl.textContent = `SYNC: ${formatted}`;
-            }
+            const emailEl = document.getElementById('dev-email');
+            const copyBtn = document.getElementById('copy-btn');
+            const ovCopy = document.getElementById('ov-copy');
 
-            // 2. Real-Time Visitor Device & Viewport Adaptability Detector
-            const deviceProfileText = document.getElementById('device-profile-text');
-            const viewportTelemetry = document.getElementById('viewport-telemetry');
-            const diagDeviceDetails = document.getElementById('diag-device-details');
-
-            function updateDeviceAdaptability() {
-                const w = window.innerWidth;
-                const h = window.innerHeight;
-                const isTouch = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
-                const orientation = w >= h ? 'LANDSCAPE' : 'PORTRAIT';
-
-                let deviceClass = 'DESKTOP HUD';
-                if (w < 640) {
-                    deviceClass = 'MOBILE HUD';
-                } else if (w < 1024) {
-                    deviceClass = 'TABLET HUD';
-                } else if (w >= 1600) {
-                    deviceClass = 'ULTRAWIDE HUD';
-                }
-
-                const inputMode = isTouch ? 'TOUCH' : 'POINTER';
-
-                if (deviceProfileText) {
-                    deviceProfileText.textContent = `${deviceClass} • ${inputMode}`;
-                }
-                if (viewportTelemetry) {
-                    viewportTelemetry.textContent = `VIEWPORT: ${w}×${h} (${orientation})`;
-                }
-                if (diagDeviceDetails) {
-                    diagDeviceDetails.textContent = `${deviceClass} | ${w}×${h}px | ${inputMode} | ${orientation}`;
-                }
-            }
-
-            updateDeviceAdaptability();
-            window.addEventListener('resize', updateDeviceAdaptability);
-
-            // 3. Copy Developer Email Helper (iframe-safe fallback)
-            const copyBtn = document.getElementById('copy-contact-btn');
-            const copyLabel = document.getElementById('copy-btn-label');
-            const overlayCopyLabel = document.getElementById('overlay-copy-label');
-            const contactText = document.getElementById('dev-contact-text');
-
-            function copyDeveloperEmail() {
-                if (!contactText) return;
-                const textToCopy = contactText.textContent.trim();
-                const tempInput = document.createElement('textarea');
-                tempInput.value = textToCopy;
-                tempInput.style.position = 'fixed';
-                tempInput.style.opacity = '0';
-                document.body.appendChild(tempInput);
-                tempInput.select();
-
+            function copyEmail() {
+                if (!emailEl) return;
+                const ta = document.createElement('textarea');
+                ta.value = emailEl.textContent.trim();
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
                 try {
                     document.execCommand('copy');
-                    if (copyLabel) copyLabel.textContent = 'Copied!';
-                    if (overlayCopyLabel) overlayCopyLabel.textContent = 'Copied!';
-                    if (copyBtn) {
-                        copyBtn.classList.add('bg-emerald-950', 'text-emerald-300', 'border-emerald-500/50');
-                        copyBtn.classList.remove('bg-slate-800', 'text-slate-200', 'border-slate-600');
-                    }
-
+                    if (copyBtn) copyBtn.textContent = 'Copied';
+                    if (ovCopy) ovCopy.textContent = 'Copied';
                     setTimeout(() => {
-                        if (copyLabel) copyLabel.textContent = 'Copy Email';
-                        if (overlayCopyLabel) overlayCopyLabel.textContent = 'Copy Dev Email';
-                        if (copyBtn) {
-                            copyBtn.classList.remove('bg-emerald-950', 'text-emerald-300', 'border-emerald-500/50');
-                            copyBtn.classList.add('bg-slate-800', 'text-slate-200', 'border-slate-600');
-                        }
-                    }, 2200);
-                } catch (err) {
-                    if (copyLabel) copyLabel.textContent = 'Select & Copy';
+                        if (copyBtn) copyBtn.textContent = 'Copy Email';
+                        if (ovCopy) ovCopy.textContent = 'Copy Email';
+                    }, 1800);
                 } finally {
-                    document.body.removeChild(tempInput);
+                    document.body.removeChild(ta);
                 }
             }
 
-            if (copyBtn) {
-                copyBtn.addEventListener('click', copyDeveloperEmail);
-            }
+            if (copyBtn) copyBtn.addEventListener('click', copyEmail);
+            if (ovCopy) ovCopy.addEventListener('click', copyEmail);
 
-            // 4. Toggle Cyber Diagnostic Console
-            const diagBtn = document.getElementById('run-diag-btn');
-            const diagPanel = document.getElementById('dns-diagnostic-panel');
-            const closeDiagBtn = document.getElementById('close-diag-btn');
+            // Draggable Overlay Icon
+            const wrap = document.getElementById('overlay-wrap');
+            const fab = document.getElementById('overlay-fab');
+            const menu = document.getElementById('overlay-menu');
+            const ovTop = document.getElementById('ov-top');
+            const ovHide = document.getElementById('ov-hide');
 
-            function toggleDiagnosticConsole(forceOpen = false) {
-                if (!diagPanel) return;
-                if (forceOpen) {
-                    diagPanel.classList.remove('hidden');
-                } else {
-                    diagPanel.classList.toggle('hidden');
-                }
-            }
+            let dragging = false, moved = false, sx = 0, sy = 0, il = 0, it = 0;
 
-            if (diagBtn) {
-                diagBtn.addEventListener('click', () => toggleDiagnosticConsole());
-            }
+            if (wrap && fab) {
+                fab.addEventListener('pointerdown', (e) => {
+                    dragging = true;
+                    moved = false;
+                    const r = wrap.getBoundingClientRect();
+                    sx = e.clientX;
+                    sy = e.clientY;
+                    il = r.left;
+                    it = r.top;
+                    wrap.style.right = 'auto';
+                    wrap.style.bottom = 'auto';
+                    wrap.style.left = `${il}px`;
+                    wrap.style.top = `${it}px`;
+                    fab.setPointerCapture(e.pointerId);
+                });
 
-            if (closeDiagBtn && diagPanel) {
-                closeDiagBtn.addEventListener('click', () => {
-                    diagPanel.classList.add('hidden');
+                fab.addEventListener('pointermove', (e) => {
+                    if (!dragging) return;
+                    const dx = e.clientX - sx;
+                    const dy = e.clientY - sy;
+                    if (Math.hypot(dx, dy) > 5) {
+                        moved = true;
+                        if (menu) menu.classList.add('hidden');
+                    }
+                    const maxL = Math.max(8, window.innerWidth - wrap.offsetWidth - 8);
+                    const maxT = Math.max(8, window.innerHeight - wrap.offsetHeight - 8);
+                    wrap.style.left = `${Math.min(Math.max(8, il + dx), maxL)}px`;
+                    wrap.style.top = `${Math.min(Math.max(8, it + dy), maxT)}px`;
+                });
+
+                fab.addEventListener('pointerup', (e) => {
+                    if (!dragging) return;
+                    dragging = false;
+                    if (fab.hasPointerCapture(e.pointerId)) fab.releasePointerCapture(e.pointerId);
+                    if (!moved && menu) menu.classList.toggle('hidden');
                 });
             }
 
-            // 5. Acknowledge Notice Toggle
-            const ackBtn = document.getElementById('acknowledge-btn');
-            const ackBtnText = document.getElementById('ack-btn-text');
-            const overlayAckLabel = document.getElementById('overlay-ack-label');
-            let isAcknowledged = false;
-
-            function toggleAcknowledge() {
-                isAcknowledged = !isAcknowledged;
-                if (isAcknowledged) {
-                    if (ackBtnText) ackBtnText.textContent = '✓ Notice Acknowledged';
-                    if (overlayAckLabel) overlayAckLabel.textContent = '✓ Acknowledged';
-                    if (ackBtn) {
-                        ackBtn.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-500/50');
-                        ackBtn.classList.remove('bg-slate-900', 'text-slate-200', 'border-slate-700');
-                    }
-                } else {
-                    if (ackBtnText) ackBtnText.textContent = 'Acknowledge Notice';
-                    if (overlayAckLabel) overlayAckLabel.textContent = 'Acknowledge';
-                    if (ackBtn) {
-                        ackBtn.classList.remove('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-500/50');
-                        ackBtn.classList.add('bg-slate-900', 'text-slate-200', 'border-slate-700');
-                    }
-                }
+            if (ovTop) {
+                ovTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (menu) menu.classList.add('hidden');
+                });
             }
 
-            if (ackBtn) {
-                ackBtn.addEventListener('click', toggleAcknowledge);
-            }
-
-            // 6. Draggable AssistiveTouch Overlay Icon & Quick Command Menu
-            const overlayWrapper = document.getElementById('cyber-overlay-wrapper');
-            const overlayFab = document.getElementById('cyber-overlay-fab');
-            const overlayMenu = document.getElementById('cyber-overlay-menu');
-            const overlayCloseMenu = document.getElementById('overlay-close-menu');
-            const overlayDiagAction = document.getElementById('overlay-diag-action');
-            const overlayCopyAction = document.getElementById('overlay-copy-action');
-            const overlayAckAction = document.getElementById('overlay-ack-action');
-            const overlayTopAction = document.getElementById('overlay-top-action');
-            const overlayHideBtn = document.getElementById('overlay-hide-btn');
-            const restoreOverlayBtn = document.getElementById('restore-overlay-btn');
-
-            if (overlayWrapper && overlayFab) {
-                let isDragging = false;
-                let hasMoved = false;
-                let startX = 0;
-                let startY = 0;
-                let initialLeft = 0;
-                let initialTop = 0;
-
-                function clampPosition(left, top) {
-                    const margin = 12;
-                    const rect = overlayWrapper.getBoundingClientRect();
-                    const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
-                    const maxTop = Math.max(56, window.innerHeight - rect.height - margin);
-                    return {
-                        left: Math.min(Math.max(margin, left), maxLeft),
-                        top: Math.min(Math.max(56, top), maxTop)
-                    };
-                }
-
-                overlayFab.addEventListener('pointerdown', (e) => {
-                    isDragging = true;
-                    hasMoved = false;
-                    const rect = overlayWrapper.getBoundingClientRect();
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    initialLeft = rect.left;
-                    initialTop = rect.top;
-
-                    overlayWrapper.style.right = 'auto';
-                    overlayWrapper.style.bottom = 'auto';
-                    overlayWrapper.style.left = `${initialLeft}px`;
-                    overlayWrapper.style.top = `${initialTop}px`;
-                    overlayFab.setPointerCapture(e.pointerId);
-                });
-
-                overlayFab.addEventListener('pointermove', (e) => {
-                    if (!isDragging) return;
-                    const dx = e.clientX - startX;
-                    const dy = e.clientY - startY;
-                    if (Math.hypot(dx, dy) > 6) {
-                        hasMoved = true;
-                        if (overlayMenu) overlayMenu.classList.add('hidden');
-                    }
-                    const clamped = clampPosition(initialLeft + dx, initialTop + dy);
-                    overlayWrapper.style.left = `${clamped.left}px`;
-                    overlayWrapper.style.top = `${clamped.top}px`;
-                });
-
-                overlayFab.addEventListener('pointerup', (e) => {
-                    if (!isDragging) return;
-                    isDragging = false;
-                    if (overlayFab.hasPointerCapture(e.pointerId)) {
-                        overlayFab.releasePointerCapture(e.pointerId);
-                    }
-
-                    if (!hasMoved && overlayMenu) {
-                        overlayMenu.classList.toggle('hidden');
-                    } else {
-                        // Snap horizontally to nearest edge for clean docking
-                        const rect = overlayWrapper.getBoundingClientRect();
-                        const midX = window.innerWidth / 2;
-                        const targetLeft = (rect.left + rect.width / 2) < midX
-                            ? 12
-                            : Math.max(12, window.innerWidth - rect.width - 12);
-                        const clamped = clampPosition(targetLeft, rect.top);
-                        overlayWrapper.style.transition = 'left 0.22s ease, top 0.22s ease';
-                        overlayWrapper.style.left = `${clamped.left}px`;
-                        overlayWrapper.style.top = `${clamped.top}px`;
-                        setTimeout(() => {
-                            overlayWrapper.style.transition = '';
-                        }, 240);
-                    }
-                });
-
-                window.addEventListener('resize', () => {
-                    if (overlayWrapper.style.left) {
-                        const rect = overlayWrapper.getBoundingClientRect();
-                        const clamped = clampPosition(rect.left, rect.top);
-                        overlayWrapper.style.left = `${clamped.left}px`;
-                        overlayWrapper.style.top = `${clamped.top}px`;
-                    }
-                });
-
-                if (overlayCloseMenu && overlayMenu) {
-                    overlayCloseMenu.addEventListener('click', () => overlayMenu.classList.add('hidden'));
-                }
-
-                if (overlayDiagAction) {
-                    overlayDiagAction.addEventListener('click', () => {
-                        toggleDiagnosticConsole(true);
-                        if (diagPanel) diagPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        if (overlayMenu) overlayMenu.classList.add('hidden');
-                    });
-                }
-
-                if (overlayCopyAction) {
-                    overlayCopyAction.addEventListener('click', () => {
-                        copyDeveloperEmail();
-                    });
-                }
-
-                if (overlayAckAction) {
-                    overlayAckAction.addEventListener('click', () => {
-                        toggleAcknowledge();
-                    });
-                }
-
-                if (overlayTopAction) {
-                    overlayTopAction.addEventListener('click', () => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        if (overlayMenu) overlayMenu.classList.add('hidden');
-                    });
-                }
-
-                if (overlayHideBtn && restoreOverlayBtn) {
-                    overlayHideBtn.addEventListener('click', () => {
-                        overlayWrapper.classList.add('hidden');
-                        if (overlayMenu) overlayMenu.classList.add('hidden');
-                        restoreOverlayBtn.classList.remove('hidden');
-                    });
-
-                    restoreOverlayBtn.addEventListener('click', () => {
-                        overlayWrapper.classList.remove('hidden');
-                        restoreOverlayBtn.classList.add('hidden');
-                    });
-                }
+            if (ovHide && wrap) {
+                ovHide.addEventListener('click', () => wrap.classList.add('hidden'));
             }
         });
     </script>
