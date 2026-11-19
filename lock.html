@@ -1,282 +1,381 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows System Setup — DNS, Cloud Subscriptions &amp; Maintenance Status</title>
-    <!-- Load Tailwind CSS for responsive layout and utility styling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CYBER-SYS // DNS, Cloud Subscriptions &amp; Maintenance Guard</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Strictly enforce native Windows / OS system font stack */
+        :root {
+            --cyber-bg: #030712;
+            --cyber-panel: rgba(10, 17, 34, 0.84);
+            --cyber-cyan: #00f0ff;
+            --cyber-emerald: #10b981;
+            --cyber-rose: #ff2a5f;
+            --cyber-amber: #f59e0b;
+            --cyber-violet: #8b5cf6;
+        }
+
         body {
-            font-family: "Segoe UI Variable", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--cyber-bg);
+            color: #e2e8f0;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
-        /* Subtle Windows 11 Setup Mica-inspired ambient backdrop */
-        .win-setup-bg {
-            background-color: #0b192c;
-            background-image: 
-                radial-gradient(at 15% 15%, rgba(0, 120, 212, 0.35) 0px, transparent 55%),
-                radial-gradient(at 85% 80%, rgba(216, 59, 1, 0.22) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(16, 42, 67, 0.9) 0px, transparent 100%);
+        .font-cyber-mono {
+            font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         }
 
-        /* Subtle status indicator pulse */
-        @keyframes statusPulse {
-            0%, 100% {
-                opacity: 1;
+        /* Cyber Tactical Grid + Radial Glow Backdrop */
+        .cyber-backdrop {
+            background-color: #030712;
+            background-image:
+                radial-gradient(circle at 12% 14%, rgba(0, 240, 255, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 88% 85%, rgba(255, 42, 95, 0.14) 0%, transparent 48%),
+                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 55%),
+                linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+        }
+
+        /* Subtle HUD Scanline Overlay */
+        .cyber-scanlines::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 40;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 3px,
+                rgba(0, 240, 255, 0.018) 4px
+            );
+        }
+
+        /* Tactical Corner Brackets */
+        .hud-frame {
+            position: relative;
+            background: var(--cyber-panel);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow:
+                0 0 0 1px rgba(0, 240, 255, 0.22),
+                0 25px 70px -15px rgba(0, 0, 0, 0.85),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .hud-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--cyber-cyan);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .hud-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; border-top-left-radius: 0.75rem; }
+        .hud-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; border-top-right-radius: 0.75rem; }
+        .hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; border-bottom-left-radius: 0.75rem; }
+        .hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; border-bottom-right-radius: 0.75rem; }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 42, 95, 0.8); }
+            50% { opacity: 0.35; box-shadow: 0 0 2px rgba(255, 42, 95, 0.2); }
+        }
+
+        .cyber-blink {
+            animation: pulseGlow 1.8s ease-in-out infinite;
+        }
+
+        /* Draggable Floating AssistiveTouch Overlay Icon */
+        #cyber-overlay-fab {
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            box-shadow:
+                0 0 0 1px rgba(0, 240, 255, 0.45),
+                0 0 24px rgba(0, 240, 255, 0.28),
+                0 14px 32px rgba(0, 0, 0, 0.75);
+        }
+
+        #cyber-overlay-fab:active {
+            transform: scale(0.96);
+        }
+
+        /* Adaptive Touch & Pointer Ergonomics */
+        @media (pointer: coarse) {
+            .adaptive-btn {
+                min-height: 46px;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
             }
-            50% {
-                opacity: 0.45;
-            }
-        }
-
-        .status-blink {
-            animation: statusPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 </head>
-<body class="win-setup-bg text-slate-900 min-h-screen flex flex-col justify-between selection:bg-[#0078D4] selection:text-white">
+<body class="cyber-backdrop cyber-scanlines min-h-screen flex flex-col justify-between selection:bg-cyan-400 selection:text-slate-950">
 
-    <!-- Top Windows Setup System Status Bar -->
-    <header class="w-full bg-[#0a1322]/90 backdrop-blur-md border-b border-white/10 text-slate-200 px-4 py-2.5 sticky top-0 z-40">
-        <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
-            <div class="flex items-center gap-2.5">
-                <!-- Windows-style 4-pane System Icon -->
-                <svg class="w-4 h-4 text-[#38bdf8] shrink-0" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h4A1.5 1.5 0 0 1 8 2.5v4A1.5 1.5 0 0 1 6.5 8h-4A1.5 1.5 0 0 1 1 6.5v-4zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v4A1.5 1.5 0 0 1 13.5 8h-3A1.5 1.5 0 0 1 9 6.5v-4zm-8 8A1.5 1.5 0 0 1 2.5 9h4A1.5 1.5 0 0 1 8 10.5v3A1.5 1.5 0 0 1 6.5 15h-4A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
-                </svg>
-                <span class="font-semibold tracking-wide text-white">Windows System Setup &amp; DNS Configuration</span>
-                <span class="hidden sm:inline text-slate-500">|</span>
-                <span class="hidden sm:inline text-slate-400">Cloud Subscriptions, Massive Upgrade &amp; Maintenance</span>
+    <!-- Top Cyber Telemetry & Adaptive Device Bar -->
+    <header class="w-full bg-slate-950/85 backdrop-blur-xl border-b border-cyan-500/20 px-3 sm:px-6 py-2.5 sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,240,255,0.25)]">
+                    <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h4A1.5 1.5 0 0 1 8 2.5v4A1.5 1.5 0 0 1 6.5 8h-4A1.5 1.5 0 0 1 1 6.5v-4zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v4A1.5 1.5 0 0 1 13.5 8h-3A1.5 1.5 0 0 1 9 6.5v-4zm-8 8A1.5 1.5 0 0 1 2.5 9h4A1.5 1.5 0 0 1 8 10.5v3A1.5 1.5 0 0 1 6.5 15h-4A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
+                    </svg>
+                </span>
+                <div class="truncate">
+                    <span class="font-cyber-mono font-bold tracking-wider text-cyan-300 uppercase">SYS.GUARD // CYBER-CORE</span>
+                    <span class="hidden md:inline text-slate-600 mx-2">|</span>
+                    <span class="hidden md:inline text-slate-400">Adaptive Multi-Device Provisioning &amp; DNS Node</span>
+                </div>
             </div>
 
-            <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-rose-500/20 border border-rose-400/30 text-rose-200 font-semibold">
-                    <span class="w-2 h-2 rounded-full bg-rose-400 status-blink"></span>
-                    DNS Public Visibility: OFF / NOT VISIBLE
+            <div class="flex flex-wrap items-center gap-2">
+                <!-- Live Adaptive Device Profile Pill -->
+                <span id="device-profile-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyan-950/70 border border-cyan-500/30 text-cyan-200 font-cyber-mono text-[11px]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    <span id="device-profile-text">ADAPTIVE: DETECTING...</span>
+                </span>
+
+                <!-- Restore Overlay Button (shown if minimized) -->
+                <button type="button" id="restore-overlay-btn" class="hidden inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 font-cyber-mono text-[11px] cursor-pointer">
+                    <span>+ Overlay Icon</span>
+                </button>
+
+                <!-- DNS Visibility Pill -->
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-950/80 border border-rose-500/40 text-rose-200 font-cyber-mono text-[11px] font-bold">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 cyber-blink"></span>
+                    DNS PUBLIC: OFF
                 </span>
             </div>
         </div>
     </header>
 
-    <!-- Main Centered Windows Setup Dialog Window -->
-    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <section id="setup-window" role="dialog" aria-labelledby="setup-title" aria-describedby="setup-summary" class="w-full max-w-3xl bg-[#f3f4f6] rounded-xl shadow-[0_24px_60px_rgba(0,0,0,0.65)] border border-white/25 overflow-hidden">
-            
-            <!-- Classic Modern Windows Title Bar -->
-            <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between select-none">
+    <!-- Main Adaptive Cyber HUD Container -->
+    <main class="flex-grow flex items-center justify-center p-3 sm:p-6 lg:p-10">
+        <section id="setup-window" role="dialog" aria-labelledby="setup-title" aria-describedby="setup-summary" class="hud-frame w-full max-w-5xl rounded-xl overflow-hidden">
+            <!-- Corner HUD Brackets -->
+            <span class="hud-corner hud-tl"></span>
+            <span class="hud-corner hud-tr"></span>
+            <span class="hud-corner hud-bl"></span>
+            <span class="hud-corner hud-br"></span>
+
+            <!-- Cyber Window Title Bar -->
+            <div class="bg-slate-950/90 border-b border-cyan-500/20 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 select-none">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-5 h-5 rounded bg-[#0078D4] text-white flex items-center justify-center">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
                     </div>
-                    <span class="text-xs font-semibold text-slate-700">System Setup Wizard — DNS, Cloud &amp; Maintenance Guard</span>
+                    <span class="font-cyber-mono text-xs font-semibold tracking-wider text-slate-200 uppercase">
+                        TERMINAL // DNS &amp; CLOUD UPGRADE PROTOCOL
+                    </span>
                 </div>
-                <!-- Decorative Window Caption Controls -->
-                <div class="flex items-center gap-1.5 text-slate-400">
-                    <span id="live-timestamp" class="text-[11px] font-medium text-slate-500 mr-2 hidden sm:inline">Checking DNS...</span>
-                    <span class="w-3 h-3 rounded-full bg-slate-200 inline-block" title="Minimize"></span>
-                    <span class="w-3 h-3 rounded-full bg-slate-200 inline-block" title="Maximize"></span>
-                    <span class="w-3 h-3 rounded-full bg-rose-400 inline-block" title="Status Locked"></span>
+
+                <div class="flex items-center gap-3 font-cyber-mono text-[11px] text-slate-400">
+                    <span id="viewport-telemetry" class="hidden sm:inline text-cyan-300/90">VIEWPORT: --×--</span>
+                    <span id="live-timestamp" class="text-slate-400">SYNCING...</span>
                 </div>
             </div>
 
-            <!-- Setup Wizard Progress Stepper -->
-            <div class="bg-slate-100 border-b border-slate-200 px-5 sm:px-8 py-3">
-                <div class="flex items-center justify-between text-xs font-medium text-slate-500 gap-2">
-                    <div class="flex items-center gap-2 text-[#0078D4] font-semibold">
-                        <span class="w-5 h-5 rounded-full bg-[#0078D4] text-white flex items-center justify-center text-[11px]">✓</span>
-                        <span>1. Core Build</span>
+            <!-- Adaptive 3-Stage Cyber Pipeline Stepper -->
+            <div class="bg-slate-900/75 border-b border-white/10 px-4 sm:px-8 py-3.5">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-cyber-mono">
+                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300">
+                        <span class="w-5 h-5 rounded bg-cyan-500 text-slate-950 font-bold flex items-center justify-center text-[11px] shrink-0">01</span>
+                        <span class="truncate font-semibold">CORE BUILD: VERIFIED</span>
                     </div>
-                    <div class="h-px bg-slate-300 flex-1"></div>
-                    <div class="flex items-center gap-2 text-rose-700 font-bold">
-                        <span class="w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-[11px]">!</span>
-                        <span>2. Cloud, Upgrade &amp; DNS</span>
+                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-rose-950/50 border border-rose-500/40 text-rose-200 shadow-[0_0_20px_rgba(244,63,94,0.12)]">
+                        <span class="w-5 h-5 rounded bg-rose-500 text-white font-bold flex items-center justify-center text-[11px] shrink-0">02</span>
+                        <span class="truncate font-bold">CLOUD, UPGRADE &amp; DNS</span>
                     </div>
-                    <div class="h-px bg-slate-300 flex-1"></div>
-                    <div class="flex items-center gap-2 text-amber-700 font-semibold">
-                        <span class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[11px]">⚙</span>
-                        <span>3. Maintenance &amp; Go-Live</span>
+                    <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-200">
+                        <span class="w-5 h-5 rounded bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-[11px] shrink-0">03</span>
+                        <span class="truncate font-semibold">MAINTENANCE &amp; GO-LIVE</span>
                     </div>
                 </div>
             </div>
 
             <!-- Main Window Body -->
-            <div class="p-5 sm:p-8 space-y-6">
+            <div class="p-4 sm:p-7 lg:p-8 space-y-6">
 
-                <!-- Primary Alert Callout Banner -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                <!-- Primary Cyber Alert Callout -->
+                <div class="rounded-xl bg-gradient-to-br from-slate-900/95 via-slate-900/85 to-rose-950/30 border border-rose-500/35 p-5 sm:p-6 shadow-lg">
                     <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0">
-                            <!-- Alert / Shield Icon -->
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/15 border border-rose-400/40 text-rose-400 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(244,63,94,0.2)]">
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-rose-100 text-rose-800 border border-rose-200">
-                                    DNS Public Visibility: OFF / NOT VISIBLE
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded font-cyber-mono text-[11px] font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-400/40">
+                                    DNS PUBLIC VISIBILITY: OFF / NOT VISIBLE
                                 </span>
-                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100 text-amber-800 border border-amber-200">
-                                    Cloud &amp; Upgrade Cycle Active
+                                <span class="px-2.5 py-0.5 rounded font-cyber-mono text-[11px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">
+                                    ADAPTIVE MULTI-DEVICE READY
                                 </span>
                             </div>
-                            <h1 id="setup-title" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2">
+                            <h1 id="setup-title" class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-2.5">
                                 System DNS &amp; Site Are Currently NOT Publicly Visible
                             </h1>
-                            <p id="setup-summary" class="text-sm sm:text-base text-slate-700 leading-relaxed">
-                                Public DNS routing and external web visibility for this system are currently <strong class="text-rose-700 font-semibold">restricted and offline to the public</strong> due to active <strong class="text-slate-900 font-semibold">Cloud Server Dynamic Subscriptions</strong>, a <strong class="text-slate-900 font-semibold">Massive Upgrade</strong>, and <strong class="text-slate-900 font-semibold">other modules under maintenance</strong>—all carried out to deliver the best service possible. To unlock DNS propagation and restore full public access, please contact the system developer, update your payment, and request stabilization of this dynamic system.
+                            <p id="setup-summary" class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                External DNS routing and public visibility are currently <strong class="text-rose-300 font-semibold">restricted and offline to the public</strong> while we execute <strong class="text-cyan-300 font-semibold">Cloud Server Dynamic Subscriptions</strong>, a <strong class="text-violet-300 font-semibold">Massive Infrastructure Upgrade</strong>, and <strong class="text-amber-300 font-semibold">other services under maintenance</strong> to deliver the best service we can. To unlock DNS propagation and restore full public access, please contact the system developer, update your payment, and request stabilization of this dynamic system.
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Windows System Diagnostic & Action Checklist -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-600">
-                            System Configuration, Service Scope &amp; Action Checklist
+                <!-- Adaptive 2-Column / 1-Column Cyber Matrix for Status & Actions -->
+                <div class="rounded-xl bg-slate-950/75 border border-cyan-500/25 overflow-hidden">
+                    <div class="px-4 sm:px-5 py-3 bg-slate-900/90 border-b border-cyan-500/20 flex flex-wrap items-center justify-between gap-2">
+                        <h2 class="font-cyber-mono text-xs font-bold uppercase tracking-wider text-cyan-300">
+                            // SYSTEM TELEMETRY, UPGRADE SCOPE &amp; ACTIVATION CHECKLIST
                         </h2>
-                        <span class="text-xs font-mono text-slate-500">ERR_DNS_PUBLIC_RESTRICTED</span>
+                        <span class="font-cyber-mono text-[11px] text-rose-400">ERR_DNS_PUBLIC_RESTRICTED</span>
                     </div>
 
-                    <div class="divide-y divide-slate-100">
-                        <!-- Item 1: DNS Status -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 text-xs font-bold">✕</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">Public DNS Records &amp; Domain Routing</p>
-                                    <p class="text-xs text-slate-500">External DNS resolution is suspended; public visitors cannot reach this system while rollout and authorization are pending.</p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+                        <!-- Left Column: Infrastructure & Maintenance Status -->
+                        <div class="divide-y divide-white/10">
+                            <!-- Item 1: Public DNS -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-rose-500/20 border border-rose-400/40 text-rose-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">✕</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Public DNS Records &amp; Routing</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">External DNS resolution is locked until cloud subscriptions, upgrades, and billing authorization complete.</p>
+                                    </div>
                                 </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-400/30 shrink-0">
+                                    OFFLINE
+                                </span>
                             </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 shrink-0">
-                                OFF / NOT VISIBLE
-                            </span>
+
+                            <!-- Item 2: Cloud Server Dynamic Subscriptions -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 flex items-center justify-center shrink-0 text-xs font-bold">☁</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Cloud Server Dynamic Subscriptions</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Auto-scaling compute nodes and dynamic resource subscriptions are being calibrated for peak uptime.</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30 shrink-0">
+                                    DYNAMIC
+                                </span>
+                            </div>
+
+                            <!-- Item 3: Massive Upgrade -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-violet-500/20 border border-violet-400/40 text-violet-300 flex items-center justify-center shrink-0 text-xs font-bold">▲</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Massive Infrastructure Upgrade</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Core engine, security hardening, and high-speed response upgrades to deliver the best service possible.</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-violet-500/20 text-violet-300 border border-violet-400/30 shrink-0">
+                                    UPGRADING
+                                </span>
+                            </div>
                         </div>
 
-                        <!-- Item 2: Cloud Server Dynamic Subscriptions -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 text-xs font-bold">☁</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">Cloud Server Dynamic Subscriptions</p>
-                                    <p class="text-xs text-slate-500">Adaptive cloud compute, scaling rules, and subscription tiers are being aligned for peak reliability and responsiveness.</p>
+                        <!-- Right Column: Maintenance & Required Client Steps -->
+                        <div class="divide-y divide-white/10">
+                            <!-- Item 4: Other Services Under Maintenance -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0 text-xs font-bold">🛠</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Other Services Under Maintenance</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Connected APIs, background sync workers, and auxiliary modules are undergoing scheduled optimization.</p>
+                                    </div>
                                 </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 shrink-0">
+                                    MAINT
+                                </span>
                             </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-indigo-50 text-indigo-800 border border-indigo-200 shrink-0">
-                                Dynamic Provisioning
-                            </span>
-                        </div>
 
-                        <!-- Item 3: Massive Upgrade -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-violet-100 text-violet-700 flex items-center justify-center shrink-0 text-xs font-bold">▲</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">Massive System &amp; Infrastructure Upgrade</p>
-                                    <p class="text-xs text-slate-500">Major architecture, performance, and security enhancements are underway to deliver the best service we can.</p>
+                            <!-- Item 5: Update Payment -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">01</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Update Payment &amp; Subscription Billing</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Settle or update account billing to authorize active cloud subscriptions, upgrades, and DNS activation.</p>
+                                    </div>
                                 </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 shrink-0">
+                                    REQUIRED
+                                </span>
                             </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-violet-50 text-violet-800 border border-violet-200 shrink-0">
-                                Major Upgrade
-                            </span>
-                        </div>
 
-                        <!-- Item 4: Other Services Under Maintenance -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 text-xs font-bold">🛠</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">Other Connected Services &amp; Subsystems</p>
-                                    <p class="text-xs text-slate-500">Auxiliary endpoints, sync jobs, and supporting modules are temporarily under maintenance for quality assurance.</p>
+                            <!-- Item 6: Stabilize Dynamic System -->
+                            <div class="p-4 sm:px-5 flex items-start justify-between gap-3 hover:bg-white/[0.02] transition">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-6 h-6 rounded-md bg-sky-500/20 border border-sky-400/40 text-sky-300 flex items-center justify-center shrink-0 font-cyber-mono text-xs font-bold">02</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Stabilize System &amp; Publish Public DNS</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Coordinate with the developer to complete stabilization checks and flip public visibility online.</p>
+                                    </div>
                                 </div>
+                                <span class="px-2 py-1 rounded font-cyber-mono text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-400/30 shrink-0">
+                                    PENDING DEV
+                                </span>
                             </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
-                                Under Maintenance
-                            </span>
-                        </div>
-
-                        <!-- Item 5: Payment & Account Authorization -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold">!</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">1. Update Payment &amp; Subscription Authorization</p>
-                                    <p class="text-xs text-slate-500">Settle or update account billing to authorize active cloud subscription, upgrade, and DNS provisioning.</p>
-                                </div>
-                            </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
-                                Required
-                            </span>
-                        </div>
-
-                        <!-- Item 6: Dynamic System Stabilization -->
-                        <div class="p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-md bg-sky-100 text-[#0078D4] flex items-center justify-center shrink-0 text-xs font-bold">⚙</span>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">2. Stabilize Dynamic System &amp; Publish DNS</p>
-                                    <p class="text-xs text-slate-500">Contact the system developer to finalize upgrade/maintenance checks and restore public visibility.</p>
-                                </div>
-                            </div>
-                            <span class="self-start sm:self-center px-2.5 py-1 rounded text-xs font-semibold bg-sky-50 text-[#0078D4] border border-sky-200 shrink-0">
-                                Pending Developer
-                            </span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Developer Support & Contact Channels -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                    <!-- Developer Email Card -->
-                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between gap-3">
+                <!-- Developer Support & Direct Uplink Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Developer Email Uplink -->
+                    <div class="rounded-xl bg-slate-900/90 border border-cyan-500/25 p-4 sm:p-5 flex flex-col justify-between gap-3.5 hover:border-cyan-400/50 transition">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-10 h-10 rounded-lg bg-[#0078D4]/10 text-[#0078D4] flex items-center justify-center shrink-0">
+                            <div class="w-10 h-10 rounded-lg bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">System Developer Email</p>
-                                <p id="dev-contact-text" class="text-sm font-mono font-semibold text-slate-900 truncate">apponline247@gmail.com</p>
+                                <p class="font-cyber-mono text-[10px] font-bold uppercase tracking-wider text-cyan-400">Developer Email Uplink</p>
+                                <p id="dev-contact-text" class="text-sm font-cyber-mono font-semibold text-white truncate">apponline247@gmail.com</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button type="button" id="copy-contact-btn" class="flex-1 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-xs font-semibold text-slate-800 border border-slate-300 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                            <button type="button" id="copy-contact-btn" class="adaptive-btn flex-1 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-xs font-cyber-mono font-semibold text-slate-200 border border-slate-600 transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
                                 </svg>
                                 <span id="copy-btn-label">Copy Email</span>
                             </button>
-                            <a href="mailto:apponline247@gmail.com?subject=DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Upgrade%20Request&body=Hello%20System%20Developer%2C%0A%0AOur%20system%20DNS%20is%20currently%20showing%20NOT%20PUBLICLY%20VISIBLE%20amid%20cloud%20server%20dynamic%20subscriptions%2C%20massive%20upgrade%2C%20and%20maintenance%20work.%20Please%20assist%20us%20with%20updating%20payment%20and%20stabilizing%20the%20dynamic%20system%20to%20restore%20public%20access." class="px-3.5 py-2 rounded-lg bg-[#0078D4] hover:bg-[#106ebe] text-xs font-semibold text-white transition">
+                            <a href="mailto:apponline247@gmail.com?subject=DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Upgrade%20Activation&body=Hello%20System%20Developer%2C%0A%0AOur%20system%20DNS%20is%20currently%20showing%20NOT%20PUBLICLY%20VISIBLE%20amid%20Cloud%20Server%20Dynamic%20Subscriptions%2C%20Massive%20Upgrade%2C%20and%20maintenance.%20Please%20assist%20us%20with%20updating%20payment%20and%20stabilizing%20the%20dynamic%20system%20to%20restore%20public%20access." class="adaptive-btn px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-cyber-mono font-bold text-slate-950 transition flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                                 Email Now
                             </a>
                         </div>
                     </div>
 
-                    <!-- Developer Facebook Card -->
-                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between gap-3">
+                    <!-- Developer Facebook Direct Channel -->
+                    <div class="rounded-xl bg-slate-900/90 border border-blue-500/30 p-4 sm:p-5 flex flex-col justify-between gap-3.5 hover:border-blue-400/60 transition">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-[#1877F2] flex items-center justify-center shrink-0">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/15 border border-blue-400/30 text-blue-400 flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Developer Direct Support</p>
-                                <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-[#1877F2] hover:underline truncate block">
+                                <p class="font-cyber-mono text-[10px] font-bold uppercase tracking-wider text-blue-400">Direct Messenger Channel</p>
+                                <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-blue-300 hover:text-blue-200 hover:underline truncate block">
                                     facebook.com/on.line.151642
                                 </a>
                             </div>
                         </div>
-                        <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="w-full px-3 py-2 rounded-lg bg-[#1877F2] hover:bg-[#166fe5] text-xs font-semibold text-white transition flex items-center justify-center gap-1.5">
+                        <a href="https://www.facebook.com/on.line.151642" target="_blank" rel="noopener noreferrer" class="adaptive-btn w-full px-3 py-2 rounded-lg bg-[#1877F2] hover:bg-[#1a84ff] text-xs font-cyber-mono font-bold text-white transition flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(24,119,242,0.35)]">
                             <span>Message Developer on Facebook</span>
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
@@ -285,39 +384,39 @@
                     </div>
                 </div>
 
-                <!-- Interactive DNS Diagnostic Output Box (Hidden until requested) -->
-                <div id="dns-diagnostic-panel" class="hidden rounded-xl bg-slate-900 text-slate-200 p-4 border border-slate-700 font-mono text-xs space-y-1.5">
-                    <div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-1.5 mb-2">
-                        <span>Windows DNS, Cloud &amp; Maintenance Diagnostic</span>
-                        <button type="button" id="close-diag-btn" class="text-slate-400 hover:text-white cursor-pointer">Close [×]</button>
+                <!-- Interactive Cyber Diagnostic Console (Toggled on demand) -->
+                <div id="dns-diagnostic-panel" class="hidden rounded-xl bg-black/90 text-slate-200 p-4 sm:p-5 border border-cyan-500/40 font-cyber-mono text-xs space-y-1.5 shadow-inner">
+                    <div class="flex items-center justify-between text-cyan-400 border-b border-cyan-500/20 pb-2 mb-2">
+                        <span>// CYBER_DIAGNOSTIC_CONSOLE — LIVE TELEMETRY</span>
+                        <button type="button" id="close-diag-btn" class="text-slate-400 hover:text-rose-400 cursor-pointer">[CLOSE ×]</button>
                     </div>
-                    <p><span class="text-sky-400">&gt;</span> DNS Propagation State: <span class="text-rose-400 font-bold">UNPROPAGATED / RESTRICTED</span></p>
-                    <p><span class="text-sky-400">&gt;</span> Public External Endpoint: <span class="text-rose-400 font-bold">NOT VISIBLE (OFFLINE)</span></p>
-                    <p><span class="text-sky-400">&gt;</span> Cloud Server Dynamic Subscriptions: <span class="text-indigo-300">DYNAMIC SCALING / SUBSCRIPTION SYNC</span></p>
-                    <p><span class="text-sky-400">&gt;</span> Massive Upgrade &amp; Other Services: <span class="text-amber-300">IN PROGRESS / UNDER MAINTENANCE (BEST SERVICE TARGET)</span></p>
-                    <p><span class="text-sky-400">&gt;</span> Dynamic System Stability: <span class="text-amber-300">HOLD — Awaiting Developer Stabilization &amp; Payment Update</span></p>
-                    <p><span class="text-sky-400">&gt;</span> Assigned Support Contact: <span class="text-emerald-300">apponline247@gmail.com</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> DNS Propagation State: <span class="text-rose-400 font-bold">UNPROPAGATED / RESTRICTED</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> Public External Endpoint: <span class="text-rose-400 font-bold">NOT VISIBLE (OFFLINE)</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> Cloud Server Dynamic Subscriptions: <span class="text-cyan-300">ACTIVE SCALING &amp; SUBSCRIPTION SYNC</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> Massive Upgrade &amp; Maintenance: <span class="text-amber-300">EXECUTING FOR MAXIMUM SERVICE QUALITY</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> Visitor Device Adaptation: <span id="diag-device-details" class="text-emerald-300">RESPONSIVE HUD LOCKED</span></p>
+                    <p><span class="text-cyan-400">&gt;</span> Assigned Developer Uplink: <span class="text-emerald-300">apponline247@gmail.com</span></p>
                 </div>
 
             </div>
 
-            <!-- Windows Setup Bottom Action Footer -->
-            <div class="bg-white border-t border-slate-200 px-5 sm:px-8 py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <button type="button" id="run-diag-btn" class="px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-300 transition flex items-center justify-center gap-2 cursor-pointer">
-                    <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <!-- Cyber HUD Bottom Action Bar -->
+            <div class="bg-slate-950/90 border-t border-cyan-500/20 px-4 sm:px-8 py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <button type="button" id="run-diag-btn" class="adaptive-btn px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-cyan-300 font-cyber-mono font-semibold text-xs border border-cyan-500/35 transition flex items-center justify-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
                     </svg>
-                    <span>Verify DNS Status</span>
+                    <span>Verify System &amp; DNS</span>
                 </button>
 
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                    <button type="button" id="acknowledge-btn" class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs sm:text-sm border border-slate-300 transition cursor-pointer">
-                        <span id="ack-btn-text">Acknowledge Status</span>
+                    <button type="button" id="acknowledge-btn" class="adaptive-btn px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 font-cyber-mono font-semibold text-xs border border-slate-700 transition cursor-pointer">
+                        <span id="ack-btn-text">Acknowledge Notice</span>
                     </button>
 
-                    <a href="mailto:apponline247@gmail.com?subject=Restore%20Public%20DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Payment&body=Hello%2C%0A%0APlease%20help%20update%20our%20payment%2C%20complete%20cloud%20server%20dynamic%20subscription%20and%20upgrade%2Fmaintenance%20checks%2C%20stabilize%20the%20dynamic%20system%2C%20and%20enable%20public%20DNS%20visibility." class="px-5 py-2.5 rounded-lg bg-[#0078D4] hover:bg-[#106ebe] active:bg-[#005a9e] text-white font-semibold text-xs sm:text-sm shadow-sm transition flex items-center justify-center gap-2">
+                    <a href="mailto:apponline247@gmail.com?subject=Restore%20Public%20DNS%20Visibility%2C%20Cloud%20Subscription%20%26%20Upgrade&body=Hello%2C%0A%0APlease%20help%20update%20our%20payment%2C%20finalize%20cloud%20server%20dynamic%20subscriptions%20and%20upgrade%2Fmaintenance%20checks%2C%20stabilize%20the%20dynamic%20system%2C%20and%20enable%20public%20DNS%20visibility." class="adaptive-btn px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-cyber-mono font-bold text-xs shadow-[0_0_20px_rgba(0,240,255,0.35)] transition flex items-center justify-center gap-2">
                         <span>Contact System Developer</span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
@@ -327,12 +426,61 @@
         </section>
     </main>
 
-    <!-- Bottom System Status Footer -->
-    <footer class="py-3.5 px-4 text-center text-xs text-slate-400 border-t border-white/10 bg-[#08101d]/80">
-        Windows System Setup &amp; DNS Provisioning Guard &bull; Cloud Subscriptions, Massive Upgrade &amp; Maintenance &bull; Status Code: <span class="font-mono text-rose-300">DNS_PUBLIC_OFF_0x00</span>
+    <!-- Floating Draggable Cyber Overlay Icon (AssistiveTouch Style) -->
+    <div id="cyber-overlay-wrapper" class="fixed z-50" style="right: 20px; bottom: 24px;">
+        <!-- Quick Action Popover Menu -->
+        <div id="cyber-overlay-menu" class="hidden mb-3 w-60 rounded-xl bg-slate-950/95 backdrop-blur-xl border border-cyan-400/40 shadow-[0_18px_45px_rgba(0,0,0,0.85)] p-2.5 font-cyber-mono text-xs space-y-1.5">
+            <div class="flex items-center justify-between px-2 py-1 border-b border-cyan-500/20 text-[10px] text-cyan-300">
+                <span>// CYBER.OVERLAY // QUICK CMD</span>
+                <button type="button" id="overlay-close-menu" class="text-slate-400 hover:text-rose-400 cursor-pointer">[×]</button>
+            </div>
+
+            <button type="button" id="overlay-diag-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-cyan-200 border border-cyan-500/20 flex items-center justify-between transition cursor-pointer">
+                <span>Toggle Console</span>
+                <span class="text-[10px] text-cyan-400">DIAG</span>
+            </button>
+
+            <button type="button" id="overlay-copy-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
+                <span id="overlay-copy-label">Copy Dev Email</span>
+                <span class="text-[10px] text-emerald-400">MAIL</span>
+            </button>
+
+            <button type="button" id="overlay-ack-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
+                <span id="overlay-ack-label">Acknowledge</span>
+                <span class="text-[10px] text-amber-300">ACK</span>
+            </button>
+
+            <button type="button" id="overlay-top-action" class="w-full text-left px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-cyan-950/60 text-slate-200 border border-white/10 flex items-center justify-between transition cursor-pointer">
+                <span>Scroll to Top</span>
+                <span class="text-[10px] text-sky-300">TOP</span>
+            </button>
+
+            <div class="pt-1 border-t border-white/10 flex items-center justify-between px-1">
+                <span class="text-[10px] text-slate-500">Drag icon to move</span>
+                <button type="button" id="overlay-hide-btn" class="text-[10px] text-rose-400 hover:text-rose-300 cursor-pointer">Hide Icon</button>
+            </div>
+        </div>
+
+        <!-- Draggable Working Overlay Icon Button -->
+        <div class="flex justify-end">
+            <button type="button" id="cyber-overlay-fab" aria-label="Open Cyber Overlay Controls" title="Drag to move • Tap for Cyber Controls" class="w-14 h-14 rounded-2xl bg-slate-950/90 hover:bg-slate-900 border border-cyan-400/60 text-cyan-300 flex flex-col items-center justify-center gap-0.5 transition-shadow cursor-grab active:cursor-grabbing">
+                <span class="relative flex items-center justify-center">
+                    <span class="w-5 h-5 rounded-full border border-cyan-400/70 flex items-center justify-center">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
+                    </span>
+                    <span class="w-2 h-2 rounded-full bg-rose-500 cyber-blink absolute -top-0.5 -right-1"></span>
+                </span>
+                <span class="font-cyber-mono text-[9px] font-bold tracking-wider uppercase text-cyan-200">HUD</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Cyber Status Footer -->
+    <footer class="py-3.5 px-4 text-center font-cyber-mono text-[11px] text-slate-400 border-t border-cyan-500/15 bg-slate-950/90">
+        CYBER-SYS PROVISIONING GUARD &bull; CLOUD SUBSCRIPTIONS, MASSIVE UPGRADE &amp; MAINTENANCE &bull; CODE: <span class="text-rose-400">DNS_PUBLIC_OFF_0x00</span>
     </footer>
 
-    <!-- Interactive Setup Script -->
+    <!-- Adaptive Device, Draggable Overlay & Interactive Telemetry Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // 1. Live System Verification Timestamp
@@ -346,52 +494,105 @@
                     hour: '2-digit',
                     minute: '2-digit'
                 });
-                timestampEl.textContent = `Checked: ${formatted}`;
+                timestampEl.textContent = `SYNC: ${formatted}`;
             }
 
-            // 2. One-click Copy Developer Email (iframe-safe fallback)
+            // 2. Real-Time Visitor Device & Viewport Adaptability Detector
+            const deviceProfileText = document.getElementById('device-profile-text');
+            const viewportTelemetry = document.getElementById('viewport-telemetry');
+            const diagDeviceDetails = document.getElementById('diag-device-details');
+
+            function updateDeviceAdaptability() {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                const isTouch = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+                const orientation = w >= h ? 'LANDSCAPE' : 'PORTRAIT';
+
+                let deviceClass = 'DESKTOP HUD';
+                if (w < 640) {
+                    deviceClass = 'MOBILE HUD';
+                } else if (w < 1024) {
+                    deviceClass = 'TABLET HUD';
+                } else if (w >= 1600) {
+                    deviceClass = 'ULTRAWIDE HUD';
+                }
+
+                const inputMode = isTouch ? 'TOUCH' : 'POINTER';
+
+                if (deviceProfileText) {
+                    deviceProfileText.textContent = `${deviceClass} • ${inputMode}`;
+                }
+                if (viewportTelemetry) {
+                    viewportTelemetry.textContent = `VIEWPORT: ${w}×${h} (${orientation})`;
+                }
+                if (diagDeviceDetails) {
+                    diagDeviceDetails.textContent = `${deviceClass} | ${w}×${h}px | ${inputMode} | ${orientation}`;
+                }
+            }
+
+            updateDeviceAdaptability();
+            window.addEventListener('resize', updateDeviceAdaptability);
+
+            // 3. Copy Developer Email Helper (iframe-safe fallback)
             const copyBtn = document.getElementById('copy-contact-btn');
             const copyLabel = document.getElementById('copy-btn-label');
+            const overlayCopyLabel = document.getElementById('overlay-copy-label');
             const contactText = document.getElementById('dev-contact-text');
 
-            if (copyBtn && contactText) {
-                copyBtn.addEventListener('click', () => {
-                    const textToCopy = contactText.textContent.trim();
-                    const tempInput = document.createElement('textarea');
-                    tempInput.value = textToCopy;
-                    tempInput.style.position = 'fixed';
-                    tempInput.style.opacity = '0';
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
+            function copyDeveloperEmail() {
+                if (!contactText) return;
+                const textToCopy = contactText.textContent.trim();
+                const tempInput = document.createElement('textarea');
+                tempInput.value = textToCopy;
+                tempInput.style.position = 'fixed';
+                tempInput.style.opacity = '0';
+                document.body.appendChild(tempInput);
+                tempInput.select();
 
-                    try {
-                        document.execCommand('copy');
-                        copyLabel.textContent = 'Copied!';
-                        copyBtn.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-                        copyBtn.classList.remove('bg-slate-100', 'text-slate-800', 'border-slate-300');
-
-                        setTimeout(() => {
-                            copyLabel.textContent = 'Copy Email';
-                            copyBtn.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-                            copyBtn.classList.add('bg-slate-100', 'text-slate-800', 'border-slate-300');
-                        }, 2200);
-                    } catch (err) {
-                        copyLabel.textContent = 'Select & Copy';
-                    } finally {
-                        document.body.removeChild(tempInput);
+                try {
+                    document.execCommand('copy');
+                    if (copyLabel) copyLabel.textContent = 'Copied!';
+                    if (overlayCopyLabel) overlayCopyLabel.textContent = 'Copied!';
+                    if (copyBtn) {
+                        copyBtn.classList.add('bg-emerald-950', 'text-emerald-300', 'border-emerald-500/50');
+                        copyBtn.classList.remove('bg-slate-800', 'text-slate-200', 'border-slate-600');
                     }
-                });
+
+                    setTimeout(() => {
+                        if (copyLabel) copyLabel.textContent = 'Copy Email';
+                        if (overlayCopyLabel) overlayCopyLabel.textContent = 'Copy Dev Email';
+                        if (copyBtn) {
+                            copyBtn.classList.remove('bg-emerald-950', 'text-emerald-300', 'border-emerald-500/50');
+                            copyBtn.classList.add('bg-slate-800', 'text-slate-200', 'border-slate-600');
+                        }
+                    }, 2200);
+                } catch (err) {
+                    if (copyLabel) copyLabel.textContent = 'Select & Copy';
+                } finally {
+                    document.body.removeChild(tempInput);
+                }
             }
 
-            // 3. Toggle DNS Diagnostic Output Panel
+            if (copyBtn) {
+                copyBtn.addEventListener('click', copyDeveloperEmail);
+            }
+
+            // 4. Toggle Cyber Diagnostic Console
             const diagBtn = document.getElementById('run-diag-btn');
             const diagPanel = document.getElementById('dns-diagnostic-panel');
             const closeDiagBtn = document.getElementById('close-diag-btn');
 
-            if (diagBtn && diagPanel) {
-                diagBtn.addEventListener('click', () => {
+            function toggleDiagnosticConsole(forceOpen = false) {
+                if (!diagPanel) return;
+                if (forceOpen) {
+                    diagPanel.classList.remove('hidden');
+                } else {
                     diagPanel.classList.toggle('hidden');
-                });
+                }
+            }
+
+            if (diagBtn) {
+                diagBtn.addEventListener('click', () => toggleDiagnosticConsole());
             }
 
             if (closeDiagBtn && diagPanel) {
@@ -400,24 +601,173 @@
                 });
             }
 
-            // 4. Acknowledge Setup Notice State
+            // 5. Acknowledge Notice Toggle
             const ackBtn = document.getElementById('acknowledge-btn');
             const ackBtnText = document.getElementById('ack-btn-text');
+            const overlayAckLabel = document.getElementById('overlay-ack-label');
             let isAcknowledged = false;
 
-            if (ackBtn && ackBtnText) {
-                ackBtn.addEventListener('click', () => {
-                    isAcknowledged = !isAcknowledged;
-                    if (isAcknowledged) {
-                        ackBtnText.textContent = '✓ Notice Acknowledged';
-                        ackBtn.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-                        ackBtn.classList.remove('bg-white', 'text-slate-800', 'border-slate-300');
+            function toggleAcknowledge() {
+                isAcknowledged = !isAcknowledged;
+                if (isAcknowledged) {
+                    if (ackBtnText) ackBtnText.textContent = '✓ Notice Acknowledged';
+                    if (overlayAckLabel) overlayAckLabel.textContent = '✓ Acknowledged';
+                    if (ackBtn) {
+                        ackBtn.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-500/50');
+                        ackBtn.classList.remove('bg-slate-900', 'text-slate-200', 'border-slate-700');
+                    }
+                } else {
+                    if (ackBtnText) ackBtnText.textContent = 'Acknowledge Notice';
+                    if (overlayAckLabel) overlayAckLabel.textContent = 'Acknowledge';
+                    if (ackBtn) {
+                        ackBtn.classList.remove('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-500/50');
+                        ackBtn.classList.add('bg-slate-900', 'text-slate-200', 'border-slate-700');
+                    }
+                }
+            }
+
+            if (ackBtn) {
+                ackBtn.addEventListener('click', toggleAcknowledge);
+            }
+
+            // 6. Draggable AssistiveTouch Overlay Icon & Quick Command Menu
+            const overlayWrapper = document.getElementById('cyber-overlay-wrapper');
+            const overlayFab = document.getElementById('cyber-overlay-fab');
+            const overlayMenu = document.getElementById('cyber-overlay-menu');
+            const overlayCloseMenu = document.getElementById('overlay-close-menu');
+            const overlayDiagAction = document.getElementById('overlay-diag-action');
+            const overlayCopyAction = document.getElementById('overlay-copy-action');
+            const overlayAckAction = document.getElementById('overlay-ack-action');
+            const overlayTopAction = document.getElementById('overlay-top-action');
+            const overlayHideBtn = document.getElementById('overlay-hide-btn');
+            const restoreOverlayBtn = document.getElementById('restore-overlay-btn');
+
+            if (overlayWrapper && overlayFab) {
+                let isDragging = false;
+                let hasMoved = false;
+                let startX = 0;
+                let startY = 0;
+                let initialLeft = 0;
+                let initialTop = 0;
+
+                function clampPosition(left, top) {
+                    const margin = 12;
+                    const rect = overlayWrapper.getBoundingClientRect();
+                    const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+                    const maxTop = Math.max(56, window.innerHeight - rect.height - margin);
+                    return {
+                        left: Math.min(Math.max(margin, left), maxLeft),
+                        top: Math.min(Math.max(56, top), maxTop)
+                    };
+                }
+
+                overlayFab.addEventListener('pointerdown', (e) => {
+                    isDragging = true;
+                    hasMoved = false;
+                    const rect = overlayWrapper.getBoundingClientRect();
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    initialLeft = rect.left;
+                    initialTop = rect.top;
+
+                    overlayWrapper.style.right = 'auto';
+                    overlayWrapper.style.bottom = 'auto';
+                    overlayWrapper.style.left = `${initialLeft}px`;
+                    overlayWrapper.style.top = `${initialTop}px`;
+                    overlayFab.setPointerCapture(e.pointerId);
+                });
+
+                overlayFab.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    if (Math.hypot(dx, dy) > 6) {
+                        hasMoved = true;
+                        if (overlayMenu) overlayMenu.classList.add('hidden');
+                    }
+                    const clamped = clampPosition(initialLeft + dx, initialTop + dy);
+                    overlayWrapper.style.left = `${clamped.left}px`;
+                    overlayWrapper.style.top = `${clamped.top}px`;
+                });
+
+                overlayFab.addEventListener('pointerup', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    if (overlayFab.hasPointerCapture(e.pointerId)) {
+                        overlayFab.releasePointerCapture(e.pointerId);
+                    }
+
+                    if (!hasMoved && overlayMenu) {
+                        overlayMenu.classList.toggle('hidden');
                     } else {
-                        ackBtnText.textContent = 'Acknowledge Status';
-                        ackBtn.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-                        ackBtn.classList.add('bg-white', 'text-slate-800', 'border-slate-300');
+                        // Snap horizontally to nearest edge for clean docking
+                        const rect = overlayWrapper.getBoundingClientRect();
+                        const midX = window.innerWidth / 2;
+                        const targetLeft = (rect.left + rect.width / 2) < midX
+                            ? 12
+                            : Math.max(12, window.innerWidth - rect.width - 12);
+                        const clamped = clampPosition(targetLeft, rect.top);
+                        overlayWrapper.style.transition = 'left 0.22s ease, top 0.22s ease';
+                        overlayWrapper.style.left = `${clamped.left}px`;
+                        overlayWrapper.style.top = `${clamped.top}px`;
+                        setTimeout(() => {
+                            overlayWrapper.style.transition = '';
+                        }, 240);
                     }
                 });
+
+                window.addEventListener('resize', () => {
+                    if (overlayWrapper.style.left) {
+                        const rect = overlayWrapper.getBoundingClientRect();
+                        const clamped = clampPosition(rect.left, rect.top);
+                        overlayWrapper.style.left = `${clamped.left}px`;
+                        overlayWrapper.style.top = `${clamped.top}px`;
+                    }
+                });
+
+                if (overlayCloseMenu && overlayMenu) {
+                    overlayCloseMenu.addEventListener('click', () => overlayMenu.classList.add('hidden'));
+                }
+
+                if (overlayDiagAction) {
+                    overlayDiagAction.addEventListener('click', () => {
+                        toggleDiagnosticConsole(true);
+                        if (diagPanel) diagPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        if (overlayMenu) overlayMenu.classList.add('hidden');
+                    });
+                }
+
+                if (overlayCopyAction) {
+                    overlayCopyAction.addEventListener('click', () => {
+                        copyDeveloperEmail();
+                    });
+                }
+
+                if (overlayAckAction) {
+                    overlayAckAction.addEventListener('click', () => {
+                        toggleAcknowledge();
+                    });
+                }
+
+                if (overlayTopAction) {
+                    overlayTopAction.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        if (overlayMenu) overlayMenu.classList.add('hidden');
+                    });
+                }
+
+                if (overlayHideBtn && restoreOverlayBtn) {
+                    overlayHideBtn.addEventListener('click', () => {
+                        overlayWrapper.classList.add('hidden');
+                        if (overlayMenu) overlayMenu.classList.add('hidden');
+                        restoreOverlayBtn.classList.remove('hidden');
+                    });
+
+                    restoreOverlayBtn.addEventListener('click', () => {
+                        overlayWrapper.classList.remove('hidden');
+                        restoreOverlayBtn.classList.add('hidden');
+                    });
+                }
             }
         });
     </script>
