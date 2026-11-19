@@ -49,7 +49,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbxw-EUeTiVprgWvA6wemqmDCduXWg41Ny8AXpN57e33GwMaYX6k2Ry--wlNGpUlR7vpcg/exec?page=control&branch=main">
+  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbwg6m9mxVPONXtx40LvTElRQQNBgk-jYStVW9QHBgaWnFBpZtE2MawWefmuEcrOSoUI/exec?page=admin&branch=main">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
@@ -1654,22 +1654,22 @@
             </div>
 
             <div class="control-grid">
-              <button type="button" class="ctrl-btn" data-title="Live Appointments" data-page="control" data-view="admin">
+              <button type="button" class="ctrl-btn" data-title="Live Appointments" data-page="admin" data-view="admin">
                 <span class="icon">📅</span>
                 <span>Bookings</span>
                 <span class="sub-label">Queue &amp; List</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="control" data-view="walkin">
+              <button type="button" class="ctrl-btn" data-title="Walk-In / POS Entry" data-page="admin" data-view="walkin">
                 <span class="icon">✂️</span>
                 <span>POS / Walk-In</span>
                 <span class="sub-label">Quick Ticket</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="control" data-view="barbers">
+              <button type="button" class="ctrl-btn" data-title="Barber Roster & Shifts" data-page="admin" data-view="barbers">
                 <span class="icon">💈</span>
                 <span>Barbers</span>
                 <span class="sub-label">Shifts &amp; Staff</span>
               </button>
-              <button type="button" class="ctrl-btn" data-title="Services & Pricing Setup" data-page="control" data-view="settings">
+              <button type="button" class="ctrl-btn" data-title="Services & Pricing Setup" data-page="admin" data-view="settings">
                 <span class="icon">⚙️</span>
                 <span>Shop Setup</span>
                 <span class="sub-label">Rates &amp; Promos</span>
@@ -1819,7 +1819,7 @@
 
   <script>
     const ADMIN_PIN = "2026";
-    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxw-EUeTiVprgWvA6wemqmDCduXWg41Ny8AXpN57e33GwMaYX6k2Ry--wlNGpUlR7vpcg/exec";
+    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg6m9mxVPONXtx40LvTElRQQNBgk-jYStVW9QHBgaWnFBpZtE2MawWefmuEcrOSoUI/exec";
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
 
     // =========================================================================
@@ -1931,7 +1931,7 @@
 
     let enteredPin = "";
     let currentSrc = "";
-    let activeRouteState = { title: 'Full Admin Console', page: 'control', view: 'admin' };
+    let activeRouteState = { title: 'Full Admin Console', page: 'admin', view: 'admin' };
     let pendingSublink = null;
 
     function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'b4.jfif') {
@@ -2025,7 +2025,7 @@
       if (pageParam || viewParam) {
         pendingSublink = {
           title: viewParam ? viewParam.toUpperCase() : 'Admin Console',
-          page: pageParam || 'control',
+          page: pageParam || 'admin',
           view: viewParam || 'admin'
         };
       }
@@ -2200,25 +2200,25 @@
     document.getElementById('menuBookings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Live Appointments', 'control', 'admin');
+      requireUnlockAndLaunch('Live Appointments', 'admin', 'admin');
     });
 
     document.getElementById('menuWalkin').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Walk-In / POS Entry', 'control', 'walkin');
+      requireUnlockAndLaunch('Walk-In / POS Entry', 'admin', 'walkin');
     });
 
     document.getElementById('menuBarbers').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Barber Roster & Shifts', 'control', 'barbers');
+      requireUnlockAndLaunch('Barber Roster & Shifts', 'admin', 'barbers');
     });
 
     document.getElementById('menuSettings').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
-      requireUnlockAndLaunch('Services & Pricing Setup', 'control', 'settings');
+      requireUnlockAndLaunch('Services & Pricing Setup', 'admin', 'settings');
     });
 
     document.getElementById('menuDetails').addEventListener('click', (e) => {
@@ -2360,7 +2360,7 @@
         triggerFullScreen();
         launchRoute(
           link.dataset.title || link.textContent.trim(),
-          subParams.get('page') || link.dataset.page || 'control',
+          subParams.get('page') || link.dataset.page || 'admin',
           subParams.get('view') || link.dataset.view || cleanView || 'admin'
         );
         return;
@@ -2372,7 +2372,7 @@
         if (resolved.origin === window.location.origin) {
           launchRoute(
             link.dataset.title || link.textContent.trim(),
-            resolved.searchParams.get('page') || link.dataset.page || 'control',
+            resolved.searchParams.get('page') || link.dataset.page || 'admin',
             resolved.searchParams.get('view') || resolved.hash.replace('#', '') || link.dataset.view || 'admin'
           );
         } else {
@@ -2401,7 +2401,7 @@
 
     document.getElementById('openFullAdmin').addEventListener('click', () => {
       triggerFullScreen();
-      launchRoute('Full Admin Console', 'control', 'admin');
+      launchRoute('Full Admin Console', 'admin', 'admin');
     });
 
     document.getElementById('openClientView').addEventListener('click', () => {
