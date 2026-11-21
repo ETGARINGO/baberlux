@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="en" data-theme="gold" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505">
-  <title>King of Fadez PH | System Fix & Multi-Branch Admin Control</title>
-  <meta name="description" content="Kingoffadezph.com — System maintenance countdown to 6:00 AM and multi-branch admin control console.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" id="meta-theme-color">
+  <title>King of Fadez PH | Multi-Branch Booking App</title>
+  <meta name="description" content="Kingoffadezph.com — Choose your preferred branch and book your haircut & grooming appointment online.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="KOF PH Admin">
+  <meta name="apple-mobile-web-app-title" content="King of Fadez PH">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="KOF PH Admin">
+  <meta name="application-name" content="King of Fadez PH">
   <meta name="msapplication-TileColor" content="#050505">
   <link rel="manifest" id="pwa-manifest">
 
@@ -21,541 +21,345 @@
   <link rel="shortcut icon" type="image/jpeg" href="b4.jfif">
   <link rel="apple-touch-icon" href="b4.jfif">
 
-  <!-- Open Graph Meta Tags -->
+  <!-- Open Graph (Messenger, Viber, WhatsApp, Telegram, iMessage, Facebook) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
-  <meta property="og:title" content="King of Fadez PH | System Maintenance & Admin Control">
-  <meta property="og:description" content="Kingoffadezph.com • System update & fixing countdown until 6:00 AM.">
+  <meta property="og:title" content="King of Fadez PH | Book Your Appointment">
+  <meta property="og:description" content="Kingoffadezph.com • Book online at S&D Dasma Bayan, KOF-Dasmariñas Cavite, KOF Molino 3 Bacoor, or Imus Cavite.">
   <meta property="og:image" content="b4.jfif">
+  <meta property="og:image:secure_url" content="b4.jfif">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez PH Logo">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez PH | Book Your Appointment">
+  <meta name="twitter:description" content="Kingoffadezph.com • Book your appointment at your nearest branch.">
+  <meta name="twitter:image" content="b4.jfif">
+  <meta name="twitter:image:alt" content="King of Fadez PH Logo">
 
   <!-- Fonts & Performance Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbwg6m9mxVPONXtx40LvTElRQQNBgk-jYStVW9QHBgaWnFBpZtE2MawWefmuEcrOSoUI/exec?page=admin&branch=main">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
-    :root {
-      --gold: #d4af37;
-      --gold-light: #f3d573;
+    /* =========================================================
+       MULTI-THEME VARIABLES: ['gold', 'midnight', 'emerald', 'crimson', 'violet', 'light']
+       ========================================================= */
+    :root,
+    [data-theme="gold"] {
+      --bg-base: #050505;
+      --bg-gradient: radial-gradient(circle at 50% 20%, #1a170f 0%, #070707 65%, #030303 100%);
+      --accent: #d4af37;
+      --accent-light: #f3d573;
+      --accent-rgb: 212, 175, 55;
+      --accent-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --accent-btn-text: #050505;
       --glass: rgba(12, 12, 12, 0.88);
-      --panel-bg: rgba(18, 18, 18, 0.85);
-      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
-      --green: #22c55e;
-      --red: #ef4444;
-      --cyan: #22d3ee;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(0, 0, 0, 0.52);
+      --border-subtle: rgba(255, 255, 255, 0.13);
+      --text-main: #ffffff;
+      --text-secondary: #eaeaea;
+      --text-muted: #a3a3a3;
+      --modal-bg: #0a0a0a;
+      --emblem-bg: #050505;
+      --emblem-border: #ffffff;
+      --online-green: #22c55e;
       --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
-    *, *::before, *::after {
+    [data-theme="midnight"] {
+      --bg-base: #040814;
+      --bg-gradient: radial-gradient(circle at 50% 18%, #0f2147 0%, #060d1f 65%, #03060f 100%);
+      --accent: #38bdf8;
+      --accent-light: #93c5fd;
+      --accent-rgb: 56, 189, 248;
+      --accent-gradient: linear-gradient(135deg, #38bdf8, #0284c7);
+      --accent-btn-text: #03101f;
+      --glass: rgba(8, 15, 34, 0.88);
+      --surface: rgba(56, 189, 248, 0.06);
+      --surface-strong: rgba(3, 8, 22, 0.58);
+      --border-subtle: rgba(147, 197, 253, 0.16);
+      --text-main: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --text-muted: #94a3b8;
+      --modal-bg: #060d1f;
+      --emblem-bg: #04091a;
+      --emblem-border: #e0f2fe;
+    }
+
+    [data-theme="emerald"] {
+      --bg-base: #030d09;
+      --bg-gradient: radial-gradient(circle at 50% 18%, #0b2e21 0%, #04140e 65%, #020a07 100%);
+      --accent: #10b981;
+      --accent-light: #6ee7b7;
+      --accent-rgb: 16, 185, 129;
+      --accent-gradient: linear-gradient(135deg, #10b981, #047857);
+      --accent-btn-text: #021710;
+      --glass: rgba(6, 22, 16, 0.88);
+      --surface: rgba(16, 185, 129, 0.06);
+      --surface-strong: rgba(2, 12, 8, 0.58);
+      --border-subtle: rgba(110, 231, 183, 0.16);
+      --text-main: #f0fdf4;
+      --text-secondary: #dcfce7;
+      --text-muted: #86efac;
+      --modal-bg: #04140e;
+      --emblem-bg: #03110c;
+      --emblem-border: #d1fae5;
+    }
+
+    [data-theme="crimson"] {
+      --bg-base: #0e0406;
+      --bg-gradient: radial-gradient(circle at 50% 18%, #330b14 0%, #140508 65%, #080203 100%);
+      --accent: #f43f5e;
+      --accent-light: #fda4af;
+      --accent-rgb: 244, 63, 94;
+      --accent-gradient: linear-gradient(135deg, #f43f5e, #be123c);
+      --accent-btn-text: #ffffff;
+      --glass: rgba(22, 7, 11, 0.88);
+      --surface: rgba(244, 63, 94, 0.065);
+      --surface-strong: rgba(12, 3, 5, 0.58);
+      --border-subtle: rgba(253, 164, 175, 0.16);
+      --text-main: #fff1f2;
+      --text-secondary: #ffe4e6;
+      --text-muted: #fda4af;
+      --modal-bg: #140508;
+      --emblem-bg: #120407;
+      --emblem-border: #ffe4e6;
+    }
+
+    [data-theme="violet"] {
+      --bg-base: #090412;
+      --bg-gradient: radial-gradient(circle at 50% 18%, #261047 0%, #0f071f 65%, #06030d 100%);
+      --accent: #a855f7;
+      --accent-light: #d8b4fe;
+      --accent-rgb: 168, 85, 247;
+      --accent-gradient: linear-gradient(135deg, #a855f7, #7e22ce);
+      --accent-btn-text: #ffffff;
+      --glass: rgba(16, 8, 32, 0.88);
+      --surface: rgba(168, 85, 247, 0.065);
+      --surface-strong: rgba(9, 4, 20, 0.58);
+      --border-subtle: rgba(216, 180, 254, 0.16);
+      --text-main: #faf5ff;
+      --text-secondary: #f3e8ff;
+      --text-muted: #c084fc;
+      --modal-bg: #0f071f;
+      --emblem-bg: #0d051a;
+      --emblem-border: #f3e8ff;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f2f4f8;
+      --bg-gradient: radial-gradient(circle at 50% 15%, #ffffff 0%, #eef1f6 65%, #e2e6ee 100%);
+      --accent: #b8860b;
+      --accent-light: #8a6200;
+      --accent-rgb: 184, 134, 11;
+      --accent-gradient: linear-gradient(135deg, #e5be46, #b8860b);
+      --accent-btn-text: #050505;
+      --glass: rgba(255, 255, 255, 0.9);
+      --surface: rgba(15, 23, 42, 0.045);
+      --surface-strong: rgba(15, 23, 42, 0.06);
+      --border-subtle: rgba(15, 23, 42, 0.12);
+      --text-main: #0f172a;
+      --text-secondary: #1e293b;
+      --text-muted: #475569;
+      --modal-bg: #ffffff;
+      --emblem-bg: #0b0b0b;
+      --emblem-border: #d4af37;
+    }
+
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
 
-    html {
+    html, body {
       width: 100%;
-      min-height: 100%;
-      background: #050505;
+      height: 100%;
+      font-family: var(--brand-font);
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      overflow: hidden;
+      transition: background 0.35s ease, color 0.25s ease;
     }
 
-    body {
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      font-family: var(--brand-font);
-      background: #050505;
-      color: #fff;
-      overflow-x: hidden;
+    /* AMBIENT GLOW */
+    .bg-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.14) 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+      transition: background 0.35s ease;
+    }
+
+    /* MAIN OVERLAY */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      padding: max(14px, env(safe-area-inset-top)) 14px max(96px, calc(env(safe-area-inset-bottom) + 84px));
+      z-index: 2;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
 
-    body.modal-open {
-      overflow: hidden;
-    }
-
-    /* MUTED BACKGROUND VIDEO */
-    #bg-video {
-      position: fixed;
-      inset: 0;
+    /* GLASS CARD */
+    .card {
+      margin: auto;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.28) contrast(1.15);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .vignette {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(10, 10, 10, 0.42) 15%, rgba(0, 0, 0, 0.94) 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* =========================================================
-       ANIMATED SYSTEM WORKING / FIXING OVERLAY
-       ========================================================= */
-    #system-fixing-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.14), rgba(5, 5, 5, 0.94) 72%),
-        repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.015) 0px,
-          rgba(255, 255, 255, 0.015) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    #system-fixing-overlay.active {
-      display: flex;
-      animation: fadeOverlayIn 0.25s ease forwards;
-    }
-
-    @keyframes fadeOverlayIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .fixing-card {
-      width: 100%;
-      max-width: 470px;
-      background: rgba(14, 14, 14, 0.92);
-      border: 1.5px solid rgba(212, 175, 55, 0.55);
-      border-radius: 26px;
-      padding: 26px 22px;
-      text-align: center;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95), 0 0 32px rgba(212, 175, 55, 0.18);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .fixing-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold-light), var(--cyan), transparent);
-      animation: scanBar 2.2s linear infinite;
-    }
-
-    @keyframes scanBar {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    /* ANIMATED WORKING ICON ASSEMBLY */
-    .working-icon-stage {
-      position: relative;
-      width: 104px;
-      height: 104px;
-      margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .radar-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.45);
-      animation: pulseRing 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-    }
-
-    .radar-ring.delay {
-      border-color: rgba(34, 211, 238, 0.35);
-      animation-delay: 1s;
-    }
-
-    @keyframes pulseRing {
-      0% { transform: scale(0.75); opacity: 0.95; }
-      100% { transform: scale(1.25); opacity: 0; }
-    }
-
-    .gear-ring {
-      position: relative;
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.1);
-      border: 2px dashed var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: spinClockwise 5s linear infinite;
-      box-shadow: 0 0 22px rgba(212, 175, 55, 0.25);
-    }
-
-    @keyframes spinClockwise {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .working-emblem {
-      position: relative;
-      z-index: 2;
-      font-size: 2.15rem;
-      line-height: 1;
-      filter: drop-shadow(0 0 10px rgba(243, 213, 115, 0.7));
-      animation: workWobble 1.4s ease-in-out infinite;
-    }
-
-    @keyframes workWobble {
-      0%, 100% { transform: scale(1) rotate(-6deg); }
-      50% { transform: scale(1.1) rotate(8deg); }
-    }
-
-    .fixing-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-light);
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .fixing-title {
-      font-size: clamp(1.05rem, 3vw, 1.32rem);
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .fixing-sub {
-      font-size: 0.78rem;
-      color: #c7c7c7;
-      line-height: 1.45;
-      margin-bottom: 16px;
-    }
-
-    .overlay-countdown-box {
-      background: rgba(0, 0, 0, 0.68);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      border-radius: 18px;
-      padding: 14px 12px;
-      margin-bottom: 16px;
-    }
-
-    .overlay-countdown-label {
-      font-size: 0.64rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .countdown-digits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-
-    .time-block {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 12px;
-      padding: 8px 4px;
-    }
-
-    .time-num {
-      font-size: clamp(1.25rem, 4vw, 1.75rem);
-      font-weight: 900;
-      color: var(--gold-light);
-      line-height: 1.1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .time-unit {
-      font-size: 0.58rem;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      color: #a3a3a3;
-      text-transform: uppercase;
-      margin-top: 3px;
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 7px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 65%;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--cyan));
-      background-size: 200% 100%;
-      border-radius: 999px;
-      animation: shimmerProgress 2.2s linear infinite;
-      transition: width 0.6s ease;
-    }
-
-    @keyframes shimmerProgress {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    .fixing-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .overlay-btn {
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-family: var(--brand-font);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      background: rgba(255, 255, 255, 0.07);
-      color: #fff;
-      transition: transform 0.15s, background 0.15s, border-color 0.15s;
-    }
-
-    .overlay-btn:hover {
-      background: rgba(212, 175, 55, 0.18);
-      border-color: var(--gold);
-    }
-
-    .overlay-btn.gold {
-      background: var(--gold-gradient);
-      color: #000;
-      border: none;
-    }
-
-    /* =========================================================
-       MAIN SHELL & CARD CONTAINER
-       ========================================================= */
-    #app-shell {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding:
-        max(14px, env(safe-area-inset-top))
-        clamp(12px, 3vw, 32px)
-        max(96px, calc(env(safe-area-inset-bottom) + 84px));
-    }
-
-    .page-container {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: clamp(18px, 3vw, 32px);
+      max-width: 445px;
+      padding: 18px 18px 22px;
       background: var(--glass);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border-radius: clamp(22px, 3vw, 32px);
-      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 28px;
+      border: 1px solid rgba(var(--accent-rgb), 0.42);
       text-align: center;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
-    .page-container.lock-mode {
-      max-width: 480px;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-7px); }
-      40%, 80% { transform: translateX(7px); }
-    }
-
-    .shake {
-      animation: shake 0.3s ease-in-out;
-    }
-
-    /* TOP META BAR */
-    .top-meta {
+    /* TOP UTILITY BAR: LIVE SHOP STATUS + THEME SWITCHER */
+    .top-utility-bar {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 8px;
       margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
-    .admin-badge {
+    .live-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.48);
-      color: var(--gold-light);
-      font-size: clamp(0.6rem, 1.2vw, 0.68rem);
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      text-transform: uppercase;
-    }
-
-    .meta-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    #liveClock {
-      font-size: clamp(0.68rem, 1.3vw, 0.78rem);
-      font-weight: 700;
-      color: #bdbdbd;
-      letter-spacing: 0.8px;
-    }
-
-    .mini-action-chip {
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-light);
-      font-family: var(--brand-font);
-      font-size: 0.64rem;
-      font-weight: 800;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
+      background: var(--surface-strong);
+      border: 1px solid var(--border-subtle);
       padding: 5px 10px;
       border-radius: 999px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
     }
 
-    .mini-action-chip:hover {
-      background: rgba(212, 175, 55, 0.25);
-    }
-
-    /* COMPACT COUNTDOWN BANNER INSIDE CARD */
-    .countdown-strip {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      border-radius: 16px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      text-align: left;
-    }
-
-    .countdown-strip-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .mini-gear {
-      width: 30px;
-      height: 30px;
+    .status-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      animation: spinClockwise 4s linear infinite;
+      background: var(--online-green);
+      box-shadow: 0 0 8px var(--online-green);
       flex-shrink: 0;
     }
 
-    .countdown-strip-title {
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--gold-light);
+    .status-dot.closed {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
     }
 
-    .countdown-strip-sub {
-      font-size: 0.64rem;
-      color: #b5b5b5;
-      font-weight: 600;
-    }
-
-    .countdown-timer-readout {
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      font-weight: 900;
-      color: var(--gold-light);
-      letter-spacing: 1.5px;
-      font-variant-numeric: tabular-nums;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      padding: 6px 12px;
-      border-radius: 10px;
-    }
-
-    /* HERO HEADER */
-    .hero-header {
-      display: flex;
-      flex-direction: column;
+    .theme-switcher {
+      display: inline-flex;
       align-items: center;
-      text-align: center;
-      margin-bottom: clamp(14px, 2vw, 20px);
+      gap: 5px;
+      background: var(--surface-strong);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 7px;
+      border-radius: 999px;
     }
 
+    .theme-dot {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      padding: 0;
+    }
+
+    .theme-dot:hover {
+      transform: scale(1.18);
+    }
+
+    .theme-dot.active {
+      transform: scale(1.2);
+      border-color: var(--text-main);
+      box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.55);
+    }
+
+    .theme-dot[data-theme-id="gold"] { background: linear-gradient(135deg, #f3d573, #b8860b); }
+    .theme-dot[data-theme-id="midnight"] { background: linear-gradient(135deg, #38bdf8, #0369a1); }
+    .theme-dot[data-theme-id="emerald"] { background: linear-gradient(135deg, #34d399, #047857); }
+    .theme-dot[data-theme-id="crimson"] { background: linear-gradient(135deg, #fb7185, #be123c); }
+    .theme-dot[data-theme-id="violet"] { background: linear-gradient(135deg, #c084fc, #7e22ce); }
+    .theme-dot[data-theme-id="light"] { background: linear-gradient(135deg, #ffffff, #cbd5e1); border-color: #94a3b8; }
+
+    /* CLICKABLE HERO BRAND LOGO */
     .brand-logo-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2px auto 10px;
+      margin: 0 auto 10px;
     }
 
+    .hero-logo-btn {
+      position: relative;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .hero-logo-btn:hover { transform: scale(1.04); }
+    .hero-logo-btn:active { transform: scale(0.96); }
+
     .brand-logo {
-      width: clamp(78px, 10vw, 96px);
-      height: clamp(78px, 10vw, 96px);
+      width: 78px;
+      height: 78px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2.5px solid var(--gold);
+      border: 2px solid var(--accent);
       background: rgba(0, 0, 0, 0.75);
-      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
       display: block;
     }
 
+    .hero-logo-pill {
+      margin-top: -10px;
+      background: var(--accent-gradient);
+      color: var(--accent-btn-text);
+      font-family: var(--brand-font);
+      font-size: 0.55rem;
+      font-weight: 900;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    /* =========================================================
+       FRAMED "KING OF FADEZ PH" EMBLEM WITH FLASHING BACKLIGHT
+       ========================================================= */
     .brand-title-wrap {
       position: relative;
       display: inline-flex;
@@ -570,12 +374,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
-      background: #050505;
-      border: 2.5px solid #ffffff;
+      padding: 8px 18px;
+      background: var(--emblem-bg);
+      border: 2.5px solid var(--emblem-border);
       box-shadow:
-        0 0 20px rgba(212, 175, 55, 0.35),
-        inset 0 0 14px rgba(212, 175, 55, 0.28);
+        0 0 18px rgba(var(--accent-rgb), 0.35),
+        inset 0 0 14px rgba(var(--accent-rgb), 0.28);
       overflow: hidden;
     }
 
@@ -586,9 +390,9 @@
       pointer-events: none;
       background: radial-gradient(
         ellipse 68% 65% at 50% 50%,
-        rgba(255, 244, 190, 0.95) 0%,
-        rgba(212, 175, 55, 0.75) 36%,
-        rgba(212, 175, 55, 0.16) 68%,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(var(--accent-rgb), 0.78) 36%,
+        rgba(var(--accent-rgb), 0.18) 68%,
         transparent 85%
       );
       animation: backWordFlash 1.7s ease-in-out infinite;
@@ -605,9 +409,9 @@
       background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255, 236, 150, 0.45) 45%,
+        rgba(var(--accent-rgb), 0.45) 45%,
         rgba(255, 255, 255, 0.85) 50%,
-        rgba(255, 236, 150, 0.45) 55%,
+        rgba(var(--accent-rgb), 0.45) 55%,
         transparent 100%
       );
       transform: skewX(-22deg);
@@ -626,8 +430,8 @@
       background: radial-gradient(
         ellipse at center,
         #ffffff 0%,
-        #ffe082 32%,
-        rgba(212, 175, 55, 0.55) 58%,
+        rgba(var(--accent-rgb), 0.9) 35%,
+        rgba(var(--accent-rgb), 0.45) 60%,
         transparent 80%
       );
       filter: blur(0.6px);
@@ -642,15 +446,15 @@
       z-index: 2;
       font-family: var(--brand-font);
       font-weight: 900;
-      font-size: clamp(1.08rem, 3.5vw, 1.68rem);
-      letter-spacing: clamp(1.5px, 0.35vw, 3px);
+      font-size: clamp(1.06rem, 4.3vw, 1.3rem);
+      letter-spacing: 1.8px;
       color: #ffffff;
       text-transform: uppercase;
       line-height: 1.1;
       white-space: nowrap;
       text-shadow:
         0 1px 3px rgba(0, 0, 0, 0.95),
-        0 0 10px rgba(255, 224, 130, 0.55);
+        0 0 10px rgba(var(--accent-rgb), 0.65);
     }
 
     @keyframes backWordFlash {
@@ -673,7 +477,7 @@
     }
 
     .tagline {
-      margin-top: 2px;
+      margin-bottom: 14px;
       text-align: center;
     }
 
@@ -681,546 +485,385 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       font-family: var(--brand-font);
-      font-size: clamp(0.64rem, 1.4vw, 0.76rem);
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #f0f0f0;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.65);
-      padding-bottom: 2px;
-    }
-
-    .sub-tagline {
-      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-top: 6px;
-    }
-
-    /* =========================================================
-       1. PIN LOCK SCREEN
-       ========================================================= */
-    #lock-screen {
-      display: block;
-      padding-top: 10px;
-      border-top: 1px solid rgba(212, 175, 55, 0.18);
-    }
-
-    .pin-prompt-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #ccc;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-
-    .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.55);
-      background: transparent;
-      transition: all 0.12s ease;
-    }
-
-    .pin-dot.filled {
-      background: var(--gold);
-      border-color: var(--gold);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
-    }
-
-    .pin-dot.error {
-      border-color: var(--red);
-      background: var(--red);
-    }
-
-    #pin-error {
-      color: var(--red);
       font-size: 0.74rem;
-      font-weight: 700;
-      min-height: 18px;
-      margin-bottom: 10px;
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-
-    #pin-error.visible {
-      opacity: 1;
-    }
-
-    .keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-width: 290px;
-      margin: 0 auto 6px;
-    }
-
-    .key-btn {
-      height: 52px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      font-family: var(--brand-font);
-      font-size: 1.25rem;
       font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.1s, transform 0.1s;
+      letter-spacing: 1.4px;
+      color: var(--accent-light);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(var(--accent-rgb), 0.65);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
-    .key-btn:hover {
-      border-color: rgba(212, 175, 55, 0.45);
-      background: rgba(212, 175, 55, 0.12);
+    .tagline-link:hover {
+      color: var(--text-main);
+      border-bottom-color: var(--text-main);
+      transform: translateY(-1px);
     }
 
-    .key-btn:active {
-      transform: scale(0.94);
-      background: rgba(212, 175, 55, 0.28);
-    }
-
-    .key-btn.action-key {
-      font-size: 0.82rem;
-      color: #bdbdbd;
-    }
-
-    /* =========================================================
-       2. MULTI-BRANCH ADMIN DASHBOARD
-       ========================================================= */
-    #admin-panel {
-      display: none;
-      text-align: left;
-      padding-top: clamp(12px, 2vw, 18px);
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
+    /* BRANCH SELECTOR WITH LOGO + RECEPTIONIST BADGE */
     .selector-label {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 6px;
-      font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+      font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--gold);
+      letter-spacing: 1.1px;
+      color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .selector-hint {
-      font-size: clamp(0.62rem, 1.25vw, 0.72rem);
+      font-size: 0.56rem;
       font-weight: 600;
-      color: #bdbdbd;
+      color: var(--text-muted);
       letter-spacing: 0.3px;
       text-transform: none;
     }
 
     .branch-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(8px, 1.5vw, 14px);
-      margin-bottom: clamp(14px, 2.2vw, 22px);
-    }
-
-    @media (min-width: 900px) {
-      .branch-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .branch-tab {
-      background: rgba(255, 255, 255, 0.045);
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      padding: clamp(10px, 1.5vw, 14px);
-      color: #fff;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 9px 10px;
+      color: var(--text-main);
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 9px;
       min-width: 0;
     }
 
     .branch-tab:hover {
-      border-color: rgba(212, 175, 55, 0.65);
-      background: rgba(212, 175, 55, 0.1);
-      transform: translateY(-2px);
+      border-color: rgba(var(--accent-rgb), 0.65);
+      background: rgba(var(--accent-rgb), 0.1);
+      transform: translateY(-1px);
     }
 
+    .branch-tab:active { transform: scale(0.98); }
+
     .branch-tab.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
-      border-color: var(--gold);
-      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.24), rgba(var(--accent-rgb), 0.08));
+      border-color: var(--accent);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.25);
     }
 
     .branch-avatar-pair {
       position: relative;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
     }
 
     .branch-tab-logo {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      border: 1.5px solid rgba(var(--accent-rgb), 0.7);
       background: #000;
       display: block;
+    }
+
+    .branch-tab.active .branch-tab-logo {
+      border-color: var(--accent-light);
+      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
     }
 
     .branch-tab-recept {
       position: absolute;
       right: -2px;
       bottom: -2px;
-      width: 23px;
-      height: 23px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      border: 1.5px solid #111;
-      box-shadow: 0 0 0 1px var(--gold);
+      border: 1.5px solid var(--bg-base);
+      box-shadow: 0 0 0 1px var(--accent);
       background: #1a1a1a;
     }
 
     .branch-tab-info {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       min-width: 0;
       flex: 1;
     }
 
     .branch-tab-num {
-      font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+      font-size: 0.57rem;
       font-weight: 900;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
     }
 
     .branch-tab-name {
-      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-size: 0.69rem;
       font-weight: 700;
-      color: #f8f8f8;
-      line-height: 1.25;
+      color: var(--text-main);
+      line-height: 1.22;
+      white-space: normal;
       word-break: break-word;
     }
 
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(14px, 2vw, 22px);
-      align-items: stretch;
-    }
-
-    @media (min-width: 840px) {
-      .workspace-grid {
-        grid-template-columns: 1.05fr 1.15fr;
-      }
-    }
-
-    .workspace-col {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(12px, 1.6vw, 16px);
-    }
-
-    .status-bar {
+    /* CLICKABLE & WELCOMING RECEPTIONIST PROFILE CARD */
+    .receptionist-card {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.58);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      padding: 12px 15px;
-      border-radius: 16px;
-      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      gap: 12px;
+      padding: 12px 13px;
+      margin-bottom: 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), var(--surface-strong));
+      border: 1.5px solid rgba(var(--accent-rgb), 0.62);
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+    .receptionist-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-light);
+      box-shadow: 0 14px 30px rgba(var(--accent-rgb), 0.24);
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 9px var(--green);
+    .receptionist-card:active { transform: scale(0.985); }
+
+    .recept-photo-wrap {
+      position: relative;
+      width: 66px;
+      height: 66px;
       flex-shrink: 0;
     }
 
-    .dot.closed {
-      background: var(--red);
-      box-shadow: 0 0 9px var(--red);
+    .recept-photo {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid var(--accent-light);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.45);
+      background: #141414;
+      display: block;
     }
 
-    .toggle-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #fff;
-      font-family: var(--brand-font);
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 9px;
-      cursor: pointer;
+    .recept-online-dot {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--online-green);
+      border: 2px solid var(--bg-base);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
+      animation: pulseGreen 2s infinite;
     }
 
-    .control-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      flex: 1;
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
     }
 
-    .ctrl-btn {
-      padding: clamp(13px, 1.8vw, 16px) 10px;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.58);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      color: #fff;
-      font-family: var(--brand-font);
-      font-size: clamp(0.75rem, 1.35vw, 0.84rem);
-      font-weight: 800;
-      cursor: pointer;
+    .recept-content { flex: 1; min-width: 0; }
+
+    .recept-badge-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: transform 0.15s, border-color 0.15s, background 0.15s;
-      text-decoration: none;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
     }
 
-    .ctrl-btn:hover {
-      border-color: var(--gold);
-      background: rgba(212, 175, 55, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .ctrl-btn.payslip-card {
-      grid-column: span 2;
-      flex-direction: row;
-      justify-content: center;
-      gap: 12px;
-      padding: clamp(14px, 1.8vw, 16px) 16px;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(18, 18, 18, 0.88));
-      border-color: rgba(212, 175, 55, 0.52);
-    }
-
-    .ctrl-btn.payslip-card .payslip-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-      gap: 2px;
-    }
-
-    .ctrl-btn.payslip-card .payslip-badge {
-      margin-left: auto;
-      font-size: 0.6rem;
+    .recept-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.56rem;
       font-weight: 900;
-      letter-spacing: 0.9px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
-      color: #000;
-      background: var(--gold-gradient);
-      padding: 4px 9px;
+      color: var(--accent-btn-text);
+      background: var(--accent-gradient);
+      padding: 2px 8px;
       border-radius: 999px;
     }
 
-    .ctrl-btn span.icon { font-size: 1.45rem; }
-    .ctrl-btn span.sub-label { font-size: 0.64rem; color: #a3a3a3; font-weight: 600; }
+    .recept-name-tag {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      letter-spacing: 0.4px;
+    }
 
-    .primary-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      width: 100%;
-      padding: clamp(15px, 2vw, 18px);
-      border-radius: 16px;
-      background: var(--gold-gradient);
-      color: #000;
-      font-family: var(--brand-font);
-      font-size: clamp(0.82rem, 1.5vw, 0.94rem);
+    .recept-greeting {
+      font-size: 0.81rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+
+    .recept-msg {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      line-height: 1.38;
+      font-weight: 500;
+    }
+
+    .recept-arrow {
+      font-size: 1.25rem;
       font-weight: 900;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.38);
-      text-decoration: none;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-left: 2px;
     }
 
-    .btn-mini-logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid #000;
-      background: #000;
-    }
-
-    .secondary-actions {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .sub-btn {
-      padding: 11px 8px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e5e5e5;
-      font-family: var(--brand-font);
-      font-size: clamp(0.68rem, 1.3vw, 0.76rem);
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-    }
-
+    /* ACTIVE BRANCH DETAILS */
     .branch-panel {
-      background: var(--panel-bg);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      border-radius: 20px;
-      padding: clamp(14px, 2.2vw, 20px);
+      background: var(--surface-strong);
+      border: 1px solid rgba(var(--accent-rgb), 0.28);
+      border-radius: 16px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
       text-align: left;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
+      transition: opacity 0.18s ease;
     }
 
     .branch-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 8px;
+      padding-bottom: 7px;
+      margin-bottom: 7px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .branch-header-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      min-width: 0;
     }
-
-    .panel-avatars { display: flex; align-items: center; }
 
     .panel-mini-logo {
-      width: 38px;
-      height: 38px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid var(--gold);
-      background: #000;
-    }
-
-    .panel-mini-recept {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: top center;
-      border: 1.5px solid var(--gold-light);
-      margin-left: -10px;
-      background: #141414;
+      border: 1px solid var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
     .branch-title {
-      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-size: 0.78rem;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--accent-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .branch-badge {
-      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-size: 0.54rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(212, 175, 55, 0.18);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold);
+      background: rgba(var(--accent-rgb), 0.16);
+      border: 1px solid rgba(var(--accent-rgb), 0.42);
+      color: var(--accent);
+      flex-shrink: 0;
     }
 
-    .detail-list { display: flex; flex-direction: column; gap: 10px; }
-
     .detail-row {
-      font-size: clamp(0.78rem, 1.45vw, 0.9rem);
-      line-height: 1.48;
-      color: #f3f3f3;
-      background: rgba(0, 0, 0, 0.38);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 0.74rem;
+      line-height: 1.42;
+      margin-bottom: 7px;
+      color: var(--text-secondary);
+    }
+
+    .detail-row:last-child { margin-bottom: 0; }
+
+    .detail-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 2px;
     }
 
     .detail-row strong {
       display: block;
-      color: var(--gold);
-      font-size: clamp(0.6rem, 1.15vw, 0.68rem);
+      color: var(--accent);
+      font-size: 0.58rem;
       letter-spacing: 1.3px;
       text-transform: uppercase;
-      margin-bottom: 3px;
     }
 
-    .detail-contact-items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+    .copy-mini-btn {
+      background: rgba(var(--accent-rgb), 0.14);
+      border: 1px solid rgba(var(--accent-rgb), 0.35);
+      color: var(--accent-light);
+      font-family: var(--brand-font);
+      font-size: 0.56rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .copy-mini-btn:hover {
+      background: rgba(var(--accent-rgb), 0.25);
+    }
 
     .detail-link {
-      color: #ffffff;
-      font-weight: 600;
+      color: var(--text-main);
       text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      border-bottom: 1px dashed rgba(var(--accent-rgb), 0.55);
     }
 
+    .detail-link:hover { color: var(--accent-light); }
+
+    /* QUICK ACTION & SOCIAL LINKS */
     .socials {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 6px;
+      margin: 10px 0 12px;
     }
 
     .link-btn {
-      padding: 10px 10px;
+      padding: 10px 8px;
       border-radius: 12px;
-      background: rgba(0, 0, 0, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
+      background: var(--surface-strong);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
       font-family: var(--brand-font);
-      font-size: clamp(0.74rem, 1.35vw, 0.82rem);
+      font-size: 0.72rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -1228,35 +871,101 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+
+    .link-btn:hover {
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .book-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--accent-gradient);
+      color: var(--accent-btn-text);
+      font-family: var(--brand-font);
+      font-size: 0.79rem;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 6px 22px rgba(var(--accent-rgb), 0.42);
+      transition: transform 0.2s;
+    }
+
+    .book-btn:active { transform: scale(0.98); }
+
+    .book-btn-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--accent-btn-text);
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    /* TOAST NOTIFICATION */
+    #kof-toast {
+      position: fixed;
+      top: max(18px, env(safe-area-inset-top));
+      left: 50%;
+      transform: translateX(-50%) translateY(-140%);
+      background: var(--modal-bg);
+      color: var(--accent-light);
+      border: 1px solid var(--accent);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      z-index: 10020;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #kof-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
 
     /* =========================================================
-       ASSISTIVETOUCH FLOATING MENU
+       iOS ASSISTIVETOUCH FLOATING MENU (ALWAYS VISIBLE ON TOP)
        ========================================================= */
     #assistive-bubble {
       position: fixed;
-      bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px));
-      right: 18px;
-      width: 56px;
-      height: 56px;
-      background: rgba(14, 14, 14, 0.9);
+      bottom: 90px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      background: var(--glass);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 2px solid var(--gold);
+      border: 2px solid var(--accent);
       border-radius: 50%;
       z-index: 10005;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55), 0 0 15px rgba(var(--accent-rgb), 0.35);
       user-select: none;
       touch-action: none;
+      transition: transform 0.15s ease;
     }
 
     #assistive-bubble img {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -1265,104 +974,229 @@
 
     #assistive-menu {
       position: fixed;
-      width: min(260px, calc(100vw - 24px));
-      background: rgba(12, 12, 12, 0.96);
+      width: 280px;
+      background: var(--glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 175, 55, 0.55);
+      border: 1px solid rgba(var(--accent-rgb), 0.55);
       border-radius: 20px;
       padding: 10px;
       z-index: 10006;
       display: none;
       flex-direction: column;
       gap: 6px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.92);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.2, 1, 0.3, 1);
     }
 
-    #assistive-menu.active { display: flex; }
+    #assistive-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
 
-    .assistive-branch-tag {
-      font-size: 0.6rem;
+    .assistive-section-title {
+      font-size: 0.58rem;
       font-weight: 800;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.3px;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       padding: 2px 6px;
     }
 
     .assistive-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 11px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 9px;
+      padding: 8px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      color: #fff;
-      font-family: var(--brand-font);
-      font-size: 0.75rem;
+      color: var(--text-main);
+      font-size: 0.71rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
     }
 
     .assistive-item:hover {
-      background: rgba(212, 175, 55, 0.16);
-      border-color: var(--gold);
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: var(--accent);
     }
 
-    /* FULL-SCREEN OVERLAY WEBSITE MODAL */
-    #webSheet {
+    .assistive-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .assistive-branch-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--accent);
+    }
+
+    .assistive-recept-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid var(--accent-light);
+      margin-left: -7px;
+      background: #111;
+    }
+
+    /* SERVICES & RATES MODAL */
+    #servicesModal {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      background: #080808;
-      z-index: 9990;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 10008;
       display: none;
-      flex-direction: column;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
     }
 
-    #webSheet.active { display: flex; }
+    #servicesModal.active { display: flex; }
 
-    .websheet-header {
-      min-height: 58px;
+    .services-sheet {
+      width: 100%;
+      max-width: 420px;
+      background: var(--modal-bg);
+      color: var(--text-main);
+      border: 1px solid rgba(var(--accent-rgb), 0.55);
+      border-radius: 24px;
+      padding: 20px 18px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .services-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 8px 14px;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-      background: #0a0a0a;
-      font-weight: 800;
-      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
-    .websheet-actions { display: flex; align-items: center; gap: 8px; }
-
-    .websheet-ext-btn {
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-light);
-      padding: 7px 11px;
-      border-radius: 10px;
-      font-family: var(--brand-font);
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-decoration: none;
+    .services-header h3 {
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: var(--accent-light);
       text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .services-close {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+
+    .service-item strong {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+
+    .service-item span {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .service-tag {
+      font-size: 0.68rem;
+      font-weight: 900;
+      color: var(--accent-btn-text);
+      background: var(--accent-gradient);
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    #webSheet {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--modal-bg);
+      z-index: 9995;
+      display: none;
+      flex-direction: column;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    }
+
+    #webSheet.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .websheet-header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(var(--accent-rgb), 0.35);
+      background: var(--modal-bg);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .websheet-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .websheet-icon-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      color: var(--gold);
+      background: var(--surface);
+      border: 1px solid rgba(var(--accent-rgb), 0.35);
+      color: var(--accent);
       width: 36px;
       height: 36px;
       border-radius: 10px;
@@ -1372,41 +1206,64 @@
       place-items: center;
     }
 
-    .websheet-scroll-container { position: relative; flex: 1; width: 100%; overflow: hidden; background: #fff; }
+    .websheet-scroll-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 60px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #fff;
+    }
 
-    #webSheetLoader {
+    .iframe-loader {
       position: absolute;
       inset: 0;
-      background: #0a0a0a;
-      color: var(--gold);
+      background: var(--modal-bg);
+      color: var(--accent);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
+      text-align: center;
+      padding: 20px;
       z-index: 2;
+      transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
-    #webSheetLoader.hidden { opacity: 0; }
+    .iframe-loader.hidden { opacity: 0; }
+    .spinner { width: 30px; height: 30px; border: 3px solid rgba(var(--accent-rgb), 0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #bookingLoaderRecept {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.45);
+    }
+
     #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
 
-    /* INSTALL APP PROMPT */
+    /* FLOATING APP DOWNLOAD SUGGESTION */
     #install-float {
       position: fixed;
-      bottom: max(14px, env(safe-area-inset-bottom));
+      bottom: max(16px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(150%);
-      width: calc(100% - 28px);
-      max-width: 430px;
-      background: rgba(14, 14, 14, 0.94);
+      width: calc(100% - 32px);
+      max-width: 400px;
+      background: var(--glass);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(212, 175, 55, 0.6);
+      border: 1px solid rgba(var(--accent-rgb), 0.6);
       border-radius: 20px;
       padding: 11px 14px;
       display: flex;
@@ -1414,7 +1271,7 @@
       justify-content: space-between;
       gap: 10px;
       z-index: 9985;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55);
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       pointer-events: none;
@@ -1426,776 +1283,1237 @@
       pointer-events: auto;
     }
 
-    .install-info { display: flex; align-items: center; gap: 10px; text-align: left; }
-    .install-info img { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--gold); }
-    .install-title { font-size: 0.78rem; font-weight: 800; color: var(--gold-light); }
-    .install-sub { font-size: 0.65rem; color: #bdbdbd; }
-    .install-actions { display: flex; align-items: center; gap: 6px; }
-    .install-btn {
-      background: var(--gold-gradient);
-      color: #000;
+    .install-info { display: flex; align-items: center; gap: 10px; text-align: left; flex: 1; min-width: 0; }
+    .install-icon { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--accent); object-fit: cover; flex-shrink: 0; }
+    .install-text strong { display: block; font-size: 0.8rem; color: var(--accent-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .install-text span { display: block; font-size: 0.66rem; color: var(--text-muted); margin-top: 2px; }
+    .install-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+    #install-btn {
+      background: var(--accent-gradient);
+      color: var(--accent-btn-text);
       border: none;
-      border-radius: 10px;
-      padding: 7px 12px;
+      padding: 9px 14px;
+      border-radius: 12px;
       font-family: var(--brand-font);
       font-size: 0.7rem;
       font-weight: 900;
+      text-transform: uppercase;
       cursor: pointer;
     }
-    .install-close {
-      background: transparent;
+
+    #dismiss-install {
+      background: var(--surface);
       border: none;
-      color: #aaa;
-      font-size: 1rem;
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 0.85rem;
       cursor: pointer;
-      padding: 4px 6px;
+      display: grid;
+      place-items: center;
+    }
+
+    /* DEVICE INSTALL GUIDE MODAL */
+    #device-guide {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10010;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #device-guide.active { display: flex; }
+
+    .guide-sheet {
+      width: 100%;
+      max-width: 380px;
+      background: var(--modal-bg);
+      border: 1px solid rgba(var(--accent-rgb), 0.55);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .guide-badge {
+      display: inline-block;
+      background: rgba(var(--accent-rgb), 0.16);
+      border: 1px solid rgba(var(--accent-rgb), 0.4);
+      color: var(--accent);
+      font-size: 0.63rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .guide-sheet h3 { color: var(--text-main); font-size: 0.98rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 14px; }
+
+    .guide-steps {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: left;
+      font-size: 0.77rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .guide-steps b { color: var(--accent); }
+    .guide-btns { display: flex; gap: 8px; }
+
+    .guide-btn-secondary {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(var(--accent-rgb), 0.5);
+      background: transparent;
+      color: var(--accent);
+      font-family: var(--brand-font);
+      font-weight: 800;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #close-guide {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: var(--accent-gradient);
+      color: var(--accent-btn-text);
+      font-family: var(--brand-font);
+      font-weight: 900;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* BOOKING MODAL */
+    #booking {
+      position: fixed;
+      inset: 0;
+      background: var(--modal-bg);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    }
+
+    #booking.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .booking-header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 14px;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(var(--accent-rgb), 0.35);
+      background: var(--modal-bg);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .booking-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .booking-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #bookingHeaderLogo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--accent);
+    }
+
+    #bookingHeaderRecept {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid var(--accent-light);
+      margin-left: -8px;
+      background: #141414;
+    }
+
+    #bookingBranchSelect {
+      background: var(--surface-strong);
+      color: var(--accent-light);
+      border: 1px solid rgba(var(--accent-rgb), 0.5);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-family: var(--brand-font);
+      font-size: 0.71rem;
+      font-weight: 700;
+      max-width: 235px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #closeBooking {
+      background: var(--surface);
+      border: none;
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .booking-frame-wrap {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 60px);
+      background: #fff;
+    }
+
+    #booking iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="b4.jfif">
-    <source src="b2.mp4" type="video/mp4">
-  </video>
-  <div class="vignette"></div>
+  <!-- AMBIENT GLOW -->
+  <div class="bg-glow"></div>
 
-  <!-- ANIMATED WORKING / FIXING SYSTEM OVERLAY (COUNTDOWN TO 6:00 AM) -->
-  <div id="system-fixing-overlay" class="active" role="dialog" aria-modal="true" aria-labelledby="fixingTitle">
-    <div class="fixing-card">
-      <div class="working-icon-stage" aria-hidden="true">
-        <div class="radar-ring"></div>
-        <div class="radar-ring delay"></div>
-        <div class="gear-ring"></div>
-        <div class="working-emblem">🛠️</div>
+  <!-- TOAST FEEDBACK -->
+  <div id="kof-toast" role="status" aria-live="polite"></div>
+
+  <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
+  <img src="b4.jfif" alt="" id="logo-source" style="display:none;">
+
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE -->
+  <div id="assistive-bubble" title="Quick Branch & Theme Menu">
+    <img src="Gel.gif" alt="Receptionist Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
+  </div>
+
+  <!-- ASSISTIVETOUCH POPUP MENU -->
+  <div id="assistive-menu">
+    <div class="assistive-section-title">Quick Book Branch</div>
+    <a href="#" class="assistive-item" data-quick-branch="branch1">
+      <div class="assistive-avatars">
+        <img src="b1.jfif" alt="Branch 1" class="assistive-branch-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <img src="ja.gif" alt="Ja - Branch 1 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b1.jfif';">
       </div>
-
-      <div class="fixing-pill">
-        <span>⚙️</span>
-        <span>System Working &amp; Fixing Program</span>
+      <span>Branch #1 • S&amp;D DASMA BAYAN (Ja)</span>
+    </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch2">
+      <div class="assistive-avatars">
+        <img src="b2.jfif" alt="Branch 2" class="assistive-branch-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <img src="Gel.gif" alt="Gel - Branch 2 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b2.jfif';">
       </div>
+      <span>Branch #2 • KOF-DASMARIÑAS, Cavite (Gel)</span>
+    </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch3">
+      <div class="assistive-avatars">
+        <img src="b3.jfif" alt="Branch 3" class="assistive-branch-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <img src="Jes.gif" alt="Jes - Branch 3 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b3.jfif';">
+      </div>
+      <span>Branch #3 • KOF MOLINO 3, BACOOR (Jes)</span>
+    </a>
+    <a href="#" class="assistive-item" data-quick-branch="branch4">
+      <div class="assistive-avatars">
+        <img src="b4.jfif" alt="Branch 4" class="assistive-branch-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <img src="SuKi.gif" alt="SuKi - Branch 4 Receptionist" class="assistive-recept-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+      </div>
+      <span>Branch #4 • IMUS CAVITE (SuKi)</span>
+    </a>
+    <div class="assistive-section-title" style="margin-top: 2px;">Quick Tools</div>
+    <a href="#" class="assistive-item" id="menuServices">
+      <span>💈</span><span>Services &amp; Grooming Menu</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuCycleTheme">
+      <span>🎨</span><span id="menuThemeLabel">Switch Theme (Gold)</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuDetails">
+      <span>📜</span><span>Official Shop Details</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuShareApp">
+      <span>📤</span><span>Share Booking Link</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuInstallApp">
+      <span>📥</span><span>Download App</span>
+    </a>
+  </div>
 
-      <h2 class="fixing-title" id="fixingTitle">System Under Active Repair</h2>
-      <p class="fixing-sub" id="fixingTaskDesc">
-        Optimizing branch modules, POS sync, and database routines until <strong>6:00 AM</strong>.
-      </p>
+  <!-- MAIN CARD -->
+  <div id="overlay">
+    <div class="card">
+      <!-- TOP UTILITY BAR: LIVE SHOP HOURS + 6-THEME SWITCHER -->
+      <div class="top-utility-bar">
+        <div class="live-status-pill" id="liveStatusPill">
+          <span class="status-dot" id="liveStatusDot"></span>
+          <span id="liveStatusText">OPEN • 9AM–9PM</span>
+        </div>
 
-      <div class="overlay-countdown-box">
-        <div class="overlay-countdown-label">Countdown Until 6:00 AM</div>
-        <div class="countdown-digits">
-          <div class="time-block">
-            <div class="time-num" id="cdHours">00</div>
-            <div class="time-unit">Hours</div>
-          </div>
-          <div class="time-block">
-            <div class="time-num" id="cdMinutes">00</div>
-            <div class="time-unit">Minutes</div>
-          </div>
-          <div class="time-block">
-            <div class="time-num" id="cdSeconds">00</div>
-            <div class="time-unit">Seconds</div>
-          </div>
+        <div class="theme-switcher" role="group" aria-label="Choose App Theme">
+          <button type="button" class="theme-dot active" data-theme-id="gold" title="Royal Gold Theme"></button>
+          <button type="button" class="theme-dot" data-theme-id="midnight" title="Midnight Blue Theme"></button>
+          <button type="button" class="theme-dot" data-theme-id="emerald" title="Emerald Theme"></button>
+          <button type="button" class="theme-dot" data-theme-id="crimson" title="Crimson Theme"></button>
+          <button type="button" class="theme-dot" data-theme-id="violet" title="Violet Theme"></button>
+          <button type="button" class="theme-dot" data-theme-id="light" title="Clean Light Theme"></button>
         </div>
       </div>
 
-      <div class="progress-track" aria-hidden="true">
-        <div class="progress-fill" id="fixProgressFill"></div>
+      <!-- CLICKABLE ACTIVE BRAND LOGO -->
+      <div class="brand-logo-wrap">
+        <button type="button" class="hero-logo-btn" id="heroBrandBtn" title="Tap Logo to Book Selected Branch">
+          <img src="b2.jfif" alt="Selected Brand Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+          <span class="hero-logo-pill">Tap Logo to Book</span>
+        </button>
       </div>
 
-      <div class="fixing-actions">
-        <button type="button" class="overlay-btn gold" onclick="toggleFixingOverlay(false)">
-          View Console / PIN
+      <!-- CRISP WHITE FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+      <div class="brand-title-wrap">
+        <span class="border-flare-top" aria-hidden="true"></span>
+        <div class="brand-title-box">
+          <span class="title-back-flash" aria-hidden="true"></span>
+          <span class="title-flash-sweep" aria-hidden="true"></span>
+          <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+        </div>
+        <span class="border-flare-bottom" aria-hidden="true"></span>
+      </div>
+
+      <!-- CLICKABLE WEBSITE TAGLINE -->
+      <div class="tagline">
+        <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">Kingoffadezph.com ↗</a>
+      </div>
+
+      <div class="selector-label">
+        <span>1. Choose Branch Brand</span>
+        <span class="selector-hint">Tap logo or receptionist</span>
+      </div>
+
+      <!-- 4 CLICKABLE BRANCH BRAND CARDS WITH INDIVIDUAL LOGOS & ANIMATED RECEPTIONISTS -->
+      <div class="branch-grid" id="branchGrid">
+        <button type="button" class="branch-tab" data-branch="branch1" title="Select or Book Branch #1">
+          <div class="branch-avatar-pair">
+            <img src="b1.jfif" alt="Branch #1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+            <img src="ja.gif" alt="Ja - Branch #1 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b1.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch #1 • Ja</span>
+            <span class="branch-tab-name">S&amp;D DASMA BAYAN</span>
+          </div>
         </button>
-        <button type="button" class="overlay-btn" onclick="cycleFixTask()">
-          Next Fix Routine
+
+        <button type="button" class="branch-tab active" data-branch="branch2" title="Select or Book Branch #2">
+          <div class="branch-avatar-pair">
+            <img src="b2.jfif" alt="Branch #2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+            <img src="Gel.gif" alt="Gel - Branch #2 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b2.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch #2 • Gel</span>
+            <span class="branch-tab-name">KOF-DASMARIÑAS, Cavite</span>
+          </div>
+        </button>
+
+        <button type="button" class="branch-tab" data-branch="branch3" title="Select or Book Branch #3">
+          <div class="branch-avatar-pair">
+            <img src="b3.jfif" alt="Branch #3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+            <img src="Jes.gif" alt="Jes - Branch #3 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b3.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch #3 • Jes</span>
+            <span class="branch-tab-name">KOF MOLINO 3, BACOOR</span>
+          </div>
+        </button>
+
+        <button type="button" class="branch-tab" data-branch="branch4" title="Select or Book Branch #4">
+          <div class="branch-avatar-pair">
+            <img src="b4.jfif" alt="Branch #4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+            <img src="SuKi.gif" alt="SuKi - Branch #4 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b4.jfif';">
+          </div>
+          <div class="branch-tab-info">
+            <span class="branch-tab-num">Branch #4 • SuKi</span>
+            <span class="branch-tab-name">IMUS CAVITE</span>
+          </div>
         </button>
       </div>
+
+      <!-- CLICKABLE & WELCOMING ANIMATED RECEPTIONIST PROFILE CARD -->
+      <button type="button" class="receptionist-card" id="receptionistCard" title="Tap to Book with Branch Receptionist">
+        <div class="recept-photo-wrap">
+          <img src="Gel.gif" alt="Gel - Front Desk Receptionist" class="recept-photo" id="receptionistPhoto">
+          <span class="recept-online-dot" title="Online & Ready to Assist"></span>
+        </div>
+        <div class="recept-content">
+          <div class="recept-badge-row">
+            <span class="recept-pill" id="receptionistRolePill">👑 Front Desk • Gel</span>
+            <span class="recept-name-tag">Tap to Book</span>
+          </div>
+          <div class="recept-greeting" id="receptionistGreeting">Hi! I'm Gel — Welcome to KOF-DASMARIÑAS, Cavite!</div>
+          <div class="recept-msg" id="receptionistSubtext">Tap here to book your slot at KOF-DASMARIÑAS, Cavite (Congressional Ave) — Kingoffadezph.com.</div>
+        </div>
+        <span class="recept-arrow">›</span>
+      </button>
+
+      <!-- DYNAMIC BRANCH INFO PANEL -->
+      <div class="branch-panel" id="branchPanel">
+        <div class="branch-header-row">
+          <div class="branch-header-brand">
+            <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" title="Tap to Book" onerror="this.onerror=null;this.src='b4.jfif';">
+            <span class="branch-title" id="branchTitle">Branch #2 | KOF-DASMARIÑAS, Cavite</span>
+          </div>
+          <span class="branch-badge" id="branchBadge">Main Branch</span>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-row-top">
+            <strong>📍 Location</strong>
+            <button type="button" class="copy-mini-btn" id="copyAddressBtn">📋 Copy Address</button>
+          </div>
+          <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines</span>
+        </div>
+
+        <div class="detail-row">
+          <strong>📞 Contact &amp; Email</strong>
+          <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
+          <span id="branchEmailWrap"> • <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a></span>
+        </div>
+      </div>
+
+      <!-- DYNAMIC BRANCH SOCIALS, MAP LINKS, SERVICES & SHARE -->
+      <div class="socials" id="branchSocials"></div>
+
+      <!-- PRIMARY BOOKING CTA -->
+      <a href="#" class="book-btn" id="openBooking">
+        <img src="b2.jfif" alt="" class="book-btn-logo" id="bookBtnLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <span id="openBookingText">Book Branch #2 • KOF-DASMARIÑAS, Cavite</span>
+      </a>
     </div>
   </div>
 
-  <!-- MAIN APPLICATION SHELL -->
-  <div id="app-shell">
-    <div id="mainCard" class="page-container lock-mode">
-      <div class="top-meta">
-        <span class="admin-badge">👑 Multi-Branch Admin Control</span>
-        <div class="meta-right">
-          <span id="liveClock">Loading clock...</span>
-          <button type="button" class="mini-action-chip" onclick="toggleFixingOverlay(true)">
-            <span>🛠️</span>
-            <span>Fixing Overlay</span>
-          </button>
-        </div>
+  <!-- GROOMING SERVICES & RATES MODAL -->
+  <div id="servicesModal" role="dialog" aria-label="Services and Grooming Menu">
+    <div class="services-sheet">
+      <div class="services-header">
+        <h3>💈 Signature Services</h3>
+        <button type="button" class="services-close" id="closeServicesBtn" aria-label="Close Services">✕</button>
       </div>
-
-      <!-- COMPACT 6:00 AM COUNTDOWN BAR -->
-      <div class="countdown-strip">
-        <div class="countdown-strip-left">
-          <div class="mini-gear" aria-hidden="true">⚙️</div>
+      <div class="service-list">
+        <div class="service-item">
           <div>
-            <div class="countdown-strip-title">System Working &amp; Fixing Window</div>
-            <div class="countdown-strip-sub">Target completion: 6:00 AM</div>
+            <strong>Signature Fade / Precision Cut</strong>
+            <span>45 mins • Consultation, wash, razor lineup &amp; styling</span>
           </div>
+          <button type="button" class="service-tag book-service-btn">Book Cut</button>
         </div>
-        <div class="countdown-timer-readout" id="stripCountdown">--:--:--</div>
-      </div>
-
-      <div class="hero-header">
-        <div class="brand-logo-wrap">
-          <img src="b4.jfif" alt="King of Fadez PH Logo" class="brand-logo">
-        </div>
-
-        <div class="brand-title-wrap">
-          <div class="brand-title-box">
-            <div class="title-back-flash"></div>
-            <div class="title-flash-sweep"></div>
-            <div class="border-flare-top"></div>
-            <div class="border-flare-bottom"></div>
-            <span class="brand-title-text">KING OF FADEZ PH</span>
+        <div class="service-item">
+          <div>
+            <strong>King's Cut + Beard Sculpt</strong>
+            <span>60 mins • Full fade, hot towel shave &amp; beard detailing</span>
           </div>
+          <button type="button" class="service-tag book-service-btn">Book Combo</button>
         </div>
-
-        <div class="tagline">
-          <a
-            href="https://kingoffadezph.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="tagline-link"
-            onclick="event.preventDefault(); openWebSheet('https://kingoffadezph.com', 'King of Fadez PH');"
-          >
-            Kingoffadezph.com
-          </a>
-          <div class="sub-tagline">Multi-Branch Admin Control &amp; Payroll Console</div>
-        </div>
-      </div>
-
-      <!-- 1. PIN LOCK SCREEN -->
-      <div id="lock-screen">
-        <div class="pin-prompt-label">Enter Admin PIN to Unlock Console</div>
-        <div class="pin-dots" id="pinDots">
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-          <div class="pin-dot"></div>
-        </div>
-        <div id="pin-error">Incorrect PIN. Try again.</div>
-
-        <div class="keypad">
-          <button type="button" class="key-btn" onclick="pressPin('1')">1</button>
-          <button type="button" class="key-btn" onclick="pressPin('2')">2</button>
-          <button type="button" class="key-btn" onclick="pressPin('3')">3</button>
-          <button type="button" class="key-btn" onclick="pressPin('4')">4</button>
-          <button type="button" class="key-btn" onclick="pressPin('5')">5</button>
-          <button type="button" class="key-btn" onclick="pressPin('6')">6</button>
-          <button type="button" class="key-btn" onclick="pressPin('7')">7</button>
-          <button type="button" class="key-btn" onclick="pressPin('8')">8</button>
-          <button type="button" class="key-btn" onclick="pressPin('9')">9</button>
-          <button type="button" class="key-btn action-key" onclick="clearPin()">CLR</button>
-          <button type="button" class="key-btn" onclick="pressPin('0')">0</button>
-          <button type="button" class="key-btn action-key" onclick="backspacePin()">⌫</button>
-        </div>
-      </div>
-
-      <!-- 2. MULTI-BRANCH ADMIN PANEL -->
-      <div id="admin-panel">
-        <div class="selector-label">
-          <span>Select Branch</span>
-          <span class="selector-hint">Switch between 4 branches</span>
-        </div>
-
-        <div class="branch-grid" id="branchGrid"></div>
-
-        <div class="workspace-grid">
-          <div class="workspace-col">
-            <div class="status-bar">
-              <div class="status-indicator">
-                <span class="dot" id="statusDot"></span>
-                <span id="statusText">BRANCH ACTIVE</span>
-              </div>
-              <button type="button" class="toggle-btn" id="toggleStatusBtn" onclick="toggleBranchStatus()">
-                Switch Status
-              </button>
-            </div>
-
-            <div class="control-grid">
-              <button type="button" class="ctrl-btn" onclick="openBranchModule('bookings')">
-                <span class="icon">📅</span>
-                <span>Bookings</span>
-                <span class="sub-label">Appointments &amp; Queue</span>
-              </button>
-
-              <button type="button" class="ctrl-btn" onclick="openBranchModule('pos')">
-                <span class="icon">🧾</span>
-                <span>POS Terminal</span>
-                <span class="sub-label">Sales &amp; Receipts</span>
-              </button>
-
-              <button type="button" class="ctrl-btn" onclick="openBranchModule('barbers')">
-                <span class="icon">💈</span>
-                <span>Barbers</span>
-                <span class="sub-label">Staff &amp; DTR</span>
-              </button>
-
-              <button type="button" class="ctrl-btn" onclick="openBranchModule('setup')">
-                <span class="icon">⚙️</span>
-                <span>Shop Setup</span>
-                <span class="sub-label">Services &amp; Config</span>
-              </button>
-
-              <button type="button" class="ctrl-btn payslip-card" onclick="openBranchModule('payroll')">
-                <span class="icon">💵</span>
-                <div class="payslip-text">
-                  <span>Payroll &amp; Payslips</span>
-                  <span class="sub-label">Commissions, Deductions &amp; Payouts</span>
-                </div>
-                <span class="payslip-badge">Admin</span>
-              </button>
-            </div>
-
-            <button type="button" class="primary-btn" id="primaryAdminLaunchBtn" onclick="openBranchModule('admin')">
-              <img src="b4.jfif" alt="" class="btn-mini-logo">
-              <span id="primaryLaunchLabel">Open Branch Admin Console</span>
-            </button>
-
-            <div class="secondary-actions">
-              <button type="button" class="sub-btn" onclick="toggleFixingOverlay(true)">🛠️ Fix Overlay</button>
-              <button type="button" class="sub-btn" onclick="openWebSheet('https://kingoffadezph.com', 'King of Fadez PH')">🌐 Public Site</button>
-              <button type="button" class="sub-btn" onclick="lockConsole()">🔒 Lock PIN</button>
-            </div>
+        <div class="service-item">
+          <div>
+            <strong>VIP Royal Grooming Package</strong>
+            <span>75 mins • Haircut, beard spa, facial steamer &amp; scalp massage</span>
           </div>
-
-          <div class="branch-panel" id="branchDetailsPanel"></div>
+          <button type="button" class="service-tag book-service-btn">Book VIP</button>
+        </div>
+        <div class="service-item">
+          <div>
+            <strong>Hair Color / Texture Perm</strong>
+            <span>90+ mins • Ash gray, highlights, down perm or wavy perm</span>
+          </div>
+          <button type="button" class="service-tag book-service-btn">Book Style</button>
         </div>
       </div>
+      <button type="button" class="book-btn" id="servicesModalBookBtn">
+        <span id="servicesModalBranchText">Continue to Branch Booking</span>
+      </button>
     </div>
   </div>
 
-  <!-- ASSISTIVETOUCH BUBBLE & MENU -->
-  <div id="assistive-bubble" title="Quick Admin Menu" role="button" tabindex="0">
-    <img src="b4.jfif" alt="Quick Menu">
-  </div>
-
-  <div id="assistive-menu" role="menu">
-    <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 1 • S&amp;D Dasma Bayan</div>
-    <button type="button" class="assistive-item" onclick="toggleFixingOverlay(true); closeAssistiveMenu();">
-      <span>🛠️</span>
-      <span>Show Fixing Overlay (6 AM)</span>
-    </button>
-    <button type="button" class="assistive-item" onclick="openBranchModule('admin'); closeAssistiveMenu();">
-      <span>👑</span>
-      <span>Open Branch Admin</span>
-    </button>
-    <button type="button" class="assistive-item" onclick="openBranchModule('pos'); closeAssistiveMenu();">
-      <span>🧾</span>
-      <span>Open POS Terminal</span>
-    </button>
-    <button type="button" class="assistive-item" onclick="openWebSheet('https://kingoffadezph.com', 'King of Fadez PH'); closeAssistiveMenu();">
-      <span>🌐</span>
-      <span>Kingoffadezph.com</span>
-    </button>
-    <button type="button" class="assistive-item" onclick="lockConsole(); closeAssistiveMenu();">
-      <span>🔒</span>
-      <span>Lock Console</span>
-    </button>
-  </div>
-
-  <!-- FULL-SCREEN WEB SHEET MODAL -->
-  <div id="webSheet" aria-hidden="true">
+  <!-- FULL-SCREEN OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+  <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
     <div class="websheet-header">
-      <span id="webSheetTitle">King of Fadez PH</span>
+      <span>👑 King of Fadez PH • Official Details</span>
       <div class="websheet-actions">
-        <a id="webSheetExtLink" href="https://kingoffadezph.com" target="_blank" rel="noopener noreferrer" class="websheet-ext-btn">
-          External ↗
-        </a>
-        <button type="button" class="websheet-icon-btn" onclick="closeWebSheet()" aria-label="Close">✕</button>
+        <button class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
       </div>
     </div>
     <div class="websheet-scroll-container">
-      <div id="webSheetLoader">
-        <div class="mini-gear" aria-hidden="true">⚙️</div>
-        <span>Loading Portal...</span>
+      <div id="webSheetLoader" class="iframe-loader">
+        <div class="spinner"></div>
+        <span>Loading Full Details...</span>
       </div>
-      <iframe id="webSheetFrame" src="about:blank" title="Portal View"></iframe>
+      <iframe
+        id="webSheetFrame"
+        src="about:blank"
+        title="King of Fadez PH Details"
+        loading="lazy"
+        allow="geolocation; clipboard-read; clipboard-write"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </div>
 
-  <!-- INSTALL APP BANNER -->
-  <div id="install-float">
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
+  <div id="install-float" role="region" aria-label="Install App">
     <div class="install-info">
-      <img src="b4.jfif" alt="KOF PH">
-      <div>
-        <div class="install-title">Install KOF PH Admin</div>
-        <div class="install-sub">Add to Home Screen for quick access</div>
+      <img src="b4.jfif" alt="App Icon" class="install-icon">
+      <div class="install-text">
+        <strong>Download KOF App</strong>
+        <span id="install-subtext">Install on iOS, Android, or PC</span>
       </div>
     </div>
     <div class="install-actions">
-      <button type="button" class="install-btn" id="installConfirmBtn">Install</button>
-      <button type="button" class="install-close" id="installDismissBtn" aria-label="Dismiss">✕</button>
+      <button id="install-btn">Install</button>
+      <button id="dismiss-install" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- UNIVERSAL DEVICE INSTALL INSTRUCTIONS MODAL -->
+  <div id="device-guide">
+    <div class="guide-sheet">
+      <div class="guide-badge" id="device-badge">Install Guide</div>
+      <h3>Install King of Fadez PH App</h3>
+      <p>Add our app to your device for instant 1-tap branch booking:</p>
+      <div class="guide-steps" id="guide-steps"></div>
+      <div class="guide-btns">
+        <button class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
+        <button id="close-guide">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking">
+    <div class="booking-header">
+      <div class="booking-header-left">
+        <div class="booking-avatars">
+          <img src="b2.jfif" alt="Branch Logo" id="bookingHeaderLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+          <img src="Gel.gif" alt="Gel - Branch Receptionist" id="bookingHeaderRecept" onerror="this.onerror=null;this.src='b2.jfif';">
+        </div>
+        <select id="bookingBranchSelect" aria-label="Switch Booking Branch">
+          <option value="branch1">Branch #1 | S&amp;D DASMA BAYAN (Ja)</option>
+          <option value="branch2" selected>Branch #2 | KOF-DASMARIÑAS, Cavite (Gel)</option>
+          <option value="branch3">Branch #3 | KOF MOLINO 3, BACOOR (Jes)</option>
+          <option value="branch4">Branch #4 | IMUS CAVITE (SuKi)</option>
+        </select>
+      </div>
+      <button id="closeBooking" aria-label="Close Booking">✕</button>
+    </div>
+    <div class="booking-frame-wrap">
+      <div id="bookingLoader" class="iframe-loader">
+        <img src="Gel.gif" alt="Receptionist" id="bookingLoaderRecept">
+        <div class="spinner"></div>
+        <span id="bookingLoaderText">Welcome! Connecting to Gel at Front Desk...</span>
+      </div>
+      <iframe
+        id="bookingFrame"
+        src="about:blank"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </div>
 
   <script>
-    const ADMIN_PIN = "1234";
-    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg6m9mxVPONXtx40LvTElRQQNBgk-jYStVW9QHBgaWnFBpZtE2MawWefmuEcrOSoUI/exec";
+    // =========================================================================
+    // THEME ENGINE: ['gold', 'midnight', 'emerald', 'crimson', 'violet', 'light']
+    // =========================================================================
+    const THEME_IDS = ['gold', 'midnight', 'emerald', 'crimson', 'violet', 'light'];
+    const THEME_META = {
+      gold: { label: "Royal Gold", themeColor: "#050505", accent: "#d4af37" },
+      midnight: { label: "Midnight Blue", themeColor: "#040814", accent: "#38bdf8" },
+      emerald: { label: "Emerald", themeColor: "#030d09", accent: "#10b981" },
+      crimson: { label: "Crimson", themeColor: "#0e0406", accent: "#f43f5e" },
+      violet: { label: "Royal Violet", themeColor: "#090412", accent: "#a855f7" },
+      light: { label: "Clean Light", themeColor: "#f2f4f8", accent: "#b8860b" }
+    };
 
-    const BRANCHES = [
-      {
-        id: "main",
-        num: "Branch 01",
-        name: "S&D Dasma Bayan",
-        badge: "Flagship",
-        logo: "b4.jfif",
-        recept: "b4.jfif",
-        address: "Dasmariñas Bayan, Cavite",
-        hours: "9:00 AM – 10:00 PM",
-        contact: "+63 900 000 0001",
-        email: "dasmabayan@kingoffadezph.com",
-        facebook: "https://facebook.com",
-        maps: "https://maps.google.com/?q=Dasmarinas+Bayan+Cavite"
-      },
-      {
-        id: "areag",
-        num: "Branch 02",
-        name: "KOF Dasma Area G",
-        badge: "Area G",
-        logo: "b4.jfif",
-        recept: "b4.jfif",
-        address: "Area G, City of Dasmariñas, Cavite",
-        hours: "9:00 AM – 10:00 PM",
-        contact: "+63 900 000 0002",
-        email: "areag@kingoffadezph.com",
-        facebook: "https://facebook.com",
-        maps: "https://maps.google.com/?q=Area+G+Dasmarinas+Cavite"
-      },
-      {
-        id: "molino3",
-        num: "Branch 03",
-        name: "KOF Molino 3 Bacoor",
-        badge: "Molino III",
-        logo: "b4.jfif",
-        recept: "b4.jfif",
-        address: "Molino III, Bacoor, Cavite",
-        hours: "9:00 AM – 10:00 PM",
-        contact: "+63 900 000 0003",
-        email: "molino3@kingoffadezph.com",
-        facebook: "https://facebook.com",
-        maps: "https://maps.google.com/?q=Molino+3+Bacoor+Cavite"
-      },
-      {
-        id: "imus",
-        num: "Branch 04",
-        name: "KOF Imus",
-        badge: "Imus",
-        logo: "b4.jfif",
-        recept: "b4.jfif",
-        address: "City of Imus, Cavite",
-        hours: "9:00 AM – 10:00 PM",
-        contact: "+63 900 000 0004",
-        email: "imus@kingoffadezph.com",
-        facebook: "https://facebook.com",
-        maps: "https://maps.google.com/?q=Imus+Cavite"
+    let currentThemeId = localStorage.getItem('kof_theme');
+    if (!THEME_IDS.includes(currentThemeId)) currentThemeId = 'gold';
+
+    function applyTheme(themeId, announce = false) {
+      if (!THEME_IDS.includes(themeId)) themeId = 'gold';
+      currentThemeId = themeId;
+      document.documentElement.setAttribute('data-theme', themeId);
+      localStorage.setItem('kof_theme', themeId);
+
+      const meta = THEME_META[themeId];
+      const metaTag = document.getElementById('meta-theme-color');
+      if (metaTag && meta) metaTag.setAttribute('content', meta.themeColor);
+
+      document.querySelectorAll('.theme-dot').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.themeId === themeId);
+      });
+
+      const menuThemeLabel = document.getElementById('menuThemeLabel');
+      if (menuThemeLabel && meta) {
+        menuThemeLabel.textContent = `Theme: ${meta.label}`;
       }
-    ];
 
-    const FIX_TASKS = [
-      {
-        title: "Patching Multi-Branch POS & Queue Sync",
-        desc: "Verifying real-time branch appointment states and receipt sync until 6:00 AM.",
-        progress: "72%"
-      },
-      {
-        title: "Tuning Payroll & Commission Ledger",
-        desc: "Auditing barber DTR calculation formulas and payout summaries until 6:00 AM.",
-        progress: "84%"
-      },
-      {
-        title: "Hardening Admin Session & Route Guards",
-        desc: "Checking endpoint parameters and fallback routes before 6:00 AM rollout.",
-        progress: "58%"
+      if (announce && meta) {
+        showToast(`🎨 Theme: ${meta.label}`);
       }
-    ];
-
-    let fixTaskIndex = 0;
-    let pinBuffer = "";
-    let activeBranchIndex = 0;
-    const branchOpenState = { main: true, areag: true, molino3: true, imus: true };
-
-    /* =========================================================
-       COUNTDOWN TO 6:00 AM + LIVE CLOCK
-       ========================================================= */
-    function getNextSixAM(now) {
-      const target = new Date(now);
-      target.setHours(6, 0, 0, 0);
-      if (now.getTime() >= target.getTime()) {
-        target.setDate(target.getDate() + 1);
-      }
-      return target;
     }
 
-    function pad2(n) {
-      return String(Math.max(0, Math.floor(n))).padStart(2, "0");
+    document.querySelectorAll('.theme-dot').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.dataset.themeId, true));
+    });
+
+    // =========================================================================
+    // TOAST NOTIFICATION HELPER
+    // =========================================================================
+    const toastEl = document.getElementById('kof-toast');
+    let toastTimer = null;
+    function showToast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
     }
 
-    function updateClocksAndCountdown() {
-      const now = new Date();
+    // =========================================================================
+    // LIVE SHOP HOURS INDICATOR (PHILIPPINE STANDARD TIME • ASIA/MANILA)
+    // =========================================================================
+    function updateLiveShopStatus() {
+      try {
+        const nowManila = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+        const hour = nowManila.getHours();
+        const isOpen = hour >= 9 && hour < 21; // 9:00 AM to 9:00 PM PHT
+        const dot = document.getElementById('liveStatusDot');
+        const text = document.getElementById('liveStatusText');
+        if (isOpen) {
+          dot.classList.remove('closed');
+          text.textContent = "OPEN NOW • Closes 9PM";
+        } else {
+          dot.classList.add('closed');
+          text.textContent = "CLOSED • Opens 9AM";
+        }
+      } catch (e) {}
+    }
+    updateLiveShopStatus();
+    setInterval(updateLiveShopStatus, 60000);
 
-      const clockEl = document.getElementById("liveClock");
-      if (clockEl) {
-        clockEl.textContent = now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit"
-        });
+    // =========================================================================
+    // BRANCH DIRECTORY, LOGOS, ANIMATED RECEPTIONIST PROFILES & ENDPOINTS
+    // =========================================================================
+    const BRANCHES = {
+      branch1: {
+        logo: "b1.jfif",
+        receptionist: "ja.gif",
+        receptionistName: "Ja",
+        shortName: "Branch #1 • S&D DASMA BAYAN",
+        title: "Branch #1 | S&D DASMA BAYAN",
+        badge: "Dasma Bayan",
+        welcomeTitle: "Hi! I'm Ja — Welcome to S&D DASMA BAYAN!",
+        welcomeMsg: "Tap here to reserve your chair at S&D DASMA BAYAN (Don Placido Campos Ave) — fresh fades & premium grooming await.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzfBIaFaWfr0OdqZmHzzEQdVTKEgqD1mDTnBsULDeEWmvQgamJgCTDcATJ-AiV5-FTe/exec?branch=kofdasmabav0r",
+        address: "Brgy Zone 3, Don Placido Campos Avenue, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0915) 053 3669",
+        phoneHref: "tel:+639150533669",
+        email: "slickanddapperdasma@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/TvqHSluJBGUNsSRyK" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@slickanddapperdasma?_r=1&_t=ZP-9BOXRyXSMFa" }
+        ]
+      },
+      branch2: {
+        logo: "b2.jfif",
+        receptionist: "Gel.gif",
+        receptionistName: "Gel",
+        shortName: "Branch #2 • KOF-DASMARIÑAS, Cavite",
+        title: "Branch #2 | KOF-DASMARIÑAS, Cavite",
+        badge: "Main Branch",
+        welcomeTitle: "Hi! I'm Gel — Welcome to KOF-DASMARIÑAS, Cavite!",
+        welcomeMsg: "Tap here to book your slot at KOF-DASMARIÑAS, Cavite (Congressional Ave) — Kingoffadezph.com.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzfBIaFaWfr0OdqZmHzzEQdVTKEgqD1mDTnBsULDeEWmvQgamJgCTDcATJ-AiV5-FTe/exec?branch=main",
+        address: "Blk 4, Lot 18 Congressional Ave, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0956) 718 8557",
+        phoneHref: "tel:+639567188557",
+        email: "Kingoffadezph@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://maps.google.com/?q=King+of+Fadez+Dasmariñas" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@kingoffadez.ph" },
+          { label: "📘 FB Page", url: "https://www.facebook.com/share/r/1NQfs6Fcer/" }
+        ]
+      },
+      branch3: {
+        logo: "b3.jfif",
+        receptionist: "Jes.gif",
+        receptionistName: "Jes",
+        shortName: "Branch #3 • KOF MOLINO 3, BACOOR",
+        title: "Branch #3 | KOF MOLINO 3, BACOOR",
+        badge: "Molino 3, Bacoor",
+        welcomeTitle: "Hi! I'm Jes — Welcome to KOF MOLINO 3, BACOOR!",
+        welcomeMsg: "Tap here to schedule your cut with me at KOF MOLINO 3, BACOOR, Cavite.",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzfBIaFaWfr0OdqZmHzzEQdVTKEgqD1mDTnBsULDeEWmvQgamJgCTDcATJ-AiV5-FTe/exec?branch=branch3kofxe4",
+        address: "Molino 3, Bacoor, Cavite, Philippines",
+        phoneDisplay: "(0956) 752 9543",
+        phoneHref: "tel:+639567529543",
+        email: "kingoffadezbacoorm3@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/ecSHCqP35ncacyUAP" }
+        ]
+      },
+      branch4: {
+        logo: "b4.jfif",
+        receptionist: "SuKi.gif",
+        receptionistName: "SuKi",
+        shortName: "Branch #4 • IMUS CAVITE",
+        title: "Branch #4 | IMUS CAVITE",
+        badge: "Imus, Cavite",
+        welcomeTitle: "Hi! I'm SuKi — Welcome to IMUS CAVITE!",
+        welcomeMsg: "Tap here to book your appointment with me at IMUS CAVITE (Emilio Aguinaldo Hwy, Tanzang Luma).",
+        bookingUrl: "https://script.google.com/macros/s/AKfycbzfBIaFaWfr0OdqZmHzzEQdVTKEgqD1mDTnBsULDeEWmvQgamJgCTDcATJ-AiV5-FTe/exec?branch=branch4imu253",
+        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma, 1, Imus, Philippines, 4103",
+        phoneDisplay: "(0927) 994 3950",
+        phoneHref: "tel:+639279943950",
+        email: "kingoffadezphimus@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/bYHgooaQOYvwco2YV" },
+          { label: "📘 FB Page 1", url: "https://www.facebook.com/profile.php?id=61593972186081&mibextid=wwXIfr&mibextid=wwXIfr" },
+          { label: "📘 FB Page 2", url: "https://www.facebook.com/profile.php?id=61566638207034&mibextid=wwXIfr&mibextid=wwXIfr" }
+        ]
       }
+    };
 
-      const next6AM = getNextSixAM(now);
-      const diffMs = Math.max(0, next6AM.getTime() - now.getTime());
-      const totalSec = Math.floor(diffMs / 1000);
+    // URL deep-link support (?branch=branch1&theme=midnight)
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramTheme = urlParams.get('theme');
+    if (paramTheme && THEME_IDS.includes(paramTheme)) currentThemeId = paramTheme;
+    applyTheme(currentThemeId, false);
 
-      const hrs = Math.floor(totalSec / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
-      const secs = totalSec % 60;
+    let currentBranchKey = urlParams.get('branch') || localStorage.getItem('kof_selected_branch') || 'branch2';
+    if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
 
-      const hEl = document.getElementById("cdHours");
-      const mEl = document.getElementById("cdMinutes");
-      const sEl = document.getElementById("cdSeconds");
-      const stripEl = document.getElementById("stripCountdown");
+    const branchTabs = document.querySelectorAll('.branch-tab');
+    const heroBrandLogo = document.getElementById('heroBrandLogo');
+    const panelMiniLogo = document.getElementById('panelMiniLogo');
+    const bookBtnLogo = document.getElementById('bookBtnLogo');
+    const bookingHeaderLogo = document.getElementById('bookingHeaderLogo');
+    const bookingHeaderRecept = document.getElementById('bookingHeaderRecept');
+    const bookingLoaderRecept = document.getElementById('bookingLoaderRecept');
+    const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
 
-      if (hEl) hEl.textContent = pad2(hrs);
-      if (mEl) mEl.textContent = pad2(mins);
-      if (sEl) sEl.textContent = pad2(secs);
-      if (stripEl) stripEl.textContent = `${pad2(hrs)}:${pad2(mins)}:${pad2(secs)}`;
+    const receptionistPhoto = document.getElementById('receptionistPhoto');
+    const receptionistRolePill = document.getElementById('receptionistRolePill');
+    const receptionistGreeting = document.getElementById('receptionistGreeting');
+    const receptionistSubtext = document.getElementById('receptionistSubtext');
+
+    const branchTitleEl = document.getElementById('branchTitle');
+    const branchBadgeEl = document.getElementById('branchBadge');
+    const branchAddressEl = document.getElementById('branchAddress');
+    const branchPhoneEl = document.getElementById('branchPhone');
+    const branchEmailEl = document.getElementById('branchEmail');
+    const branchSocialsEl = document.getElementById('branchSocials');
+    const openBookingBtn = document.getElementById('openBooking');
+    const openBookingText = document.getElementById('openBookingText');
+    const bookingBranchSelect = document.getElementById('bookingBranchSelect');
+
+    function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'b4.jfif') {
+      imgEl.onerror = function() {
+        if (secondarySrc && this.getAttribute('src') !== secondarySrc) {
+          this.onerror = function() {
+            this.onerror = null;
+            this.src = 'b4.jfif';
+          };
+          this.src = secondarySrc;
+        } else {
+          this.onerror = null;
+          this.src = 'b4.jfif';
+        }
+      };
+      imgEl.src = primarySrc;
     }
 
-    function toggleFixingOverlay(show) {
-      const overlay = document.getElementById("system-fixing-overlay");
-      if (!overlay) return;
-      if (show) {
-        overlay.classList.add("active");
-        document.body.classList.add("modal-open");
+    function renderBranch(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      currentBranchKey = branchKey;
+      localStorage.setItem('kof_selected_branch', branchKey);
+
+      branchTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.branch === branchKey);
+      });
+
+      // Update individual branch brand logo
+      setImageWithFallback(heroBrandLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(panelMiniLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(bookBtnLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(bookingHeaderLogo, data.logo, 'b4.jfif');
+
+      // Update animated branch receptionist GIF & profile details
+      setImageWithFallback(receptionistPhoto, data.receptionist, data.logo);
+      receptionistPhoto.alt = `${data.receptionistName} - ${data.title} Receptionist`;
+      setImageWithFallback(bookingHeaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(bookingLoaderRecept, data.receptionist, data.logo);
+      setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
+
+      receptionistRolePill.textContent = `👑 Front Desk • ${data.receptionistName}`;
+      receptionistGreeting.textContent = data.welcomeTitle;
+      receptionistSubtext.textContent = data.welcomeMsg;
+
+      branchTitleEl.textContent = data.title;
+      branchBadgeEl.textContent = data.badge;
+      branchAddressEl.textContent = data.address;
+      branchPhoneEl.textContent = data.phoneDisplay;
+      branchPhoneEl.href = data.phoneHref;
+      branchEmailEl.textContent = data.email;
+      branchEmailEl.href = `mailto:${data.email}`;
+      openBookingText.textContent = `Book ${data.shortName}`;
+      bookingBranchSelect.value = branchKey;
+      document.getElementById('servicesModalBranchText').textContent = `Book at ${data.shortName}`;
+
+      // Render branch-specific links + Services Menu + Official Details + Share
+      const linksHtml = data.links.map(item =>
+        `<a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a>`
+      ).join('');
+      branchSocialsEl.innerHTML = `
+        ${linksHtml}
+        <button type="button" class="link-btn" id="openServicesBtn">💈 Services</button>
+        <button type="button" class="link-btn" id="openWebBtn">🌐 Full Details</button>
+        <button type="button" class="link-btn" id="shareBranchBtn">📤 Share Branch</button>
+      `;
+      document.getElementById('openServicesBtn').addEventListener('click', openServicesModal);
+      document.getElementById('openWebBtn').addEventListener('click', openWebSheet);
+      document.getElementById('shareBranchBtn').addEventListener('click', shareCurrentBranch);
+    }
+
+    // Copy branch address helper
+    document.getElementById('copyAddressBtn').addEventListener('click', () => {
+      const data = BRANCHES[currentBranchKey];
+      if (!data) return;
+      navigator.clipboard.writeText(data.address).then(() => {
+        showToast("📍 Branch address copied!");
+      }).catch(() => {});
+    });
+
+    // Share branch link helper
+    function shareCurrentBranch() {
+      const data = BRANCHES[currentBranchKey];
+      const shareUrl = `${window.location.origin}${window.location.pathname}?branch=${currentBranchKey}`;
+      const shareData = {
+        title: `King of Fadez PH — ${data.shortName}`,
+        text: `Book your haircut with ${data.receptionistName} at ${data.title} (${data.address})`,
+        url: shareUrl
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
       } else {
-        overlay.classList.remove("active");
-        document.body.classList.remove("modal-open");
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast("🔗 Branch booking link copied!");
+        }).catch(() => {});
       }
     }
 
-    function cycleFixTask() {
-      fixTaskIndex = (fixTaskIndex + 1) % FIX_TASKS.length;
-      const task = FIX_TASKS[fixTaskIndex];
-      document.getElementById("fixingTitle").textContent = task.title;
-      document.getElementById("fixingTaskDesc").innerHTML = `${task.desc}`;
-      document.getElementById("fixProgressFill").style.width = task.progress;
-    }
-
-    /* =========================================================
-       PIN LOCK LOGIC
-       ========================================================= */
-    function renderPinDots(isError = false) {
-      const dots = document.querySelectorAll("#pinDots .pin-dot");
-      dots.forEach((dot, idx) => {
-        dot.classList.remove("filled", "error");
-        if (isError) {
-          dot.classList.add("error");
-        } else if (idx < pinBuffer.length) {
-          dot.classList.add("filled");
+    // Clicking a branch card selects it; tapping an already-active branch opens booking directly
+    branchTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetBranch = tab.dataset.branch;
+        if (currentBranchKey === targetBranch) {
+          openBookingModal(null, targetBranch);
+        } else {
+          renderBranch(targetBranch);
         }
       });
+    });
+
+    // Clicking the Receptionist Welcome Card, Hero Brand Logo, or Mini Panel Logo opens booking
+    document.getElementById('receptionistCard').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    document.getElementById('heroBrandBtn').addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    panelMiniLogo.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+
+    // =========================================================================
+    // SERVICES MODAL LOGIC
+    // =========================================================================
+    const servicesModal = document.getElementById('servicesModal');
+    function openServicesModal() {
+      servicesModal.classList.add('active');
     }
+    function closeServicesModal() {
+      servicesModal.classList.remove('active');
+    }
+    document.getElementById('closeServicesBtn').addEventListener('click', closeServicesModal);
+    servicesModal.addEventListener('click', (e) => {
+      if (e.target === servicesModal) closeServicesModal();
+    });
+    document.querySelectorAll('.book-service-btn, #servicesModalBookBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        closeServicesModal();
+        openBookingModal(null, currentBranchKey);
+      });
+    });
 
-    function pressPin(digit) {
-      if (pinBuffer.length >= 4) return;
-      document.getElementById("pin-error").classList.remove("visible");
-      pinBuffer += digit;
-      renderPinDots(false);
+    // =========================================================================
+    // BOOKING MODAL LOGIC (PER-BRANCH APPS SCRIPT)
+    // =========================================================================
+    const booking = document.getElementById('booking');
+    const bookingFrame = document.getElementById('bookingFrame');
+    const bookingLoader = document.getElementById('bookingLoader');
+    const bookingLoaderText = document.getElementById('bookingLoaderText');
+    let loadedBookingBranch = null;
 
-      if (pinBuffer.length === 4) {
-        setTimeout(verifyPin, 140);
+    function loadBookingFrame(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      renderBranch(branchKey);
+      if (loadedBookingBranch !== branchKey) {
+        bookingLoaderText.textContent = `Welcome! Connecting to ${data.receptionistName} (${data.shortName})...`;
+        bookingLoader.classList.remove('hidden');
+        bookingFrame.src = data.bookingUrl;
+        loadedBookingBranch = branchKey;
       }
     }
 
-    function backspacePin() {
-      pinBuffer = pinBuffer.slice(0, -1);
-      document.getElementById("pin-error").classList.remove("visible");
-      renderPinDots(false);
+    function openBookingModal(e, branchKey = currentBranchKey) {
+      if (e) e.preventDefault();
+      loadBookingFrame(branchKey);
+      booking.style.display = 'flex';
+      requestAnimationFrame(() => booking.classList.add('active'));
     }
 
-    function clearPin() {
-      pinBuffer = "";
-      document.getElementById("pin-error").classList.remove("visible");
-      renderPinDots(false);
+    function closeBookingModal() {
+      booking.classList.remove('active');
+      setTimeout(() => { booking.style.display = 'none'; }, 400);
     }
 
-    function verifyPin() {
-      if (pinBuffer === ADMIN_PIN) {
-        pinBuffer = "";
-        renderPinDots(false);
-        document.getElementById("lock-screen").style.display = "none";
-        document.getElementById("admin-panel").style.display = "block";
-        document.getElementById("mainCard").classList.remove("lock-mode");
-        renderBranchGrid();
-        renderActiveBranch();
-      } else {
-        const errEl = document.getElementById("pin-error");
-        const dotsEl = document.getElementById("pinDots");
-        errEl.classList.add("visible");
-        renderPinDots(true);
-        dotsEl.classList.remove("shake");
-        void dotsEl.offsetWidth;
-        dotsEl.classList.add("shake");
-        setTimeout(() => {
-          pinBuffer = "";
-          renderPinDots(false);
-        }, 420);
-      }
-    }
+    bookingFrame.addEventListener('load', () => {
+      bookingLoader.classList.add('hidden');
+    });
 
-    function lockConsole() {
-      pinBuffer = "";
-      renderPinDots(false);
-      document.getElementById("admin-panel").style.display = "none";
-      document.getElementById("lock-screen").style.display = "block";
-      document.getElementById("mainCard").classList.add("lock-mode");
-    }
+    bookingBranchSelect.addEventListener('change', (e) => {
+      loadBookingFrame(e.target.value);
+    });
 
-    /* =========================================================
-       BRANCH SELECTION & MODULES
-       ========================================================= */
-    function renderBranchGrid() {
-      const grid = document.getElementById("branchGrid");
-      grid.innerHTML = BRANCHES.map((b, idx) => `
-        <button
-          type="button"
-          class="branch-tab ${idx === activeBranchIndex ? "active" : ""}"
-          onclick="selectBranch(${idx})"
-        >
-          <div class="branch-avatar-pair">
-            <img src="${b.logo}" alt="${b.name}" class="branch-tab-logo">
-            <img src="${b.recept}" alt="${b.name}" class="branch-tab-recept">
-          </div>
-          <div class="branch-tab-info">
-            <span class="branch-tab-num">${b.num}</span>
-            <span class="branch-tab-name">${b.name}</span>
-          </div>
-        </button>
-      `).join("");
-    }
+    openBookingBtn.addEventListener('click', (e) => openBookingModal(e, currentBranchKey));
+    document.getElementById('closeBooking').addEventListener('click', closeBookingModal);
 
-    function selectBranch(idx) {
-      activeBranchIndex = idx;
-      renderBranchGrid();
-      renderActiveBranch();
-    }
-
-    function toggleBranchStatus() {
-      const branch = BRANCHES[activeBranchIndex];
-      branchOpenState[branch.id] = !branchOpenState[branch.id];
-      renderActiveBranch();
-    }
-
-    function renderActiveBranch() {
-      const b = BRANCHES[activeBranchIndex];
-      const isOpen = !!branchOpenState[b.id];
-
-      const dot = document.getElementById("statusDot");
-      const text = document.getElementById("statusText");
-      dot.classList.toggle("closed", !isOpen);
-      text.textContent = isOpen ? `${b.name.toUpperCase()} • OPEN` : `${b.name.toUpperCase()} • PAUSED`;
-
-      document.getElementById("primaryLaunchLabel").textContent = `Open ${b.name} Console`;
-      document.getElementById("assistiveBranchLabel").textContent = `${b.num} • ${b.name}`;
-
-      document.getElementById("branchDetailsPanel").innerHTML = `
-        <div>
-          <div class="branch-header-row">
-            <div class="branch-header-brand">
-              <div class="panel-avatars">
-                <img src="${b.logo}" alt="${b.name}" class="panel-mini-logo">
-                <img src="${b.recept}" alt="${b.name}" class="panel-mini-recept">
-              </div>
-              <div class="branch-title">${b.name}</div>
-            </div>
-            <span class="branch-badge">${b.badge}</span>
-          </div>
-
-          <div class="detail-list" style="margin-top: 12px;">
-            <div class="detail-row">
-              <strong>Location</strong>
-              ${b.address}
-            </div>
-            <div class="detail-row">
-              <strong>Operating Hours</strong>
-              ${b.hours}
-            </div>
-            <div class="detail-row">
-              <strong>Contact &amp; Email</strong>
-              <div class="detail-contact-items">
-                <a href="tel:${b.contact.replace(/\s+/g, "")}" class="detail-link">${b.contact}</a>
-                <a href="mailto:${b.email}" class="detail-link">${b.email}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="socials">
-          <button type="button" class="link-btn" onclick="openBranchModule('admin')">
-            👑 Admin View
-          </button>
-          <a href="${b.maps}" target="_blank" rel="noopener noreferrer" class="link-btn">
-            📍 Google Maps
-          </a>
-          <a href="${b.facebook}" target="_blank" rel="noopener noreferrer" class="link-btn">
-            📘 Facebook
-          </a>
-        </div>
-      `;
-    }
-
-    function openBranchModule(page) {
-      const b = BRANCHES[activeBranchIndex];
-      const url = `${BASE_SCRIPT_URL}?page=${encodeURIComponent(page)}&branch=${encodeURIComponent(b.id)}`;
-      openWebSheet(url, `${b.name} — ${page.toUpperCase()}`);
-    }
-
-    /* =========================================================
-       OVERLAY WEB SHEET
-       ========================================================= */
-    function openWebSheet(url, title) {
-      const sheet = document.getElementById("webSheet");
-      const frame = document.getElementById("webSheetFrame");
-      const loader = document.getElementById("webSheetLoader");
-      const titleEl = document.getElementById("webSheetTitle");
-      const extEl = document.getElementById("webSheetExtLink");
-
-      titleEl.textContent = title || "King of Fadez PH";
-      extEl.href = url;
-      loader.classList.remove("hidden");
-      frame.onload = () => loader.classList.add("hidden");
-      frame.src = url;
-
-      sheet.classList.add("active");
-      sheet.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-    }
-
-    function closeWebSheet() {
-      const sheet = document.getElementById("webSheet");
-      const frame = document.getElementById("webSheetFrame");
-      sheet.classList.remove("active");
-      sheet.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-      setTimeout(() => { frame.src = "about:blank"; }, 200);
-    }
-
-    /* =========================================================
-       DRAGGABLE ASSISTIVETOUCH BUBBLE & MENU
-       ========================================================= */
-    const bubble = document.getElementById("assistive-bubble");
-    const menu = document.getElementById("assistive-menu");
+    // =========================================================================
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & VIEWPORT-CLAMPED MENU LOGIC
+    // =========================================================================
+    const bubble = document.getElementById('assistive-bubble');
+    const menu = document.getElementById('assistive-menu');
     let isDragging = false;
-    let moved = false;
-    let offsetX = 0;
-    let offsetY = 0;
+    let hasMoved = false;
+    let startX, startY, initialX, initialY;
 
-    function positionMenuNearBubble() {
-      const rect = bubble.getBoundingClientRect();
-      const menuW = Math.min(260, window.innerWidth - 24);
-      const menuH = menu.offsetHeight || 230;
-      let left = rect.left - menuW + rect.width;
-      let top = rect.top - menuH - 10;
-
-      if (left < 12) left = 12;
-      if (left + menuW > window.innerWidth - 12) left = window.innerWidth - menuW - 12;
-      if (top < 12) top = rect.bottom + 10;
-
-      menu.style.left = `${left}px`;
-      menu.style.top = `${top}px`;
-    }
-
-    function toggleAssistiveMenu() {
-      const opening = !menu.classList.contains("active");
-      if (opening) {
-        menu.classList.add("active");
-        positionMenuNearBubble();
-      } else {
-        closeAssistiveMenu();
-      }
-    }
-
-    function closeAssistiveMenu() {
-      menu.classList.remove("active");
-    }
-
-    bubble.addEventListener("pointerdown", (e) => {
+    bubble.addEventListener('pointerdown', (e) => {
       isDragging = true;
-      moved = false;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
       const rect = bubble.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
+      initialX = rect.left;
+      initialY = rect.top;
       bubble.setPointerCapture(e.pointerId);
     });
 
-    bubble.addEventListener("pointermove", (e) => {
+    bubble.addEventListener('pointermove', (e) => {
       if (!isDragging) return;
-      moved = true;
-      const x = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, e.clientX - offsetX));
-      const y = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, e.clientY - offsetY));
-      bubble.style.left = `${x}px`;
-      bubble.style.top = `${y}px`;
-      bubble.style.right = "auto";
-      bubble.style.bottom = "auto";
-      if (menu.classList.contains("active")) positionMenuNearBubble();
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
+      let newX = initialX + dx;
+      let newY = initialY + dy;
+
+      newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
+      newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
+
+      bubble.style.left = newX + 'px';
+      bubble.style.top = newY + 'px';
+      bubble.style.right = 'auto';
+      bubble.style.bottom = 'auto';
     });
 
-    bubble.addEventListener("pointerup", (e) => {
-      if (!isDragging) return;
+    bubble.addEventListener('pointerup', () => {
       isDragging = false;
-      if (!moved) toggleAssistiveMenu();
-    });
+      if (!hasMoved) {
+        const isOpen = menu.classList.contains('active');
+        if (isOpen) {
+          menu.classList.remove('active');
+        } else {
+          menu.classList.add('active');
+          const bRect = bubble.getBoundingClientRect();
+          const mWidth = menu.offsetWidth || 280;
+          const mHeight = menu.offsetHeight || 405;
+          const pad = 12;
 
-    document.addEventListener("click", (e) => {
-      if (!menu.contains(e.target) && !bubble.contains(e.target)) {
-        closeAssistiveMenu();
+          let left = bRect.right - mWidth;
+          left = Math.max(pad, Math.min(window.innerWidth - mWidth - pad, left));
+
+          let top = bRect.top - mHeight - 10;
+          if (top < pad) {
+            top = Math.min(window.innerHeight - mHeight - pad, bRect.bottom + 10);
+          }
+
+          menu.style.left = left + 'px';
+          menu.style.top = top + 'px';
+          menu.style.right = 'auto';
+          menu.style.bottom = 'auto';
+        }
       }
     });
 
-    /* =========================================================
-       PWA MANIFEST & INSTALL BANNER
-       ========================================================= */
-    let deferredInstallPrompt = null;
+    document.addEventListener('click', (e) => {
+      if (!bubble.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
 
-    (function initManifest() {
-      const manifestData = {
-        name: "King of Fadez PH Admin",
-        short_name: "KOF PH Admin",
-        start_url: "./",
-        display: "standalone",
-        background_color: "#050505",
-        theme_color: "#050505",
-        icons: [{ src: "b4.jfif", sizes: "192x192", type: "image/jpeg" }]
-      };
-      const blob = new Blob([JSON.stringify(manifestData)], { type: "application/json" });
-      document.getElementById("pwa-manifest").href = URL.createObjectURL(blob);
-    })();
+    document.querySelectorAll('[data-quick-branch]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        menu.classList.remove('active');
+        openBookingModal(null, item.dataset.quickBranch);
+      });
+    });
 
-    window.addEventListener("beforeinstallprompt", (e) => {
+    document.getElementById('menuServices').addEventListener('click', (e) => {
       e.preventDefault();
-      deferredInstallPrompt = e;
-      document.getElementById("install-float").classList.add("show");
+      menu.classList.remove('active');
+      openServicesModal();
     });
 
-    document.getElementById("installConfirmBtn").addEventListener("click", async () => {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      document.getElementById("install-float").classList.remove("show");
+    document.getElementById('menuCycleTheme').addEventListener('click', (e) => {
+      e.preventDefault();
+      const nextIdx = (THEME_IDS.indexOf(currentThemeId) + 1) % THEME_IDS.length;
+      applyTheme(THEME_IDS[nextIdx], true);
     });
 
-    document.getElementById("installDismissBtn").addEventListener("click", () => {
-      document.getElementById("install-float").classList.remove("show");
+    document.getElementById('menuDetails').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      openWebSheet();
     });
 
-    // Start live clock & 6:00 AM countdown
-    updateClocksAndCountdown();
-    setInterval(updateClocksAndCountdown, 1000);
+    document.getElementById('menuShareApp').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      shareCurrentBranch();
+    });
+
+    document.getElementById('menuInstallApp').addEventListener('click', async (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
+    // =========================================================================
+    // FULL-SCREEN OVERLAY DETAILS MODAL (kingoffadezph.com)
+    // =========================================================================
+    const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
+    const webSheet = document.getElementById('webSheet');
+    const webSheetFrame = document.getElementById('webSheetFrame');
+    const webSheetLoader = document.getElementById('webSheetLoader');
+    let webSheetLoaded = false;
+
+    function openWebSheet(e) {
+      if (e) e.preventDefault();
+      menu.classList.remove('active');
+      if (!webSheetLoaded) {
+        webSheetLoader.classList.remove('hidden');
+        webSheetFrame.src = DETAILS_URL;
+        webSheetLoaded = true;
+      }
+      webSheet.style.display = 'flex';
+      requestAnimationFrame(() => webSheet.classList.add('active'));
+    }
+
+    function closeWebSheet() {
+      webSheet.classList.remove('active');
+      setTimeout(() => { webSheet.style.display = 'none'; }, 400);
+    }
+
+    webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
+
+    document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
+    document.getElementById('reloadWebSheet').addEventListener('click', () => {
+      webSheetLoader.classList.remove('hidden');
+      webSheetFrame.src = DETAILS_URL;
+    });
+
+    // Escape key closes open modals cleanly
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        menu.classList.remove('active');
+        closeServicesModal();
+        closeWebSheet();
+        closeBookingModal();
+        deviceGuide.classList.remove('active');
+      }
+    });
+
+    // Initialize default / saved branch on load
+    renderBranch(currentBranchKey);
+
+    // =========================================================================
+    // PWA ENGINE (UNIVERSAL INSTALL)
+    // =========================================================================
+    function createPngIcon(imgEl, size) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(imgEl, 0, 0, size, size);
+        return canvas.toDataURL('image/png');
+      } catch (e) {
+        return new URL('b4.jfif', window.location.href).href;
+      }
+    }
+
+    function initUniversalManifest() {
+      const logoImg = document.getElementById('logo-source');
+      const buildManifest = () => {
+        const icon192 = createPngIcon(logoImg, 192);
+        const icon512 = createPngIcon(logoImg, 512);
+        const manifestData = {
+          name: "King of Fadez PH | Booking App",
+          short_name: "King of Fadez PH",
+          description: "Kingoffadezph.com — Book your haircut & grooming appointment.",
+          start_url: window.location.href,
+          scope: "./",
+          display: "standalone",
+          orientation: "portrait",
+          background_color: "#050505",
+          theme_color: "#d4af37",
+          icons: [
+            { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
+      };
+      if (logoImg.complete) buildManifest();
+      else logoImg.addEventListener('load', buildManifest);
+    }
+    initUniversalManifest();
+
+    const ua = navigator.userAgent || '';
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isMac = /Macintosh|MacIntel/i.test(ua) && !isIOS;
+    const isWindows = /Windows/i.test(ua);
+    const isInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview|Line|Viber/i.test(ua);
+
+    const installFloat = document.getElementById('install-float');
+    const installSubtext = document.getElementById('install-subtext');
+    const installBtn = document.getElementById('install-btn');
+    const dismissBtn = document.getElementById('dismiss-install');
+    const deviceGuide = document.getElementById('device-guide');
+    const deviceBadge = document.getElementById('device-badge');
+    const guideSteps = document.getElementById('guide-steps');
+    let deferredPrompt = null;
+
+    if (isIOS) installSubtext.textContent = 'Add to iPhone / iPad Home Screen';
+    else if (isAndroid) installSubtext.textContent = 'Install Android App • Fast Booking';
+    else if (isWindows || isMac) installSubtext.textContent = 'Install Desktop App on PC / Mac';
+
+    if (!isStandalone && !sessionStorage.getItem('kol_install_dismissed')) {
+      setTimeout(() => installFloat.classList.add('show'), 1800);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && !sessionStorage.getItem('kol_install_dismissed')) {
+        installFloat.classList.add('show');
+      }
+    });
+
+    function openPlatformGuide() {
+      if (isInAppBrowser) {
+        deviceBadge.textContent = 'In-App Browser Detected';
+        guideSteps.innerHTML = `1. Tap <b>•••</b> or <b>Share</b>.<br>2. Select <b>"Open in Browser"</b>.<br>3. Tap <b>Install</b> again.`;
+      } else if (isIOS) {
+        deviceBadge.textContent = 'iOS • iPhone & iPad';
+        guideSteps.innerHTML = `1. Tap <b>Share</b> (⬆️) in Safari.<br>2. Tap <b>"Add to Home Screen"</b>.<br>3. Tap <b>Add</b>.`;
+      } else if (isAndroid) {
+        deviceBadge.textContent = 'Android Device';
+        guideSteps.innerHTML = `1. Tap <b>⋮ Menu</b> in Chrome.<br>2. Tap <b>"Install app"</b>.<br>3. Confirm <b>Install</b>.`;
+      } else {
+        deviceBadge.textContent = 'Desktop PC / Mac';
+        guideSteps.innerHTML = `1. Click the <b>Install icon (⊕)</b> in the address bar.<br>2. Or use browser menu to install app.`;
+      }
+      deviceGuide.classList.add('active');
+    }
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
+    document.getElementById('copy-link-btn').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        e.target.textContent = 'Copied!';
+        setTimeout(() => e.target.textContent = 'Copy Link', 2000);
+      });
+    });
+
+    dismissBtn.addEventListener('click', () => {
+      installFloat.classList.remove('show');
+      sessionStorage.setItem('kol_install_dismissed', 'true');
+    });
+
+    document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
+    window.addEventListener('appinstalled', () => installFloat.classList.remove('show'));
   </script>
+
 </body>
 </html>
