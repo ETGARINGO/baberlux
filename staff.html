@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505">
+  <title>King of Fadez PH | Multi-Branch Payslip & Payroll Portal</title>
+  <meta name="description" content="Kingoffadezph.com — View barber payslips, commissions, deductions, and vouchers across all King of Fadez PH branches.">
+
+  <!-- Universal Web App / PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KOF PH Payslip">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="KOF PH Payslip">
+  <meta name="msapplication-TileColor" content="#050505">
+  <link rel="manifest" id="pwa-manifest">
+
+  <!-- Browser & App Link Icons -->
+  <link rel="icon" type="image/jpeg" href="b4.jfif">
+  <link rel="shortcut icon" type="image/jpeg" href="b4.jfif">
+  <link rel="apple-touch-icon" href="b4.jfif">
+
+  <!-- Open Graph Meta Tags (Messenger, Viber, WhatsApp, Telegram, Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="King of Fadez PH">
+  <meta property="og:title" content="King of Fadez PH | Barber Payslip & Payroll Portal">
+  <meta property="og:description" content="Kingoffadezph.com • Check barber payslips, commissions, and payouts for S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, and KOF Imus.">
+  <meta property="og:image" content="b4.jfif">
+  <meta property="og:image:secure_url" content="b4.jfif">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="King of Fadez PH Logo">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="King of Fadez PH | Barber Payslip & Payroll Portal">
+  <meta name="twitter:description" content="Kingoffadezph.com • Multi-branch barber payslip, commission, and payout portal.">
+  <meta name="twitter:image" content="b4.jfif">
+  <meta name="twitter:image:alt" content="King of Fadez PH Logo">
+
+  <!-- Schema.org Fallback -->
+  <meta itemprop="name" content="King of Fadez PH | Barber Payslip & Payroll Portal">
+  <meta itemprop="description" content="Kingoffadezph.com • Multi-branch barber payslip, commission, and payout portal.">
+  <meta itemprop="image" content="b4.jfif">
+
+  <!-- Fonts & Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbyodoWVni6FrlkAQUDEFLVdN1GwlzkTm0r1h_-gKutBOM5foQcA9FIA4Eey8bGPICZf/exec?page=payslip&branch=main">
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://kingoffadezph.com">
+
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f3d573;
+      --glass: rgba(12, 12, 12, 0.86);
+      --panel-bg: rgba(18, 18, 18, 0.82);
+      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
+      --green: #22c55e;
+      --red: #ef4444;
+      --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      width: 100%;
+      min-height: 100%;
+      background: #050505;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--brand-font);
+      background: #050505;
+      color: #fff;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* MUTED BACKGROUND VIDEO */
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.32) contrast(1.15);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(10, 10, 10, 0.35) 15%, rgba(0, 0, 0, 0.92) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* FULL-PAGE AUTO-FIT SHELL */
+    #app-shell {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding:
+        max(14px, env(safe-area-inset-top))
+        clamp(12px, 3vw, 32px)
+        max(96px, calc(env(safe-area-inset-bottom) + 84px));
+    }
+
+    /* RESPONSIVE MAIN CARD CONTAINER */
+    .page-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 32px);
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: clamp(22px, 3vw, 32px);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    /* TOP META BAR */
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .portal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      color: var(--gold-light);
+      font-size: clamp(0.6rem, 1.2vw, 0.68rem);
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    #liveClock {
+      font-size: clamp(0.68rem, 1.3vw, 0.78rem);
+      font-weight: 700;
+      color: #bdbdbd;
+      letter-spacing: 0.8px;
+    }
+
+    /* HERO HEADER */
+    .hero-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: clamp(14px, 2vw, 20px);
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2px auto 10px;
+    }
+
+    .brand-logo {
+      width: clamp(82px, 10vw, 98px);
+      height: clamp(82px, 10vw, 98px);
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
+      display: block;
+    }
+
+    /* FRAMED "KING OF FADEZ PH" EMBLEM WITH ANIMATED BACK FLASHING */
+    .brand-title-wrap {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px auto 8px;
+      max-width: 100%;
+    }
+
+    .brand-title-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
+      background: #050505;
+      border: 2.5px solid #ffffff;
+      box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.35),
+        inset 0 0 14px rgba(212, 175, 55, 0.28);
+      overflow: hidden;
+    }
+
+    .title-back-flash {
+      position: absolute;
+      inset: -6px;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 68% 65% at 50% 50%,
+        rgba(255, 244, 190, 0.95) 0%,
+        rgba(212, 175, 55, 0.75) 36%,
+        rgba(212, 175, 55, 0.16) 68%,
+        transparent 85%
+      );
+      animation: backWordFlash 1.7s ease-in-out infinite;
+    }
+
+    .title-flash-sweep {
+      position: absolute;
+      top: -20%;
+      left: -60%;
+      width: 45%;
+      height: 140%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 236, 150, 0.45) 45%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 236, 150, 0.45) 55%,
+        transparent 100%
+      );
+      transform: skewX(-22deg);
+      animation: backSweepFlash 2.6s ease-in-out infinite;
+    }
+
+    .border-flare-top,
+    .border-flare-bottom {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 5px;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        #ffffff 0%,
+        #ffe082 32%,
+        rgba(212, 175, 55, 0.55) 58%,
+        transparent 80%
+      );
+      filter: blur(0.6px);
+      animation: borderGlintFlash 1.7s ease-in-out infinite;
+    }
+
+    .border-flare-top { top: -2px; }
+    .border-flare-bottom { bottom: -2px; }
+
+    .brand-title-text {
+      position: relative;
+      z-index: 2;
+      font-family: var(--brand-font);
+      font-weight: 900;
+      font-size: clamp(1.12rem, 3.6vw, 1.72rem);
+      letter-spacing: clamp(1.6px, 0.35vw, 3px);
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.95),
+        0 0 10px rgba(255, 224, 130, 0.55);
+    }
+
+    @keyframes backWordFlash {
+      0%, 100% { opacity: 0.22; transform: scale(0.86); }
+      45% { opacity: 1; transform: scale(1.08); }
+      55% { opacity: 0.45; transform: scale(0.95); }
+      70% { opacity: 0.95; transform: scale(1.05); }
+    }
+
+    @keyframes backSweepFlash {
+      0% { left: -65%; opacity: 0; }
+      20% { opacity: 0.9; }
+      65% { left: 125%; opacity: 0.9; }
+      100% { left: 125%; opacity: 0; }
+    }
+
+    @keyframes borderGlintFlash {
+      0%, 100% { opacity: 0.35; transform: translateX(-50%) scaleX(0.75); }
+      45%, 70% { opacity: 1; transform: translateX(-50%) scaleX(1.08); }
+    }
+
+    .tagline {
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    .tagline-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--brand-font);
+      font-size: clamp(0.64rem, 1.4vw, 0.76rem);
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #f0f0f0;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.65);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .tagline-link:hover {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .sub-tagline {
+      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* =========================================================
+       MULTI-BRANCH PAYSLIP PRIORITY PORTAL
+       ========================================================= */
+    #payslip-portal {
+      text-align: left;
+      padding-top: clamp(12px, 2vw, 18px);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .selector-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .selector-hint {
+      font-size: clamp(0.62rem, 1.25vw, 0.72rem);
+      font-weight: 600;
+      color: #bdbdbd;
+      letter-spacing: 0.3px;
+      text-transform: none;
+    }
+
+    /* 4-BRANCH SELECTOR GRID */
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(8px, 1.5vw, 14px);
+      margin-bottom: clamp(14px, 2.2vw, 22px);
+    }
+
+    @media (min-width: 900px) {
+      .branch-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 360px) {
+      .branch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .branch-tab {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: clamp(10px, 1.5vw, 14px);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .branch-tab:hover {
+      border-color: rgba(212, 175, 55, 0.65);
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .branch-tab.active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+    }
+
+    .branch-avatar-pair {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .branch-tab-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      background: #000;
+      display: block;
+    }
+
+    .branch-tab.active .branch-tab-logo {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+    }
+
+    .branch-tab-recept {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid #111;
+      box-shadow: 0 0 0 1px var(--gold);
+      background: #1a1a1a;
+    }
+
+    .branch-tab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .branch-tab-num {
+      font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .branch-tab-name {
+      font-size: clamp(0.76rem, 1.4vw, 0.86rem);
+      font-weight: 700;
+      color: #f8f8f8;
+      line-height: 1.25;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* TWO-COLUMN WORKSPACE: PAYSLIP PRIORITY HERO + BRANCH DETAILS */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(14px, 2vw, 22px);
+      align-items: stretch;
+    }
+
+    @media (min-width: 840px) {
+      .workspace-grid {
+        grid-template-columns: 1.08fr 1.12fr;
+      }
+    }
+
+    .workspace-col {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(12px, 1.6vw, 16px);
+    }
+
+    /* PAYSLIP PRIORITY HERO CARD */
+    .payslip-hero-card {
+      background: linear-gradient(145deg, rgba(212, 175, 55, 0.16), rgba(14, 14, 14, 0.92));
+      border: 1.5px solid rgba(212, 175, 55, 0.58);
+      border-radius: 20px;
+      padding: clamp(16px, 2.4vw, 22px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      flex: 1;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+    }
+
+    .payslip-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .payslip-hero-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .payslip-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-size: 1.55rem;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
+    }
+
+    .payslip-hero-title-group h3 {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .payslip-hero-title-group p {
+      font-size: clamp(0.72rem, 1.3vw, 0.8rem);
+      color: #d4d4d4;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .priority-pill {
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold-gradient);
+      padding: 5px 10px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .payslip-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .highlight-chip {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.24);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .highlight-chip span.chip-icon {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .highlight-chip span.chip-label {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .primary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: clamp(15px, 2vw, 18px);
+      border-radius: 16px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-family: var(--brand-font);
+      font-size: clamp(0.84rem, 1.5vw, 0.96rem);
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.42);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .primary-btn:hover {
+      box-shadow: 0 10px 28px rgba(212, 175, 55, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-mini-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #000;
+      background: #000;
+    }
+
+    .quick-payslip-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .quick-action-btn {
+      padding: 12px 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #f3f3f3;
+      font-family: var(--brand-font);
+      font-size: clamp(0.7rem, 1.3vw, 0.78rem);
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .quick-action-btn:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.16);
+      color: var(--gold-light);
+    }
+
+    /* ACTIVE BRANCH DETAILS PANEL */
+    .branch-panel {
+      background: var(--panel-bg);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 20px;
+      padding: clamp(14px, 2.2vw, 20px);
+      text-align: left;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .branch-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .branch-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .panel-avatars {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .panel-mini-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      background: #000;
+    }
+
+    .panel-mini-recept {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1.5px solid var(--gold-light);
+      margin-left: -10px;
+      background: #141414;
+    }
+
+    .branch-title {
+      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    .branch-badge {
+      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .detail-row {
+      font-size: clamp(0.78rem, 1.45vw, 0.9rem);
+      line-height: 1.48;
+      color: #f3f3f3;
+      background: rgba(0, 0, 0, 0.38);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .detail-row strong {
+      display: block;
+      color: var(--gold);
+      font-size: clamp(0.6rem, 1.15vw, 0.68rem);
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .detail-contact-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+    }
+
+    .detail-link {
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      word-break: break-word;
+    }
+
+    .detail-link:hover {
+      color: var(--gold-light);
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .link-btn {
+      padding: 10px 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-family: var(--brand-font);
+      font-size: clamp(0.74rem, 1.35vw, 0.82rem);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .link-btn:hover {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--gold);
+    }
+
+    /* =========================================================
+       iOS ASSISTIVETOUCH FLOATING MENU (NON-ADMIN INTERFACES)
+       ========================================================= */
+    #assistive-bubble {
+      position: fixed;
+      bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px));
+      right: 18px;
+      width: 58px;
+      height: 58px;
+      background: rgba(14, 14, 14, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      z-index: 10005;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 18px rgba(212, 175, 55, 0.45);
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.15s ease;
+    }
+
+    #assistive-bubble:hover {
+      transform: scale(1.05);
+    }
+
+    #assistive-bubble img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      pointer-events: none;
+    }
+
+    #assistive-menu {
+      position: fixed;
+      width: min(260px, calc(100vw - 24px));
+      background: rgba(12, 12, 12, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 20px;
+      padding: 10px;
+      z-index: 10006;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.92);
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    #assistive-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .assistive-branch-tag {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 3px 6px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 2px;
+    }
+
+    .assistive-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .assistive-item:hover {
+      background: rgba(212, 175, 55, 0.16);
+      border-color: var(--gold);
+    }
+
+    .assistive-item.highlight {
+      border-color: rgba(212, 175, 55, 0.5);
+      background: rgba(212, 175, 55, 0.14);
+      color: var(--gold-light);
+    }
+
+    .assistive-item.client-book {
+      border-color: rgba(34, 197, 94, 0.45);
+      background: rgba(34, 197, 94, 0.12);
+      color: #86efac;
+    }
+
+    .assistive-item.client-book:hover {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.22);
+    }
+
+    /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
+    #webSheet {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: #080808;
+      z-index: 9990;
+      display: none;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    }
+
+    #webSheet.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .websheet-header {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 14px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0a0a0a;
+      font-weight: 800;
+      font-size: clamp(0.74rem, 1.5vw, 0.88rem);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .websheet-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .websheet-ext-btn {
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold-light);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .websheet-icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .websheet-scroll-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #webSheetLoader {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      color: var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 2;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    #webSheetLoader.hidden { opacity: 0; }
+    #webSheetFrame { width: 100%; height: 100%; border: none; display: block; }
+
+    /* FLOATING UNIVERSAL INSTALL APP PROMPT */
+    #install-float {
+      position: fixed;
+      bottom: max(14px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      width: calc(100% - 28px);
+      max-width: 430px;
+      background: rgba(14, 14, 14, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      border-radius: 20px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 9985;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #install-float.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .install-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-align: left;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .install-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .install-text strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--gold);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .install-text span {
+      display: block;
+      font-size: 0.66rem;
+      color: #d0d0d0;
+      margin-top: 2px;
+    }
+
+    .install-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    #install-btn {
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-family: var(--brand-font);
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #dismiss-install {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #aaa;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    /* UNIVERSAL DEVICE INSTALL GUIDE MODAL */
+    #device-guide {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10010;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #device-guide.active { display: flex; }
+
+    .guide-sheet {
+      width: 100%;
+      max-width: 400px;
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .guide-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: var(--gold);
+      font-size: 0.63rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .guide-sheet h3 { color: #fff; font-size: 1rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
+
+    .guide-steps {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: left;
+      font-size: 0.8rem;
+      color: #f0f0f0;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .guide-steps b { color: var(--gold); }
+    .guide-btns { display: flex; gap: 8px; }
+
+    .guide-btn-secondary {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: transparent;
+      color: var(--gold);
+      font-family: var(--brand-font);
+      font-weight: 800;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #close-guide {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: var(--gold-gradient);
+      color: #000;
+      font-family: var(--brand-font);
+      font-weight: 900;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* INSTANT FULL-SCREEN AUTO-FIT PAYSLIP & CLIENT MODAL */
+    #portalModal {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: #080808;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      will-change: transform, opacity;
+      transform: translate3d(0, 100%, 0);
+      transition: transform 0.24s cubic-bezier(0.1, 1, 0.2, 1);
+    }
+
+    #portalModal.active {
+      display: flex;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .modal-header {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 14px;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      background: #0b0b0b;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .modal-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    #modalBranchLogo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    #modalBranchSelect {
+      background: #161616;
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-family: var(--brand-font);
+      font-size: 0.72rem;
+      font-weight: 700;
+      max-width: 215px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #modalTitle {
+      font-size: 0.72rem;
+      color: #d4d4d4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 520px) {
+      #modalTitle {
+        display: none;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+
+    #frameLoader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: var(--gold);
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    #frameLoader.hidden { opacity: 0; }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #portalFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MUTED BACKGROUND VIDEO -->
+  <video id="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="IMG_1039.MOV" type="video/mp4">
+    <source src="IMG_1039.MOV" type="video/quicktime">
+  </video>
+  <div class="vignette"></div>
+
+  <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
+  <img src="b4.jfif" alt="" id="logo-source" style="display:none;">
+
+  <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (NON-ADMIN INTERFACES) -->
+  <div id="assistive-bubble" title="Quick Switch Menu">
+    <img src="b2.jfif" alt="Quick Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
+  </div>
+
+  <!-- ASSISTIVETOUCH POPUP MENU (PAYSLIP + CLIENT BOOKING + OFFICIAL DETAILS — NO ADMIN) -->
+  <div id="assistive-menu">
+    <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 2 • KOF Dasma Area G</div>
+    <a href="#" class="assistive-item highlight" id="menuPayslip">
+      <span class="icon">💸</span>
+      <span>Payslip &amp; Payroll</span>
+    </a>
+    <a href="#" class="assistive-item client-book" id="menuClientBook">
+      <span class="icon">💈</span>
+      <span>Book a Client</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuDetails">
+      <span class="icon">🌐</span>
+      <span>Official Details</span>
+    </a>
+    <a href="#" class="assistive-item" id="menuInstallApp">
+      <span class="icon">📥</span>
+      <span>Install Payslip App</span>
+    </a>
+  </div>
+
+  <!-- FULL-SCREEN AUTO-FIT SHELL -->
+  <main id="app-shell">
+    <div class="page-container" id="mainCard">
+      <div class="top-meta">
+        <span class="portal-badge">💸 Barber Payroll &amp; Payslip</span>
+        <span id="liveClock">--:--</span>
+      </div>
+
+      <!-- HERO BRANDING -->
+      <header class="hero-header">
+        <div class="brand-logo-wrap">
+          <img src="b2.jfif" alt="King of Fadez PH Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+        </div>
+
+        <!-- FRAMED WORDING WITH ANIMATED BACK FLASHING -->
+        <div class="brand-title-wrap">
+          <span class="border-flare-top" aria-hidden="true"></span>
+          <div class="brand-title-box">
+            <span class="title-back-flash" aria-hidden="true"></span>
+            <span class="title-flash-sweep" aria-hidden="true"></span>
+            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+          </div>
+          <span class="border-flare-bottom" aria-hidden="true"></span>
+        </div>
+
+        <!-- CLICKABLE TAGLINE LINK -->
+        <div class="tagline">
+          <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">Kingoffadezph.com</a>
+        </div>
+        <div class="sub-tagline" id="activeBranchBanner">PAYSLIP PORTAL • BRANCH 2 • KOF DASMA AREA G</div>
+      </header>
+
+      <!-- MULTI-BRANCH PAYSLIP PRIORITY PORTAL -->
+      <div id="payslip-portal">
+        <div class="selector-label">
+          <span>Select Branch for Payslip</span>
+          <span class="selector-hint">Tap a branch below to open barber payroll &amp; commissions</span>
+        </div>
+
+        <div class="branch-grid" id="branchGrid">
+          <button type="button" class="branch-tab" data-branch="branch1">
+            <div class="branch-avatar-pair">
+              <img src="b1.jfif" alt="Branch 1 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+              <img src="S&Drec.jfif" alt="Branch 1 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b1.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 1</span>
+              <span class="branch-tab-name">S&amp;D Dasma Bayan</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab active" data-branch="branch2">
+            <div class="branch-avatar-pair">
+              <img src="b2.jfif" alt="Branch 2 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+              <img src="dasmares.jfif" alt="Branch 2 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b2.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 2 • Main</span>
+              <span class="branch-tab-name">KOF Dasma Area G</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab" data-branch="branch3">
+            <div class="branch-avatar-pair">
+              <img src="b3.jfif" alt="Branch 3 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+              <img src="Molinorec.jfif" alt="Branch 3 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b3.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 3</span>
+              <span class="branch-tab-name">KOF Molino 3, Bacoor</span>
+            </div>
+          </button>
+
+          <button type="button" class="branch-tab" data-branch="branch4">
+            <div class="branch-avatar-pair">
+              <img src="b4.jfif" alt="Branch 4 Logo" class="branch-tab-logo" onerror="this.onerror=null;this.src='b4.jfif';">
+              <img src="Imusrec.jfif" alt="Branch 4 Receptionist" class="branch-tab-recept" onerror="this.onerror=null;this.src='b4.jfif';">
+            </div>
+            <div class="branch-tab-info">
+              <span class="branch-tab-num">Branch 4</span>
+              <span class="branch-tab-name">KOF Imus</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- TWO-COLUMN RESPONSIVE WORKSPACE -->
+        <div class="workspace-grid">
+          <!-- LEFT COLUMN: PAYSLIP PRIORITY ACTION CARD -->
+          <div class="workspace-col">
+            <div class="payslip-hero-card">
+              <div class="payslip-hero-top">
+                <div class="payslip-hero-title-group">
+                  <div class="payslip-icon-box">💸</div>
+                  <div>
+                    <h3>Payslip &amp; Commissions</h3>
+                    <p>Barber Payouts, Service Shares, Deductions &amp; Vouchers</p>
+                  </div>
+                </div>
+                <span class="priority-pill">Priority</span>
+              </div>
+
+              <div class="payslip-highlights">
+                <div class="highlight-chip">
+                  <span class="chip-icon">✂️</span>
+                  <span class="chip-label">Commissions</span>
+                </div>
+                <div class="highlight-chip">
+                  <span class="chip-icon">🧾</span>
+                  <span class="chip-label">Vouchers</span>
+                </div>
+                <div class="highlight-chip">
+                  <span class="chip-icon">💵</span>
+                  <span class="chip-label">Net Payout</span>
+                </div>
+              </div>
+
+              <button type="button" class="primary-btn" id="openPayslipBtn">
+                <img src="b2.jfif" alt="" class="btn-mini-logo" id="openPayslipBtnLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+                <span id="openPayslipBtnText">Open Branch 2 • KOF Dasma Area G Payslip</span>
+              </button>
+
+              <div class="quick-payslip-row">
+                <button type="button" class="quick-action-btn" id="openClientQuickBtn">
+                  <span>💈</span>
+                  <span>Book a Client</span>
+                </button>
+                <button type="button" class="quick-action-btn" id="openWebBtn">
+                  <span>🌐</span>
+                  <span>Official Details</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: SELECTED BRANCH DETAILS -->
+          <div class="workspace-col">
+            <section class="branch-panel" aria-label="Selected Branch Details">
+              <div class="branch-header-row">
+                <div class="branch-header-brand">
+                  <div class="panel-avatars">
+                    <img src="b2.jfif" alt="Branch Logo" class="panel-mini-logo" id="panelMiniLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+                    <img src="dasmares.jfif" alt="Front Desk" class="panel-mini-recept" id="panelMiniRecept" onerror="this.onerror=null;this.src='b2.jfif';">
+                  </div>
+                  <h2 class="branch-title" id="branchTitle">Branch 2 • KOF Dasma Area G</h2>
+                </div>
+                <span class="branch-badge" id="branchBadge">Main Branch</span>
+              </div>
+
+              <div class="detail-list">
+                <div class="detail-row">
+                  <strong>📍 Full Location Address</strong>
+                  <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Area G, Dasmariñas, Cavite, Philippines</span>
+                </div>
+
+                <div class="detail-row">
+                  <strong>📞 Direct Phone &amp; Email</strong>
+                  <div class="detail-contact-items">
+                    <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
+                    <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a>
+                  </div>
+                </div>
+
+                <div class="detail-row">
+                  <strong>🔗 Branch Maps &amp; Social Channels</strong>
+                  <div class="socials" id="branchSocials"></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) -->
+  <div id="webSheet" role="dialog" aria-label="King of Fadez Full Details">
+    <div class="websheet-header">
+      <span>👑 King of Fadez PH • Official Details</span>
+      <div class="websheet-actions">
+        <a href="https://kingoffadezph.com/?shem=aimgspe" target="_blank" rel="noopener" class="websheet-ext-btn">Open Tab ↗</a>
+        <button type="button" class="websheet-icon-btn" id="reloadWebSheet" title="Refresh">↻</button>
+        <button type="button" class="websheet-icon-btn" id="closeWebSheet" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="websheet-scroll-container">
+      <div id="webSheetLoader">
+        <div class="spinner"></div>
+        <span>Loading Full Details...</span>
+      </div>
+      <iframe
+        id="webSheetFrame"
+        src="about:blank"
+        title="King of Fadez PH Details"
+        loading="lazy"
+        allow="geolocation; clipboard-read; clipboard-write"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
+  <div id="install-float" role="region" aria-label="Install Payslip App">
+    <div class="install-info">
+      <img src="b4.jfif" alt="App Icon" class="install-icon">
+      <div class="install-text">
+        <strong>Install KOF PH Payslip App</strong>
+        <span id="install-subtext">Add to iOS, Android, or PC</span>
+      </div>
+    </div>
+    <div class="install-actions">
+      <button type="button" id="install-btn">Install</button>
+      <button type="button" id="dismiss-install" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- UNIVERSAL DEVICE INSTALL GUIDE MODAL -->
+  <div id="device-guide">
+    <div class="guide-sheet">
+      <div class="guide-badge" id="device-badge">Install Guide</div>
+      <h3>Install KOF PH Payslip App</h3>
+      <p>Install the Multi-Branch Payslip Portal directly on your device for instant full-screen access:</p>
+      <div class="guide-steps" id="guide-steps"></div>
+      <div class="guide-btns">
+        <button type="button" class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
+        <button type="button" id="close-guide">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTANT FULL-SCREEN AUTO-FIT PAYSLIP & CLIENT BOOKING MODAL -->
+  <div id="portalModal">
+    <div class="modal-header">
+      <div class="modal-left">
+        <img src="b2.jfif" alt="Branch Logo" id="modalBranchLogo" onerror="this.onerror=null;this.src='b4.jfif';">
+        <select id="modalBranchSelect" aria-label="Switch Branch">
+          <option value="branch1">Branch 1 • S&amp;D Dasma Bayan</option>
+          <option value="branch2" selected>Branch 2 • KOF Dasma Area G</option>
+          <option value="branch3">Branch 3 • KOF Molino 3, Bacoor</option>
+          <option value="branch4">Branch 4 • KOF Imus</option>
+        </select>
+        <span id="modalTitle">Branch Payslip &amp; Payroll</span>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="reloadFrame" title="Reload">↻</button>
+        <button type="button" class="icon-btn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+    </div>
+
+    <div class="iframe-wrapper">
+      <div id="frameLoader">
+        <div class="spinner"></div>
+        <span id="frameLoaderText">Loading Branch Payslip...</span>
+      </div>
+      <iframe
+        id="portalFrame"
+        src="about:blank"
+        sandbox="allow-scripts allow-forms allow-same-origin allow-modals allow-downloads allow-popups"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    const BASE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyodoWVni6FrlkAQUDEFLVdN1GwlzkTm0r1h_-gKutBOM5foQcA9FIA4Eey8bGPICZf/exec";
+    const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
+
+    // =========================================================================
+    // MULTI-BRANCH DIRECTORY & ENDPOINTS (PAYSLIP PRIORITY & CLIENT BOOKING)
+    // =========================================================================
+    const BRANCHES = {
+      branch1: {
+        branchParam: "kofdasmabav0r",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=kofdasmabav0r`,
+        logo: "b1.jfif",
+        receptionist: "S&Drec.jfif",
+        shortName: "Branch 1 • S&D Dasma Bayan",
+        title: "Branch 1 • S&D Dasma Bayan",
+        badge: "Dasmariñas Bayan",
+        address: "Brgy. Zone 3, Don Placido Campos Avenue, Dasmariñas Bayan, Cavite, Philippines",
+        phoneDisplay: "(0915) 053 3669",
+        phoneHref: "tel:+639150533669",
+        email: "slickanddapperdasma@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/TvqHSluJBGUNsSRyK" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@slickanddapperdasma?_r=1&_t=ZP-9BOXRyXSMFa" }
+        ]
+      },
+      branch2: {
+        branchParam: "main",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=main`,
+        logo: "b2.jfif",
+        receptionist: "dasmares.jfif",
+        shortName: "Branch 2 • KOF Dasma Area G",
+        title: "Branch 2 • KOF Dasma Area G",
+        badge: "Main Branch",
+        address: "Blk 4, Lot 18 Congressional Ave, Area G, Dasmariñas, Cavite, Philippines",
+        phoneDisplay: "(0956) 718 8557",
+        phoneHref: "tel:+639567188557",
+        email: "Kingoffadezph@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://maps.google.com/?q=King+of+Fadez+Dasmariñas" },
+          { label: "📱 TikTok", url: "https://www.tiktok.com/@kingoffadez.ph" },
+          { label: "📘 FB Page", url: "https://www.facebook.com/share/r/1NQfs6Fcer/" }
+        ]
+      },
+      branch3: {
+        branchParam: "branch3kofxe4",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=branch3kofxe4`,
+        logo: "b3.jfif",
+        receptionist: "Molinorec.jfif",
+        shortName: "Branch 3 • KOF Molino 3, Bacoor",
+        title: "Branch 3 • KOF Molino 3, Bacoor",
+        badge: "Bacoor, Cavite",
+        address: "Molino 3, Bacoor, Cavite, Philippines",
+        phoneDisplay: "(0956) 752 9543",
+        phoneHref: "tel:+639567529543",
+        email: "kingoffadezbacoorm3@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/ecSHCqP35ncacyUAP" }
+        ]
+      },
+      branch4: {
+        branchParam: "branch4imu253",
+        payslipUrl: `${BASE_SCRIPT_URL}?page=payslip&branch=branch4imu253`,
+        logo: "b4.jfif",
+        receptionist: "Imusrec.jfif",
+        shortName: "Branch 4 • KOF Imus",
+        title: "Branch 4 • KOF Imus",
+        badge: "Imus, Cavite",
+        address: "7535 Emilio Aguinaldo Highway, Tanzang Luma 1, Imus, Cavite, Philippines, 4103",
+        phoneDisplay: "(0927) 994 3950",
+        phoneHref: "tel:+639279943950",
+        email: "kingoffadezphimus@gmail.com",
+        links: [
+          { label: "🗺️ Google Maps", url: "https://share.google/bYHgooaQOYvwco2YV" },
+          { label: "📘 FB Page 1", url: "https://www.facebook.com/profile.php?id=61593972186081&mibextid=wwXIfr&mibextid=wwXIfr" },
+          { label: "📘 FB Page 2", url: "https://www.facebook.com/profile.php?id=61566638207034&mibextid=wwXIfr&mibextid=wwXIfr" }
+        ]
+      }
+    };
+
+    let currentBranchKey = localStorage.getItem('kof_payslip_branch') || 'branch2';
+    if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
+
+    const portalModal = document.getElementById('portalModal');
+    const portalFrame = document.getElementById('portalFrame');
+    const frameLoader = document.getElementById('frameLoader');
+    const frameLoaderText = document.getElementById('frameLoaderText');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBranchLogo = document.getElementById('modalBranchLogo');
+    const modalBranchSelect = document.getElementById('modalBranchSelect');
+
+    const branchTabs = document.querySelectorAll('.branch-tab');
+    const heroBrandLogo = document.getElementById('heroBrandLogo');
+    const openPayslipBtnLogo = document.getElementById('openPayslipBtnLogo');
+    const openPayslipBtnText = document.getElementById('openPayslipBtnText');
+    const panelMiniLogo = document.getElementById('panelMiniLogo');
+    const panelMiniRecept = document.getElementById('panelMiniRecept');
+    const assistiveBubbleImg = document.getElementById('assistiveBubbleImg');
+    const assistiveBranchLabel = document.getElementById('assistiveBranchLabel');
+    const activeBranchBanner = document.getElementById('activeBranchBanner');
+
+    const branchTitleEl = document.getElementById('branchTitle');
+    const branchBadgeEl = document.getElementById('branchBadge');
+    const branchAddressEl = document.getElementById('branchAddress');
+    const branchPhoneEl = document.getElementById('branchPhone');
+    const branchEmailEl = document.getElementById('branchEmail');
+    const branchSocialsEl = document.getElementById('branchSocials');
+
+    let currentSrc = "";
+    let activeRouteState = { title: 'Branch Payslip & Payroll', page: 'payslip', view: '' };
+
+    function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'b4.jfif') {
+      imgEl.onerror = function() {
+        if (secondarySrc && this.getAttribute('src') !== secondarySrc) {
+          this.onerror = function() {
+            this.onerror = null;
+            this.src = 'b4.jfif';
+          };
+          this.src = secondarySrc;
+        } else {
+          this.onerror = null;
+          this.src = 'b4.jfif';
+        }
+      };
+      imgEl.src = primarySrc;
+    }
+
+    function renderBranch(branchKey) {
+      const data = BRANCHES[branchKey];
+      if (!data) return;
+      currentBranchKey = branchKey;
+      localStorage.setItem('kof_payslip_branch', branchKey);
+
+      branchTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.branch === branchKey);
+      });
+
+      setImageWithFallback(heroBrandLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(openPayslipBtnLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(panelMiniLogo, data.logo, 'b4.jfif');
+      setImageWithFallback(panelMiniRecept, data.receptionist, data.logo);
+      setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
+      setImageWithFallback(modalBranchLogo, data.logo, 'b4.jfif');
+
+      activeBranchBanner.textContent = `PAYSLIP PORTAL • ${data.shortName.toUpperCase()}`;
+      assistiveBranchLabel.textContent = data.shortName;
+      openPayslipBtnText.textContent = `Open ${data.shortName} Payslip`;
+      modalBranchSelect.value = branchKey;
+
+      branchTitleEl.textContent = data.title;
+      branchBadgeEl.textContent = data.badge;
+      branchAddressEl.textContent = data.address;
+      branchPhoneEl.textContent = data.phoneDisplay;
+      branchPhoneEl.href = data.phoneHref;
+      branchEmailEl.textContent = data.email;
+      branchEmailEl.href = `mailto:${data.email}`;
+
+      branchSocialsEl.innerHTML = data.links.map(item =>
+        `<a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a>`
+      ).join('');
+    }
+
+    branchTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        renderBranch(tab.dataset.branch);
+      });
+    });
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+
+    // Parse initial URL parameters (defaults safely to non-admin routes)
+    function parseInitialSublink() {
+      const params = new URLSearchParams(window.location.search);
+      const pageParam = params.get('page');
+      const viewParam = params.get('view') || window.location.hash.replace('#', '');
+      const branchParam = params.get('branch');
+      if (branchParam) {
+        const matched = Object.keys(BRANCHES).find(k => BRANCHES[k].branchParam === branchParam || k === branchParam);
+        if (matched) currentBranchKey = matched;
+      }
+      renderBranch(currentBranchKey);
+
+      if (pageParam === 'client' || viewParam === 'client') {
+        launchRoute('Client Booking', 'client', 'client');
+      } else if (pageParam === 'payslip') {
+        launchRoute('Branch Payslip & Payroll', 'payslip', '');
+      }
+    }
+
+    // =========================================================================
+    // iOS ASSISTIVETOUCH DRAGGABLE BUBBLE & VIEWPORT-CLAMPED MENU (NO ADMIN)
+    // =========================================================================
+    const bubble = document.getElementById('assistive-bubble');
+    const menu = document.getElementById('assistive-menu');
+    let isDragging = false;
+    let hasMoved = false;
+    let startX, startY, initialX, initialY;
+
+    bubble.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = bubble.getBoundingClientRect();
+      initialX = rect.left;
+      initialY = rect.top;
+      bubble.setPointerCapture(e.pointerId);
+    });
+
+    bubble.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved = true;
+      let newX = initialX + dx;
+      let newY = initialY + dy;
+
+      newX = Math.max(10, Math.min(window.innerWidth - bubble.offsetWidth - 10, newX));
+      newY = Math.max(10, Math.min(window.innerHeight - bubble.offsetHeight - 10, newY));
+
+      bubble.style.left = newX + 'px';
+      bubble.style.top = newY + 'px';
+      bubble.style.right = 'auto';
+      bubble.style.bottom = 'auto';
+    });
+
+    bubble.addEventListener('pointerup', () => {
+      isDragging = false;
+      if (!hasMoved) {
+        const isOpen = menu.classList.contains('active');
+        if (isOpen) {
+          menu.classList.remove('active');
+        } else {
+          menu.classList.add('active');
+          const bRect = bubble.getBoundingClientRect();
+          const mWidth = menu.offsetWidth || 260;
+          const mHeight = menu.offsetHeight || 235;
+          const pad = 12;
+
+          let left = bRect.right - mWidth;
+          left = Math.max(pad, Math.min(window.innerWidth - mWidth - pad, left));
+
+          let top = bRect.top - mHeight - 10;
+          if (top < pad) {
+            top = Math.min(window.innerHeight - mHeight - pad, bRect.bottom + 10);
+          }
+
+          menu.style.left = left + 'px';
+          menu.style.top = top + 'px';
+          menu.style.right = 'auto';
+          menu.style.bottom = 'auto';
+        }
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!bubble.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    function triggerFullScreen() {
+      try {
+        if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } catch (e) {}
+    }
+
+    // AssistiveTouch Menu Actions (Payslip, Client Booking, Official Details, Install)
+    document.getElementById('menuPayslip').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      triggerFullScreen();
+      launchRoute('Branch Payslip & Payroll', 'payslip', '');
+    });
+
+    document.getElementById('menuClientBook').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      triggerFullScreen();
+      launchRoute('Client Booking', 'client', 'client');
+    });
+
+    document.getElementById('menuDetails').addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      triggerFullScreen();
+      openWebSheet(e);
+    });
+
+    document.getElementById('menuInstallApp').addEventListener('click', async (e) => {
+      e.preventDefault();
+      menu.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
+    // =========================================================================
+    // FULL-SCREEN AUTO-FIT OVERLAY DETAILS MODAL (kingoffadezph.com)
+    // =========================================================================
+    const webSheet = document.getElementById('webSheet');
+    const webSheetFrame = document.getElementById('webSheetFrame');
+    const webSheetLoader = document.getElementById('webSheetLoader');
+    let webSheetLoaded = false;
+
+    function syncBodyScrollLock() {
+      const anyModalOpen = portalModal.classList.contains('active') || webSheet.classList.contains('active');
+      document.body.classList.toggle('modal-open', anyModalOpen);
+    }
+
+    function openWebSheet(e) {
+      if (e) e.preventDefault();
+      menu.classList.remove('active');
+      if (!webSheetLoaded) {
+        webSheetLoader.classList.remove('hidden');
+        webSheetFrame.src = DETAILS_URL;
+        webSheetLoaded = true;
+      }
+      webSheet.style.display = 'flex';
+      requestAnimationFrame(() => {
+        webSheet.classList.add('active');
+        syncBodyScrollLock();
+      });
+    }
+
+    function closeWebSheet() {
+      webSheet.classList.remove('active');
+      syncBodyScrollLock();
+      setTimeout(() => { webSheet.style.display = 'none'; }, 360);
+    }
+
+    webSheetFrame.addEventListener('load', () => webSheetLoader.classList.add('hidden'));
+
+    document.getElementById('openWebBtn').addEventListener('click', (e) => { triggerFullScreen(); openWebSheet(e); });
+    document.getElementById('closeWebSheet').addEventListener('click', closeWebSheet);
+    document.getElementById('reloadWebSheet').addEventListener('click', () => {
+      webSheetLoader.classList.remove('hidden');
+      webSheetFrame.src = DETAILS_URL;
+    });
+
+    // =========================================================================
+    // DNS-LOCKED FULLVIEW PAYSLIP & CLIENT BOOKING MODAL (NO ADMIN ROUTES)
+    // =========================================================================
+    function openUrlInLockedDns(title, targetUrl) {
+      const data = BRANCHES[currentBranchKey];
+      modalTitle.textContent = title || 'Branch Payslip & Payroll';
+      frameLoaderText.textContent = `Loading ${data.shortName} • ${title || 'Payslip'}...`;
+
+      if (currentSrc !== targetUrl) {
+        currentSrc = targetUrl;
+        frameLoader.classList.remove('hidden');
+        portalFrame.src = targetUrl;
+      }
+      if (!portalModal.classList.contains('active')) {
+        history.pushState({ kofModalOpen: true }, '', window.location.href);
+      }
+      portalModal.style.display = 'flex';
+      requestAnimationFrame(() => {
+        portalModal.classList.add('active');
+        syncBodyScrollLock();
+      });
+    }
+
+    function closeLockedModal(fromPopState = false) {
+      if (!portalModal.classList.contains('active')) return;
+      portalModal.classList.remove('active');
+      syncBodyScrollLock();
+      setTimeout(() => {
+        if (!portalModal.classList.contains('active')) portalModal.style.display = 'none';
+      }, 240);
+
+      if (!fromPopState && history.state && history.state.kofModalOpen) {
+        history.back();
+      }
+    }
+
+    function launchRoute(title, pageParam, viewParam) {
+      // Strictly block any admin route and default to payslip
+      const safePage = (pageParam === 'client') ? 'client' : 'payslip';
+      const safeView = (safePage === 'client') ? 'client' : '';
+      activeRouteState = { title, page: safePage, view: safeView };
+
+      const data = BRANCHES[currentBranchKey];
+      if (safePage === 'payslip') {
+        openUrlInLockedDns(title || 'Branch Payslip & Payroll', data.payslipUrl);
+        return;
+      }
+      const url = new URL(BASE_SCRIPT_URL);
+      url.searchParams.set('page', 'client');
+      url.searchParams.set('branch', data.branchParam);
+      url.searchParams.set('view', 'client');
+      openUrlInLockedDns(title || 'Client Booking', url.toString());
+    }
+
+    modalBranchSelect.addEventListener('change', (e) => {
+      renderBranch(e.target.value);
+      launchRoute(activeRouteState.title, activeRouteState.page, activeRouteState.view);
+    });
+
+    portalFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
+
+    // Intercept internal hash/route links while allowing tel:, mailto:, and external _blank links
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const rawHref = link.getAttribute('href');
+      if (!rawHref || rawHref === '#' || rawHref.startsWith('javascript:')) return;
+      if (rawHref.startsWith('tel:') || rawHref.startsWith('mailto:') || link.target === '_blank') return;
+
+      e.preventDefault();
+
+      if (rawHref.startsWith('#') || rawHref.startsWith('?')) {
+        const cleanView = rawHref.replace(/^[#?]+/, '');
+        const subParams = new URLSearchParams(rawHref.startsWith('?') ? rawHref : '');
+        const targetPage = (subParams.get('page') === 'client' || cleanView === 'client') ? 'client' : 'payslip';
+        triggerFullScreen();
+        launchRoute(
+          link.dataset.title || link.textContent.trim(),
+          targetPage,
+          targetPage === 'client' ? 'client' : ''
+        );
+        return;
+      }
+
+      try {
+        const resolved = new URL(rawHref, window.location.href);
+        triggerFullScreen();
+        if (resolved.origin === window.location.origin) {
+          const isClient = resolved.searchParams.get('page') === 'client' || resolved.hash.replace('#', '') === 'client';
+          launchRoute(
+            link.dataset.title || link.textContent.trim(),
+            isClient ? 'client' : 'payslip',
+            isClient ? 'client' : ''
+          );
+        } else {
+          openUrlInLockedDns(link.dataset.title || link.textContent.trim(), resolved.toString());
+        }
+      } catch (_) {}
+    }, true);
+
+    history.replaceState({ kofBaseDns: true }, '', window.location.href);
+    window.addEventListener('popstate', () => {
+      if (webSheet.classList.contains('active')) {
+        closeWebSheet();
+      } else if (portalModal.classList.contains('active')) {
+        closeLockedModal(true);
+      } else {
+        history.pushState({ kofBaseDns: true }, '', window.location.href);
+      }
+    });
+
+    document.getElementById('openPayslipBtn').addEventListener('click', () => {
+      triggerFullScreen();
+      launchRoute('Branch Payslip & Payroll', 'payslip', '');
+    });
+
+    document.getElementById('openClientQuickBtn').addEventListener('click', () => {
+      triggerFullScreen();
+      launchRoute('Client Booking', 'client', 'client');
+    });
+
+    document.getElementById('reloadFrame').addEventListener('click', () => {
+      frameLoader.classList.remove('hidden');
+      portalFrame.src = portalFrame.src;
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => closeLockedModal(false));
+
+    parseInitialSublink();
+
+    // =========================================================================
+    // PWA & INSTALL ENGINE
+    // =========================================================================
+    function createPngIcon(imgEl, size) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(imgEl, 0, 0, size, size);
+        return canvas.toDataURL('image/png');
+      } catch (e) {
+        return new URL('b4.jfif', window.location.href).href;
+      }
+    }
+
+    function initUniversalManifest() {
+      const logoImg = document.getElementById('logo-source');
+      const buildManifest = () => {
+        const icon192 = createPngIcon(logoImg, 192);
+        const icon512 = createPngIcon(logoImg, 512);
+        const manifestData = {
+          name: "King of Fadez PH | Payslip Portal",
+          short_name: "KOF PH Payslip",
+          description: "Kingoffadezph.com — Multi-branch barber payslip and payroll portal.",
+          start_url: window.location.href,
+          scope: "./",
+          display: "standalone",
+          orientation: "any",
+          background_color: "#050505",
+          theme_color: "#d4af37",
+          icons: [
+            { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
+      };
+      if (logoImg.complete) buildManifest();
+      else logoImg.addEventListener('load', buildManifest);
+    }
+    initUniversalManifest();
+
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => self.clients.claim());`;
+      navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' }))).catch(() => {});
+    }
+
+    const ua = navigator.userAgent || '';
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview|Line|Viber/i.test(ua);
+
+    const installFloat = document.getElementById('install-float');
+    const installSubtext = document.getElementById('install-subtext');
+    const installBtn = document.getElementById('install-btn');
+    const dismissBtn = document.getElementById('dismiss-install');
+    const deviceGuide = document.getElementById('device-guide');
+    const deviceBadge = document.getElementById('device-badge');
+    const guideSteps = document.getElementById('guide-steps');
+    let deferredPrompt = null;
+
+    if (isIOS) installSubtext.textContent = 'Add Payslip App to iPhone / iPad';
+    else if (isAndroid) installSubtext.textContent = 'Install Android Payslip App';
+
+    if (!isStandalone && !sessionStorage.getItem('kof_payslip_install_dismissed')) {
+      setTimeout(() => installFloat.classList.add('show'), 1500);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && !sessionStorage.getItem('kof_payslip_install_dismissed')) {
+        installFloat.classList.add('show');
+      }
+    });
+
+    function openPlatformGuide() {
+      if (isInAppBrowser) {
+        deviceBadge.textContent = 'In-App Browser Detected';
+        guideSteps.innerHTML = `1. Tap <b>•••</b> or <b>Share</b>.<br>2. Select <b>"Open in Browser"</b>.<br>3. Tap <b>Install</b> again.`;
+      } else if (isIOS) {
+        deviceBadge.textContent = 'iOS • iPhone & iPad';
+        guideSteps.innerHTML = `1. Tap <b>Share</b> (⬆️) in Safari.<br>2. Tap <b>"Add to Home Screen"</b>.<br>3. Tap <b>Add</b>.`;
+      } else {
+        deviceBadge.textContent = 'Android / PC';
+        guideSteps.innerHTML = `1. Tap <b>⋮ Menu</b> in browser.<br>2. Select <b>"Install app"</b> or <b>"Add to Home screen"</b>.`;
+      }
+      deviceGuide.classList.add('active');
+    }
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installFloat.classList.remove('show');
+        deferredPrompt = null;
+      } else {
+        openPlatformGuide();
+      }
+    });
+
+    document.getElementById('copy-link-btn').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        e.target.textContent = 'Copied!';
+        setTimeout(() => e.target.textContent = 'Copy Link', 2000);
+      });
+    });
+
+    dismissBtn.addEventListener('click', () => {
+      installFloat.classList.remove('show');
+      sessionStorage.setItem('kof_payslip_install_dismissed', 'true');
+    });
+
+    document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
+    window.addEventListener('appinstalled', () => installFloat.classList.remove('show'));
+  </script>
+
+</body>
+</html>
