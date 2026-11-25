@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505">
-  <title>King of Fadez PH | Multi-Branch Payslip & Payroll Portal</title>
-  <meta name="description" content="Kingoffadezph.com — View barber payslips, commissions, deductions, and vouchers across all King of Fadez PH branches.">
+  <meta name="theme-color" content="#070a0f">
+  <title>King of Fadez PH | Staff & Barber Payslip Portal</title>
+  <meta name="description" content="Kingoffadezph.com — Staff & Barber portal for payslips, commissions, vouchers, and client bookings across all King of Fadez PH branches.">
 
   <!-- Universal Web App / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="KOF PH Payslip">
+  <meta name="apple-mobile-web-app-title" content="KOF Staff Hub">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="KOF PH Payslip">
-  <meta name="msapplication-TileColor" content="#050505">
+  <meta name="application-name" content="KOF Staff Hub">
+  <meta name="msapplication-TileColor" content="#070a0f">
   <link rel="manifest" id="pwa-manifest">
 
   <!-- Browser & App Link Icons -->
@@ -21,11 +21,11 @@
   <link rel="shortcut icon" type="image/jpeg" href="b4.jfif">
   <link rel="apple-touch-icon" href="b4.jfif">
 
-  <!-- Open Graph Meta Tags (Messenger, Viber, WhatsApp, Telegram, Facebook) -->
+  <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="King of Fadez PH">
-  <meta property="og:title" content="King of Fadez PH | Barber Payslip & Payroll Portal">
-  <meta property="og:description" content="Kingoffadezph.com • Check barber payslips, commissions, and payouts for S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3 Bacoor, and KOF Imus.">
+  <meta property="og:title" content="King of Fadez PH | Staff & Barber Payslip Hub">
+  <meta property="og:description" content="Kingoffadezph.com • Official staff portal for payslips, commissions, and client bookings across S&D Dasma Bayan, KOF Dasma Area G, KOF Molino 3, and KOF Imus.">
   <meta property="og:image" content="b4.jfif">
   <meta property="og:image:secure_url" content="b4.jfif">
   <meta property="og:image:type" content="image/jpeg">
@@ -35,34 +35,38 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="King of Fadez PH | Barber Payslip & Payroll Portal">
-  <meta name="twitter:description" content="Kingoffadezph.com • Multi-branch barber payslip, commission, and payout portal.">
+  <meta name="twitter:title" content="King of Fadez PH | Staff & Barber Payslip Hub">
+  <meta name="twitter:description" content="Kingoffadezph.com • Multi-branch staff payslip, commission, and client booking app.">
   <meta name="twitter:image" content="b4.jfif">
   <meta name="twitter:image:alt" content="King of Fadez PH Logo">
-
-  <!-- Schema.org Fallback -->
-  <meta itemprop="name" content="King of Fadez PH | Barber Payslip & Payroll Portal">
-  <meta itemprop="description" content="Kingoffadezph.com • Multi-branch barber payslip, commission, and payout portal.">
-  <meta itemprop="image" content="b4.jfif">
 
   <!-- Fonts & Performance Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
   <link rel="prefetch" href="https://script.google.com/macros/s/AKfycbyodoWVni6FrlkAQUDEFLVdN1GwlzkTm0r1h_-gKutBOM5foQcA9FIA4Eey8bGPICZf/exec?page=payslip&branch=main">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://kingoffadezph.com">
 
   <style>
     :root {
-      --gold: #d4af37;
-      --gold-light: #f3d573;
-      --glass: rgba(12, 12, 12, 0.86);
-      --panel-bg: rgba(18, 18, 18, 0.82);
-      --gold-gradient: linear-gradient(135deg, #d4af37, #b8860b);
-      --green: #22c55e;
-      --red: #ef4444;
-      --brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      /* STAFF HUB THEME: OBSIDIAN SLATE + ELECTRIC EMERALD & PLATINUM */
+      --bg-base: #070a0f;
+      --surface-glass: rgba(13, 18, 27, 0.84);
+      --surface-card: rgba(20, 28, 41, 0.78);
+      --surface-elevated: rgba(28, 39, 56, 0.85);
+      --accent: #10b981;
+      --accent-bright: #34d399;
+      --accent-cyan: #06b6d4;
+      --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 55%, #0d9488 100%);
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-accent: rgba(16, 185, 129, 0.45);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --ui-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --display-font: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
     }
 
     * {
@@ -75,16 +79,16 @@
     html {
       width: 100%;
       min-height: 100%;
-      background: #050505;
+      background: var(--bg-base);
     }
 
     body {
       width: 100%;
       min-height: 100vh;
       min-height: 100dvh;
-      font-family: var(--brand-font);
-      background: #050505;
-      color: #fff;
+      font-family: var(--ui-font);
+      background: var(--bg-base);
+      color: var(--text-primary);
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -94,22 +98,36 @@
       overflow: hidden;
     }
 
-    /* MUTED BACKGROUND VIDEO */
+    /* MUTED BACKGROUND VIDEO + AMBIENT STAFF GRID OVERLAY */
     #bg-video {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.32) contrast(1.15);
+      filter: brightness(0.26) saturate(0.75) contrast(1.15);
       z-index: 0;
       pointer-events: none;
     }
 
-    .vignette {
+    .ambient-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(10, 10, 10, 0.35) 15%, rgba(0, 0, 0, 0.92) 100%);
+      background:
+        radial-gradient(circle at 18% 15%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 82% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(7, 10, 15, 0.55) 0%, rgba(7, 10, 15, 0.94) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .grid-pattern {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
       z-index: 1;
       pointer-events: none;
     }
@@ -130,261 +148,236 @@
         max(96px, calc(env(safe-area-inset-bottom) + 84px));
     }
 
-    /* RESPONSIVE MAIN CARD CONTAINER */
+    /* MAIN STAFF PORTAL CONTAINER */
     .page-container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1140px;
       margin: 0 auto;
       padding: clamp(18px, 3vw, 32px);
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: clamp(22px, 3vw, 32px);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      text-align: center;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+      background: var(--surface-glass);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: clamp(24px, 3vw, 32px);
+      border: 1px solid var(--border-subtle);
+      box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    /* TOP META BAR */
+    /* TOP STAFF STATUS BAR */
     .top-meta {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
-    .portal-badge {
+    .staff-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .staff-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(212, 175, 55, 0.16);
-      border: 1px solid rgba(212, 175, 55, 0.55);
-      color: var(--gold-light);
-      font-size: clamp(0.6rem, 1.2vw, 0.68rem);
+      gap: 7px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-bright);
+      font-size: clamp(0.62rem, 1.2vw, 0.72rem);
       font-weight: 800;
-      letter-spacing: 1.4px;
-      padding: 5px 12px;
+      letter-spacing: 1.2px;
+      padding: 6px 13px;
       border-radius: 999px;
       text-transform: uppercase;
     }
 
-    #liveClock {
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-bright);
+      box-shadow: 0 0 10px var(--accent-bright);
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.82); }
+    }
+
+    .clock-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 13px;
+      border-radius: 999px;
       font-size: clamp(0.68rem, 1.3vw, 0.78rem);
       font-weight: 700;
-      color: #bdbdbd;
-      letter-spacing: 0.8px;
+      color: #cbd5e1;
+      letter-spacing: 0.4px;
     }
 
-    /* HERO HEADER */
+    /* MODERN HORIZONTAL STAFF IDENTITY HEADER */
     .hero-header {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       align-items: center;
-      text-align: center;
-      margin-bottom: clamp(14px, 2vw, 20px);
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(20, 28, 41, 0.85), rgba(11, 16, 24, 0.9));
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: clamp(14px, 2.2vw, 20px);
+      margin-bottom: clamp(16px, 2.4vw, 22px);
     }
 
-    .brand-logo-wrap {
+    .hero-brand-left {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin: 2px auto 10px;
+      gap: clamp(12px, 2vw, 18px);
+      min-width: 0;
+      flex: 1;
+    }
+
+    .brand-logo-ring {
+      position: relative;
+      width: clamp(64px, 8vw, 78px);
+      height: clamp(64px, 8vw, 78px);
+      border-radius: 20px;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent-bright), var(--accent-cyan));
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.28);
+      flex-shrink: 0;
     }
 
     .brand-logo {
-      width: clamp(82px, 10vw, 98px);
-      height: clamp(82px, 10vw, 98px);
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 50%;
-      border: 2.5px solid var(--gold);
-      background: rgba(0, 0, 0, 0.75);
-      box-shadow: 0 0 24px rgba(212, 175, 55, 0.5);
+      border-radius: 17px;
+      background: #070a0f;
       display: block;
     }
 
-    /* FRAMED "KING OF FADEZ PH" EMBLEM WITH ANIMATED BACK FLASHING */
-    .brand-title-wrap {
-      position: relative;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      margin: 4px auto 8px;
-      max-width: 100%;
+    .hero-title-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      min-width: 0;
     }
-
-    .brand-title-box {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 28px);
-      background: #050505;
-      border: 2.5px solid #ffffff;
-      box-shadow:
-        0 0 20px rgba(212, 175, 55, 0.35),
-        inset 0 0 14px rgba(212, 175, 55, 0.28);
-      overflow: hidden;
-    }
-
-    .title-back-flash {
-      position: absolute;
-      inset: -6px;
-      z-index: 0;
-      pointer-events: none;
-      background: radial-gradient(
-        ellipse 68% 65% at 50% 50%,
-        rgba(255, 244, 190, 0.95) 0%,
-        rgba(212, 175, 55, 0.75) 36%,
-        rgba(212, 175, 55, 0.16) 68%,
-        transparent 85%
-      );
-      animation: backWordFlash 1.7s ease-in-out infinite;
-    }
-
-    .title-flash-sweep {
-      position: absolute;
-      top: -20%;
-      left: -60%;
-      width: 45%;
-      height: 140%;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 236, 150, 0.45) 45%,
-        rgba(255, 255, 255, 0.85) 50%,
-        rgba(255, 236, 150, 0.45) 55%,
-        transparent 100%
-      );
-      transform: skewX(-22deg);
-      animation: backSweepFlash 2.6s ease-in-out infinite;
-    }
-
-    .border-flare-top,
-    .border-flare-bottom {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 78%;
-      height: 5px;
-      z-index: 3;
-      pointer-events: none;
-      background: radial-gradient(
-        ellipse at center,
-        #ffffff 0%,
-        #ffe082 32%,
-        rgba(212, 175, 55, 0.55) 58%,
-        transparent 80%
-      );
-      filter: blur(0.6px);
-      animation: borderGlintFlash 1.7s ease-in-out infinite;
-    }
-
-    .border-flare-top { top: -2px; }
-    .border-flare-bottom { bottom: -2px; }
 
     .brand-title-text {
-      position: relative;
-      z-index: 2;
-      font-family: var(--brand-font);
-      font-weight: 900;
-      font-size: clamp(1.12rem, 3.6vw, 1.72rem);
-      letter-spacing: clamp(1.6px, 0.35vw, 3px);
+      font-family: var(--display-font);
+      font-weight: 800;
+      font-size: clamp(1.2rem, 3.2vw, 1.78rem);
+      letter-spacing: 0.6px;
       color: #ffffff;
       text-transform: uppercase;
-      line-height: 1.1;
-      white-space: nowrap;
-      text-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.95),
-        0 0 10px rgba(255, 224, 130, 0.55);
+      line-height: 1.12;
     }
 
-    @keyframes backWordFlash {
-      0%, 100% { opacity: 0.22; transform: scale(0.86); }
-      45% { opacity: 1; transform: scale(1.08); }
-      55% { opacity: 0.45; transform: scale(0.95); }
-      70% { opacity: 0.95; transform: scale(1.05); }
-    }
-
-    @keyframes backSweepFlash {
-      0% { left: -65%; opacity: 0; }
-      20% { opacity: 0.9; }
-      65% { left: 125%; opacity: 0.9; }
-      100% { left: 125%; opacity: 0; }
-    }
-
-    @keyframes borderGlintFlash {
-      0%, 100% { opacity: 0.35; transform: translateX(-50%) scaleX(0.75); }
-      45%, 70% { opacity: 1; transform: translateX(-50%) scaleX(1.08); }
-    }
-
-    .tagline {
-      margin-top: 2px;
-      text-align: center;
-    }
-
-    .tagline-link {
-      display: inline-flex;
+    .brand-subtitle-row {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-family: var(--brand-font);
-      font-size: clamp(0.64rem, 1.4vw, 0.76rem);
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #f0f0f0;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.65);
-      padding-bottom: 2px;
-      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .tagline-link:hover {
-      color: var(--gold-light);
-      border-bottom-color: var(--gold-light);
-      transform: translateY(-1px);
-    }
-
-    .sub-tagline {
-      font-size: clamp(0.58rem, 1.2vw, 0.66rem);
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      color: var(--gold);
-      text-transform: uppercase;
+      gap: 8px 12px;
       margin-top: 6px;
     }
 
-    /* =========================================================
-       MULTI-BRANCH PAYSLIP PRIORITY PORTAL
-       ========================================================= */
-    #payslip-portal {
-      text-align: left;
-      padding-top: clamp(12px, 2vw, 18px);
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    .tagline-link {
+      font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+      font-weight: 700;
+      color: var(--accent-bright);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(52, 211, 153, 0.55);
+      padding-bottom: 1px;
+      transition: color 0.2s ease, border-color 0.2s ease;
     }
 
+    .tagline-link:hover {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+    }
+
+    .sub-tagline {
+      font-size: clamp(0.66rem, 1.25vw, 0.74rem);
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .hero-shift-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(7, 10, 15, 0.65);
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+    }
+
+    .shift-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--accent-bright);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+    }
+
+    .shift-info span {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .shift-info strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 1px;
+    }
+
+    /* =========================================================
+       MULTI-BRANCH EMPLOYEE / STAFF PORTAL
+       ========================================================= */
     .selector-label {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 6px;
-      font-size: clamp(0.68rem, 1.4vw, 0.78rem);
+      font-size: clamp(0.7rem, 1.4vw, 0.8rem);
       font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--gold);
+      letter-spacing: 1px;
+      color: var(--accent-bright);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
     .selector-hint {
-      font-size: clamp(0.62rem, 1.25vw, 0.72rem);
-      font-weight: 600;
-      color: #bdbdbd;
-      letter-spacing: 0.3px;
+      font-size: clamp(0.66rem, 1.25vw, 0.75rem);
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.2px;
       text-transform: none;
     }
 
@@ -392,8 +385,8 @@
     .branch-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(8px, 1.5vw, 14px);
-      margin-bottom: clamp(14px, 2.2vw, 22px);
+      gap: clamp(9px, 1.5vw, 14px);
+      margin-bottom: clamp(16px, 2.2vw, 22px);
     }
 
     @media (min-width: 900px) {
@@ -409,11 +402,11 @@
     }
 
     .branch-tab {
-      background: rgba(255, 255, 255, 0.045);
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-subtle);
       border-radius: 18px;
-      padding: clamp(10px, 1.5vw, 14px);
-      color: #fff;
+      padding: clamp(11px, 1.5vw, 14px);
+      color: var(--text-primary);
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -424,15 +417,15 @@
     }
 
     .branch-tab:hover {
-      border-color: rgba(212, 175, 55, 0.65);
-      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(52, 211, 153, 0.55);
+      background: rgba(28, 39, 56, 0.9);
       transform: translateY(-2px);
     }
 
     .branch-tab.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.14));
-      border-color: var(--gold);
-      box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.1));
+      border-color: var(--accent-bright);
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.22);
     }
 
     .branch-avatar-pair {
@@ -445,30 +438,30 @@
     .branch-tab-logo {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
+      border-radius: 14px;
       object-fit: cover;
-      border: 1.5px solid rgba(212, 175, 55, 0.7);
-      background: #000;
+      border: 1.5px solid rgba(148, 163, 184, 0.4);
+      background: #070a0f;
       display: block;
     }
 
     .branch-tab.active .branch-tab-logo {
-      border-color: var(--gold-light);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.45);
     }
 
     .branch-tab-recept {
       position: absolute;
-      right: -2px;
-      bottom: -2px;
-      width: 23px;
-      height: 23px;
+      right: -3px;
+      bottom: -3px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      border: 1.5px solid #111;
-      box-shadow: 0 0 0 1px var(--gold);
-      background: #1a1a1a;
+      border: 2px solid #0d121b;
+      box-shadow: 0 0 0 1px var(--accent-bright);
+      background: #1e293b;
     }
 
     .branch-tab-info {
@@ -481,16 +474,16 @@
 
     .branch-tab-num {
       font-size: clamp(0.62rem, 1.2vw, 0.7rem);
-      font-weight: 900;
-      letter-spacing: 0.8px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent-bright);
     }
 
     .branch-tab-name {
       font-size: clamp(0.76rem, 1.4vw, 0.86rem);
       font-weight: 700;
-      color: #f8f8f8;
+      color: #f8fafc;
       line-height: 1.25;
       white-space: normal;
       word-break: break-word;
@@ -518,67 +511,68 @@
 
     /* PAYSLIP PRIORITY HERO CARD */
     .payslip-hero-card {
-      background: linear-gradient(145deg, rgba(212, 175, 55, 0.16), rgba(14, 14, 14, 0.92));
-      border: 1.5px solid rgba(212, 175, 55, 0.58);
-      border-radius: 20px;
-      padding: clamp(16px, 2.4vw, 22px);
+      background: linear-gradient(155deg, rgba(16, 185, 129, 0.16) 0%, rgba(15, 23, 42, 0.92) 60%, rgba(6, 182, 212, 0.1) 100%);
+      border: 1.5px solid var(--border-accent);
+      border-radius: 22px;
+      padding: clamp(18px, 2.5vw, 24px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
+      gap: 16px;
       flex: 1;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
     }
 
     .payslip-hero-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
 
     .payslip-hero-title-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 13px;
     }
 
     .payslip-icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: var(--gold-gradient);
-      color: #000;
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: var(--accent-gradient);
+      color: #03150e;
       font-size: 1.55rem;
       display: grid;
       place-items: center;
       flex-shrink: 0;
-      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
     }
 
     .payslip-hero-title-group h3 {
-      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-      font-weight: 900;
+      font-family: var(--display-font);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 800;
       color: #ffffff;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.4px;
     }
 
     .payslip-hero-title-group p {
-      font-size: clamp(0.72rem, 1.3vw, 0.8rem);
-      color: #d4d4d4;
+      font-size: clamp(0.74rem, 1.3vw, 0.82rem);
+      color: #cbd5e1;
       margin-top: 3px;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .priority-pill {
       font-size: 0.62rem;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: #000;
-      background: var(--gold-gradient);
-      padding: 5px 10px;
+      color: #022c22;
+      background: var(--accent-bright);
+      padding: 5px 11px;
       border-radius: 999px;
       flex-shrink: 0;
     }
@@ -586,28 +580,28 @@
     .payslip-highlights {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 9px;
     }
 
     .highlight-chip {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(212, 175, 55, 0.24);
-      border-radius: 12px;
-      padding: 10px 8px;
+      background: rgba(7, 10, 15, 0.65);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 14px;
+      padding: 11px 8px;
       text-align: center;
     }
 
     .highlight-chip span.chip-icon {
       display: block;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       margin-bottom: 4px;
     }
 
     .highlight-chip span.chip-label {
       display: block;
-      font-size: 0.66rem;
-      font-weight: 800;
-      color: var(--gold-light);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #e2e8f0;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -620,22 +614,23 @@
       width: 100%;
       padding: clamp(15px, 2vw, 18px);
       border-radius: 16px;
-      background: var(--gold-gradient);
-      color: #000;
-      font-family: var(--brand-font);
+      background: var(--accent-gradient);
+      color: #022c22;
+      font-family: var(--ui-font);
       font-size: clamp(0.84rem, 1.5vw, 0.96rem);
-      font-weight: 900;
-      letter-spacing: 0.8px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.42);
+      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.36);
       text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
     }
 
     .primary-btn:hover {
-      box-shadow: 0 10px 28px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.55);
+      filter: brightness(1.06);
       transform: translateY(-1px);
     }
 
@@ -646,27 +641,27 @@
     .btn-mini-logo {
       width: 26px;
       height: 26px;
-      border-radius: 50%;
+      border-radius: 8px;
       object-fit: cover;
-      border: 1.5px solid #000;
-      background: #000;
+      border: 1.5px solid #022c22;
+      background: #070a0f;
     }
 
     .quick-payslip-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 9px;
     }
 
     .quick-action-btn {
       padding: 12px 10px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      color: #f3f3f3;
-      font-family: var(--brand-font);
-      font-size: clamp(0.7rem, 1.3vw, 0.78rem);
-      font-weight: 800;
+      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: #f1f5f9;
+      font-family: var(--ui-font);
+      font-size: clamp(0.72rem, 1.3vw, 0.8rem);
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -676,17 +671,17 @@
     }
 
     .quick-action-btn:hover {
-      border-color: var(--gold);
-      background: rgba(212, 175, 55, 0.16);
-      color: var(--gold-light);
+      border-color: var(--accent-bright);
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--accent-bright);
     }
 
     /* ACTIVE BRANCH DETAILS PANEL */
     .branch-panel {
-      background: var(--panel-bg);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      border-radius: 20px;
-      padding: clamp(14px, 2.2vw, 20px);
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: clamp(16px, 2.2vw, 22px);
       text-align: left;
       flex: 1;
       display: flex;
@@ -701,14 +696,14 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .branch-header-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       min-width: 0;
     }
 
@@ -719,43 +714,45 @@
     }
 
     .panel-mini-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       object-fit: cover;
-      border: 1.5px solid var(--gold);
-      background: #000;
+      border: 1.5px solid var(--accent-bright);
+      background: #070a0f;
     }
 
     .panel-mini-recept {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      border: 1.5px solid var(--gold-light);
+      border: 2px solid #0d121b;
+      box-shadow: 0 0 0 1.5px var(--accent-cyan);
       margin-left: -10px;
-      background: #141414;
+      background: #1e293b;
     }
 
     .branch-title {
-      font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+      font-family: var(--display-font);
+      font-size: clamp(0.9rem, 1.7vw, 1.06rem);
       font-weight: 800;
-      color: var(--gold-light);
+      color: #ffffff;
       line-height: 1.25;
       white-space: normal;
     }
 
     .branch-badge {
-      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      font-size: clamp(0.6rem, 1.1vw, 0.68rem);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 4px 10px;
+      padding: 4px 11px;
       border-radius: 999px;
-      background: rgba(212, 175, 55, 0.18);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold);
+      background: rgba(6, 182, 212, 0.16);
+      border: 1px solid rgba(6, 182, 212, 0.45);
+      color: #67e8f9;
       flex-shrink: 0;
     }
 
@@ -766,22 +763,22 @@
     }
 
     .detail-row {
-      font-size: clamp(0.78rem, 1.45vw, 0.9rem);
+      font-size: clamp(0.78rem, 1.45vw, 0.88rem);
       line-height: 1.48;
-      color: #f3f3f3;
-      background: rgba(0, 0, 0, 0.38);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: #e2e8f0;
+      background: rgba(7, 10, 15, 0.55);
+      padding: 11px 13px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
     }
 
     .detail-row strong {
       display: block;
-      color: var(--gold);
-      font-size: clamp(0.6rem, 1.15vw, 0.68rem);
-      letter-spacing: 1.3px;
+      color: var(--accent-bright);
+      font-size: clamp(0.62rem, 1.15vw, 0.7rem);
+      letter-spacing: 1.1px;
       text-transform: uppercase;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .detail-contact-items {
@@ -795,12 +792,12 @@
       color: #ffffff;
       font-weight: 600;
       text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      border-bottom: 1px dashed rgba(52, 211, 153, 0.55);
       word-break: break-word;
     }
 
     .detail-link:hover {
-      color: var(--gold-light);
+      color: var(--accent-bright);
     }
 
     .socials {
@@ -813,10 +810,10 @@
     .link-btn {
       padding: 10px 10px;
       border-radius: 12px;
-      background: rgba(0, 0, 0, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
-      font-family: var(--brand-font);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-subtle);
+      color: #f8fafc;
+      font-family: var(--ui-font);
       font-size: clamp(0.74rem, 1.35vw, 0.82rem);
       font-weight: 700;
       text-decoration: none;
@@ -825,12 +822,13 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
     .link-btn:hover {
-      background: rgba(212, 175, 55, 0.18);
-      border-color: var(--gold);
+      background: rgba(16, 185, 129, 0.16);
+      border-color: var(--accent-bright);
+      color: var(--accent-bright);
     }
 
     /* =========================================================
@@ -842,17 +840,17 @@
       right: 18px;
       width: 58px;
       height: 58px;
-      background: rgba(14, 14, 14, 0.92);
+      background: rgba(13, 18, 27, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 2px solid var(--gold);
+      border: 2px solid var(--accent-bright);
       border-radius: 50%;
       z-index: 10005;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 18px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), 0 0 18px rgba(16, 185, 129, 0.42);
       user-select: none;
       touch-action: none;
       transition: transform 0.15s ease;
@@ -873,11 +871,11 @@
 
     #assistive-menu {
       position: fixed;
-      width: min(260px, calc(100vw - 24px));
-      background: rgba(12, 12, 12, 0.96);
+      width: min(265px, calc(100vw - 24px));
+      background: rgba(13, 18, 27, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 175, 55, 0.55);
+      border: 1px solid var(--border-accent);
       border-radius: 20px;
       padding: 10px;
       z-index: 10006;
@@ -897,13 +895,13 @@
     }
 
     .assistive-branch-tag {
-      font-size: 0.6rem;
+      font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.1px;
       text-transform: uppercase;
-      color: var(--gold);
-      padding: 3px 6px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--accent-bright);
+      padding: 3px 6px 6px;
+      border-bottom: 1px solid var(--border-subtle);
       margin-bottom: 2px;
     }
 
@@ -912,11 +910,11 @@
       align-items: center;
       gap: 10px;
       padding: 10px 11px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      color: #fff;
-      font-size: 0.76rem;
+      color: #f8fafc;
+      font-size: 0.78rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
@@ -924,25 +922,25 @@
     }
 
     .assistive-item:hover {
-      background: rgba(212, 175, 55, 0.16);
-      border-color: var(--gold);
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--accent-bright);
     }
 
     .assistive-item.highlight {
-      border-color: rgba(212, 175, 55, 0.5);
-      background: rgba(212, 175, 55, 0.14);
-      color: var(--gold-light);
+      border-color: var(--border-accent);
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--accent-bright);
     }
 
     .assistive-item.client-book {
-      border-color: rgba(34, 197, 94, 0.45);
-      background: rgba(34, 197, 94, 0.12);
-      color: #86efac;
+      border-color: rgba(6, 182, 212, 0.48);
+      background: rgba(6, 182, 212, 0.14);
+      color: #67e8f9;
     }
 
     .assistive-item.client-book:hover {
-      border-color: #22c55e;
-      background: rgba(34, 197, 94, 0.22);
+      border-color: #22d3ee;
+      background: rgba(6, 182, 212, 0.24);
     }
 
     /* FULL-SCREEN AUTO-FIT OVERLAY WEBSITE MODAL (kingoffadezph.com) */
@@ -952,7 +950,7 @@
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      background: #080808;
+      background: var(--bg-base);
       z-index: 9990;
       display: none;
       flex-direction: column;
@@ -976,12 +974,12 @@
       justify-content: space-between;
       gap: 8px;
       padding: 8px 14px;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-      background: #0a0a0a;
+      color: var(--accent-bright);
+      border-bottom: 1px solid var(--border-subtle);
+      background: #0b0f17;
       font-weight: 800;
       font-size: clamp(0.74rem, 1.5vw, 0.88rem);
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -994,12 +992,12 @@
     }
 
     .websheet-ext-btn {
-      background: rgba(212, 175, 55, 0.14);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-light);
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-bright);
       padding: 7px 11px;
       border-radius: 10px;
-      font-family: var(--brand-font);
+      font-family: var(--ui-font);
       font-size: 0.7rem;
       font-weight: 800;
       text-decoration: none;
@@ -1007,9 +1005,9 @@
     }
 
     .websheet-icon-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      color: var(--gold);
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: #f8fafc;
       width: 36px;
       height: 36px;
       border-radius: 10px;
@@ -1030,8 +1028,8 @@
     #webSheetLoader {
       position: absolute;
       inset: 0;
-      background: #0a0a0a;
-      color: var(--gold);
+      background: #0b0f17;
+      color: var(--accent-bright);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1056,11 +1054,11 @@
       left: 50%;
       transform: translateX(-50%) translateY(150%);
       width: calc(100% - 28px);
-      max-width: 430px;
-      background: rgba(14, 14, 14, 0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(212, 175, 55, 0.6);
+      max-width: 440px;
+      background: rgba(13, 18, 27, 0.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-accent);
       border-radius: 20px;
       padding: 11px 14px;
       display: flex;
@@ -1093,15 +1091,15 @@
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      border: 1px solid var(--gold);
+      border: 1.5px solid var(--accent-bright);
       object-fit: cover;
       flex-shrink: 0;
     }
 
     .install-text strong {
       display: block;
-      font-size: 0.8rem;
-      color: var(--gold);
+      font-size: 0.82rem;
+      color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1109,8 +1107,8 @@
 
     .install-text span {
       display: block;
-      font-size: 0.66rem;
-      color: #d0d0d0;
+      font-size: 0.68rem;
+      color: var(--accent-bright);
       margin-top: 2px;
     }
 
@@ -1122,22 +1120,22 @@
     }
 
     #install-btn {
-      background: var(--gold-gradient);
-      color: #000;
+      background: var(--accent-gradient);
+      color: #022c22;
       border: none;
       padding: 9px 14px;
       border-radius: 12px;
-      font-family: var(--brand-font);
-      font-size: 0.7rem;
-      font-weight: 900;
+      font-family: var(--ui-font);
+      font-size: 0.72rem;
+      font-weight: 800;
       text-transform: uppercase;
       cursor: pointer;
     }
 
     #dismiss-install {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(30, 41, 59, 0.8);
       border: none;
-      color: #aaa;
+      color: #94a3b8;
       width: 28px;
       height: 28px;
       border-radius: 50%;
@@ -1151,8 +1149,8 @@
     #device-guide {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(7, 10, 15, 0.88);
+      backdrop-filter: blur(10px);
       z-index: 10010;
       display: none;
       align-items: center;
@@ -1165,8 +1163,8 @@
     .guide-sheet {
       width: 100%;
       max-width: 400px;
-      background: #111;
-      border: 1px solid rgba(212, 175, 55, 0.55);
+      background: #0f1520;
+      border: 1px solid var(--border-accent);
       border-radius: 24px;
       padding: 24px 20px;
       text-align: center;
@@ -1174,42 +1172,43 @@
 
     .guide-badge {
       display: inline-block;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      color: var(--gold);
-      font-size: 0.63rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-bright);
+      font-size: 0.64rem;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 4px 11px;
       border-radius: 20px;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .guide-sheet h3 { color: #fff; font-size: 1rem; text-transform: uppercase; margin-bottom: 8px; }
-    .guide-sheet p { font-size: 0.78rem; color: #bbb; margin-bottom: 14px; }
+    .guide-sheet h3 { color: #fff; font-size: 1.02rem; text-transform: uppercase; margin-bottom: 8px; }
+    .guide-sheet p { font-size: 0.78rem; color: #94a3b8; margin-bottom: 14px; }
 
     .guide-steps {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(7, 10, 15, 0.7);
+      border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 14px;
       text-align: left;
       font-size: 0.8rem;
-      color: #f0f0f0;
+      color: #f1f5f9;
       line-height: 1.75;
       margin-bottom: 16px;
     }
 
-    .guide-steps b { color: var(--gold); }
+    .guide-steps b { color: var(--accent-bright); }
     .guide-btns { display: flex; gap: 8px; }
 
     .guide-btn-secondary {
       flex: 1;
       padding: 12px;
       border-radius: 12px;
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid var(--border-accent);
       background: transparent;
-      color: var(--gold);
-      font-family: var(--brand-font);
+      color: var(--accent-bright);
+      font-family: var(--ui-font);
       font-weight: 800;
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -1221,23 +1220,23 @@
       padding: 12px;
       border-radius: 12px;
       border: none;
-      background: var(--gold-gradient);
-      color: #000;
-      font-family: var(--brand-font);
-      font-weight: 900;
+      background: var(--accent-gradient);
+      color: #022c22;
+      font-family: var(--ui-font);
+      font-weight: 800;
       font-size: 0.76rem;
       text-transform: uppercase;
       cursor: pointer;
     }
 
-    /* INSTANT FULL-SCREEN AUTO-FIT PAYSLIP & CLIENT MODAL */
+    /* INSTANT FULL-SCREEN AUTO-FIT PAYSLIP & CLIENT BOOKING MODAL */
     #portalModal {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      background: #080808;
+      background: var(--bg-base);
       z-index: 9999;
       display: none;
       flex-direction: column;
@@ -1260,12 +1259,12 @@
       justify-content: space-between;
       gap: 10px;
       padding: 8px 14px;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-      background: #0b0b0b;
+      color: var(--accent-bright);
+      border-bottom: 1px solid var(--border-subtle);
+      background: #0b0f17;
       font-weight: 800;
       font-size: 0.8rem;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
@@ -1281,19 +1280,19 @@
     #modalBranchLogo {
       width: 30px;
       height: 30px;
-      border-radius: 50%;
+      border-radius: 8px;
       object-fit: cover;
-      border: 1.5px solid var(--gold);
+      border: 1.5px solid var(--accent-bright);
       flex-shrink: 0;
     }
 
     #modalBranchSelect {
-      background: #161616;
-      color: var(--gold-light);
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: #131a26;
+      color: #f8fafc;
+      border: 1px solid var(--border-accent);
       border-radius: 10px;
       padding: 6px 10px;
-      font-family: var(--brand-font);
+      font-family: var(--ui-font);
       font-size: 0.72rem;
       font-weight: 700;
       max-width: 215px;
@@ -1303,7 +1302,7 @@
 
     #modalTitle {
       font-size: 0.72rem;
-      color: #d4d4d4;
+      color: #94a3b8;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1323,9 +1322,9 @@
     }
 
     .icon-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: #f8fafc;
       width: 36px;
       height: 36px;
       border-radius: 10px;
@@ -1336,12 +1335,17 @@
       place-items: center;
     }
 
+    .icon-btn:hover {
+      border-color: var(--accent-bright);
+      color: var(--accent-bright);
+    }
+
     .iframe-wrapper {
       position: relative;
       flex: 1;
       width: 100%;
       overflow: hidden;
-      background: #0a0a0a;
+      background: var(--bg-base);
     }
 
     #frameLoader {
@@ -1351,12 +1355,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #0a0a0a;
-      color: var(--gold);
+      background: #0b0f17;
+      color: var(--accent-bright);
       gap: 10px;
       font-size: 0.74rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       z-index: 2;
       opacity: 1;
@@ -1369,8 +1373,8 @@
     .spinner {
       width: 32px;
       height: 32px;
-      border: 3px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
+      border: 3px solid rgba(16, 185, 129, 0.2);
+      border-top-color: var(--accent-bright);
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
     }
@@ -1390,19 +1394,20 @@
 </head>
 <body>
 
-  <!-- MUTED BACKGROUND VIDEO -->
+  <!-- MUTED BACKGROUND VIDEO + AMBIENT STAFF GRID -->
   <video id="bg-video" autoplay muted loop playsinline preload="auto">
     <source src="IMG_1039.MOV" type="video/mp4">
     <source src="IMG_1039.MOV" type="video/quicktime">
   </video>
-  <div class="vignette"></div>
+  <div class="ambient-overlay"></div>
+  <div class="grid-pattern"></div>
 
   <!-- HIDDEN MASTER ICON SOURCE FOR PWA MANIFEST -->
   <img src="b4.jfif" alt="" id="logo-source" style="display:none;">
 
   <!-- iOS ASSISTIVETOUCH FLOATING MENU BUBBLE (NON-ADMIN INTERFACES) -->
-  <div id="assistive-bubble" title="Quick Switch Menu">
-    <img src="b2.jfif" alt="Quick Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
+  <div id="assistive-bubble" title="Staff Quick Switcher">
+    <img src="b2.jfif" alt="Staff Quick Menu" id="assistiveBubbleImg" onerror="this.onerror=null;this.src='b4.jfif';">
   </div>
 
   <!-- ASSISTIVETOUCH POPUP MENU (PAYSLIP + CLIENT BOOKING + OFFICIAL DETAILS — NO ADMIN) -->
@@ -1410,7 +1415,7 @@
     <div class="assistive-branch-tag" id="assistiveBranchLabel">Branch 2 • KOF Dasma Area G</div>
     <a href="#" class="assistive-item highlight" id="menuPayslip">
       <span class="icon">💸</span>
-      <span>Payslip &amp; Payroll</span>
+      <span>My Payslip &amp; Payroll</span>
     </a>
     <a href="#" class="assistive-item client-book" id="menuClientBook">
       <span class="icon">💈</span>
@@ -1418,51 +1423,58 @@
     </a>
     <a href="#" class="assistive-item" id="menuDetails">
       <span class="icon">🌐</span>
-      <span>Official Details</span>
+      <span>Official Branch Info</span>
     </a>
     <a href="#" class="assistive-item" id="menuInstallApp">
       <span class="icon">📥</span>
-      <span>Install Payslip App</span>
+      <span>Install Staff App</span>
     </a>
   </div>
 
   <!-- FULL-SCREEN AUTO-FIT SHELL -->
   <main id="app-shell">
     <div class="page-container" id="mainCard">
+      <!-- TOP STAFF STATUS BAR -->
       <div class="top-meta">
-        <span class="portal-badge">💸 Barber Payroll &amp; Payslip</span>
-        <span id="liveClock">--:--</span>
+        <div class="staff-pill-group">
+          <span class="staff-badge"><span class="pulse-dot"></span> Staff &amp; Barber Hub</span>
+        </div>
+        <div class="clock-chip">
+          <span id="liveDate">---</span>
+          <span>•</span>
+          <span id="liveClock">--:--</span>
+        </div>
       </div>
 
-      <!-- HERO BRANDING -->
+      <!-- HORIZONTAL STAFF IDENTITY HEADER -->
       <header class="hero-header">
-        <div class="brand-logo-wrap">
-          <img src="b2.jfif" alt="King of Fadez PH Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='b4.jfif';">
-        </div>
-
-        <!-- FRAMED WORDING WITH ANIMATED BACK FLASHING -->
-        <div class="brand-title-wrap">
-          <span class="border-flare-top" aria-hidden="true"></span>
-          <div class="brand-title-box">
-            <span class="title-back-flash" aria-hidden="true"></span>
-            <span class="title-flash-sweep" aria-hidden="true"></span>
-            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+        <div class="hero-brand-left">
+          <div class="brand-logo-ring">
+            <img src="b2.jfif" alt="King of Fadez PH Logo" class="brand-logo" id="heroBrandLogo" onerror="this.onerror=null;this.src='b4.jfif';">
           </div>
-          <span class="border-flare-bottom" aria-hidden="true"></span>
+          <div class="hero-title-block">
+            <h1 class="brand-title-text">KING OF FADEZ PH</h1>
+            <div class="brand-subtitle-row">
+              <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">Kingoffadezph.com</a>
+              <span class="sub-tagline" id="activeBranchBanner">• BRANCH 2 • KOF DASMA AREA G</span>
+            </div>
+          </div>
         </div>
 
-        <!-- CLICKABLE TAGLINE LINK -->
-        <div class="tagline">
-          <a href="https://kingoffadezph.com" target="_blank" rel="noopener" class="tagline-link">Kingoffadezph.com</a>
+        <div class="hero-shift-card">
+          <div class="shift-icon">🪪</div>
+          <div class="shift-info">
+            <span>Employee Access</span>
+            <strong>Payslip &amp; Client Desk</strong>
+          </div>
         </div>
-        <div class="sub-tagline" id="activeBranchBanner">PAYSLIP PORTAL • BRANCH 2 • KOF DASMA AREA G</div>
       </header>
 
-      <!-- MULTI-BRANCH PAYSLIP PRIORITY PORTAL -->
+      <!-- MULTI-BRANCH EMPLOYEE / STAFF PORTAL -->
       <div id="payslip-portal">
         <div class="selector-label">
-          <span>Select Branch for Payslip</span>
-          <span class="selector-hint">Tap a branch below to open barber payroll &amp; commissions</span>
+          <span>1. Select Your Assigned Branch</span>
+          <span class="selector-hint">Tap your branch below to load your payslip or book a client</span>
         </div>
 
         <div class="branch-grid" id="branchGrid">
@@ -1511,7 +1523,7 @@
           </button>
         </div>
 
-        <!-- TWO-COLUMN RESPONSIVE WORKSPACE -->
+        <!-- TWO-COLUMN WORKSPACE -->
         <div class="workspace-grid">
           <!-- LEFT COLUMN: PAYSLIP PRIORITY ACTION CARD -->
           <div class="workspace-col">
@@ -1520,8 +1532,8 @@
                 <div class="payslip-hero-title-group">
                   <div class="payslip-icon-box">💸</div>
                   <div>
-                    <h3>Payslip &amp; Commissions</h3>
-                    <p>Barber Payouts, Service Shares, Deductions &amp; Vouchers</p>
+                    <h3>Staff Payslip &amp; Earnings</h3>
+                    <p>Check service commissions, deductions, vouchers &amp; net payout</p>
                   </div>
                 </div>
                 <span class="priority-pill">Priority</span>
@@ -1544,7 +1556,7 @@
 
               <button type="button" class="primary-btn" id="openPayslipBtn">
                 <img src="b2.jfif" alt="" class="btn-mini-logo" id="openPayslipBtnLogo" onerror="this.onerror=null;this.src='b4.jfif';">
-                <span id="openPayslipBtnText">Open Branch 2 • KOF Dasma Area G Payslip</span>
+                <span id="openPayslipBtnText">View Branch 2 • KOF Dasma Area G Payslip</span>
               </button>
 
               <div class="quick-payslip-row">
@@ -1560,7 +1572,7 @@
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: SELECTED BRANCH DETAILS -->
+          <!-- RIGHT COLUMN: SELECTED BRANCH DIRECTORY -->
           <div class="workspace-col">
             <section class="branch-panel" aria-label="Selected Branch Details">
               <div class="branch-header-row">
@@ -1576,12 +1588,12 @@
 
               <div class="detail-list">
                 <div class="detail-row">
-                  <strong>📍 Full Location Address</strong>
+                  <strong>📍 Branch Location Address</strong>
                   <span id="branchAddress">Blk 4, Lot 18 Congressional Ave, Area G, Dasmariñas, Cavite, Philippines</span>
                 </div>
 
                 <div class="detail-row">
-                  <strong>📞 Direct Phone &amp; Email</strong>
+                  <strong>📞 Front Desk Contact &amp; Email</strong>
                   <div class="detail-contact-items">
                     <a href="tel:+639567188557" class="detail-link" id="branchPhone">(0956) 718 8557</a>
                     <a href="mailto:Kingoffadezph@gmail.com" class="detail-link" id="branchEmail">Kingoffadezph@gmail.com</a>
@@ -1627,12 +1639,12 @@
   </div>
 
   <!-- FLOATING UNIVERSAL INSTALL APP PROMPT -->
-  <div id="install-float" role="region" aria-label="Install Payslip App">
+  <div id="install-float" role="region" aria-label="Install Staff App">
     <div class="install-info">
       <img src="b4.jfif" alt="App Icon" class="install-icon">
       <div class="install-text">
-        <strong>Install KOF PH Payslip App</strong>
-        <span id="install-subtext">Add to iOS, Android, or PC</span>
+        <strong>Install KOF Staff Hub</strong>
+        <span id="install-subtext">Add Payslip App to Home Screen</span>
       </div>
     </div>
     <div class="install-actions">
@@ -1645,8 +1657,8 @@
   <div id="device-guide">
     <div class="guide-sheet">
       <div class="guide-badge" id="device-badge">Install Guide</div>
-      <h3>Install KOF PH Payslip App</h3>
-      <p>Install the Multi-Branch Payslip Portal directly on your device for instant full-screen access:</p>
+      <h3>Install KOF Staff Hub</h3>
+      <p>Install the Multi-Branch Staff Payslip App directly on your device for instant access:</p>
       <div class="guide-steps" id="guide-steps"></div>
       <div class="guide-btns">
         <button type="button" class="guide-btn-secondary" id="copy-link-btn">Copy Link</button>
@@ -1694,7 +1706,7 @@
     const DETAILS_URL = "https://kingoffadezph.com/?shem=aimgspe";
 
     // =========================================================================
-    // MULTI-BRANCH DIRECTORY & ENDPOINTS (PAYSLIP PRIORITY & CLIENT BOOKING)
+    // MULTI-BRANCH DIRECTORY & ENDPOINTS (STAFF PAYSLIP & CLIENT BOOKING ONLY)
     // =========================================================================
     const BRANCHES = {
       branch1: {
@@ -1768,7 +1780,7 @@
       }
     };
 
-    let currentBranchKey = localStorage.getItem('kof_payslip_branch') || 'branch2';
+    let currentBranchKey = localStorage.getItem('kof_staff_branch') || 'branch2';
     if (!BRANCHES[currentBranchKey]) currentBranchKey = 'branch2';
 
     const portalModal = document.getElementById('portalModal');
@@ -1797,7 +1809,7 @@
     const branchSocialsEl = document.getElementById('branchSocials');
 
     let currentSrc = "";
-    let activeRouteState = { title: 'Branch Payslip & Payroll', page: 'payslip', view: '' };
+    let activeRouteState = { title: 'Staff Payslip & Payroll', page: 'payslip', view: '' };
 
     function setImageWithFallback(imgEl, primarySrc, secondarySrc = 'b4.jfif') {
       imgEl.onerror = function() {
@@ -1819,7 +1831,7 @@
       const data = BRANCHES[branchKey];
       if (!data) return;
       currentBranchKey = branchKey;
-      localStorage.setItem('kof_payslip_branch', branchKey);
+      localStorage.setItem('kof_staff_branch', branchKey);
 
       branchTabs.forEach(tab => {
         tab.classList.toggle('active', tab.dataset.branch === branchKey);
@@ -1832,9 +1844,9 @@
       setImageWithFallback(assistiveBubbleImg, data.receptionist, data.logo);
       setImageWithFallback(modalBranchLogo, data.logo, 'b4.jfif');
 
-      activeBranchBanner.textContent = `PAYSLIP PORTAL • ${data.shortName.toUpperCase()}`;
+      activeBranchBanner.textContent = `• ${data.shortName.toUpperCase()}`;
       assistiveBranchLabel.textContent = data.shortName;
-      openPayslipBtnText.textContent = `Open ${data.shortName} Payslip`;
+      openPayslipBtnText.textContent = `View ${data.shortName} Payslip`;
       modalBranchSelect.value = branchKey;
 
       branchTitleEl.textContent = data.title;
@@ -1858,12 +1870,12 @@
 
     function updateClock() {
       const now = new Date();
+      document.getElementById('liveDate').textContent = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
       document.getElementById('liveClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
     updateClock();
     setInterval(updateClock, 15000);
 
-    // Parse initial URL parameters (defaults safely to non-admin routes)
     function parseInitialSublink() {
       const params = new URLSearchParams(window.location.search);
       const pageParam = params.get('page');
@@ -1878,7 +1890,7 @@
       if (pageParam === 'client' || viewParam === 'client') {
         launchRoute('Client Booking', 'client', 'client');
       } else if (pageParam === 'payslip') {
-        launchRoute('Branch Payslip & Payroll', 'payslip', '');
+        launchRoute('Staff Payslip & Payroll', 'payslip', '');
       }
     }
 
@@ -1928,7 +1940,7 @@
         } else {
           menu.classList.add('active');
           const bRect = bubble.getBoundingClientRect();
-          const mWidth = menu.offsetWidth || 260;
+          const mWidth = menu.offsetWidth || 265;
           const mHeight = menu.offsetHeight || 235;
           const pad = 12;
 
@@ -1962,12 +1974,11 @@
       } catch (e) {}
     }
 
-    // AssistiveTouch Menu Actions (Payslip, Client Booking, Official Details, Install)
     document.getElementById('menuPayslip').addEventListener('click', (e) => {
       e.preventDefault();
       menu.classList.remove('active');
       triggerFullScreen();
-      launchRoute('Branch Payslip & Payroll', 'payslip', '');
+      launchRoute('Staff Payslip & Payroll', 'payslip', '');
     });
 
     document.getElementById('menuClientBook').addEventListener('click', (e) => {
@@ -2045,7 +2056,7 @@
     // =========================================================================
     function openUrlInLockedDns(title, targetUrl) {
       const data = BRANCHES[currentBranchKey];
-      modalTitle.textContent = title || 'Branch Payslip & Payroll';
+      modalTitle.textContent = title || 'Staff Payslip & Payroll';
       frameLoaderText.textContent = `Loading ${data.shortName} • ${title || 'Payslip'}...`;
 
       if (currentSrc !== targetUrl) {
@@ -2077,14 +2088,13 @@
     }
 
     function launchRoute(title, pageParam, viewParam) {
-      // Strictly block any admin route and default to payslip
       const safePage = (pageParam === 'client') ? 'client' : 'payslip';
       const safeView = (safePage === 'client') ? 'client' : '';
       activeRouteState = { title, page: safePage, view: safeView };
 
       const data = BRANCHES[currentBranchKey];
       if (safePage === 'payslip') {
-        openUrlInLockedDns(title || 'Branch Payslip & Payroll', data.payslipUrl);
+        openUrlInLockedDns(title || 'Staff Payslip & Payroll', data.payslipUrl);
         return;
       }
       const url = new URL(BASE_SCRIPT_URL);
@@ -2101,7 +2111,6 @@
 
     portalFrame.addEventListener('load', () => frameLoader.classList.add('hidden'));
 
-    // Intercept internal hash/route links while allowing tel:, mailto:, and external _blank links
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href]');
       if (!link) return;
@@ -2153,7 +2162,7 @@
 
     document.getElementById('openPayslipBtn').addEventListener('click', () => {
       triggerFullScreen();
-      launchRoute('Branch Payslip & Payroll', 'payslip', '');
+      launchRoute('Staff Payslip & Payroll', 'payslip', '');
     });
 
     document.getElementById('openClientQuickBtn').addEventListener('click', () => {
@@ -2179,7 +2188,7 @@
         canvas.width = size;
         canvas.height = size;
         const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#050505';
+        ctx.fillStyle = '#070a0f';
         ctx.fillRect(0, 0, size, size);
         ctx.drawImage(imgEl, 0, 0, size, size);
         return canvas.toDataURL('image/png');
@@ -2194,15 +2203,15 @@
         const icon192 = createPngIcon(logoImg, 192);
         const icon512 = createPngIcon(logoImg, 512);
         const manifestData = {
-          name: "King of Fadez PH | Payslip Portal",
-          short_name: "KOF PH Payslip",
-          description: "Kingoffadezph.com — Multi-branch barber payslip and payroll portal.",
+          name: "King of Fadez PH | Staff & Barber Hub",
+          short_name: "KOF Staff Hub",
+          description: "Kingoffadezph.com — Multi-branch staff payslip and client booking app.",
           start_url: window.location.href,
           scope: "./",
           display: "standalone",
           orientation: "any",
-          background_color: "#050505",
-          theme_color: "#d4af37",
+          background_color: "#070a0f",
+          theme_color: "#10b981",
           icons: [
             { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
             { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
@@ -2236,17 +2245,17 @@
     const guideSteps = document.getElementById('guide-steps');
     let deferredPrompt = null;
 
-    if (isIOS) installSubtext.textContent = 'Add Payslip App to iPhone / iPad';
-    else if (isAndroid) installSubtext.textContent = 'Install Android Payslip App';
+    if (isIOS) installSubtext.textContent = 'Add Staff App to iPhone / iPad';
+    else if (isAndroid) installSubtext.textContent = 'Install Android Staff App';
 
-    if (!isStandalone && !sessionStorage.getItem('kof_payslip_install_dismissed')) {
+    if (!isStandalone && !sessionStorage.getItem('kof_staff_install_dismissed')) {
       setTimeout(() => installFloat.classList.add('show'), 1500);
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if (!isStandalone && !sessionStorage.getItem('kof_payslip_install_dismissed')) {
+      if (!isStandalone && !sessionStorage.getItem('kof_staff_install_dismissed')) {
         installFloat.classList.add('show');
       }
     });
@@ -2285,7 +2294,7 @@
 
     dismissBtn.addEventListener('click', () => {
       installFloat.classList.remove('show');
-      sessionStorage.setItem('kof_payslip_install_dismissed', 'true');
+      sessionStorage.setItem('kof_staff_install_dismissed', 'true');
     });
 
     document.getElementById('close-guide').addEventListener('click', () => deviceGuide.classList.remove('active'));
